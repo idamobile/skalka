@@ -6,14 +6,17 @@
 		<result property="facebookId" column="fb_uid"  javaType="java.math.BigInteger" jdbcType="BIGINT"/>
 		<result property="firstName" column="first_name" />
 		<result property="lastName" column="last_name" />
+		<result property="birthDate" column="birth_date" javaType="java.util.Date" jdbcType="DATE"/>
+		<result property="gender" column="gender" javaType="com.skalka.server.domain.Gender"/>
+		<result property="imageUrl" column="image_url" />
 	</resultMap>
 
-	<select id="findByFacebookId" resultMap="userMap">
-		select * from users where uid = 1
+	<select id="findByFacebookId" parameterType="java.lang.String" resultMap="userMap">
+		select * from users where fb_uid = #{fb_uid}
 	</select>
 
-	<select id="findByUid" resultMap="userMap">
-		select * from users where uid = 1
+	<select id="findByUid" parameterType="java.math.BigInteger" resultMap="userMap">
+		select * from users where uid = #{uid}
 	</select>
 
 	<select id="selectAll" resultMap="userMap">
