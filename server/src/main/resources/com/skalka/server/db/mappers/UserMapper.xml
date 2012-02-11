@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skalka.server.db.mappers.UserMapper">
+
+	<resultMap id="userMap" type="User">
+		<result property="uid" column="uid" javaType="java.math.BigInteger" jdbcType="BIGINT"/>
+		<result property="facebookId" column="fb_uid"  javaType="java.math.BigInteger" jdbcType="BIGINT"/>
+		<result property="firstName" column="first_name" />
+		<result property="lastName" column="last_name" />
+		<result property="birthDate" column="birth_date" javaType="java.util.Date" jdbcType="DATE"/>
+		<result property="gender" column="gender" javaType="com.skalka.server.domain.Gender"/>
+		<result property="imageUrl" column="image_url" />
+	</resultMap>
+
+	<select id="findByFacebookId" parameterType="java.lang.String" resultMap="userMap">
+		select * from users where fb_uid = #{fb_uid}
+	</select>
+
+	<select id="findByUid" parameterType="java.math.BigInteger" resultMap="userMap">
+		select * from users where uid = #{uid}
+	</select>
+
+	<select id="selectAll" resultMap="userMap">
+		select * from users
+	</select>
+
+</mapper>

@@ -1,6 +1,7 @@
+use skalka;
 
-create table if not exists users (
-    uid         bigint                  not null,
+create table users (
+    uid         bigint                  not null auto_increment,
     fb_uid      bigint                  default null,
     first_name  varchar(255)            not null,
     last_name   varchar(255)            not null,
@@ -11,7 +12,7 @@ create table if not exists users (
     unique (fb_uid)
 );
 
-create table if not exists products (
+create table products (
     pid            bigint                                         not null,
     story          varchar(1024)                                  default null,
     image_url      varchar(1024)                                  not null,
@@ -24,14 +25,14 @@ create table if not exists products (
 create index prod_added_by_uid_idx
 on products ( added_by_uid );
 
-create table if not exists categories (
+create table categories (
     cid            bigint                                         not null,
     name           varchar(255)                                   default null,
     image_url      varchar(1024)                                  not null,
     primary        key(cid)
 );
 
-create table if not exists products_categories (
+create table products_categories (
     pid            bigint                                         not null,
     cid            bigint                                         not null
 );
@@ -42,18 +43,18 @@ on products_categories ( pid );
 create index prod_cat_cid_idx
 on products_categories ( cid );
 
-create table if not exists user_categories (
+create table user_categories (
     uid            bigint                                         not null,
     cid            bigint                                         not null
 );
 
-create table if not exists events (
+create table events (
     eid            bigint                                         not null,
     description    varchar(255)                                   not null,
     primary        key(eid)
 );
 
-create table if not exists lists (
+create table lists (
     lid            bigint                                        not null,
     owner_id       bigint                                        default null,
     target_id      bigint                                        not null,
@@ -64,7 +65,7 @@ create table if not exists lists (
 create index lists_owner_idx
 on products_categories ( cid );
 
-create table if not exists list_prod (
+create table list_prod (
     lid            bigint                                         not null,
     pid            bigint                                         not null
 );
@@ -72,16 +73,10 @@ create table if not exists list_prod (
 create index list_prod_lid_idx
 on list_prod ( lid );
 
-create table if not exists user_lines_prod_in_list (
+create table user_lines_prod_in_list (
     lid             bigint                                        not null,
     prod_id         bigint                                        not null,
     uid             bigint                                        not null,
     act             enum('y', 'n', 'in')                          default null,
     primary        key(lid, prod_id, uid)
 );
-
-
-
-
-
-
