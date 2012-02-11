@@ -68,6 +68,29 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<server.id>tomcat-local</server.id>
+				<server.host>localhost</server.host>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>prod</id>
+			<properties>
+				<server.id>tomcat-project.idamob.ru</server.id>
+				<server.host>project.idamob.ru</server.host>
+			</properties>
+		</profile>		
+		
+	</profiles>
+	
 	<build>
 		<finalName>server</finalName>
 
@@ -77,8 +100,8 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<version>1.1</version>
 				<configuration>
-					<url>http://localhost:8000/manager/text</url>
-					<server>tomcat-local</server>
+					<url>http://${server.host}:8000/manager/text</url>
+					<server>${server.id}</server>
 				</configuration>
 			</plugin>
 		</plugins>
