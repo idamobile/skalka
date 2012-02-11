@@ -15,10 +15,14 @@ create table if not exists products (
     pid            bigint                                         not null,
     story          varchar(1024)                                  default null,
     image_url      varchar(1024)                                  not null,
+    added_by_uid   bigint                                         not null,
     price          float                                          not null,
     type           enum('image', 'image_with_story', 'story')     default null,
     primary        key(pid)
 );
+
+create index prod_added_by_uid_idx
+on products ( added_by_uid );
 
 create table if not exists categories (
     cid            bigint                                         not null,
