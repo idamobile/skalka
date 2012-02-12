@@ -1,5 +1,7 @@
 package com.skalka.server;
 
+import java.util.Date;
+
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
@@ -23,6 +25,13 @@ public class TestRunner {
 		}, JdbcHelper.MySQL, new XMLMyBatisModule.Builder().create());
 
 		UsersController service = injector.getInstance(UsersController.class);
+
+		System.out.println("Number of users: " + service.count());
+		service.deleteByFacebookId("23");
+
+		System.out.println("Just added: " + service.add("23", "Paul", "Simon", new Date(), "male"));
+
+		service.update("23", "Jersey", "Smith", new Date(), "female");
 
 		System.out.println(service.getByUid("1"));
 

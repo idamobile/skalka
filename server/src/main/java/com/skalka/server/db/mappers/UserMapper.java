@@ -35,14 +35,14 @@ public interface UserMapper {
 	 * @param user
 	 * @return
 	 */
-	String add(User user);
+	void add(User user);
 
 	/**
 	 * Updates user
 	 * 
 	 * @return true if user was successfully updated
 	 */
-	boolean update();
+	void update(User user);
 
 	/**
 	 * Deletes user by Facebook ID
@@ -50,7 +50,7 @@ public interface UserMapper {
 	 * @param facebookId
 	 * @return true if user was successfully deleted
 	 */
-	boolean deleteByFacebookId(String facebookId);
+	void deleteByFacebookId(String facebookId);
 
 	/**
 	 * Deletes user by UID
@@ -58,7 +58,7 @@ public interface UserMapper {
 	 * @param uid
 	 * @return true if user was successfully deleted
 	 */
-	boolean deleteByUid(String uid);
+	void deleteByUid(String uid);
 
 	/**
 	 * 

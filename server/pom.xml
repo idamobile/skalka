@@ -62,13 +62,26 @@
 		</dependency>
 
 		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<profiles>
 		<profile>
 			<id>dev</id>
@@ -80,17 +93,17 @@
 				<server.host>localhost</server.host>
 			</properties>
 		</profile>
-		
+
 		<profile>
 			<id>prod</id>
 			<properties>
 				<server.id>tomcat-project.idamob.ru</server.id>
 				<server.host>project.idamob.ru</server.host>
 			</properties>
-		</profile>		
-		
+		</profile>
+
 	</profiles>
-	
+
 	<build>
 		<finalName>server</finalName>
 
