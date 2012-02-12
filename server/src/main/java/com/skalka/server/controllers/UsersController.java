@@ -72,13 +72,14 @@ public class UsersController {
 
 	@POST
 	@Path("/update")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Transactional
-	public void update(String facebookId, String firstName, String lastName, Date birthDate,
+	public String update(String facebookId, String firstName, String lastName, Date birthDate,
 			String gender) {
 		User user = usersMapper.findByFacebookId(facebookId);
 
 		if (user == null) {
-			return;
+			return "false";
 		}
 
 		user.setFacebookId(new BigInteger(facebookId));
@@ -89,20 +90,26 @@ public class UsersController {
 		user.setImageUrl(FacebookUtils.getImageUrl(facebookId));
 
 		usersMapper.update(user);
+
+		return "true";
 	}
 
 	@GET
 	@Path("/delete/fb{fb_uid}")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Transactional
-	public void deleteByFacebookId(@PathParam("fb_uid") String facebookId) {
+	public String deleteByFacebookId(@PathParam("fb_uid") String facebookId) {
 		usersMapper.deleteByFacebookId(facebookId);
+		return "true";
 	}
 
 	@GET
 	@Path("/delete/{uid}")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Transactional
-	public void deleteByUid(@PathParam("uid") String uid) {
+	public String deleteByUid(@PathParam("uid") String uid) {
 		usersMapper.deleteByUid(uid);
+		return "true";
 	}
 
 	@GET
