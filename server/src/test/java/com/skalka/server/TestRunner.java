@@ -33,7 +33,7 @@ public class TestRunner {
 
 		service.update("23", "Jersey", "Smith", new Date(), "female");
 
-		System.out.println(service.getByUid("1"));
+		System.out.println(service.findByUid("1"));
 
 	}
 }

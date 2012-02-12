@@ -2,6 +2,7 @@ package com.skalka.server.controllers;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,7 +30,7 @@ public class UsersController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/fb{fb_uid}")
 	@Transactional
-	public User getByFbId(@PathParam("fb_uid") String facebookId) {
+	public User findByFacebookId(@PathParam("fb_uid") String facebookId) {
 		return usersMapper.findByFacebookId(facebookId);
 	}
 
@@ -37,8 +38,16 @@ public class UsersController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{uid}")
 	@Transactional
-	public User getByUid(@PathParam("uid") String uid) {
+	public User findByUid(@PathParam("uid") String uid) {
 		return usersMapper.findByUid(uid);
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/")
+	@Transactional
+	public List<User> selectAll() {
+		return usersMapper.selectAll();
 	}
 
 	@POST
@@ -100,7 +109,7 @@ public class UsersController {
 	@Path("/count")
 	@Produces(MediaType.TEXT_PLAIN)
 	@Transactional
-	public int count() {
-		return usersMapper.count();
+	public String count() {
+		return String.valueOf(usersMapper.count());
 	}
 }
