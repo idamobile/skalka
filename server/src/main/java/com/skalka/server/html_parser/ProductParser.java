@@ -7,6 +7,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,27 +22,35 @@ import com.sun.tools.javac.util.Pair;
 
 public class ProductParser {
 	
-	private final static String CURRENCY_SYMBOL = "£";
-	private final static String CURRENCY_HTML = "&pound;";
-	private final static Pattern CURRENCY_PATTERN = Pattern.compile(CURRENCY_HTML + "(\\d+\\.?\\d*)");
-
+	private final static String POUND_SYMBOL = "£";
+	private final static String POUND_HTML = "&pound;";
+	private final static String DOLLAR_SYMBOL = "$";
+	private final static String DOLLAR_HTML = "\\$";
 	
-	public static ProductData parse(String pageUrl) throws IOException, URISyntaxException{
-		ProductData data = new ProductData();
+	private static final HashMap<String, String> CURRENCIES = new HashMap<String, String>();
+	
+	static {
+		CURRENCIES.put(POUND_SYMBOL, POUND_HTML);
+		CURRENCIES.put(DOLLAR_SYMBOL, DOLLAR_HTML);
+	}
+	
+	private ProductData productData = new ProductData();
+	
+	public ProductData parse(String pageUrl) throws IOException, URISyntaxException{
+		productData = new ProductData();
 		Document doc = Jsoup.connect(pageUrl)
 				  .userAgent("Mozilla")
 				  .get();
-		setImages(data, doc);
-		getPrice(data, doc);
-		getName(data, doc);
-		
-		return data;
+		parseImages(doc);
+		parsePrice(doc);
+		parseName(doc);
+		return productData;
 	}
 	
-	private static ProductData setImages(ProductData prodData, Document doc){
-		ArrayList<Pair<URL, Integer>> images = getEbayImages(doc);
+	private ProductData parseImages(Document doc){
+		ArrayList<Pair<URL, Integer>> images = parseEbayImages(doc);
 		if(images.size() == 0){
-			images = getAmazonImages(doc);
+			images = parseAmazonImages(doc);
 		}
 		Collections.sort(images, new Comparator<Pair<URL, Integer>>() {
 			@Override
@@ -50,12 +59,12 @@ public class ProductParser {
 			}
 		});
 		for(Pair<URL, Integer> p : images){
-			prodData.addImageUrl(p.fst);
+			productData.addImageUrl(p.fst);
 		}
-		return prodData;
+		return productData;
 	}
 	
-	private static ArrayList<Pair<URL, Integer>> getAmazonImages(Document doc){
+	private ArrayList<Pair<URL, Integer>> parseAmazonImages(Document doc){
 		ArrayList<Pair<URL, Integer>> images = new ArrayList<Pair<URL,Integer>>();
 		Elements links = doc.select("img[src]");
 		for(int i=0;i<links.size(); i++){
@@ -68,49 +77,7 @@ public class ProductParser {
 		return images;
 	}
 	
-	private static ProductData getPrice(ProductData data, Document doc){
-		Elements links = doc.select(":matchesOwn(" + CURRENCY_SYMBOL + "\\d+)");
-		for(int i=0;i<links.size(); i++){
-			for(Iterator<Attribute> it = links.get(i).attributes().iterator() ; it.hasNext(); ){
-				Attribute a = it.next();
-				if(a.getValue().contains("price")){
-					Matcher m = CURRENCY_PATTERN.matcher(links.get(i).toString());
-					if (m.find()) {
-						data.setPrice(Double.parseDouble(m.group(1)));
-						return data;
-					}	
-				}
-			}
-		}
-		return data;
-	}
-	
-	private static ProductData getName(ProductData data, Document doc){
-		Elements links = doc.select("h1");
-		String res;
-		for(int i=0;i<links.size(); i++){
-			if((res=getName(links.get(i))) != null){
-				data.setName(res);
-				return data;
-			}
-		}
-		return data;
-	}
-	
-	private static final String getName(Element element){
-		if(element.children().size() == 0){
-			return element.ownText();
-		}
-		String res;
-		for(Element e : element.children()){
-			if((res=getName(e)) != null){
-				return res;
-			}
-		}
-		return null;
-	}
-	
-	private static ArrayList<Pair<URL, Integer>> getEbayImages(Document doc){
+	private ArrayList<Pair<URL, Integer>> parseEbayImages(Document doc){
 		ArrayList<Pair<URL, Integer>> images = new ArrayList<Pair<URL,Integer>>();
 		Elements links = doc.select("span[content~=(?i)\\.(png|jpe?g)]");
 		for(int i=0;i<links.size(); i++){
@@ -123,8 +90,61 @@ public class ProductParser {
 		}
 		return images;
 	}
-		
+
+	
+	private ProductData parsePrice(Document doc){
+		Elements links = doc.select(":matchesOwn(" + "(\\$\\d+)|(£\\d+))");
+		Pattern CURRENCY_PATTERN = Pattern.compile(POUND_HTML + "(\\d+\\.?\\d*)|" + DOLLAR_HTML +"(\\d+\\.?\\d*)");
+		for(int i=0;i<links.size(); i++){
+			for(Iterator<Attribute> it = links.get(i).attributes().iterator() ; it.hasNext(); ){
+				Attribute a = it.next();
+				if(a.getValue().matches("price|buyable")){
+					Matcher m = CURRENCY_PATTERN.matcher(links.get(i).toString());
+					if (m.find()) {
+						String price = m.group(1);
+						if(price == null){
+							price = m.group(2);
+						}
+						productData.setPrice(Double.parseDouble(price));
+						return productData;
+					}	
+				}
+			}
+		}
+		return productData;
+	}
+	
+	private ProductData parseName(Document doc){
+		Elements links = doc.select("h1");
+		String res;
+		for(int i=0;i<links.size(); i++){
+			if((res=parseName(links.get(i))) != null){
+				productData.setName(res);
+				return productData;
+			}
+		}
+		links = doc.select("meta[property~=description]");
+		if(links.size() > 0){
+			productData.setName(links.get(0).attr("content"));
+		}
+		return productData;
+	}
+	
+	private final String parseName(Element element){
+		if(element.children().size() == 0){
+			return element.ownText();
+		}
+		String res;
+		for(Element e : element.children()){
+			if((res=parseName(e)) != null){
+				return res;
+			}
+		}
+		return null;
+	}
+			
 	public static final void main(String[] args) throws IOException, URISyntaxException{
-		System.out.println(ProductParser.parse("http://www.amazon.co.uk/Pentax-X90-Digital-Camera-Metallic/dp/B0035WT7ZY/ref=sr_1_1?s=electronics&ie=UTF8&qid=1328995859&sr=1-1"));
+		ProductParser parser = new ProductParser();
+		System.out.println(parser.parse("http://pinterest.com/pin/251568329155038116/"));
 	}
 }
