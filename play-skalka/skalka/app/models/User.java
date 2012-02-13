@@ -13,6 +13,9 @@ public class User extends Model {
 	public String email;
 
 	public static void facebookOAuthCallback(JsonObject data) {
+
+		System.out.println(data);
+
 		Session.current().put("user", data.get("email").getAsString());
 	}
 }
