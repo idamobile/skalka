@@ -59,8 +59,8 @@ on subcategories ( category_id );
 
 
 create table products_subcategories (
-    product_id        bigint                                         not null,
     subcategory_id    bigint                                         not null,
+    product_id        bigint                                         not null,
     primary           key(subcategory_id, product_id)
 );
 
@@ -70,10 +70,15 @@ on products_subcategories ( product_id );
 create index prod_cat_cid_idx
 on products_subcategories ( subcategory_id );
 
-create table user_categories (
-    uid            bigint                                         not null,
-    cid            bigint                                         not null
+create table user_subcategories (
+    subcategory_id     bigint                                         not null,
+    uid                bigint                                         not null,
+    primary            key(subcategory_id, uid)
 );
+
+create index user_cat_cid_idx
+on user_subcategories ( subcategory_id );
+
 
 create table events (
     eid            bigint                                         not null,
