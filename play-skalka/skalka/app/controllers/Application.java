@@ -8,7 +8,7 @@ public class Application extends Controller {
 	@Before
 	static void checkConnected() {
 		if (!session.contains("user")) {
-			// Application.index();
+			Signin.index();
 		} else {
 			renderArgs.put("user", session.get("user"));
 		}
@@ -16,6 +16,11 @@ public class Application extends Controller {
 
 	public static void index() {
 		render();
+	}
+
+	public static void logout() {
+		session.remove("user");
+		index();
 	}
 
 }
