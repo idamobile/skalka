@@ -13,9 +13,9 @@
 
 	#{if _user}
         <div class="user">
-        	<img alt="user's image" src="@{_user.getImageUrl()}">
+        	<img alt="user's image" src="${_user.getImageUrl()}">
     		<a class="expander" href="#">&nbsp;</a>
-    		<p class="username">@{_user}</p>
+    		<p class="username">${_user}</p>
     		<a class="expander" href="@{Application.logout()}">Logout</a>
         </div>
 	#{/if}
