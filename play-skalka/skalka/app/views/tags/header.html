@@ -10,11 +10,15 @@
         	</select>
         	<a href="#" id="eventNew">Add new gift list</a>
         </div>
+
+	#{if user}
         <div class="user">
-        	User image
+        	<img alt="user's image" src="@{user.getImageUrl()}">
     		<a class="expander" href="#">&nbsp;</a>
-    		<p class="username">User Name</p>
+    		<p class="username">@{user}</p>
+    		<a class="expander" href="@{Application.logout()}">Logout</a>
         </div>
+	#{/if}
         <a class="idea" href="#">
         	<span>Submit gif idea</span>
         </a>

@@ -68,7 +68,7 @@ ul,ol         { list-style:none; }
 
 /* Layout ================================================================================ */
 .wrapper {
-	background: transparent url(images/bg_body.gif) 0 0;
+	background: transparent url(/public/images/bg_body.gif) 0 0;
 	min-height: 100%;
 }
 .page {
@@ -79,7 +79,7 @@ ul,ol         { list-style:none; }
 	
 }
 .main {
-	background: transparent url(images/bg_main.png) repeat-y 0 0;
+	background: transparent url(/public/images/bg_main.png) repeat-y 0 0;
 	padding: 0 28px 0;
 	margin: 0 auto;
 }
@@ -137,7 +137,7 @@ ul,ol         { list-style:none; }
 	float: left;
 	display: block;
 	padding: 0 0 0 30px;
-	background: transparent url(images/icons/plus_grey.png) no-repeat 0 50%;
+	background: transparent url(/public/images/icons/plus_grey.png) no-repeat 0 50%;
 }
 .header .user {
 	float: right;
@@ -155,7 +155,7 @@ ul,ol         { list-style:none; }
 }
 .header .user .expander {
 	float: right;
-	background: transparent url(images/arrow_down.png) no-repeat 100% 50%;
+	background: transparent url(/public/images/arrow_down.png) no-repeat 100% 50%;
 	display: block;
 	text-indent: -9999em;
 	width: 15px;
@@ -165,7 +165,7 @@ ul,ol         { list-style:none; }
 	float: right;
 	display: block;
 	padding: 0 0 0 30px;
-	background: transparent url(images/icons/gift_grey.png) no-repeat 0 30%;
+	background: transparent url(/public/images/icons/gift_grey.png) no-repeat 0 30%;
 }
 .header .langs {
 	float: right;
@@ -175,7 +175,7 @@ ul,ol         { list-style:none; }
 }
 .header .langs li {
 	display: inline;
-	background: transparent url(images/bg_divider_hor.png) repeat-y 100% 0;
+	background: transparent url(/public/images/bg_divider_hor.png) repeat-y 100% 0;
 	padding: 2px 8px 2px 0;
 	margin-right: 2px;
 }
@@ -219,7 +219,7 @@ ul,ol         { list-style:none; }
 .giftList .userPic {
 	width: 108px;
 	height: 121px;
-	background: transparent url(images/bg_giftlist_userpic.png) no-repeat 0 0;
+	background: transparent url(/public/images/bg_giftlist_userpic.png) no-repeat 0 0;
 	position: absolute;
 	top: -30px;
 	left: -12px;
@@ -236,14 +236,14 @@ ul,ol         { list-style:none; }
 	width: 71px;
 	height: 71px;
 	float: left;
-	background: transparent url(images/bg_giftlist_emptyitem.png) no-repeat 0 0;
+	background: transparent url(/public/images/bg_giftlist_emptyitem.png) no-repeat 0 0;
 	margin: 0 0 20px 20px;
 }
 .giftList .items li.empty {
-	background: transparent url(images/bg_giftlist_emptyitem.png) no-repeat 0 0;
+	background: transparent url(/public/images/bg_giftlist_emptyitem.png) no-repeat 0 0;
 }
 .giftList .arrow {
-	background: transparent url(images/bg_giftlist_hintarrow.png) no-repeat 50% 0;
+	background: transparent url(/public/images/bg_giftlist_hintarrow.png) no-repeat 50% 0;
 	height: 43px;
 	margin: 0 0 21px 0;
 }
@@ -290,7 +290,7 @@ ul,ol         { list-style:none; }
 	position: absolute;
 	bottom: -40px;
 	left: -19px;
-	background: transparent url(images/bg_price.png) no-repeat 100% 0;
+	background: transparent url(/public/images/bg_price.png) no-repeat 100% 0;
 	padding: 0 14px 0 0;
 	height: 46px;
 	line-height: 35px;
@@ -301,20 +301,20 @@ ul,ol         { list-style:none; }
 }
 .feed .item .image-box .price div {
 	display: block;
-	background: transparent url(images/bg_price.png) no-repeat 0 0;
+	background: transparent url(/public/images/bg_price.png) no-repeat 0 0;
 	padding: 0 7px 0 29px;
 	height: 46px;
 }
 .feed .item .description {
 	padding: 0 0 0 35px;
-	background: transparent url(images/bg_feed_item_quote.png) no-repeat 5px 4px;
+	background: transparent url(/public/images/bg_feed_item_quote.png) no-repeat 5px 4px;
 	line-height: 17px;
 	margin: 0 0 15px;
 }
 .feed .item .user-info {
 	margin: 0 -7px -7px -7px;
 	padding: 20px 16px 16px;
-	background: #f4f4f4 url(images/bg_feed_item_user_info.png) no-repeat 0 0;
+	background: #f4f4f4 url(/public/images/bg_feed_item_user_info.png) no-repeat 0 0;
 	border-radius: 0 0 5px 5px;
 }
 .feed .item .user-info .user-img {
@@ -337,7 +337,7 @@ ul,ol         { list-style:none; }
 /* General List Styles */
 .item-list {}
 .item-list .item {
-	background: transparent url(images/bg_divider_vert.png) repeat-x 0 100%;
+	background: transparent url(/public/images/bg_divider_vert.png) repeat-x 0 100%;
 	padding: 8px 0 10px;
 }
 .item-list .item .labels {
@@ -414,7 +414,7 @@ ul,ol         { list-style:none; }
 }
 .footer-logo {
 	float: right;
-	background: transparent url(images/logo_footer.png) no-repeat 0 0;
+	background: transparent url(/public/images/logo_footer.png) no-repeat 0 0;
 	width: 142px;
 	height: 20px;
 	margin-left: 25px;
@@ -425,7 +425,7 @@ ul,ol         { list-style:none; }
 }
 .footer .links li {
 	display: inline;
-	background: transparent url(images/bg_divider_hor.png) repeat-y 100% 0;
+	background: transparent url(/public/images/bg_divider_hor.png) repeat-y 100% 0;
 	padding: 2px 8px 2px 0;
 	margin-right: 2px;
 }

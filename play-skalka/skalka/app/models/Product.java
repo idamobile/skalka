@@ -33,6 +33,9 @@ public class Product extends Model {
 	@Column(name = "added_when")
 	public Date addedWhen;
 
+	@Column(name = "image")
+	public String image;
+
 	public Product() {
 	}
 

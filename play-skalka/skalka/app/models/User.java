@@ -89,6 +89,10 @@ public class User extends Model {
 		}
 	}
 
+	public String getImageUrl() {
+		return "http://graph.facebook.com/" + facebookId + "/picture";
+	}
+
 	@Override
 	public String toString() {
 		return firstName + " " + lastName;
