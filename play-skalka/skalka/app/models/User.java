@@ -45,11 +45,11 @@ public class User extends Model {
 			}
 
 			if (data.has(JSON_TAG_LAST_NAME)) {
-				user.firstName = data.get(JSON_TAG_LAST_NAME).getAsString();
+				user.lastName = data.get(JSON_TAG_LAST_NAME).getAsString();
 			}
 
 			if (data.has(JSON_TAG_GENDER)) {
-				user.firstName = data.get(JSON_TAG_GENDER).getAsString();
+				user.gender = data.get(JSON_TAG_GENDER).getAsString();
 			}
 
 			User existing = User.find("byFacebookId", user.facebookId).first();
