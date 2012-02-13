@@ -1,4 +1,4 @@
-package aux.html_parser;
+package utils.html_parser;
 
 import java.net.URL;
 import java.text.DecimalFormat;

@@ -1,4 +1,4 @@
-package aux.html_parser;
+package utils.html_parser;
 
 import java.io.File;
 import java.io.IOException;
