@@ -36,29 +36,34 @@ public class User extends Model {
 	public Date birthDate;
 
 	public static void facebookOAuthCallback(JsonObject data) {
-		User user = new User();
-		user.facebookId = data.get(JSON_TAG_FB_UID).getAsLong();
+		try {
+			User user = new User();
+			user.facebookId = data.get(JSON_TAG_FB_UID).getAsLong();
 
-		if (data.has(JSON_TAG_FIRST_NAME)) {
-			user.firstName = data.get(JSON_TAG_FIRST_NAME).getAsString();
+			if (data.has(JSON_TAG_FIRST_NAME)) {
+				user.firstName = data.get(JSON_TAG_FIRST_NAME).getAsString();
+			}
+
+			if (data.has(JSON_TAG_LAST_NAME)) {
+				user.firstName = data.get(JSON_TAG_LAST_NAME).getAsString();
+			}
+
+			if (data.has(JSON_TAG_GENDER)) {
+				user.firstName = data.get(JSON_TAG_GENDER).getAsString();
+			}
+
+			User existing = User.find("byFacebookId", user.facebookId).first();
+			if (existing == null) {
+				user.save();
+			} else {
+				// TODO: update existing user in db
+				user = existing;
+			}
+
+			Session.current().put("user", user);
+
+		} catch (Throwable e) {
+			e.printStackTrace();
 		}
-
-		if (data.has(JSON_TAG_LAST_NAME)) {
-			user.firstName = data.get(JSON_TAG_LAST_NAME).getAsString();
-		}
-
-		if (data.has(JSON_TAG_GENDER)) {
-			user.firstName = data.get(JSON_TAG_GENDER).getAsString();
-		}
-
-		User existing = User.find("byFacebookId", user.facebookId).first();
-		if (existing == null) {
-			user.save();
-		} else {
-			// TODO: update existing user in db
-			user = existing;
-		}
-
-		Session.current().put("user", user);
 	}
 }
