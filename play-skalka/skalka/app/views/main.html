@@ -9,9 +9,9 @@
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="UTF-8"></script>
         #{get 'moreScripts' /}
-        #{if accessToken}
+        #{if user}
         	<script type="text/javascript">
-        		var access_token = "${accessToken}";
+        		var access_token = "${user.accessToken}";
         	</script>
         #{/if}
         

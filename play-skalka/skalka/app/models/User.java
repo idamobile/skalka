@@ -83,10 +83,6 @@ public class User extends Model {
 			Session.current().put(JSON_TAG_ACCESS_TOKEN, user.accessToken);
 
 			Cache.set(user.accessToken, user, "2h");
-
-			System.out.println("Access token: " + user.accessToken);
-			System.out.println("User from cache: " + Cache.get(user.accessToken));
-
 		} catch (Throwable e) {
 			Session.current().put("authError", e.getMessage());
 			e.printStackTrace();
