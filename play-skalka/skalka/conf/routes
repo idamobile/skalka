@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                                       Application.index
-GET     /Products/                              Products.index
+GET     /products/                              Products.index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

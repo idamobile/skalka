@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import models.ErrorResult;
 import models.Product;
@@ -75,4 +76,10 @@ public class Products extends Controller {
 		Product p = Product.findById(id);
 		renderBinary(new File(p.image));
 	}
+
+	public static void list() {
+		List<Product> products = Product.findAll();
+		render(products);
+	}
+
 }
