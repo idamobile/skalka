@@ -14,6 +14,9 @@ public class Products extends Controller {
 		testResponse.put("myKey", "myValue");
 
 		renderJSON(testResponse);
+	}
+
+	public static void add(String descr, String story) {
 
 	}
 

@@ -13,18 +13,24 @@ import play.db.jpa.Model;
 public class Product extends Model {
 
 	@Column(name = "description")
-	public String description;
+	public String descr;
 
+	@Column(name = "story")
 	public String story;
 
+	@Column(name = "image_url")
 	public String imageUrl;
 
+	@Column(name = "added_by_uid")
 	public Long addedBy;
 
+	@Column(name = "price")
 	public float price;
 
+	@Column(name = "type")
 	public String productType;
 
+	@Column(name = "added_when")
 	public Date addedWhen;
 
 }
