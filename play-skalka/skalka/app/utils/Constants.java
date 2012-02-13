@@ -1,4 +1,4 @@
-package aux;
+package utils;
 
 public class Constants {
 	public static final String ERROR_KEY = "error=";

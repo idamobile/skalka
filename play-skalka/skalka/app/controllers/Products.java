@@ -17,7 +17,7 @@ import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Controller;
 import play.mvc.Scope.Session;
-import aux.Constants;
+import utils.Constants;
 import aux.html_parser.ProductParser;
 
 public class Products extends Controller {

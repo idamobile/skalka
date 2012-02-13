@@ -1,4 +1,4 @@
-package aux;
+package utils;
 
 public class Pair<A, B> {
 
