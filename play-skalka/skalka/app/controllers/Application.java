@@ -8,7 +8,7 @@ public class Application extends Controller {
 	@Before
 	static void checkConnected() {
 		if (!session.contains("user")) {
-			Application.index();
+			// Application.index();
 		} else {
 			renderArgs.put("user", session.get("user"));
 		}
