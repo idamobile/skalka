@@ -46,9 +46,22 @@ create table categories (
     primary        key(id)
 );
 
-create table products_categories (
-    product_id     bigint                                         not null,
-    category_id    bigint                                         not null
+create table subcategories (
+    id             bigint                                         not null,
+    name           varchar(255)                                   default null,
+    image_url      varchar(1024)                                  not null,
+    category_id    bigint                                         not null,
+    primary        key(id)
+);
+
+create index subcat_cat_id_idx
+on subcategories ( category_id );
+
+
+create table products_subcategories (
+    product_id        bigint                                         not null,
+    subcategory_id    bigint                                         not null,
+    primary           key(subcategory_id, product_id)
 );
 
 create index prod_cat_pid_idx
