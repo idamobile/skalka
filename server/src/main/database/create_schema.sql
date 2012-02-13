@@ -1,5 +1,10 @@
 use skalka;
 
+/**
+ * Users table structure
+ */
+drop table if exists users;
+
 create table users (
     id          bigint                  not null auto_increment,
     fb_uid      bigint                  default null,
@@ -8,41 +13,49 @@ create table users (
     gender      enum('male', 'female')  default null,
     birth_date  date                    default null,
     image_url   varchar(1024)           default null,
+    added_when	date					default null,
+    last_login	date					default null,
     primary key(id),
     unique (fb_uid)
 );
 
+/**
+ * Products table structure
+ */
+drop table if exists products;
+
 create table products (
-    pid            bigint                                         not null,
+    id             bigint                                         not null auto_increment,
     description    varchar(1024)                                  default null,
     story          varchar(1024)                                  default null,
     image_url      varchar(1024)                                  not null,
     added_by_uid   bigint                                         not null,
     price          float                                          not null,
     type           enum('image', 'image_with_story', 'story')     default null,
-    primary        key(pid)
+    added_when	   date                                           default null,
+    primary        key(id)
 );
 
 create index prod_added_by_uid_idx
 on products ( added_by_uid );
 
 create table categories (
-    cid            bigint                                         not null,
+    id             bigint                                         not null,
     name           varchar(255)                                   default null,
     image_url      varchar(1024)                                  not null,
-    primary        key(cid)
+    primary        key(id)
 );
 
 create table products_categories (
-    pid            bigint                                         not null,
-    cid            bigint                                         not null
+    product_id     bigint                                         not null,
+    category_id    bigint                                         not null
 );
 
 create index prod_cat_pid_idx
-on products_categories ( pid );
+on products_categories ( product_id );
 
 create index prod_cat_cid_idx
-on products_categories ( cid );
+on products_categories ( category_id );
 
 create table user_categories (
     uid            bigint                                         not null,
@@ -64,7 +77,7 @@ create table lists (
 );
 
 create index lists_owner_idx
-on products_categories ( cid );
+on products_categories ( category_id );
 
 create table list_prod (
     lid            bigint                                         not null,

@@ -17,6 +17,10 @@
                 You're logged as ${user}, <a href="@{Application.logout}">Logout</a>
             </div>
         #{/if}
+        
+    	#{if authError}
+    		<h1>Authorization failed: ${authError}</h1>	
+    	#{/if}
     
         #{doLayout /}
     </body>

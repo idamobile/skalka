@@ -35,35 +35,50 @@ public class User extends Model {
 	@Column(name = "birth_date")
 	public Date birthDate;
 
+	@Column(name = "added_when")
+	public Date addedWhen;
+
+	@Column(name = "last_login")
+	public Date lastLogin;
+
 	public static void facebookOAuthCallback(JsonObject data) {
+
+		System.out.println("facebookOAuthCallback: " + data);
+
 		try {
-			User user = new User();
-			user.facebookId = data.get(JSON_TAG_FB_UID).getAsLong();
 
-			if (data.has(JSON_TAG_FIRST_NAME)) {
-				user.firstName = data.get(JSON_TAG_FIRST_NAME).getAsString();
-			}
+			Long fbId = data.get(JSON_TAG_FB_UID).getAsLong();
+			User user = User.find("byFacebookId", fbId).first();
+			if (user == null) {
+				user = new User();
+				user.facebookId = fbId;
+				user.addedWhen = new Date();
+				if (data.has(JSON_TAG_FIRST_NAME)) {
+					user.firstName = data.get(JSON_TAG_FIRST_NAME).getAsString();
+				}
 
-			if (data.has(JSON_TAG_LAST_NAME)) {
-				user.lastName = data.get(JSON_TAG_LAST_NAME).getAsString();
-			}
+				if (data.has(JSON_TAG_LAST_NAME)) {
+					user.lastName = data.get(JSON_TAG_LAST_NAME).getAsString();
+				}
 
-			if (data.has(JSON_TAG_GENDER)) {
-				user.gender = data.get(JSON_TAG_GENDER).getAsString();
+				if (data.has(JSON_TAG_GENDER)) {
+					user.gender = data.get(JSON_TAG_GENDER).getAsString();
+				}
 			}
-
-			User existing = User.find("byFacebookId", user.facebookId).first();
-			if (existing == null) {
-				user.save();
-			} else {
-				// TODO: update existing user in db
-				user = existing;
-			}
+			user.lastLogin = new Date();
+			user.save();
 
 			Session.current().put("user", user);
 
 		} catch (Throwable e) {
+			Session.current().put("authError", e.getMessage());
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public String toString() {
+		return firstName + " " + lastName;
+	}
+
 }
