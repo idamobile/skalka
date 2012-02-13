@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skalka.server.db.mappers.ProductMapper">
+
+	<resultMap id="productMap" type="Product">
+		<result property="uid" column="uid" javaType="java.math.BigInteger" jdbcType="BIGINT"/>
+		<result property="facebookId" column="fb_uid"  javaType="java.math.BigInteger" jdbcType="BIGINT"/>
+		<result property="firstName" column="first_name" />
+		<result property="lastName" column="last_name" />
+		<result property="birthDate" column="birth_date" javaType="java.util.Date" jdbcType="DATE"/>
+		<result property="gender" column="gender" javaType="com.skalka.server.domain.Gender"/>
+		<result property="imageUrl" column="image_url" />
+	</resultMap>
+
+	<select id="findByFacebookId" parameterType="java.lang.String" resultMap="userMap">
+		select * from users where fb_uid = #{fb_uid}
+	</select>
+
+	<select id="findByUid" parameterType="java.math.BigInteger" resultMap="userMap">
+		select * from users where uid = #{uid}
+	</select>
+
+	<select id="selectAll" resultMap="userMap">
+		select * from users
+	</select>
+
+	<insert id="add" parameterType="User" useGeneratedKeys="true" keyProperty="uid">
+		insert into users (fb_uid, first_name, last_name, gender, birth_date, image_url)
+		values (#{facebookId}, #{firstName}, #{lastName}, #{gender}, #{birthDate, jdbcType=DATE}, #{imageUrl})		
+	</insert>
+	
+	<update id="update" parameterType="User">
+		update users
+			set 
+				fb_uid = #{facebookId},
+				first_name = #{firstName},
+				last_name = #{lastName},
+				gender = #{gender},
+				birth_date = #{birthDate},
+				image_url = #{imageUrl}
+		where 
+			uid = #{uid}
+	</update>
+	
+	<delete id="deleteByFacebookId" parameterType="java.lang.String">
+		delete from users where fb_uid = #{fb_uid}
+	</delete>
+
+	<delete id="deleteByUid" parameterType="java.lang.String">
+		delete from users where uid = #{fb_uid}
+	</delete>
+	
+	<select id="count" resultType="int">
+		select count(*) from users
+	</select>
+</mapper>
