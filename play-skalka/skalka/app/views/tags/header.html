@@ -11,16 +11,16 @@
         	<a href="#" id="eventNew">Add new gift list</a>
         </div>
 
-	#{if user}
+	#{if _user}
         <div class="user">
-        	<img alt="user's image" src="@{user.getImageUrl()}">
+        	<img alt="user's image" src="@{_user.getImageUrl()}">
     		<a class="expander" href="#">&nbsp;</a>
-    		<p class="username">@{user}</p>
+    		<p class="username">@{_user}</p>
     		<a class="expander" href="@{Application.logout()}">Logout</a>
         </div>
 	#{/if}
         <a class="idea" href="#">
-        	<span>Submit gif idea</span>
+        	<span>Submit gift idea</span>
         </a>
     </div>
 </div>
