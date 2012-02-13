@@ -1,5 +1,44 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{if user}
+	<div id="user">
+	    You're logged as ${user}, <a href="@{Application.logout}">Logout</a>
+	</div>
+#{/if}
 
-<h1>You are logged in!</h1>
 
+<div class="jsout"></div>
+<div class="feedToolbar">
+	<p class="title">Suggestions based on <span>Valentin’s profile</span></p>
+</div>
+<div class="grid-layout" id="grid-wrapper">
+<div class="feed" id="items-container">
+#{list items:0..10, as:'i'}
+	<div class="item" id="${i}" data-id="${i}">
+		<div class="image-box">
+			<img src="@{'/public/images/content/event4.jpg'}" alt="Alt Text"/>
+			<div class="price">
+				<div>
+					$15
+				</div>
+			</div>
+		</div>
+		<p class="description">
+	    	Descr
+	    </p>
+	    <div class="user-info">
+	    	<div class="user-img">
+	    		<img src="@{'/public/images/userpic.png'}" alt="user name"/>
+	    	</div>
+	    	<p class="user-name">
+	    		Submitted by <span>Sergey Roiz</span>
+	    	</p>
+	    	<div class="clear"></div>
+	    </div>
+	</div>
+#{/list}
+</div>
+</div>
+
+<script type="text/javascript">
+	GridLayout.setup();
+</script>
