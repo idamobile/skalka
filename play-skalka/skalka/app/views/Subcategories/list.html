@@ -1,0 +1,15 @@
+#{list items:map.keySet(), as:'key'}
+    <div class="category">
+        <p>${key}</p>
+        #{list items:map.get(key), as:'subcategory'}
+            <div class="subcategory" id="${subcategory.id}">
+                <div class="subcat-img">
+                    <img src="${subcategory.imageUrl}" alt="user's image"/>
+                </div>
+                <div class="subcat-name">
+                    <b>${subcategory.name}<b/>
+                </div>
+            </div>
+        #{/list}
+    </div>
+#{/list}
