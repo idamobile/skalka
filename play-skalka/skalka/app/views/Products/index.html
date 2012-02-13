@@ -1,0 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>Add product here</h1>
+
+#{form @Products.add(), name: 'add_product'}
+Description <input type="text" name="descr" hint="Enter product description"><br/>
+Story <input type="text" name="story" hint="Enter product story"><br/>
+Image URL <input type="text" name="imageUrl" hint="Image URL"><br/>
+Price <input type="text" name="price" hint="price"><br/>
+Product type <input type="text" name="type" hint="Product type" value="image"><br/>
+<input type="submit" value="Add product">
+#{/form}
+

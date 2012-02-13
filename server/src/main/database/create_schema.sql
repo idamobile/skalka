@@ -28,9 +28,9 @@ create table products (
     id             bigint                                         not null auto_increment,
     description    varchar(1024)                                  default null,
     story          varchar(1024)                                  default null,
-    image_url      varchar(1024)                                  not null,
-    added_by_uid   bigint                                         not null,
-    price          float                                          not null,
+    image_url      varchar(1024)                                  default null,
+    added_by_uid   bigint                                         default null,
+    price          float                                          default null,
     type           enum('image', 'image_with_story', 'story')     default null,
     added_when	   date                                           default null,
     primary        key(id)

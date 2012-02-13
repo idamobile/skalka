@@ -5,7 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import play.cache.Cache;
 import play.db.jpa.Model;
 import play.mvc.Scope.Session;
 
@@ -15,10 +17,11 @@ import com.google.gson.JsonObject;
 @Table(name = "users")
 public class User extends Model {
 
-	private static final String JSON_TAG_FB_UID = "id";
-	private static final String JSON_TAG_FIRST_NAME = "first_name";
-	private static final String JSON_TAG_LAST_NAME = "last_name";
-	private static final String JSON_TAG_GENDER = "gender";
+	public static final String JSON_TAG_FB_UID = "id";
+	public static final String JSON_TAG_FIRST_NAME = "first_name";
+	public static final String JSON_TAG_LAST_NAME = "last_name";
+	public static final String JSON_TAG_GENDER = "gender";
+	public static final String JSON_TAG_ACCESS_TOKEN = "accessToken";
 
 	@Column(name = "fb_uid")
 	public Long facebookId;
@@ -40,6 +43,9 @@ public class User extends Model {
 
 	@Column(name = "last_login")
 	public Date lastLogin;
+
+	@Transient
+	public String accessToken;
 
 	public static void facebookOAuthCallback(JsonObject data) {
 
@@ -64,11 +70,17 @@ public class User extends Model {
 				if (data.has(JSON_TAG_GENDER)) {
 					user.gender = data.get(JSON_TAG_GENDER).getAsString();
 				}
+				if (data.has(JSON_TAG_ACCESS_TOKEN)) {
+					user.accessToken = data.get(JSON_TAG_ACCESS_TOKEN).getAsString();
+				}
 			}
 			user.lastLogin = new Date();
 			user.save();
 
 			Session.current().put("user", user);
+			Session.current().put(JSON_TAG_ACCESS_TOKEN, user.accessToken);
+
+			Cache.set(user.accessToken, user, "2h");
 
 		} catch (Throwable e) {
 			Session.current().put("authError", e.getMessage());

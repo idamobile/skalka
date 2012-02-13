@@ -33,4 +33,18 @@ public class Product extends Model {
 	@Column(name = "added_when")
 	public Date addedWhen;
 
+	public Product() {
+	}
+
+	public Product(String descr, String story, String imageUrl, Long addedBy, float price,
+			String productType, Date addedWhen) {
+		this.descr = descr;
+		this.story = story;
+		this.imageUrl = imageUrl;
+		this.addedBy = addedBy;
+		this.price = price;
+		this.productType = productType;
+		this.addedWhen = addedWhen;
+	}
+
 }
