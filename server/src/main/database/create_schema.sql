@@ -14,6 +14,7 @@ create table users (
 
 create table products (
     pid            bigint                                         not null,
+    description    varchar(1024)                                  default null,
     story          varchar(1024)                                  default null,
     image_url      varchar(1024)                                  not null,
     added_by_uid   bigint                                         not null,
