@@ -70,10 +70,12 @@ public class User extends Model {
 				if (data.has(JSON_TAG_GENDER)) {
 					user.gender = data.get(JSON_TAG_GENDER).getAsString();
 				}
-				if (data.has(JSON_TAG_ACCESS_TOKEN)) {
-					user.accessToken = data.get(JSON_TAG_ACCESS_TOKEN).getAsString();
-				}
 			}
+
+			if (data.has(JSON_TAG_ACCESS_TOKEN)) {
+				user.accessToken = data.get(JSON_TAG_ACCESS_TOKEN).getAsString();
+			}
+
 			user.lastLogin = new Date();
 			user.save();
 
