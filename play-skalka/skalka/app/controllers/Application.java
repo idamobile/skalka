@@ -12,11 +12,12 @@ public class Application extends Controller {
 		if (!session.contains(User.JSON_TAG_ACCESS_TOKEN)) {
 			Signin.index();
 		} else {
-
-			System.out.println("User from cache: "
-					+ Cache.get(session.get(User.JSON_TAG_ACCESS_TOKEN)));
-
-			renderArgs.put("user", Cache.get(session.get(User.JSON_TAG_ACCESS_TOKEN)));
+			User user = Cache.get(session.get(User.JSON_TAG_ACCESS_TOKEN), User.class);
+			if (user == null) {
+				// TODO: ask FB in future to populate cache
+				Signin.index();
+			}
+			renderArgs.put("user", user);
 		}
 	}
 
