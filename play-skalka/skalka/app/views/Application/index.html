@@ -6,30 +6,33 @@
 </div>
 <div class="grid-layout" id="grid-wrapper">
 <div class="feed" id="items-container">
-#{list items:0..10, as:'i'}
-	<div class="item" id="${i}" data-id="${i}">
+
+#{list items:products, as:'product'}
+	<div class="item" id="${product.id}" data-id="${product.id}">
 		<div class="image-box">
-			<img src="@{'/public/images/content/event4.jpg'}" alt="Alt Text"/>
+			<img src="@{Products.image(product.id)}" alt="${product.id}"/>
 			<div class="price">
 				<div>
-					$15
+					${product.price}
 				</div>
 			</div>
 		</div>
 		<p class="description">
-	    	Descr
+	    	${product.descr}
 	    </p>
 	    <div class="user-info">
 	    	<div class="user-img">
-	    		<img src="@{'/public/images/userpic.png'}" alt="user name"/>
+	    		<img src="${product.getAuthor()?.getImageUrl()}" alt="user's image"/>
 	    	</div>
 	    	<p class="user-name">
-	    		Submitted by <span>Sergey Roiz</span>
+	    		Submitted by <span>${product.getAuthor()}</span>
 	    	</p>
 	    	<div class="clear"></div>
 	    </div>
 	</div>
 #{/list}
+
+
 </div>
 </div>
 

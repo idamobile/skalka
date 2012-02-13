@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.List;
+
+import models.Product;
 import models.User;
 import play.cache.Cache;
 import play.mvc.Before;
@@ -23,7 +26,8 @@ public class Application extends Controller {
 	}
 
 	public static void index() {
-		render();
+		List<Product> products = Product.findAll();
+		render(products);
 	}
 
 	public static void logout() {
