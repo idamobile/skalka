@@ -27,6 +27,7 @@ public class SkalkaContextListener extends GuiceServletContextListener {
 			bind(IndexController.class);
 
 			bind(UsersController.class);
+			bind(AuthorizationService.class);
 
 			Map<String, String> params = new HashMap<String, String>();
 			params.put(PackagesResourceConfig.PROPERTY_PACKAGES, "unbound");
