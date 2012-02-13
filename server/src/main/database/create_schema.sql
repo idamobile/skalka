@@ -40,14 +40,14 @@ create index prod_added_by_uid_idx
 on products ( added_by_uid );
 
 create table categories (
-    id             bigint                                         not null,
+    id             bigint                                         not null auto_increment,
     name           varchar(255)                                   default null,
     image_url      varchar(1024)                                  not null,
     primary        key(id)
 );
 
 create table subcategories (
-    id             bigint                                         not null,
+    id             bigint                                         not null auto_increment,
     name           varchar(255)                                   default null,
     image_url      varchar(1024)                                  not null,
     category_id    bigint                                         not null,
@@ -65,10 +65,10 @@ create table products_subcategories (
 );
 
 create index prod_cat_pid_idx
-on products_categories ( product_id );
+on products_subcategories ( product_id );
 
 create index prod_cat_cid_idx
-on products_categories ( category_id );
+on products_subcategories ( subcategory_id );
 
 create table user_categories (
     uid            bigint                                         not null,
@@ -90,11 +90,12 @@ create table lists (
 );
 
 create index lists_owner_idx
-on products_categories ( category_id );
+on lists ( owner_id );
 
 create table list_prod (
     lid            bigint                                         not null,
-    pid            bigint                                         not null
+    pid            bigint                                         not null,
+    primary        key(lid, pid)
 );
 
 create index list_prod_lid_idx
@@ -105,5 +106,5 @@ create table user_lines_prod_in_list (
     prod_id         bigint                                        not null,
     uid             bigint                                        not null,
     act             enum('y', 'n', 'in')                          default null,
-    primary        key(lid, prod_id, uid)
+    primary         key(lid, prod_id, uid)
 );
