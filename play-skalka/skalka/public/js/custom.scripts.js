@@ -13,6 +13,7 @@ $(document).ready(function($) {
 	// Initializing ADD YOUR PRODUCT popup
 	$('.idea').fancybox({
 		fitToView: false,
+		scrolling: 'no',
 		padding: 0,
 		//openEffect : 'elastic',
 		//openSpeed  : 150,
@@ -28,8 +29,8 @@ $(document).ready(function($) {
 		}
 	});
 	
+	// Sidebar repositioning on window scroll
 	sidebar = $(".sidebar");
-	//start = sidebar.position().top;
 	start = 52;
     
     $(window).scroll(function () {  
@@ -40,14 +41,35 @@ $(document).ready(function($) {
         }else{
         	sidebar.removeClass('fixed');
         }
-    });  
-	$('.jsout').html(start);
+    });
 	
-	$('#productUrl').submit(function(e){
-		alert('Hello!');
-		e.preventDefault();
+
+	/* attach a submit handler to the form */
+	$("#productUrl").submit(function(event) {
+	
+		/* stop form from submitting normally */
+		event.preventDefault(); 
+		
+		/* get some values from elements on the page: */
+		form = $(this);
+	    term = form.find( 'input[name="url"]' ).val();
+	    url = form.attr( 'action' );
+	    $('.progress').show()
+		
+		/* Send the data using post and put the results in a div */
+		$.post( url, { url: term }, function( data ) {
+			//var content = $( data ).find( '#content' );
+			//var content = jQuery.parseJSON(data);
+			//$( "#result" ).empty().append(content);
+			var imgs = data.imageUrls;
+			//alert(data.name);
+			$("#result").empty().append(data.name);
+			$('.progress').hide();
+			$.fancybox.update();
+	  	}, "json");
+	  	$('.jsout').html(progress);
 	});
-	
+
 });
 
 
