@@ -101,27 +101,15 @@ create index user_cat_cid_idx
 on user_subcategories ( subcategory_id );
 
 /**
- * events table structure
- */
-drop table if exists events;
-
-create table events (
-    id             bigint                                         not null,
-    description    varchar(255)                                   not null,
-    primary        key(id)
-);
-
-/**
  * lists table structure
  */
 drop table if exists lists;
 
 create table lists (
     id             bigint                                        not null,
-    description    varchar(255)                                  default null,
+    list_name      varchar(255)                                  default null,
     owner_id       bigint                                        default null,
     target_id      bigint                                        not null,
-    event_id       bigint                                        not null,
     primary        key(id)
 );
 
