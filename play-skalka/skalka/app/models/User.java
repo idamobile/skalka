@@ -1,5 +1,6 @@
 package models;
 
+import java.lang.reflect.Type;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +12,10 @@ import play.cache.Cache;
 import play.db.jpa.Model;
 import play.mvc.Scope.Session;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 @Entity
 @Table(name = "users")
@@ -56,20 +60,7 @@ public class User extends Model {
 			Long fbId = data.get(JSON_TAG_FB_UID).getAsLong();
 			User user = User.find("byFacebookId", fbId).first();
 			if (user == null) {
-				user = new User();
-				user.facebookId = fbId;
-				user.addedWhen = new Date();
-				if (data.has(JSON_TAG_FIRST_NAME)) {
-					user.firstName = data.get(JSON_TAG_FIRST_NAME).getAsString();
-				}
-
-				if (data.has(JSON_TAG_LAST_NAME)) {
-					user.lastName = data.get(JSON_TAG_LAST_NAME).getAsString();
-				}
-
-				if (data.has(JSON_TAG_GENDER)) {
-					user.gender = data.get(JSON_TAG_GENDER).getAsString();
-				}
+				user = fromFbJson(data);
 			}
 
 			if (data.has(JSON_TAG_ACCESS_TOKEN)) {
@@ -89,13 +80,59 @@ public class User extends Model {
 		}
 	}
 
+	public static User fromFbJson(JsonObject data) {
+		User user = new User();
+		user.facebookId = data.get(JSON_TAG_FB_UID).getAsLong();
+		user.addedWhen = new Date();
+		if (data.has(JSON_TAG_FIRST_NAME)) {
+			user.firstName = data.get(JSON_TAG_FIRST_NAME).getAsString();
+		}
+
+		if (data.has(JSON_TAG_LAST_NAME)) {
+			user.lastName = data.get(JSON_TAG_LAST_NAME).getAsString();
+		}
+
+		if (data.has(JSON_TAG_GENDER)) {
+			user.gender = data.get(JSON_TAG_GENDER).getAsString();
+		}
+
+		return user;
+	}
+
 	public String getImageUrl() {
 		return "http://graph.facebook.com/" + facebookId + "/picture";
+	}
+
+	public static User findByFacebookId(Long facebookId) {
+		return User.find("byFacebookId", facebookId).first();
 	}
 
 	@Override
 	public String toString() {
 		return firstName + " " + lastName;
+	}
+
+	public static class UserSerializer implements JsonSerializer<User> {
+
+		@Override
+		public JsonElement serialize(User user, Type type, JsonSerializationContext ctx) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty(JSON_TAG_FB_UID, user.facebookId);
+
+			if (user.firstName != null) {
+				obj.addProperty(JSON_TAG_FIRST_NAME, user.firstName);
+			}
+
+			if (user.lastName != null) {
+				obj.addProperty(JSON_TAG_LAST_NAME, user.lastName);
+			}
+
+			if (user.gender != null) {
+				obj.addProperty(JSON_TAG_GENDER, user.gender);
+			}
+			return obj;
+		}
+
 	}
 
 }
