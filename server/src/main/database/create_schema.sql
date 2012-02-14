@@ -90,6 +90,7 @@ create table events (
 
 create table lists (
     id             bigint                                        not null,
+    description    varchar(255)                                  default null,
     owner_id       bigint                                        default null,
     target_id      bigint                                        not null,
     event_id       bigint                                        not null,
