@@ -21,7 +21,7 @@ columns={ @ColumnResult(name="catName"),
 		  @ColumnResult(name="image_url")}
 )
 @Entity
-public class Subcategory {
+public class SubcategoryWithCategory {
 	@Id
 	public BigInteger id;
 	
@@ -29,14 +29,14 @@ public class Subcategory {
 	
 	public String imageUrl;
 
-	public Subcategory(String name, BigInteger id, String imageUrl) {
+	public SubcategoryWithCategory(String name, BigInteger id, String imageUrl) {
 		this.id = id;
 		this.name = name;
 		this.imageUrl = imageUrl;
 	}
 
-	public static Map<String, List<Subcategory>> getCategories(){
-		Map<String, List<Subcategory>> result = new HashMap<String, List<Subcategory>>();
+	public static Map<String, List<SubcategoryWithCategory>> getCategories(){
+		Map<String, List<SubcategoryWithCategory>> result = new HashMap<String, List<SubcategoryWithCategory>>();
 		EntityManager entityManager = play.db.jpa.JPA.em();
 		
 		String select = "SELECT c.name catName, s.name subcatName, s.id, s.image_url FROM categories c, subcategories s WHERE c.id = s.category_id";
@@ -44,12 +44,12 @@ public class Subcategory {
 		List<Object[]> list = entityManager.createNativeQuery(select, "CategoriesMapping").getResultList();
 		for(Object[] objArray : list) { 
 			String category = (String) objArray[0];
-			List<Subcategory> subcategories = result.get(category);
+			List<SubcategoryWithCategory> subcategories = result.get(category);
 			if(subcategories == null){
-				subcategories = new ArrayList<Subcategory>();
+				subcategories = new ArrayList<SubcategoryWithCategory>();
 				result.put(category, subcategories);
 			}
-			subcategories.add(new Subcategory((String)objArray[1], (BigInteger) objArray[2], (String)objArray[3]));
+			subcategories.add(new SubcategoryWithCategory((String)objArray[1], (BigInteger) objArray[2], (String)objArray[3]));
 		}
 		return result;
 	}
