@@ -30,7 +30,6 @@ public class Friends extends Application {
 				System.out.println(e);
 				renderJSON(new ErrorResult(-1, e.getMessage()));
 			}
-
 		}
 
 		Gson gson = new GsonBuilder().registerTypeAdapter(User.class, new User.UserSerializer())
