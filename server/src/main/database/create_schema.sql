@@ -83,35 +83,35 @@ on user_subcategories ( subcategory_id );
 
 
 create table events (
-    eid            bigint                                         not null,
+    id             bigint                                         not null,
     description    varchar(255)                                   not null,
-    primary        key(eid)
+    primary        key(id)
 );
 
 create table lists (
-    lid            bigint                                        not null,
+    id             bigint                                        not null,
     owner_id       bigint                                        default null,
     target_id      bigint                                        not null,
-    eid            bigint                                        not null,
-    primary        key(lid)
+    event_id       bigint                                        not null,
+    primary        key(id)
 );
 
 create index lists_owner_idx
 on lists ( owner_id );
 
 create table list_prod (
-    lid            bigint                                         not null,
-    pid            bigint                                         not null,
-    primary        key(lid, pid)
+    list_id        bigint                                         not null,
+    product_id     bigint                                         not null,
+    primary        key(list_id, product_id)
 );
 
 create index list_prod_lid_idx
-on list_prod ( lid );
+on list_prod ( list_id );
 
 create table user_lines_prod_in_list (
-    lid             bigint                                        not null,
-    prod_id         bigint                                        not null,
-    uid             bigint                                        not null,
-    act             enum('y', 'n', 'in')                          default null,
-    primary         key(lid, prod_id, uid)
+    list_id         bigint                                        not null,
+    product_id      bigint                                        not null,
+    user_id         bigint                                        not null,
+    user_action     enum('y', 'n', 'in')                          default null,
+    primary         key(list_id, product_id, user_id)
 );
