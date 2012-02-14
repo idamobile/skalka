@@ -34,6 +34,7 @@ create table products (
     price          float                                          default null,
     type           enum('image', 'image_with_story', 'story')     default null,
     added_when	   date                                           default null,
+    is_public      enum('t','f')                                  default 't',
     primary        key(id)
 );
 
