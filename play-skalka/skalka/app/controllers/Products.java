@@ -38,7 +38,8 @@ public class Products extends Controller {
 			@Required Float price, String type, List<Long> subcategoryId) {
 		try {
 
-			Product product = new Product(descr, story, imageUrl, null, price, type, new Date(), subcategoryId);
+			Product product = new Product(descr, story, imageUrl, null, price, type, new Date(),
+					subcategoryId);
 
 			String accessToken = Session.current().get(User.JSON_TAG_ACCESS_TOKEN);
 			if (accessToken != null) {

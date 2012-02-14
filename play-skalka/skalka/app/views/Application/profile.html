@@ -1,0 +1,34 @@
+#{extends 'main.html' /}
+
+<div class="main-container">				
+    <div class="main userProfile">
+    				    
+		<div class="col-left sidebar">
+			<div class="userPic">
+				<img src="@{'/public/images/userpic.png'}" alt="Valentin Kravtsov"/>
+			</div>
+		</div>
+		
+    	<div class="col-main">
+    		<div class="titleBlock">
+    			<a href="@{Application.index()}" class="backLink">Back to Valentin’s birthday gift</a>
+				<h1 class="title">Describe Valentin</h1>
+				<p class="hint">
+					Click images that match Valentin’s character
+				</p>
+    		</div>
+    		
+    		<div class="categories">
+    			<h2 class="categoryTitle">What is he like?</h2>
+    			<ul class="subCategories">
+    				<li class="item">
+    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
+    					<p class="name">Geek</p>
+    				</li>
+    			</ul>
+    		</div>
+    		
+    	</div>
+    	
+    </div>
+</div> 

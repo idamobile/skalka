@@ -3,18 +3,13 @@ package models;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.IndexColumn;
 
 import play.db.jpa.Model;
 
@@ -22,14 +17,11 @@ import play.db.jpa.Model;
 @Table(name = "products")
 public class Product extends Model {
 
-	@ElementCollection (targetClass=Long.class)
-	@JoinTable(
-	      name="products_subcategories",
-	      joinColumns={ @JoinColumn(name="product_id", referencedColumnName="id") }
-	)
-	@Column(name="subcategory_id", nullable=false)
+	@ElementCollection(targetClass = Long.class)
+	@JoinTable(name = "products_subcategories", joinColumns = { @JoinColumn(name = "product_id", referencedColumnName = "id") })
+	@Column(name = "subcategory_id", nullable = false)
 	public List<Long> subcategoryId;
-	
+
 	@Column(name = "description")
 	public String descr;
 
@@ -77,7 +69,7 @@ public class Product extends Model {
 		if (author == null) {
 			Product product = Product.findById(id);
 			if (product != null && product.addedBy != null) {
-				author = User.find("byFacebookId", product.addedBy).first();
+				author = User.findByFacebookId(product.addedBy);
 			}
 		}
 		return author;
