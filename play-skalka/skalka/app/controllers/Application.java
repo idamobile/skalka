@@ -13,13 +13,13 @@ public class Application extends Controller {
 	@Before
 	static void checkConnected() {
 		if (!session.contains(User.JSON_TAG_ACCESS_TOKEN)) {
-			// Signin.index();
+			Signin.index();
 		} else {
 			User user = Cache.get(session.get(User.JSON_TAG_ACCESS_TOKEN), User.class);
 			if (user == null) {
 				// TODO: ask FB in future to populate cache, for now we make
 				// user login again
-				// Signin.index();
+				Signin.index();
 			}
 			renderArgs.put("user", user);
 		}
