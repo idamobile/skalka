@@ -34,5 +34,9 @@ public class Application extends Controller {
 		session.remove(User.JSON_TAG_ACCESS_TOKEN);
 		index();
 	}
+	
+	public static void profile() {
+		render();
+	}
 
 }

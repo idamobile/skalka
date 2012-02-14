@@ -4,21 +4,22 @@
         <a class="logo" href="#">
         	<img src="@{'/public/images/logo.png'}" alt="Skalka logo" />
         </a>
-        <div class="giftLists">
+        <div class="giftLists select">
         	<p class="label">My gift lists</p>
+        	<a class="expander" href="#">&nbsp;</a>
+        </div>
+        <div class="myFeed select">
+        	<p class="label">My feed</p>
         	<a class="expander" href="#">&nbsp;</a>
         </div>
         
 		#{if _user}
         <div class="user">
         	<!--<img alt="user's image" src="${_user.getImageUrl()}">-->
-    		<a class="expander" href="#" onClick="javascript:void(0)">&nbsp;</a>
+    		<a class="expander" href="#" onclick="javascript:void(0)">&nbsp;</a>
     		<p class="username">${_user}</p>
         </div>
 		#{/if}
 		<a href="@{Application.logout()}">Logout</a>
-        <a class="idea" href="#addProduct">
-        	<span>Submit gif idea</span>
-        </a>
     </div>
 </div>

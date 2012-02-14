@@ -1,24 +1,18 @@
 //var $j = jQuery.noConflict();
 
 $(document).ready(function($) {
-
-	// Initializing IMAGE SLIDER inside add product popup
-	$('.images').easySlider({
-		controlsBefore:	'<div class="buttons">',
-		controlsAfter:	'</div>',
-		continuous: true,
-		speed: 150,
-	});
 	
 	// Initializing ADD YOUR PRODUCT popup
-	$('.idea').fancybox({
+	$('.submitIdea').fancybox({
 		fitToView: false,
 		scrolling: 'no',
 		padding: 0,
 		//openEffect : 'elastic',
-		//openSpeed  : 150,
+		openSpeed  : 150,
 		//closeEffect : 'elastic',
-		//closeSpeed  : 150,
+		closeSpeed  : 150,
+		minHeight: 0,
+		wrapCSS: 'skalkaModal',
 		helpers : {
 			overlay : {
 				css : {
@@ -43,34 +37,101 @@ $(document).ready(function($) {
         }
     });
 	
-
 	/* attach a submit handler to the form */
 	$("#productUrl").submit(function(event) {
+		ajaxProductParce(event);
+	});
 	
-		/* stop form from submitting normally */
-		event.preventDefault(); 
-		
-		/* get some values from elements on the page: */
-		form = $(this);
-	    term = form.find( 'input[name="url"]' ).val();
-	    url = form.attr( 'action' );
-	    $('.progress').show()
-		
-		/* Send the data using post and put the results in a div */
-		$.post( url, { url: term }, function( data ) {
-			//var content = $( data ).find( '#content' );
-			//var content = jQuery.parseJSON(data);
-			//$( "#result" ).empty().append(content);
-			var imgs = data.imageUrls;
-			//alert(data.name);
-			$("#result").empty().append(data.name);
-			$('.progress').hide();
-			$.fancybox.update();
-	  	}, "json");
-	  	$('.jsout').html(progress);
+	$('#productForm').submit(function(event){
+		ajaxAddProduct(event);
 	});
 
 });
+
+function ajaxAddProduct(event){
+
+	event.preventDefault();
+	
+	form = $('#productForm');
+	url = form.attr( 'action' );
+	//inputs = form.children('input', 'textarea');
+	inputs = $('#productForm input, textarea');
+	
+	values = {};
+    inputs.each(function() {
+        values[this.name] = $(this).val();
+    });
+    
+    //alert(values.toSource());
+	
+	/* Add Product to DB */
+	$.post( url, { url: term }, function( data ) {
+	
+	    if(data){
+			alert('Product Added!');
+	    }else{
+	    	alert('Product was not added!');
+	    }
+	});
+}
+
+function ajaxProductParce(event){
+
+	/* stop form from submitting normally */
+	event.preventDefault(); 
+	
+	/* get some values from elements on the page: */
+	form = $('#productUrl');
+	term = form.find( 'input[name="url"]' ).val();
+	url = form.attr( 'action' );
+	progrs = $('.giftSubmit .label');
+	prodInfo = $('.productInfo');
+	prodInfo.hide('', $.fancybox.update());
+	progrs.addClass('progress');
+	
+	/* Send the data using post and put the results in a div */
+	$.post( url, { url: term }, function( data ) {
+	
+	    if(!data.error){
+	    	prodForm = $("#productForm");
+	    	prodName = prodForm.find('input[name="descr"]');
+	    	prodPrice = prodForm.find('input[name="price"]');
+	    	prodImage = prodForm.find('input[name="imageUrl"]');
+	    	
+	    	if(data.name){ prodName.val(data.name); }
+	    	if(data.imageUrls){
+	    		$('.images ul').empty();
+	    		buttons = $('.imagesContainer .buttons');
+	    		if(buttons){
+	    			buttons.remove();
+	    		}
+	    		images = data.imageUrls;
+	    		$.each(images, function(key, value) {
+	    			$('.images ul').append('<li><img src="' + value + '"/></li>');
+	    		});
+	    		prodImage.val(images[0]);
+	    		initGalley();
+	    	}
+	    	if(data.price){ prodPrice.val(data.price); }
+	    	
+	    	progrs.removeClass('progress');
+	    	prodInfo.show(200, $.fancybox.update());
+	    	
+	    }else{
+	    	alert('Product Parcing returned Error!');
+	    }
+	}, "json");
+}
+
+function initGalley(){
+	// Initializing IMAGE SLIDER inside add product popup
+	$('.images').easySlider({
+		controlsBefore:	'<div class="buttons">',
+		controlsAfter:	'</div>',
+		continuous: true,
+		speed: 150,
+	});
+}
 
 
 

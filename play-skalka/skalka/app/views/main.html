@@ -8,6 +8,7 @@
 		
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/reset.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/style.css'}" />
+		<link rel="stylesheet" type="text/css" href="@{'/public/css/popups.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/js/jquery/fancybox/jquery.fancybox.css'}" />
 
         #{if user}
@@ -15,13 +16,14 @@
         		var access_token = "${user.accessToken}";
         	</script>
         #{/if}
+        
 		<script type="text/javascript" src="@{'/public/js/jquery/jquery-1.7.1.min.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery/fancybox/jquery.fancybox.pack.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery/easy.slider/easySlider1.7.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery/jquery.dimensions.js'}"></script>
  				
 		<script type="text/javascript" src="@{'/public/js/custom.scripts.js'}"></script>
-				
+		<script type="text/javascript" src="@{'/public/js/ilnem-custom.scripts.js'}"></script>
 	</head>
 	
 	<body>
@@ -29,17 +31,11 @@
 		    <div class="page">
 		    
 		    	<!-- Header Include -->
-				#{header user: user/}
-				  
-				<div class="main-container col1-layout">				
-				    <div class="main">				    
-						#{sidebar /}				    
-				    	<div class="col-main">				    		
-							#{doLayout /}				    		
-				    	</div>
-				    </div>
-				</div>    
-				    
+				#{header user: user/}   
+				
+				<!-- Main Part comes in here -->
+				#{doLayout /}
+				
 				<div class="footer-container">
     				<div class="footer"></div>
     				<div class="post-footer"></div>
