@@ -41,12 +41,22 @@ create table products (
 create index prod_added_by_uid_idx
 on products ( added_by_uid );
 
+/**
+ * Categories table structure
+ */
+drop table if exists categories;
+
 create table categories (
     id             bigint                                         not null auto_increment,
     name           varchar(255)                                   default null,
     image_url      varchar(1024)                                  not null,
     primary        key(id)
 );
+
+/**
+ * subcategories table structure
+ */
+drop table if exists subcategories;
 
 create table subcategories (
     id             bigint                                         not null auto_increment,
@@ -59,6 +69,10 @@ create table subcategories (
 create index subcat_cat_id_idx
 on subcategories ( category_id );
 
+/**
+ * products_subcategories table structure
+ */
+drop table if exists products_subcategories;
 
 create table products_subcategories (
     subcategory_id    bigint                                         not null,
@@ -72,6 +86,11 @@ on products_subcategories ( product_id );
 create index prod_cat_cid_idx
 on products_subcategories ( subcategory_id );
 
+/**
+ * user_subcategories table structure
+ */
+drop table if exists user_subcategories;
+
 create table user_subcategories (
     subcategory_id     bigint                                         not null,
     uid                bigint                                         not null,
@@ -81,12 +100,21 @@ create table user_subcategories (
 create index user_cat_cid_idx
 on user_subcategories ( subcategory_id );
 
+/**
+ * events table structure
+ */
+drop table if exists events;
 
 create table events (
     id             bigint                                         not null,
     description    varchar(255)                                   not null,
     primary        key(id)
 );
+
+/**
+ * lists table structure
+ */
+drop table if exists lists;
 
 create table lists (
     id             bigint                                        not null,
@@ -100,6 +128,11 @@ create table lists (
 create index lists_owner_idx
 on lists ( owner_id );
 
+/**
+ * list_prod table structure
+ */
+drop table if exists list_prod;
+
 create table list_prod (
     list_id        bigint                                         not null,
     product_id     bigint                                         not null,
@@ -109,7 +142,12 @@ create table list_prod (
 create index list_prod_lid_idx
 on list_prod ( list_id );
 
-create table user_lines_prod_in_list (
+/**
+ * user_actions_in_prod_list table structure
+ */
+drop table if exists user_actions_in_prod_list;
+
+create table user_actions_in_prod_list (
     list_id         bigint                                        not null,
     product_id      bigint                                        not null,
     user_id         bigint                                        not null,
