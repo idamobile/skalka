@@ -32,10 +32,10 @@ public class Products extends Controller {
 	}
 
 	public static void add(String descr, String story, @Required String imageUrl,
-			@Required Float price, String type) {
+			@Required Float price, String type, List<Long> subcategoryId) {
 		try {
 
-			Product product = new Product(descr, story, imageUrl, null, price, type, new Date());
+			Product product = new Product(descr, story, imageUrl, null, price, type, new Date(), subcategoryId);
 
 			String accessToken = Session.current().get(User.JSON_TAG_ACCESS_TOKEN);
 			if (accessToken != null) {
