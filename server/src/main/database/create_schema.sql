@@ -41,12 +41,22 @@ create table products (
 create index prod_added_by_uid_idx
 on products ( added_by_uid );
 
+/**
+ * Categories table structure
+ */
+drop table if exists categories;
+
 create table categories (
     id             bigint                                         not null auto_increment,
     name           varchar(255)                                   default null,
     image_url      varchar(1024)                                  not null,
     primary        key(id)
 );
+
+/**
+ * subcategories table structure
+ */
+drop table if exists subcategories;
 
 create table subcategories (
     id             bigint                                         not null auto_increment,
@@ -59,6 +69,10 @@ create table subcategories (
 create index subcat_cat_id_idx
 on subcategories ( category_id );
 
+/**
+ * products_subcategories table structure
+ */
+drop table if exists products_subcategories;
 
 create table products_subcategories (
     subcategory_id    bigint                                         not null,
@@ -72,6 +86,11 @@ on products_subcategories ( product_id );
 create index prod_cat_cid_idx
 on products_subcategories ( subcategory_id );
 
+/**
+ * user_subcategories table structure
+ */
+drop table if exists user_subcategories;
+
 create table user_subcategories (
     subcategory_id     bigint                                         not null,
     uid                bigint                                         not null,
@@ -81,37 +100,45 @@ create table user_subcategories (
 create index user_cat_cid_idx
 on user_subcategories ( subcategory_id );
 
-
-create table events (
-    eid            bigint                                         not null,
-    description    varchar(255)                                   not null,
-    primary        key(eid)
-);
+/**
+ * lists table structure
+ */
+drop table if exists lists;
 
 create table lists (
-    lid            bigint                                        not null,
+    id             bigint                                        not null,
+    list_name      varchar(255)                                  default null,
     owner_id       bigint                                        default null,
     target_id      bigint                                        not null,
-    eid            bigint                                        not null,
-    primary        key(lid)
+    primary        key(id)
 );
 
 create index lists_owner_idx
 on lists ( owner_id );
 
+/**
+ * list_prod table structure
+ */
+drop table if exists list_prod;
+
 create table list_prod (
-    lid            bigint                                         not null,
-    pid            bigint                                         not null,
-    primary        key(lid, pid)
+    list_id        bigint                                         not null,
+    product_id     bigint                                         not null,
+    primary        key(list_id, product_id)
 );
 
 create index list_prod_lid_idx
-on list_prod ( lid );
+on list_prod ( list_id );
 
-create table user_lines_prod_in_list (
-    lid             bigint                                        not null,
-    prod_id         bigint                                        not null,
-    uid             bigint                                        not null,
-    act             enum('y', 'n', 'in')                          default null,
-    primary         key(lid, prod_id, uid)
+/**
+ * user_actions_in_prod_list table structure
+ */
+drop table if exists user_actions_in_prod_list;
+
+create table user_actions_in_prod_list (
+    list_id         bigint                                        not null,
+    product_id      bigint                                        not null,
+    user_id         bigint                                        not null,
+    user_action     enum('y', 'n', 'in')                          default null,
+    primary         key(list_id, product_id, user_id)
 );
