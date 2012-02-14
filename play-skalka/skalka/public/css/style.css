@@ -82,14 +82,15 @@ ul,ol         { list-style:none; }
 	background: transparent url(/public/images/bg_main.png) repeat-y 0 0;
 	padding: 0 28px 0;
 	margin: 0 auto;
+	position: relative;	
 }
 
 /* Base Columns */
 .col-left { 
-	float:left; 
 	width: 308px;
-	min-height: 400px;
-	padding: 58px 0 0;
+	position: absolute;
+	top: 30px;
+	left: 28px;
 }
 .col-main { 
 	padding: 0;
@@ -215,6 +216,7 @@ ul,ol         { list-style:none; }
 	box-shadow: 0px 1px 1px #fff, 0px 0px 54px #e6e6e6 inset;
 	position: relative;
 	padding: 25px;
+	width: 254px;
 }
 .giftList .userPic {
 	width: 108px;
@@ -333,49 +335,121 @@ ul,ol         { list-style:none; }
 	font-style: italic;
 }
 
+/************************************************************************/
+/* Modal Dialogs */
 
-/* General List Styles */
-.item-list {}
-.item-list .item {
-	background: transparent url(/public/images/bg_divider_vert.png) repeat-x 0 100%;
-	padding: 8px 0 10px;
+.giftSubmit {
+	background: #4b4b4b;
+	width: 670px;
+	border-radius: 5px;
+	text-align: left;
 }
-.item-list .item .labels {
-	float: left;
-	text-shadow: 0px 1px 1px #fff;
-}
-.item-list .item .title {
-	display: block;
-	font-size: 17px;
+.giftSubmit .title {
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #777;
+	padding: 0 25px;
+	font-size: 26px;
 	font-weight: bold;
-	line-height: 1;
+	color: #fff;
 }
-.item-list .item .hint {
+.giftSubmit .container {
+	padding: 24px 18px;
+}
+.giftSubmit .inputContainer {
+	background: #3c3c3c;
+	border-radius: 5px;
+	padding: 6px;
+	margin: 0 0 18px;
+}
+.giftSubmit .inputContainer .inner {
+	background: #fff;
+	border-radius: 5px;
+	line-height: 33px;
+	height: 33px;
+	padding: 8px;
+}
+.giftSubmit .inputContainer .label {
 	display: block;
-	font-size: 11px;
-	color: #808080;
-}
-.item-list .item.type1 .value {
-	display: block;
-	float: right;
-	width: 285px;
-}
-.item-list .item.type2 .labels {
-	float: none;
-}
-.item-list textarea {
-	width: 594px;
-	height: 140px;
-}
-.item-list .actions {
-	width: 295px;
-	float: right;
-	padding: 5px 0 0;
-}
-.item-list .actions .button {
 	float: left;
-	margin-right: 20px;
+	color: #2f2f2f;
+	border-right: 1px solid #CCC;
+	padding: 0 12px 0 4px;
+	font-size: 15px;
+	font-weight: bold;
 }
+.giftSubmit .inputContainer .input-text {
+	border: none;
+	margin: 0 0 0 6px;
+	box-shadow: none;
+	height: auto;
+	width: 500px;
+}
+.giftSubmit .inputContainer .progress {
+	float: right;
+	height: 33px;
+	width: 33px;
+	background: transparent url(/public/images/progress.gif) no-repeat 0 0;
+}
+.giftSubmit .productInfo .imagesContainer {
+	float: left;
+	background: #3c3c3c;
+	border-radius: 5px;
+	padding: 6px;
+	margin: 0 28px 0 0;
+}
+.giftSubmit .productInfo .imagesContainer .images {
+	height: 175px;
+}
+.giftSubmit .productInfo .imagesContainer .images li {
+	width: 172px;
+	height: 175px;
+}
+.giftSubmit .productInfo .imagesContainer .buttons {
+	padding: 6px 0 0;
+}
+.giftSubmit .productInfo .imagesContainer .buttons span {
+	width: 82px;
+	height: 39px;
+	background: transparent url(/public/images/bg_button_blue.jpg) repeat-x 0 0;
+	border-radius: 4px;
+	cursor: pointer;
+	display: block;
+}
+.giftSubmit .productInfo .imagesContainer #prevBtn { float: left; }
+.giftSubmit .productInfo .imagesContainer #nextBtn { float: right; }
+.giftSubmit .productInfo .imagesContainer #prevBtn a {
+	display: block;
+	height: 39px;
+	background: transparent url(/public/images/icons/arrow_left.gif) no-repeat 50% 50%;
+	text-indent: -9999em;
+}
+.giftSubmit .productInfo .imagesContainer #nextBtn a {
+	display: block;
+	height: 39px;
+	background: transparent url(/public/images/icons/arrow_right.gif) no-repeat 50% 50%;
+	text-indent: -9999em;
+}
+.giftSubmit .productInfo .form-list {
+	float: left;
+	width: 420px;
+	padding: 6px 0 0;
+}
+.giftSubmit .productInfo .form-list li {
+	margin: 0 0 15px;
+}
+.giftSubmit .productInfo .input-text {
+	width: 400px;
+	color: #262626;
+}
+.giftSubmit .productInfo textarea {
+	font-size: 14px;
+	font-weight: normal;
+	height: 90px;
+}
+
+/************************************************************************/
+/* General Styles
 
 
 /* Page Heading */
@@ -406,8 +480,9 @@ ul,ol         { list-style:none; }
 }
 
 
+/************************************************************************/
+/* Footer */
 
-/* Footer ================================================================================ */
 .footer { 
 	height: 48px;
 	padding: 12px 20px 0;

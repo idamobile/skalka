@@ -9,15 +9,20 @@
 		
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/reset.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/style.css'}" />
+		<link rel="stylesheet" type="text/css" href="@{'public/js/jquery/fancybox/jquery.fancybox.css'}" />
 
         #{if user}
         	<script type="text/javascript">
         		var access_token = "${user.accessToken}";
         	</script>
         #{/if}
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
- 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>		
-		<script type="text/javascript" src="@{'/public/js/custom.scripts.js'}"></script>		
+		<script type="text/javascript" src="@{'public/js/jquery/jquery-1.7.1.min.js'}"></script>
+		<script type="text/javascript" src="@{'public/js/jquery/fancybox/jquery.fancybox.pack.js'}"></script>
+		<script type="text/javascript" src="@{'public/js/jquery/easy.slider/easySlider1.7.js'}"></script>
+		<script type="text/javascript" src="@{'public/js/jquery/jquery.dimensions.js'}"></script>
+ 				
+		<script type="text/javascript" src="@{'/public/js/custom.scripts.js'}"></script>
+				
 	</head>
 	
 	<body>
@@ -39,6 +44,56 @@
 
     		</div>
     	</div>
+    	
+		<div class="hidden">
+		
+			<!-- SUBMIT NEW PRODUCT POPUP -->
+			<div class="giftSubmit" id="addProduct">
+				<div class="title">
+					Submit your gift
+				</div>
+				<div class="container">
+					<form id="productUrl" method="post" action="#">
+						<div class="inputContainer">
+							<div class="inner">
+								<span class="label">URL</span>
+								<input type="text" title="Paste your URL here" class="input-text" id="url" value="" name="url">
+								<div class="progress"></div>
+							</div>
+						</div>
+					</form>
+					<div class="productInfo">
+						<div class="imagesContainer">
+							<div class="images">
+								<ul>
+									<li>
+										<img src="<?php echo $url ?>product1.jpg" alt="Product Name"/>
+									</li>
+									<li>
+										<img src="<?php echo $url ?>product2.jpg" alt="Product Name"/>
+									</li>
+									<li>
+										<img src="<?php echo $url ?>product3.jpg" alt="Product Name"/>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<form id="product-form" method="post" action="#">
+						<ul class="form-list">
+							<input type="hidden" name="image" value="">
+							<li class="name">
+								<input type="text" title="Name of the chosen product" class="input-text" id="name" value="Product Name" name="name">
+							</li>
+							<li class="description">
+								<textarea class="input-text" title="Product description" id="description" name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet, purus eget dapibus accumsan, ante dui lacinia tellus, ut pellentesque lacus libero sed tellus.</textarea>
+							</li>
+						</ul>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>    	
     	
 	</body>
 </html>
