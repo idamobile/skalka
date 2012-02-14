@@ -1,5 +1,9 @@
 package controllers;
 
+import static utils.Constants.ERROR_PARSING_FAILED;
+import static utils.Constants.PRODUCTS_PAGE_SIZE;
+import static utils.Constants.PRODUCT_IMAGE_WIDTH;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -17,7 +21,6 @@ import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Controller;
 import play.mvc.Scope.Session;
-import utils.Constants;
 import utils.html_parser.ProductParser;
 
 public class Products extends Controller {
@@ -27,7 +30,7 @@ public class Products extends Controller {
 			renderJSON(new ProductParser().parse(url));
 		} catch (Exception e) {
 			e.printStackTrace();
-			renderJSON(new ErrorResult(Constants.ERROR_PARSING_FAILED, e.getMessage()));
+			renderJSON(new ErrorResult(ERROR_PARSING_FAILED, e.getMessage()));
 		}
 	}
 
@@ -63,7 +66,7 @@ public class Products extends Controller {
 
 		File to = new File(Blob.getStore(), Codec.UUID());
 
-		Images.resize(from.getFile(), to, Constants.PRODUCT_IMAGE_WIDTH, -1);
+		Images.resize(from.getFile(), to, PRODUCT_IMAGE_WIDTH, -1);
 
 		return to.getAbsolutePath();
 	}
@@ -77,9 +80,11 @@ public class Products extends Controller {
 		renderBinary(new File(p.image));
 	}
 
-	public static void list() {
-		List<Product> products = Product.findAll();
+	public static void list(int page) {
+		page = (page <= 0) ? 1 : page;
+
+		int startIndex = (page - 1) * PRODUCTS_PAGE_SIZE;
+		List<Product> products = Product.all().from(startIndex).fetch(PRODUCTS_PAGE_SIZE);
 		render(products);
 	}
-
 }

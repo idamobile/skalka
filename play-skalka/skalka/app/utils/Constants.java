@@ -6,4 +6,6 @@ public class Constants {
 	public static final int ERROR_PARSING_FAILED = 1000;
 
 	public static final int PRODUCT_IMAGE_WIDTH = 295;
+
+	public static final int PRODUCTS_PAGE_SIZE = 1;
 }

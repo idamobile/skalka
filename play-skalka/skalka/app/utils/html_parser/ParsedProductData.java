@@ -7,14 +7,16 @@ import java.util.ArrayList;
 public class ParsedProductData {
 
 	private final static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
-	
-	private enum TYPE { IMAGE, IMAGE_WITH_TEXT, TEXT_ONLY }
+
+	private enum TYPE {
+		image, image_with_text, text_only
+	}
 
 	private String name;
 	private ArrayList<URL> imageUrls = new ArrayList<URL>();
 	private String price;
-	private TYPE type = TYPE.IMAGE;
-	
+	private TYPE type = TYPE.image;
+
 	public String getName() {
 		return name;
 	}
@@ -46,9 +48,9 @@ public class ParsedProductData {
 	public void setType(TYPE type) {
 		this.type = type;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return "Name:" + name + "\nImageUrl:" + imageUrls + "\nprice:" + price + "\nType:" + type;
 	}
-	
+
 }
