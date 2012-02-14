@@ -374,6 +374,7 @@ ul,ol         { list-style:none; }
 	height: 33px;
 	width: 33px;
 	background: transparent url(/public/images/progress.gif) no-repeat 0 0;
+	display: none;
 }
 .giftSubmit .productInfo .imagesContainer {
 	float: left;
