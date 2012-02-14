@@ -1,8 +1,56 @@
 //var $j = jQuery.noConflict();
 
-$(document).ready(function($) {
+$(document).ready(function() {
+	
+	// Initializing IMAGE SLIDER inside add product popup
+	$('.images').easySlider({
+		controlsBefore:	'<div class="buttons">',
+		controlsAfter:	'</div>',
+		continuous: true,
+		speed: 150,
+	});
+	
+	// Initializing ADD YOUR PRODUCT popup
+	$('.idea').fancybox({
+		fitToView: false,
+		padding: 0,
+		//openEffect : 'elastic',
+		//openSpeed  : 150,
+		//closeEffect : 'elastic',
+		//closeSpeed  : 150,
+		helpers : {
+			overlay : {
+				css : {
+					'background-color' : '#eee'
+				},
+				opacity: 0.5
+			}
+		}
+	});
+	
+	name = $(".sidebar"); 
+	start = name.position().top;
+    
+    $(window).scroll(function () {  
+    	windowTop = $(document).scrollTop();
+        if(windowTop > start){
+        	name.css('top', windowTop);
+        }
+        
+        
+    });  
+    $('.jsout').html(start);
+	
+    alert("init");
+    
+	$('#productUrl').submit(function() {
+		alert("we are bout to submit");
+		return false;
+	});
 	
 });
+
+
 
 var GridLayout = function () {
 	return {

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,21 +8,29 @@
 		
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/reset.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/style.css'}" />
+		<link rel="stylesheet" type="text/css" href="@{'/public/js/jquery/fancybox/jquery.fancybox.css'}" />
 
         #{if user}
         	<script type="text/javascript">
         		var access_token = "${user.accessToken}";
         	</script>
         #{/if}
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
- 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>		
-		<script type="text/javascript" src="@{'/public/js/custom.scripts.js'}"></script>		
+		<script type="text/javascript" src="@{'/public/js/jquery/jquery-1.7.1.min.js'}"></script>
+		<script type="text/javascript" src="@{'/public/js/jquery/fancybox/jquery.fancybox.pack.js'}"></script>
+		<script type="text/javascript" src="@{'/public/js/jquery/easy.slider/easySlider1.7.js'}"></script>
+		<script type="text/javascript" src="@{'/public/js/jquery/jquery.dimensions.js'}"></script>
+ 				
+		<script type="text/javascript" src="@{'/public/js/custom.scripts.js'}"></script>
+				
 	</head>
 	
 	<body>
 		<div class="wrapper">
 		    <div class="page">
-				#{header user: user/}        
+		    
+		    	<!-- Header Include -->
+				#{header user: user/}
+				  
 				<div class="main-container col1-layout">				
 				    <div class="main">				    
 						#{sidebar /}				    
@@ -31,7 +38,8 @@
 							#{doLayout /}				    		
 				    	</div>
 				    </div>
-				</div>        
+				</div>    
+				    
 				<div class="footer-container">
     				<div class="footer"></div>
     				<div class="post-footer"></div>
@@ -39,6 +47,6 @@
 
     		</div>
     	</div>
-    	
+    	#{popups /}
 	</body>
 </html>

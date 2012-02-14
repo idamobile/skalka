@@ -2,9 +2,10 @@
 
 /* Form Elements */
 input,select,textarea,button { 
-	font: 13px Arial, Helvetica, sans-serif; 
+	font: 20px Arial, Helvetica, sans-serif; 
 	vertical-align: middle; 
-	color: #333333;
+	color: #989898;
+	font-weight: bold;
 }
 input.input-text,
 select,
@@ -15,7 +16,7 @@ textarea {
 input.input-text:focus,
 select:focus,
 textarea:focus { 
-	border:1px solid #36beed;
+	
 }
 input.input-text, textarea { 
 	padding: 4px 6px; 
@@ -24,7 +25,6 @@ input.input-text, textarea {
 }
 textarea { 
 	overflow:auto;
-	padding: 10px;
 	line-height: 1.5;
 }
 
@@ -127,6 +127,7 @@ button.disabled span {}
 .buttons-set p.required { margin:0 0 5px; }
 
 /* Clears ================================================================================ */
+.giftSubmit .productInfo:after,
 .friend-box .profile:after,
 .clear,
 .clearer:after,

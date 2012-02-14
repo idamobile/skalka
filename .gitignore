@@ -1,3 +1,5 @@
 server/target
 play-skalka/skalka/tmp
 play-skalka/skalka/eclipse/classes/
+play-skalka/skalka/nohup.out
+play-skalka/skalka/data/
