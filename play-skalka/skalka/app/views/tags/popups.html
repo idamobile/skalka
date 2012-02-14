@@ -2,7 +2,7 @@
 		
 	<!-- SUBMIT NEW PRODUCT POPUP -->
 	<div class="giftSubmit" id="addProduct">
-	    <div class="title">
+	    <div class="popupTitle">
 	    	Submit your gift
 	    </div>
 	    <div class="container">
@@ -15,8 +15,7 @@
 	    			</div>
 	    		</div>
 	    	</form>
-	    	<div id="result"></div>
-	    	<!--
+
 	    	<div class="productInfo">
 	    		<div class="imagesContainer">
 	    			<div class="images">
@@ -33,19 +32,40 @@
 	    				</ul>
 	    			</div>
 	    		</div>
-	    		<form id="productForm" method="post" action="#">
+	    		<form id="productForm" method="post" action="/products/add">
 	    		<ul class="form-list">
-	    			<input type="hidden" name="image" value="">
+	    			<input type="hidden" name="imageUrl" value="">
+					<input type="hidden" name="subcategoryId" value="1">
+					<input type="hidden" name="subcategoryId" value="2">
+					<input type="hidden" name="type" value="image">
+	    			<!--
 	    			<li class="name">
 	    				<input type="text" title="Name of the chosen product" class="input-text" id="name" value="Product Name" name="name">
 	    			</li>
-	    			<li class="description">
-	    				<textarea class="input-text" title="Product description" id="description" name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet, purus eget dapibus accumsan, ante dui lacinia tellus, ut pellentesque lacus libero sed tellus.</textarea>
+	    			-->
+	    			<li class="description inputContainer">
+	    				<div class="inner">
+	    					<span class="label">Title</span>
+	    					<input type="text" title="Name of the chosen product" class="input-text" id="descr" value="" name="descr">
+	    				</div>
 	    			</li>
+	    			<li class="price inputContainer">
+	    				<div class="inner">
+	    					<span class="label">Price</span>
+	    					<input type="text" title="Product price" class="input-text" id="price" value="" name="price">
+	    				</div>
+	    			</li>
+	    			<div class="clear"></div>
+	    			<li class="story inputContainer">
+	    				<div class="inner">
+	    					<span class="label">Gift story</span>
+	    					<textarea class="input-text" title="Product story" id="story" name="story">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet, purus eget dapibus accumsan, ante dui lacinia tellus, ut pellentesque lacus libero sed tellus.</textarea>
+	    				</div>
+	    			</li>	    			
 	    		</ul>
+	    		<button type="submit">Submit</button>
 	    		</form>
 	    	</div>
-	    	-->
 	    	
 	    </div>
 	</div>

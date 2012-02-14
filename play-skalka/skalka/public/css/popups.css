@@ -1,0 +1,161 @@
+
+/************************************************************************/
+/* Modal Dialogs */
+
+.skalkaModal .fancybox-outer {
+	background: #fff;
+	text-align: left;
+}
+.skalkaModal .fancybox-outer {}
+.skalkaModal .popupTitle {
+	height: 50px;
+	line-height: 50px;
+	padding: 0 21px;
+	font-size: 26px;
+	font-family: Helvetica;
+	color: #fff;
+	background: #999;
+	border-radius: 5px 5px 0 0;
+}
+.skalkaModal .container {
+	padding: 15px 18px;
+}
+.skalkaModal .inputContainer {
+	background: #f1f1f1;
+	border-radius: 6px;
+	padding: 6px;
+	margin: 0 0 18px;
+	display: block;
+}
+.skalkaModal .inputContainer .inner {
+	background: #fff;
+	border-radius: 6px;
+	border: 1px solid #d6d6d6;
+	line-height: 21px;
+	height: 21px;
+	padding: 6px;
+}
+.skalkaModal .inputContainer .input-text {
+	border: none;
+	margin: 0 0 0 6px;
+	height: auto;
+	font-size: 13px;
+	font-family: Helvetica;
+	color: #9f9f9f;
+	float: left;
+	padding: 0;
+	height: 21px;
+}
+.skalkaModal .inputContainer .label {
+	display: block;
+	float: left;
+	color: #2f2f2f;
+	border-width: 0px 1px 0px 0px;
+	border-style: solid;
+	border-color: #CCC;
+	padding: 0 12px 0 4px;
+	font-size: 15px;
+	font-weight: bold;
+}
+.skalkaModal .inputContainer .label.progress {
+	background: transparent url(/public/images/progress.gif) no-repeat 20% 50%;
+	text-indent: -9999em;
+	width: 47px;
+	padding: 0;
+}
+
+
+/************************************************************************/
+/* PRODUCT ADD DIALOG */
+
+.giftSubmit {
+	width: 670px;
+}
+.giftSubmit .inputContainer .input-text {
+	width: 500px;
+}
+.giftSubmit .productInfo {
+	display: none;
+}
+
+/* IMAGES */
+.giftSubmit .productInfo .imagesContainer {
+	float: left;
+	background: #f1f1f1;
+	border-radius: 5px;
+	padding: 6px 6px 10px;
+	margin: 0 28px 0 0;
+}
+.giftSubmit .productInfo .imagesContainer .images {
+	height: 175px;
+}
+.giftSubmit .productInfo .imagesContainer .images li {
+	width: 172px;
+	height: 175px;
+}
+.giftSubmit .productInfo .imagesContainer .images li img {
+	width: 172px;
+	height: 175px;
+}
+.giftSubmit .productInfo .imagesContainer .buttons {
+	padding: 6px 0 0;
+}
+.giftSubmit .productInfo .imagesContainer .buttons span {
+	width: 37px;
+	height: 25px;
+	background: transparent url(/public/images/bg_button_blue.jpg) repeat-x 0 0;
+	border-radius: 4px;
+	cursor: pointer;
+	display: block;
+	box-shadow: 0px 1px 1px #3c7b87;
+}
+.giftSubmit .productInfo .imagesContainer #prevBtn { float: left; }
+.giftSubmit .productInfo .imagesContainer #nextBtn { float: right; }
+.giftSubmit .productInfo .imagesContainer #prevBtn a {
+	display: block;
+	height: 25px;
+	background: transparent url(/public/images/icons/arrow_left.gif) no-repeat 40% 50%;
+	text-indent: -9999em;
+}
+.giftSubmit .productInfo .imagesContainer #nextBtn a {
+	display: block;
+	height: 25px;
+	background: transparent url(/public/images/icons/arrow_right.gif) no-repeat 60% 50%;
+	text-indent: -9999em;
+}
+.giftSubmit .productInfo .form-list {
+	float: left;
+	width: 420px;
+	padding: 6px 0 0;
+}
+.giftSubmit .productInfo .form-list li {
+	margin: 0 0 15px;
+}
+.giftSubmit .productInfo .inputContainer.description {
+	float: left;
+	margin-right: 10px;
+}
+.giftSubmit .productInfo .inputContainer.price {
+	float: left;
+}
+.giftSubmit .productInfo .inputContainer.description .input-text {
+	width: 190px;
+}
+.giftSubmit .productInfo .inputContainer.price .input-text {
+	width: 54px;
+}
+.giftSubmit .productInfo .inputContainer.story .inner {
+	height: auto;
+}
+.giftSubmit .productInfo .inputContainer.story .label {
+	float: none;
+	border-width: 0px 0px 1px;
+	padding-left: 0px;
+}
+.giftSubmit .productInfo .inputContainer.story textarea {
+	float: none;
+	width: 394px;
+	margin: 0;
+	height: 75px;
+	padding: 5px 0 0;
+}
