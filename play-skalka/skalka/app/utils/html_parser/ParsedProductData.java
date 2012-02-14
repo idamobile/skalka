@@ -16,6 +16,11 @@ public class ParsedProductData {
 	private ArrayList<URL> imageUrls = new ArrayList<URL>();
 	private String price;
 	private TYPE type = TYPE.image;
+	private boolean error = false;
+
+	public boolean isError() {
+		return error;
+	}
 
 	public String getName() {
 		return name;
