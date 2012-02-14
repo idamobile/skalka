@@ -88,9 +88,14 @@ ul,ol         { list-style:none; }
 /* Base Columns */
 .col-left { 
 	width: 308px;
-	position: absolute;
-	top: 30px;
-	left: 28px;
+	padding: 60px 0 0;
+	float: left;
+}
+.col-left.fixed { 
+	float: none;
+	padding: 0;
+	position: fixed;
+	top: 60px;
 }
 .col-main { 
 	padding: 0;
@@ -98,7 +103,6 @@ ul,ol         { list-style:none; }
 }
 
 /* Header ================================================================================ */
-
 .header-container {
 	border-bottom: 1px solid #cdcdcd;
 	/*box-shadow: 0px 0px 3px #c5c5c5;*/
@@ -111,7 +115,7 @@ ul,ol         { list-style:none; }
 	line-height: 30px;
 	font-size: 15px;
 	color: #0b95bd;
-	font-weight: bold;
+	background: #fff;
 }
 .header a { color: #0b95bd; }
 .header a:hover { }
@@ -119,26 +123,13 @@ ul,ol         { list-style:none; }
 	float: left;
 	margin: 0 45px 0 0;
 }
-.header .eventControls {
+.header .giftLists {
 	float: left;
 }
-.header .eventControls #eventSelect {
-	margin: 0 30px 0 0;
+.header .giftLists .label {
 	float: left;
-	font-size: 18px;
-	font-family: Georgia;
-	font-style: italic;
-	height: 30px;
-	padding: 3px;
-}
-.header .eventControls #eventSelect option {
-	padding: 0 4px;
-}
-.header .eventControls #eventNew {
-	float: left;
-	display: block;
-	padding: 0 0 0 30px;
-	background: transparent url(/public/images/icons/plus_grey.png) no-repeat 0 50%;
+	font-size: 17px;
+	color: #333;
 }
 .header .user {
 	float: right;
@@ -193,23 +184,6 @@ ul,ol         { list-style:none; }
 }
 
 /* LEFT COL */
-.friend-box {
-	position: relative;
-}
-.friend-box .actions {
-	line-height: 36px;
-	height: 36px;
-}
-.friend-box .profile {
-	background: -webkit-linear-gradient(bottom, #6b6b6b, #818181);
-	background: -moz-linear-gradient(bottom, #6b6b6b, #818181);
-	padding: 7px;
-	border-radius: 5px;
-}
-.friend-box .profile img {
-	float: left;
-	margin: 0 10px 0 0;
-}
 .giftList {
 	border: 1px solid #c2c2c2;
 	border-radius: 5px;
@@ -231,6 +205,13 @@ ul,ol         { list-style:none; }
 	-moz-transform: rotate(356deg);
 	-webkit-transform: rotate(356deg);
 }
+.giftList .eventName {
+    font-size: 26px;
+    height: 110px;
+    line-height: 1.3;
+    margin: -10px 0 0;
+    padding: 0 0 0 90px;
+}
 .giftList .items {
 	margin: 0 0 0 -20px;
 }
@@ -241,21 +222,24 @@ ul,ol         { list-style:none; }
 	background: transparent url(/public/images/bg_giftlist_emptyitem.png) no-repeat 0 0;
 	margin: 0 0 20px 20px;
 }
-.giftList .items li.empty {
-	background: transparent url(/public/images/bg_giftlist_emptyitem.png) no-repeat 0 0;
+.giftList .items li.item {
+	background: #fff;
+	border-radius: 5px;
+	border: 1px solid #9b9b9b;
+	box-shadow: 0px 2px 2px #adadad;
+	height: 63px;
+	width: 63px;
+	padding: 3px;
 }
-.giftList .arrow {
-	background: transparent url(/public/images/bg_giftlist_hintarrow.png) no-repeat 50% 0;
-	height: 43px;
-	margin: 0 0 21px 0;
-}
-.giftList .hint {
-	color: #989898;
-	font-size: 15px;
+.giftList .items li.add {
+	font-size: 13px;
 	font-weight: bold;
+	color: #989898;
 	text-shadow: 0px 1px 1px #fff;
-	padding: 0 15px;
 	text-align: center;
+	padding-top: 17px;
+	height: 54px;
+	line-height: 1.3;
 }
 
 .feedToolbar {

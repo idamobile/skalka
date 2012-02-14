@@ -1,27 +1,24 @@
+
 <div class="header-container">
     <div class="header">
         <a class="logo" href="#">
         	<img src="@{'/public/images/logo.png'}" alt="Skalka logo" />
         </a>
-        <div class="eventControls">
-        	<select id="eventSelect">
-        		<option value="one">Event One</option>
-        		<option value="two">Event Two</option>
-        	</select>
-        	<a href="#" id="eventNew">Add new gift list</a>
+        <div class="giftLists">
+        	<p class="label">My gift lists</p>
+        	<a class="expander" href="#">&nbsp;</a>
         </div>
-
-	#{if _user}
+        
+		#{if _user}
         <div class="user">
-        	<img alt="user's image" src="${_user.getImageUrl()}">
-    		<a class="expander" href="#">&nbsp;</a>
+        	<!--<img alt="user's image" src="${_user.getImageUrl()}">-->
+    		<a class="expander" href="#" onClick="javascript:void(0)">&nbsp;</a>
     		<p class="username">${_user}</p>
-    		<a class="expander" href="@{Application.logout()}">Logout</a>
         </div>
-	#{/if}
+		#{/if}
+		<a href="@{Application.logout()}">Logout</a>
         <a class="idea" href="#addProduct">
-        	<span>Submit gift idea</span>
+        	<span>Submit gif idea</span>
         </a>
     </div>
 </div>
-

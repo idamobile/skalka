@@ -1,7 +1,7 @@
 //var $j = jQuery.noConflict();
 
-$(document).ready(function() {
-	
+$(document).ready(function($) {
+
 	// Initializing IMAGE SLIDER inside add product popup
 	$('.images').easySlider({
 		controlsBefore:	'<div class="buttons">',
@@ -28,24 +28,24 @@ $(document).ready(function() {
 		}
 	});
 	
-	name = $(".sidebar"); 
-	start = name.position().top;
+	sidebar = $(".sidebar");
+	//start = sidebar.position().top;
+	start = 52;
     
     $(window).scroll(function () {  
     	windowTop = $(document).scrollTop();
-        if(windowTop > start){
-        	name.css('top', windowTop);
+        if(windowTop >= start){
+        	//sidebar.css('top', windowTop);
+        	sidebar.addClass('fixed');
+        }else{
+        	sidebar.removeClass('fixed');
         }
-        
-        
     });  
-    $('.jsout').html(start);
+	$('.jsout').html(start);
 	
-    alert("init");
-    
-	$('#productUrl').submit(function() {
-		alert("we are bout to submit");
-		return false;
+	$('#productUrl').submit(function(e){
+		alert('Hello!');
+		e.preventDefault();
 	});
 	
 });
