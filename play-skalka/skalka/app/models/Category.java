@@ -17,6 +17,11 @@ public class Category extends Model {
 	public String imageUrl;
 
 	@Override
+	public String toString() {
+		return "Category [name=" + name + ", imageUrl=" + imageUrl + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();

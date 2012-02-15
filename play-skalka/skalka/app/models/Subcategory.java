@@ -25,6 +25,12 @@ public class Subcategory extends Model {
 	@ManyToOne
 	public Category category;
 
+	@Override
+	public String toString() {
+		return "Subcategory [name=" + name + ", imageUrl=" + imageUrl + ", category=" + category
+				+ "]";
+	}
+
 	public static Map<Category, List<Subcategory>> getTree() {
 		List<Subcategory> cats = Subcategory.all().fetch();
 

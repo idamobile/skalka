@@ -12,7 +12,7 @@
 			</div>
 			<div><input id="btnSubmit" type="button" value="Submit.." /></div>
 			<script type="text/javascript">
-initProfileEditor();
+				initProfileEditor();
 			</script>
 		</div>
 
@@ -23,104 +23,6 @@ initProfileEditor();
 				<p class="hint">
 					Click images that match Valentin’s character
 				</p>
-<<<<<<< HEAD
-			</div>
-
-			<div class="categories">
-				<h2 class="categoryTitle">What is he like?</h2>
-				<ul class="subCategories">
-					<li class="item" id="9987">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="9988">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id = "9989">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="9990" >
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="9991" >
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="9992" >
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="9993" >
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item last" id="9994" >
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="9995" >
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="9996" >
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-				</ul>
-
-				<h2 class="categoryTitle">What is he like?</h2>
-				<ul class="subCategories">
-					<li class="item" id="10900" >
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="10901">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="10902">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="10903">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="10904">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="10905">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="10906">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item last" id="10907">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="10908">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-					<li class="item" id="10909">
-						<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-						<p class="name">Geek</p>
-					</li>
-				</ul>
-			</div>
-
-		</div>
-
-	</div>
-</div>
-=======
     		</div>
     		
     		<div class="categories">
@@ -128,7 +30,7 @@ initProfileEditor();
 					<h2 class="categoryTitle">${cat.name}</h2>
 					<ul class="subCategories">
 					    #{list items:categories.get(cat), as:'sub'}
-							<li class="item">
+							<li class="item" id="${sub.id}">
 								<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
 								<p class="name">${sub.name}</p>
 							</li>	
@@ -139,4 +41,3 @@ initProfileEditor();
     	</div>    	
     </div>
 </div> 
->>>>>>> ab6446df01d6b9524ca1036fc8054b46fa602a72

@@ -64,6 +64,9 @@ public class Application extends Controller {
 
 	public static void profile() {
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree();
+
+		System.out.println(categories);
+
 		render(categories);
 	}
 
