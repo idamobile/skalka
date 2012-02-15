@@ -56,7 +56,7 @@ public class Lists extends Application {
 
 	// render(list, products);
 
-	public static void addUserAction(Long listId, Long productId, Long userId, String action) {
+	public static void addUserAction(Long listId, Long productId, Long userId, String userAction) {
 		JPAQuery query = ProductInList.find("listId = ? AND productId = ? ", listId, productId);
 		ProductInList pil = query.first();
 		if (pil == null) {
@@ -69,11 +69,11 @@ public class Lists extends Application {
 		if (pil.userActions == null) {
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
-		System.out.println("Action==" + action);
+		System.out.println("Action==" + userAction);
 		
-		UserActionsInProductList userAction = new UserActionsInProductList(listId, productId, userId, action);
-		userAction.save();
-		pil.userActions.add(userAction);
+		UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, userId, userAction);
+		uaid.save();
+		pil.userActions.add(uaid);
 		pil.save();
 		renderJSON(ErrorResult.SUCCESS);
 	}
