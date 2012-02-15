@@ -1,11 +1,9 @@
 package controllers;
 
 import java.util.List;
-import java.util.Map;
 
-import models.ProductInList;
+import models.Product;
 import models.ProductsList;
-import models.SubcategoryWithCategory;
 import play.db.jpa.GenericModel.JPAQuery;
 import play.mvc.Controller;
 
@@ -15,6 +13,11 @@ public class Lists extends Controller {
 		System.out.println("OwnerId:" + ownerId + " targetId:" + targetId);
 		JPAQuery query = ProductsList.find("ownerId=? and targetId=?", ownerId, targetId);
 		renderJSON(query.fetch());
+	}
+
+	public static void index() {
+		List<Product> products = Product.findAll();
+		render(products);
 	}
 
 }

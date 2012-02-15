@@ -10,10 +10,12 @@ import javax.persistence.Transient;
 
 import play.cache.Cache;
 import play.db.jpa.Model;
+import play.libs.WS;
 import play.mvc.Scope.Session;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -109,6 +111,25 @@ public class User extends Model {
 
 	public static boolean hasUserWithFacebookId(Long facebookId) {
 		return User.count("byFacebookId", facebookId) > 0;
+	}
+
+	public static User ensureUser(Long facebookId) {
+
+		User user = User.findByFacebookId(facebookId);
+		if (user == null) {
+			try {
+
+				String response = WS.url("http://graph.facebook.com/" + facebookId).get()
+						.getString();
+				JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
+				user = User.fromFbJson(obj);
+				user.save();
+
+			} catch (Throwable e) {
+				return null;
+			}
+		}
+		return user;
 	}
 
 	@Override

@@ -1,9 +1,7 @@
 package controllers;
 
-import java.util.List;
-
-import models.Product;
 import models.User;
+import models.UserCategories;
 import play.cache.Cache;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -11,6 +9,7 @@ import play.mvc.Controller;
 public class Application extends Controller {
 
 	public static final String SESSION_PARAM_ACCESS_TOKEN = User.JSON_TAG_ACCESS_TOKEN;
+	public static final String SESSION_PARAM_TARGET_FRIEND = "targetFbId";
 
 	@Before
 	static void checkConnected() {
@@ -29,15 +28,30 @@ public class Application extends Controller {
 
 	public static void index(Long targetFbId) {
 		if (targetFbId == null) {
-			// TODO: show friends selector
+			if (!session.contains(SESSION_PARAM_TARGET_FRIEND)) {
+				// TODO: show friends selector
+			} else {
+				targetFbId = new Long(session.get(SESSION_PARAM_TARGET_FRIEND));
+			}
+		}
+		session.put(SESSION_PARAM_TARGET_FRIEND, targetFbId);
+
+		User user = User.ensureUser(targetFbId);
+		if (user == null) {
+			// TODO: render error
+			renderText("Friend does not exist in db and could not be fetched from FB");
 		}
 
-		List<Product> products = Product.findAll();
-		render(products);
+		if (UserCategories.count("byUserId", user.id) == 0) {
+			Application.profile();
+		}
+
+		// Target user exists, categories are set, redirecting to list
+		Lists.index();
 	}
 
 	public static void logout() {
-		session.remove(User.JSON_TAG_ACCESS_TOKEN);
+		session.remove(SESSION_PARAM_ACCESS_TOKEN, SESSION_PARAM_TARGET_FRIEND);
 		index(null);
 	}
 
