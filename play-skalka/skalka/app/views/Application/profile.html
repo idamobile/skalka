@@ -5,10 +5,10 @@
 
 		<div class="col-left sidebar">
 			<div class="userPic">
-				<img src="@{'/public/images/userpic.png'}" alt="Valentin Kravtsov"/>
+				<img src="${user?.getImageUrl()}" alt=""/>
 			</div>
 			<div class="callToAction">
-				We havent’t got enough information about Valentin, please answer some questions.
+				We haven't got enough information about ${user}, please answer some questions.
 			</div>
 			<div><input id="btnSubmit" type="button" value="Submit.." /></div>
 			<script type="text/javascript">
@@ -18,10 +18,10 @@
 
 		<div class="col-main">
 			<div class="titleBlock">
-				<a href="@{Application.index()}" class="backLink">Back to Valentin’s birthday gift</a>
-				<h1 class="title">Describe Valentin</h1>
+				<a href="@{Application.index()}" class="backLink">Back to ${user?.firstName}'s birthday gift</a>
+				<h1 class="title">Describe ${user}</h1>
 				<p class="hint">
-					Click images that match Valentin’s character
+					Click images that match ${user.firstName}'s character
 				</p>
     		</div>
     		

@@ -12,6 +12,7 @@ import play.cache.Cache;
 import play.db.jpa.Model;
 import play.libs.WS;
 import play.mvc.Scope.Session;
+import utils.Constants;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -75,7 +76,7 @@ public class User extends Model {
 			Session.current().put("user", user);
 			Session.current().put(JSON_TAG_ACCESS_TOKEN, user.accessToken);
 
-			Cache.set(user.accessToken, user, "2h");
+			Cache.set(user.accessToken, user, Constants.CACHE_TIMEOUT);
 		} catch (Throwable e) {
 			Session.current().put("authError", e.getMessage());
 			e.printStackTrace();

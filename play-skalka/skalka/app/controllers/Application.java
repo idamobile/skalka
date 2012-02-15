@@ -11,6 +11,7 @@ import models.UserCategories;
 import play.cache.Cache;
 import play.mvc.Before;
 import play.mvc.Controller;
+import utils.Constants;
 
 public class Application extends Controller {
 
@@ -50,12 +51,13 @@ public class Application extends Controller {
 			// TODO: render error
 			renderText("Friend does not exist in db and could not be fetched from FB");
 		}
+		Cache.add(SESSION_PARAM_TARGET_FRIEND, targetUser, Constants.CACHE_TIMEOUT);
 
 		if (UserCategories.count("byUserId", targetUser.id) == 0) {
 			Application.profile();
 		} else {
 			User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id); 
+			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id);
 			if (list == null) {
 				list = new ProductsList("Gift for " + targetUser.firstName, ownerUser.id, targetUser.id);
 				list.save();
@@ -63,8 +65,6 @@ public class Application extends Controller {
 			redirect("/lists/" + list.id);
 		}
 
-		// Target user exists, categories are set, redirecting to list
-		Lists.index();
 	}
 
 	public static void logout() {
@@ -74,7 +74,8 @@ public class Application extends Controller {
 
 	public static void profile() {
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree();
-		render(categories);
+		User user = Cache.get(SESSION_PARAM_TARGET_FRIEND, User.class);
+		render(categories, user);
 	}
 
 }
