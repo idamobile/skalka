@@ -15,7 +15,7 @@ public class Lists extends Controller {
 		renderJSON(query.fetch());
 	}
 
-	public static void index() {
+	public static void index(long id) {
 		List<Product> products = Product.findAll();
 		render(products);
 	}
