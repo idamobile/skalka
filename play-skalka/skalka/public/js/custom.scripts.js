@@ -106,8 +106,8 @@ function ajaxAddProduct(event){
         values[this.name] = $(this).val();
     });
     
-    alert(values.toSource());
-	
+  //  alert(values.toSource());
+	alert("hi");
 	/* Add Product to DB */
 	$.post( url, { url: term }, function( data ) {
 	
