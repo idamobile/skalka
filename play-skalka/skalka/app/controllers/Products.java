@@ -1,9 +1,5 @@
 package controllers;
 
-import static utils.Constants.ERROR_PARSING_FAILED;
-import static utils.Constants.PRODUCTS_PAGE_SIZE;
-import static utils.Constants.PRODUCT_IMAGE_WIDTH;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -21,6 +17,7 @@ import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Controller;
 import play.mvc.Scope.Session;
+import utils.Constants;
 import utils.html_parser.ProductParser;
 
 public class Products extends Controller {
@@ -30,7 +27,7 @@ public class Products extends Controller {
 			renderJSON(new ProductParser().parse(url));
 		} catch (Exception e) {
 			e.printStackTrace();
-			renderJSON(new ErrorResult(ERROR_PARSING_FAILED, e.getMessage()));
+			renderJSON(new ErrorResult(Constants.ERROR_PARSING_FAILED, e.getMessage()));
 		}
 	}
 
@@ -62,14 +59,25 @@ public class Products extends Controller {
 	private static String fetchImage(String url) throws IOException {
 		HttpResponse response = WS.url(url).get();
 
+		if(!new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_FEED_DIR).exists()){
+			new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_FEED_DIR).mkdir();
+			new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_DETAILS_DIR).mkdir();
+			new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_LIST_DIR).mkdir();
+		}
+		
 		Blob from = new Blob();
 		from.set(response.getStream(), response.getContentType());
+		
+		File toInFeed = new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_FEED_DIR, Codec.UUID());
+		Images.resize(from.getFile(), toInFeed, Constants.PRODUCT_IMAGE_IN_FEED, -1);
 
-		File to = new File(Blob.getStore(), Codec.UUID());
+		File toInDetails = new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_DETAILS_DIR + toInFeed.getName());
+		Images.resize(from.getFile(), toInDetails, Constants.PRODUCT_IMAGE_IN_PROD_DETAILS, -1);
 
-		Images.resize(from.getFile(), to, PRODUCT_IMAGE_WIDTH, -1);
+		File toInList = new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_LIST_DIR + toInFeed.getName());
+		Images.resize(from.getFile(), toInList, Constants.PRODUCT_IMAGE_IN_LIST, -1);
 
-		return to.getAbsolutePath();
+		return toInFeed.getAbsolutePath();
 	}
 
 	public static void index() {
@@ -84,8 +92,8 @@ public class Products extends Controller {
 	public static void list(int page) {
 		page = (page <= 0) ? 1 : page;
 
-		int startIndex = (page - 1) * PRODUCTS_PAGE_SIZE;
-		List<Product> products = Product.all().from(startIndex).fetch(PRODUCTS_PAGE_SIZE);
+		int startIndex = (page - 1) * Constants.PRODUCTS_PAGE_SIZE;
+		List<Product> products = Product.all().from(startIndex).fetch(Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
 	}
 }
