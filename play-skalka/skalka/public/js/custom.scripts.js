@@ -1,7 +1,18 @@
 //var $j = jQuery.noConflict();
 
 $(document).ready(function($) {
-	
+
+	// Load the SDK Asynchronously
+	(function (d) {
+		var js, id = 'facebook-jssdk';
+		if (d.getElementById(id)) { return; }
+		js = d.createElement('script');
+		js.id = id;
+		js.async = true;
+		js.src = "//connect.facebook.net/en_US/all.js";
+		d.getElementsByTagName('head')[0].appendChild(js);
+	} (document))
+
 	// Initializing ADD YOUR PRODUCT popup
 	$('.submitIdea').fancybox({
 		fitToView: false,
@@ -34,6 +45,9 @@ $(document).ready(function($) {
 		closeSpeed  : 150,
 		minHeight: 0,
 		wrapCSS: 'skalkaModal',
+		onComplete:function() {
+            alert('Completed!');
+		},
 		helpers : {
 			overlay : {
 				css : {
@@ -48,12 +62,13 @@ $(document).ready(function($) {
         $('a[href="#selectFriend"]').click();
 	}
 
-	friendCompleterAddToInput("input#friend_finder",
-	function (control, selectedItem, selectedObj) {
-		// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
-	//	$.form('/', { fbid: selectedObj.id }, 'POST').submit();
-		$.form('/', { targetFbId: "657129580" }, 'POST').submit();
-	})
+	window.fbAsyncInit = function () {
+		friendCompleterSetup();
+		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
+			// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
+			$.form('/', { targetFbId: selectedObj.id }, 'GET').submit();
+		});
+	};
 
 	// Sidebar repositioning on window scroll
 	sidebar = $(".feedSidebar");

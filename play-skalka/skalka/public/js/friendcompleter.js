@@ -86,7 +86,8 @@ function friendCompleterSetup()
 			$(this).val(selectedObj.label);
 			$("#invite_control").show();
 			return false;
-		}
+		},
+		appendTo: "input#friend_finder"
 	}
 
 	fnAutocompleteRender = function (ul, item) {
