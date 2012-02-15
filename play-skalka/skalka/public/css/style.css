@@ -389,3 +389,7 @@
 .subCategories .item .name {
 	color: #4b4b4b;
 }
+
+.subCategories .item.sel {
+    background: red;
+}
