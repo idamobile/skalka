@@ -13,8 +13,8 @@ create table users (
     gender      enum('male', 'female')  default null,
     birth_date  date                    default null,
     image_url   varchar(1024)           default null,
-    added_when	date					default null,
-    last_login	date					default null,
+    added_when date     default null,
+    last_login date     default null,
     primary key(id),
     unique (fb_uid)
 );
@@ -36,7 +36,7 @@ create table products (
     added_by_uid   bigint                                         default null,
     price          float                                          default null,
     type           enum('image', 'image_with_story', 'story')     default null,
-    added_when	   date                                           default null,
+    added_when    date                                           default null,
     is_public      enum('t','f')                                  default 't',
     primary        key(id)
 );
@@ -50,9 +50,9 @@ on products ( added_by_uid );
 drop table if exists categories;
 
 create table categories (
-    id             bigint                                         not null auto_increment,
+    id             bigint                                         not null auto_increment, 
     name           varchar(255)                                   default null,
-    image_url      varchar(1024)                                  default not null,
+    image_url      varchar(1024)                                  not null,
     primary        key(id)
 );
 
