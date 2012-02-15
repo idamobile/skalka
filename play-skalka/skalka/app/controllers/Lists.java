@@ -61,7 +61,7 @@ public class Lists extends Application {
 	// render(list, products);
 
 	public static void addUserAction(Long listId, Long productId, Long userId, String userAction) {
-		JPAQuery query = ProductInList.find("list_id = ? AND product_id = ? ", listId, productId);
+		JPAQuery query = ProductInList.find("listId = ? AND productId = ? ", listId, productId);
 		ProductInList pil = query.first();
 		if (pil == null) {
 			renderJSON(new ErrorResult(-1, "product not in list"));
