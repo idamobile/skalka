@@ -23,6 +23,7 @@ initProfileEditor();
 				<p class="hint">
 					Click images that match Valentin’s character
 				</p>
+<<<<<<< HEAD
 			</div>
 
 			<div class="categories">
@@ -119,3 +120,23 @@ initProfileEditor();
 
 	</div>
 </div>
+=======
+    		</div>
+    		
+    		<div class="categories">
+				#{list items:categories.keySet(), as:'cat'}
+					<h2 class="categoryTitle">${cat.name}</h2>
+					<ul class="subCategories">
+					    #{list items:categories.get(cat), as:'sub'}
+							<li class="item">
+								<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
+								<p class="name">${sub.name}</p>
+							</li>	
+					    #{/list}
+				    </ul>    
+				#{/list}
+    		</div>    		
+    	</div>    	
+    </div>
+</div> 
+>>>>>>> ab6446df01d6b9524ca1036fc8054b46fa602a72
