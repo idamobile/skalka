@@ -84,8 +84,10 @@ public class Application extends Controller {
 	}
 
 	public static void profile() {
-		Map<Category, List<Subcategory>> categories = Subcategory.getTree();
+
 		User user = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
+		Map<Category, List<Subcategory>> categories = Subcategory.getTree(user);
+
 		render(categories, user);
 	}
 
