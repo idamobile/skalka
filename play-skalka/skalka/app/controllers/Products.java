@@ -8,6 +8,7 @@ import java.util.List;
 import models.ErrorResult;
 import models.Product;
 import models.User;
+import play.Logger;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.db.jpa.Blob;
@@ -35,6 +36,10 @@ public class Products extends Controller {
 			@Required Float price, String type, List<Long> subcategoryId) {
 		try {
 
+			Logger.debug(
+					"adding product: descr=%s, story=%d, imageUrl=%s, price=%s, type=%s, subcats=%s",
+					descr, story, imageUrl, "" + price, type, "" + subcategoryId);
+
 			Product product = new Product(descr, story, imageUrl, null, price, type, new Date(),
 					subcategoryId);
 
@@ -58,10 +63,10 @@ public class Products extends Controller {
 
 	private static String fetchImage(Product product, String url) throws IOException {
 		HttpResponse response = WS.url(url).get();
-		
+
 		Blob from = new Blob();
 		from.set(response.getStream(), response.getContentType());
-		
+
 		File toInFeed = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInFeed, Constants.PRODUCT_IMAGE_IN_FEED, -1);
 		product.imageFeed = toInFeed.getAbsolutePath();
@@ -96,7 +101,6 @@ public class Products extends Controller {
 		renderBinary(new File(p.imageList));
 	}
 
-	
 	public static void list(int page) {
 		page = (page <= 0) ? 1 : page;
 
