@@ -78,6 +78,9 @@ public class User extends Model {
 			Session.current().put(JSON_TAG_ACCESS_TOKEN, user.accessToken);
 
 			Cache.set(user.accessToken, user, Constants.CACHE_TIMEOUT);
+
+			Logger.warn("Saving accessToken: " + user.accessToken);
+
 		} catch (Throwable e) {
 			Session.current().put("authError", e.getMessage());
 			e.printStackTrace();
