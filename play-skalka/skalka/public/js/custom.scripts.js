@@ -23,8 +23,7 @@ $(document).ready(function($) {
 		}
 	});
 
-
-	// Initializing ADD YOUR PRODUCT popup
+	// Initializing SELECT FRIEND popup
 	$('.changeFriend').fancybox({
 		fitToView: false,
 		scrolling: 'no',
@@ -44,7 +43,18 @@ $(document).ready(function($) {
 			}
 		}
 	});
-	
+
+	if(showFriendSelectionDialog){
+        $('a[href="#selectFriend"]').click();
+	}
+
+	friendCompleterAddToInput("input#friend_finder",
+	function (control, selectedItem, selectedObj) {
+		// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
+	//	$.form('/', { fbid: selectedObj.id }, 'POST').submit();
+		$.form('/', { targetFbId: "657129580" }, 'POST').submit();
+	})
+
 	// Sidebar repositioning on window scroll
 	sidebar = $(".feedSidebar");
 	start = 52;

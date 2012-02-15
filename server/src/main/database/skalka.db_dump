@@ -1,47 +1,304 @@
-use skalka;
+-- MySQL dump 10.13  Distrib 5.1.58, for redhat-linux-gnu (i386)
+--
+-- Host: localhost    Database: skalka
+-- ------------------------------------------------------
+-- Server version	5.1.58
 
-delete from users;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-insert into users (id, fb_uid, first_name, last_name, gender, birth_date, image_url)
-values (1, 657129580, "Sergey", "Royz", "male", "1986-08-16", "http://graph.facebook.com/657129580/picture");
+--
+-- Table structure for table `SubcategoryWithCategory`
+--
 
-insert into users (id, fb_uid, first_name, last_name, gender, birth_date, image_url)
-values (2, 1286973829, "Andrew", "Yakovlev", "male", "1985-10-13", "http://graph.facebook.com/1286973829/picture");
+DROP TABLE IF EXISTS `SubcategoryWithCategory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SubcategoryWithCategory` (
+  `id` decimal(19,2) NOT NULL,
+  `imageUrl` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-insert into users (id, fb_uid, first_name, last_name, gender, birth_date, image_url)
-values (3, 542817925, "Samantha", "Lee-ann", "female", "1989-11-05", "http://graph.facebook.com/542817925/picture");
+--
+-- Dumping data for table `SubcategoryWithCategory`
+--
 
-insert into users (id, fb_uid, first_name, last_name, gender, birth_date, image_url)
-values (4, 506177159, "Valentin", "Kravtsov", "male", "1978-11-05", "http://graph.facebook.com/506177159/picture");
+LOCK TABLES `SubcategoryWithCategory` WRITE;
+/*!40000 ALTER TABLE `SubcategoryWithCategory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SubcategoryWithCategory` ENABLE KEYS */;
+UNLOCK TABLES;
 
-delete from lists;
+--
+-- Table structure for table `categories`
+--
 
-insert into lists(id, name, owner_id, target_id)
-values (1, "My List", 1, 2);
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `image_url` varchar(1024) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-insert into lists(id, name, owner_id, target_id)
-values (2, "My List", 4, 1);
+--
+-- Dumping data for table `categories`
+--
 
-delete from list_prod;
-
-insert into list_prod (list_id, product_id)
-values (1, 1);
-
-delete from user_actions_in_prod_list;
-
-insert into user_actions_in_prod_list(list_id, product_id, user_id, user_action)
-values (1, 1, 1, 'y');
-
-delete from categories;
-
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` VALUES (1,'car','http://www.google.com'),(2,'favorite music','http://www.google.com'),(3,'clothing and fashion','http://www.google.com'),(4,'clothing','http://www.google.com'),(5,'food','http://www.google.com'),(6,'favorite band','http://www.google.com'),(7,'hobby','http://www.google.com'),(8,'sex','http://www.google.com'),(9,'style','http://www.google.com'),(10,'alcohol','http://www.google.com'),(11,'family','http://www.google.com'),(12,'OS','http://www.google.com'),(13,'neatens','http://www.google.com'),(14,'neatness','http://www.google.com'),(15,'time spending','http://www.google.com'),(16,'character','http://www.google.com');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
 
-delete from subcategories;
+--
+-- Table structure for table `list_prod`
+--
 
+DROP TABLE IF EXISTS `list_prod`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `list_prod` (
+  `list_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  PRIMARY KEY (`list_id`,`product_id`),
+  KEY `list_prod_lid_idx` (`list_id`),
+  KEY `FKB7085E58DA9609A2` (`list_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `list_prod`
+--
+
+LOCK TABLES `list_prod` WRITE;
+/*!40000 ALTER TABLE `list_prod` DISABLE KEYS */;
+/*!40000 ALTER TABLE `list_prod` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lists`
+--
+
+DROP TABLE IF EXISTS `lists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lists` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `owner_id` bigint(20) DEFAULT NULL,
+  `target_id` bigint(20) NOT NULL,
+  `last_updated` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lists_owner_idx` (`owner_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lists`
+--
+
+LOCK TABLES `lists` WRITE;
+/*!40000 ALTER TABLE `lists` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `description` varchar(1024) DEFAULT NULL,
+  `story` varchar(1024) DEFAULT NULL,
+  `product_url` varchar(1024) DEFAULT NULL,
+  `image_url` varchar(1024) DEFAULT NULL,
+  `image_feed` varchar(1024) DEFAULT NULL,
+  `image_details` varchar(1024) DEFAULT NULL,
+  `image_list` varchar(1024) DEFAULT NULL,
+  `added_by_uid` bigint(20) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `type` enum('image','image_with_story','story') DEFAULT NULL,
+  `added_when` date DEFAULT NULL,
+  `is_public` enum('t','f') DEFAULT 't',
+  PRIMARY KEY (`id`),
+  KEY `prod_added_by_uid_idx` (`added_by_uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `products_subcategories`
+--
+
+DROP TABLE IF EXISTS `products_subcategories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products_subcategories` (
+  `subcategory_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`subcategory_id`,`product_id`),
+  KEY `prod_cat_pid_idx` (`product_id`),
+  KEY `prod_cat_cid_idx` (`subcategory_id`),
+  KEY `FK9F8D98C163509FB6` (`product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products_subcategories`
+--
+
+LOCK TABLES `products_subcategories` WRITE;
+/*!40000 ALTER TABLE `products_subcategories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `products_subcategories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `subcategories`
+--
+
+DROP TABLE IF EXISTS `subcategories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `subcategories` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `image_url` varchar(1024) NOT NULL,
+  `category_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `subcat_cat_id_idx` (`category_id`),
+  KEY `FKF5E0345CFA266C1E` (`category_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subcategories`
+--
+
+LOCK TABLES `subcategories` WRITE;
+/*!40000 ALTER TABLE `subcategories` DISABLE KEYS */;
 INSERT INTO `subcategories` VALUES (1,'zaz','http://media-cdn.pinterest.com/upload/227220743669522653_Iv9G7HGX_b.jpg',1),(2,'logo','http://media-cdn.pinterest.com/upload/227220743669522651_ANhsJIJE_b.jpg',1),(3,'ford','http://media-cdn.pinterest.com/upload/227220743669522647_PRvhIiyU_b.jpg',1),(4,'toyota','http://media-cdn.pinterest.com/upload/227220743669522646_hf4cKuVj_b.jpg',1),(5,'honda','http://media-cdn.pinterest.com/upload/227220743669522642_TWce5Zw7_b.jpg',1),(6,'jeep','http://media-cdn.pinterest.com/upload/227220743669522636_gnKG1oc0_b.jpg',1),(7,'dodge','http://media-cdn.pinterest.com/upload/227220743669522622_MB8girPo_b.jpg',1),(8,'bmw','http://media-cdn.pinterest.com/upload/227220743669522618_qH4em1Bu_b.jpg',1),(9,'chrysler','http://media-cdn.pinterest.com/upload/227220743669522617_R54wCqWn_b.jpg',1),(10,'logo','http://media-cdn.pinterest.com/upload/227220743669522606_QBa33zBl_b.jpg',1),(11,'chinese','http://media-cdn.pinterest.com/upload/227220743669523097_jAZYVsZW_b.jpg',2),(12,'kenny g','http://media-cdn.pinterest.com/upload/227220743669523027_tf3eL8dE_b.jpg',2),(13,'kiss','http://media-cdn.pinterest.com/upload/227220743669523000_L7i9biUy_b.jpg',2),(14,'therion','http://media-cdn.pinterest.com/upload/227220743669522997_cjhTGNwB_b.jpg',2),(15,'mikle jackson','http://media-cdn.pinterest.com/upload/227220743669522993_2y5X6OGN_b.jpg',2),(16,'elvis','http://media-cdn.pinterest.com/upload/227220743669522986_Y9jprfHA_b.jpg',2),(17,'beethoven','http://media-cdn.pinterest.com/upload/227220743669522982_3iE1FWT5_b.jpg',2),(18,'ska-p','http://media-cdn.pinterest.com/upload/227220743669522979_jGVlItSc_b.jpg',2),(19,'manu chao','http://media-cdn.pinterest.com/upload/227220743669522949_blnyRH3B_b.jpg',2),(20,'sting','http://media-cdn.pinterest.com/upload/227220743669522940_tSSKAESo_b.jpg',2),(21,'cypress hill','http://media-cdn.pinterest.com/upload/227220743669522938_uPVL3dBV_b.jpg',2),(22,'roxy music','http://media-cdn.pinterest.com/upload/227220743669522929_aHCtr0aS_b.jpg',2),(23,'bob marlay','http://media-cdn.pinterest.com/upload/227220743669522915_RcTzvP3Q_b.jpg',2),(24,'eminem','http://media-cdn.pinterest.com/upload/227220743669522892_eeEuaZuj_b.jpg',2),(25,'madonna','http://media-cdn.pinterest.com/upload/227220743669522887_WkJ6Y7nF_b.jpg',2),(26,'metallica','http://media-cdn.pinterest.com/upload/227220743669522877_DyXbdeDp_b.jpg',2),(27,'rolling stone','http://media-cdn.pinterest.com/upload/227220743669522861_7Q3an0Hs_b.jpg',2),(28,'queen','http://media-cdn.pinterest.com/upload/227220743669522857_sSSVXJP2_b.jpg',2),(29,'depeche mode','http://media-cdn.pinterest.com/upload/227220743669522853_6vDX9Wtb_b.jpg',2),(30,'lady gaga','http://media-cdn.pinterest.com/upload/227220743669522844_nwzHy4aX_b.jpg',2),(31,'levi\'s','http://media-cdn.pinterest.com/upload/227220743669522816_8pyK81lK_b.jpg',3),(32,'diesel','http://media-cdn.pinterest.com/upload/227220743669522814_5Phyzdxe_b.jpg',3),(33,'D&G','http://media-cdn.pinterest.com/upload/227220743669522812_N5c5Bsyc_b.jpg',3),(34,'boss','http://media-cdn.pinterest.com/upload/227220743669522795_TpCioRrm_b.jpg',3),(35,'adidas','http://media-cdn.pinterest.com/upload/227220743669522792_x1wefQBP_b.jpg',3),(36,'puma','http://media-cdn.pinterest.com/upload/227220743669522788_VCW1cTFQ_b.jpg',3),(37,'nike','http://media-cdn.pinterest.com/upload/227220743669522708_hfx09dPt_b.jpg',3),(38,'versace','http://media-cdn.pinterest.com/upload/227220743669522702_Nt2LAqYg_b.jpg',3),(39,'tommy hilfiger','http://media-cdn.pinterest.com/upload/227220743669522699_CKTaKsV1_b.jpg',3),(40,'gap','http://media-cdn.pinterest.com/upload/227220743669522695_taW7Letk_b.jpg',3),(41,'juicy couture','http://media-cdn.pinterest.com/upload/227220743669522692_MEOcr8tE_b.jpg',3),(42,'lacoste','http://media-cdn.pinterest.com/upload/227220743669522689_Jw5kh3NS_b.jpg',3),(43,'givenchy','http://media-cdn.pinterest.com/upload/227220743669522686_iYRAoTd3_b.jpg',3),(44,'louis vuitton','http://media-cdn.pinterest.com/upload/227220743669522678_nAgAuVhL_b.jpg',3),(45,'polo','http://media-cdn.pinterest.com/upload/227220743669522674_3OvAgAEd_b.jpg',3),(46,'chanel','http://media-cdn.pinterest.com/upload/227220743669522670_5G4JC4Xa_b.jpg',3),(47,'zara','http://media-cdn.pinterest.com/upload/227220743669522658_Pm82qVoe_b.jpg',4),(48,'italian','http://media-cdn.pinterest.com/upload/227220743669523089_FgDDsLaQ_b.jpg',5),(49,'beatles','http://media-cdn.pinterest.com/upload/227220743669522839_cKKDIWU6_b.jpg',6),(50,'backpacker','http://media-cdn.pinterest.com/upload/227220743669523203_ygxc4Xm1_b.jpg',7),(51,'mercedes','http://media-cdn.pinterest.com/upload/227220743669522605_Vc9CsWDu_b.jpg',1),(52,'porshe','http://media-cdn.pinterest.com/upload/227220743669522513_tpHXLq5z_b.jpg',1),(53,'boy','http://media-cdn.pinterest.com/upload/227220743669522114_oBCIz7MM_b.jpg',8),(54,'girl','http://media-cdn.pinterest.com/upload/227220743669522109_H45FgYN3_b.jpg',8),(55,'goth','http://media-cdn.pinterest.com/upload/227220743669516463_OhxIyrLs_b.jpg',9),(56,'emo','http://media-cdn.pinterest.com/upload/227220743669516449_YJDuc1dh_b.jpg',9),(57,'hippy','http://media-cdn.pinterest.com/upload/227220743669516444_29SVYum6_b.jpg',9),(58,'casual','http://media-cdn.pinterest.com/upload/227220743669516252_9jp3LAYH_b.jpg',9),(59,'metrosexual','http://media-cdn.pinterest.com/upload/227220743669516245_luARTLwI_b.jpg',9),(60,'geek','http://media-cdn.pinterest.com/upload/227220743669516232_rgkP1NuK_b.jpg',9),(61,'gopnik','http://media-cdn.pinterest.com/upload/227220743669516226_2b3fGa0z_b.jpg',9),(62,'glamour','http://media-cdn.pinterest.com/upload/227220743669516221_wRa43sly_b.jpg',9),(63,'smart','http://media-cdn.pinterest.com/upload/227220743669516212_qTyB91g1_b.jpg',9),(64,'hipsetr','http://media-cdn.pinterest.com/upload/227220743669516192_RdyMFoGY_b.jpg',9),(65,'wisky','http://media-cdn.pinterest.com/upload/227220743669515597_u7lBKpOy_b.jpg',10),(66,'non','http://media-cdn.pinterest.com/upload/227220743669515596_t1iOaBzL_b.jpg',10),(67,'beer','http://media-cdn.pinterest.com/upload/227220743669515595_cA99mFq6_b.jpg',10),(68,'gourmet','http://media-cdn.pinterest.com/upload/227220743669515970_2kZfMBlq_b.jpg',5),(69,'BBQ','http://media-cdn.pinterest.com/upload/227220743669515934_PNPeHtM6_b.jpg',5),(70,'japan','http://media-cdn.pinterest.com/upload/227220743669515929_x2EDHiYd_b.jpg',5),(71,'fastfood','http://media-cdn.pinterest.com/upload/227220743669515922_Jc1IaQ6J_b.jpg',5),(72,'vegetarian','http://media-cdn.pinterest.com/upload/227220743669515912_7hVHsNuM_b.jpg',5),(73,'single mother','http://media-cdn.pinterest.com/upload/227220743669516422_8lSraZ7b_b.jpg',11),(74,'lonely','http://media-cdn.pinterest.com/upload/227220743669516410_F9AGhB6O_b.jpg',11),(75,'in search','http://media-cdn.pinterest.com/upload/227220743669516397_SldGyqe2_b.jpg',11),(76,'child','http://media-cdn.pinterest.com/upload/227220743669516375_RsEiwYng_b.jpg',11),(77,'divorced','http://media-cdn.pinterest.com/upload/227220743669516361_xZSjOl0b_b.jpg',11),(78,'in love','http://media-cdn.pinterest.com/upload/227220743669516324_5CsyCi5C_b.jpg',11),(79,'with kids','http://media-cdn.pinterest.com/upload/227220743669516318_b4bf7bC8_b.jpg',11),(80,'cooking','http://media-cdn.pinterest.com/upload/227220743669516168_uYAWBAjO_b.jpg',7),(81,'photographer','http://media-cdn.pinterest.com/upload/227220743669515600_bEMwrt0M_b.jpg',7),(82,'fishing','http://media-cdn.pinterest.com/upload/227220743669515599_cHp3XLHK_b.jpg',7),(83,'kniting','http://media-cdn.pinterest.com/upload/227220743669515598_ZXOyjgnx_b.jpg',7),(84,'microsoft','http://media-cdn.pinterest.com/upload/227220743669522296_fGq6QFAJ_b.jpg',12),(85,'linux','http://media-cdn.pinterest.com/upload/227220743669522290_JsHkoTi1_b.jpg',12),(86,'apple','http://media-cdn.pinterest.com/upload/227220743669522285_bKMKtLzw_b.jpg',12),(87,'usual','http://media-cdn.pinterest.com/upload/227220743669522203_9RQSaXIH_b.jpg',13),(88,'quite so','http://media-cdn.pinterest.com/upload/227220743669522194_vJc4VWgA_b.jpg',13),(89,'crazy neat','http://media-cdn.pinterest.com/upload/227220743669522175_qKsgXa1x_b.jpg',13),(90,'pig','http://media-cdn.pinterest.com/upload/227220743669522158_J1xZsSsp_b.jpg',14),(91,'walking','http://media-cdn.pinterest.com/upload/227220743669521893_lKQrrWqc_b.jpg',15),(92,'cubing','http://media-cdn.pinterest.com/upload/227220743669521863_s37eLMRi_b.jpg',15),(93,'shopping','http://media-cdn.pinterest.com/upload/227220743669517854_afe0v2oW_b.jpg',15),(94,'meeting friends','http://media-cdn.pinterest.com/upload/227220743669517848_TY7BeuQJ_b.jpg',15),(95,'gaming','http://media-cdn.pinterest.com/upload/227220743669517840_cWBlLK4i_b.jpg',15),(96,'TV vatching','http://media-cdn.pinterest.com/upload/227220743669517825_tnnc5Aji_b.jpg',15),(97,'phlegmatic','http://media-cdn.pinterest.com/upload/227220743669521720_UttGBD5L_b.jpg',16),(98,'gloomy','http://media-cdn.pinterest.com/upload/227220743669521485_h18GL351_b.jpg',16),(99,'serious','http://media-cdn.pinterest.com/upload/227220743669517924_jf5kP1g7_b.jpg',16),(100,'fun','http://media-cdn.pinterest.com/upload/227220743669517907_dqe1eWkM_b.jpg',16);
+/*!40000 ALTER TABLE `subcategories` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `user_actions_in_prod_list`
+--
 
-delete from user_subcategories;
+DROP TABLE IF EXISTS `user_actions_in_prod_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_actions_in_prod_list` (
+  `list_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `user_action` enum('y','n','in') DEFAULT NULL,
+  `id` bigint(20) NOT NULL,
+  `listId` bigint(20) DEFAULT NULL,
+  `productId` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`list_id`,`product_id`,`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-insert into user_subcategories (id, subcategory_id, user_id)
-values (1, 1, 1);
+--
+-- Dumping data for table `user_actions_in_prod_list`
+--
+
+LOCK TABLES `user_actions_in_prod_list` WRITE;
+/*!40000 ALTER TABLE `user_actions_in_prod_list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_actions_in_prod_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_subcategories`
+--
+
+DROP TABLE IF EXISTS `user_subcategories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_subcategories` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `subcategory_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `category_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_cat_cid_idx` (`subcategory_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_subcategories`
+--
+
+LOCK TABLES `user_subcategories` WRITE;
+/*!40000 ALTER TABLE `user_subcategories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_subcategories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `fb_uid` bigint(20) DEFAULT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `gender` enum('male','female') DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `image_url` varchar(1024) DEFAULT NULL,
+  `added_when` date DEFAULT NULL,
+  `last_login` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fb_uid` (`fb_uid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,657129580,'Sergey','Roiz','male',NULL,NULL,'2012-02-15','2012-02-15'),(2,100003275223153,'Ilya','Leyrikh','male',NULL,NULL,'2012-02-15','2012-02-15');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-02-15 15:21:45
