@@ -1,5 +1,11 @@
 #{extends 'main.html' /}
 
+#{if showFriendsSelector}
+	<script type="text/javascript">
+		var showFriendSelectionDialog = true;
+	</script>
+#{/if}
+
 <div class="main-container col1-layout">				
     <div class="main productFeed">				    
     	#{sidebar /}				    

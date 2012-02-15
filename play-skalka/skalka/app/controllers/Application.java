@@ -37,8 +37,8 @@ public class Application extends Controller {
 		if (targetFbId == null) {
 			String storedFbId = session.get(SESSION_PARAM_TARGET_FRIEND);
 			if (storedFbId == null || !storedFbId.matches("[0-9]+")) {
-				// TODO: show friends selector
-				Lists.index();// TODO: remove this in future
+				renderArgs.put("showFriendsSelector", true);
+				render();
 			} else {
 				targetFbId = new Long(storedFbId);
 			}
@@ -55,10 +55,11 @@ public class Application extends Controller {
 			Application.profile();
 		} else {
 			User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-			JPAQuery query = ProductsList.find("ownerId=? AND targetId=?", ownerUser.id, targetUser.id);
+			JPAQuery query = ProductsList.find("ownerId=? AND targetId=?", ownerUser.id,
+					targetUser.id);
 			List<ProductsList> productLists = query.fetch();
-			if(productLists == null || productLists.size() == 0){
-				
+			if (productLists == null || productLists.size() == 0) {
+
 			}
 		}
 
