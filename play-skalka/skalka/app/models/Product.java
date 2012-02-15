@@ -31,6 +31,9 @@ public class Product extends Model {
 	@Column(name = "image_url")
 	public String imageUrl;
 
+	@Column(name = "product_url")
+	public String productUrl;
+	
 	@Column(name = "added_by_uid")
 	public Long addedBy;
 
@@ -43,9 +46,15 @@ public class Product extends Model {
 	@Column(name = "added_when")
 	public Date addedWhen;
 
-	@Column(name = "image")
-	public String image;
+	@Column(name = "image_feed")
+	public String imageFeed;
 
+	@Column(name = "image_details")
+	public String imageDetails;
+	
+	@Column(name = "image_list")
+	public String imageList;
+	
 	public Product() {
 	}
 
