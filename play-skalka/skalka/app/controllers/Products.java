@@ -40,8 +40,7 @@ public class Products extends Controller {
 					"adding product: descr=%s, story=%d, imageUrl=%s, price=%s, type=%s, subcats=%s",
 					descr, story, imageUrl, "" + price, type);
 
-			Product product = new Product(descr, story, imageUrl, null, price, type, new Date(),
-					null);
+			Product product = new Product(descr, story, imageUrl, null, price, type, new Date());
 
 			String accessToken = Session.current().get(User.JSON_TAG_ACCESS_TOKEN);
 			if (accessToken != null) {
