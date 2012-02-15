@@ -51,7 +51,8 @@ $(document).ready(function($) {
 	friendCompleterAddToInput("input#friend_finder",
 	function (control, selectedItem, selectedObj) {
 		// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
-		$.form('/', { fbid: selectedObj.id }, 'POST').submit();
+	//	$.form('/', { fbid: selectedObj.id }, 'POST').submit();
+		$.form('/', { targetFbId: "657129580" }, 'POST').submit();
 	})
 
 	// Sidebar repositioning on window scroll

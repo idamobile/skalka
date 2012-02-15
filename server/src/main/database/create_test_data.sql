@@ -11,11 +11,16 @@ values (2, 1286973829, "Andrew", "Yakovlev", "male", "1985-10-13", "http://graph
 insert into users (id, fb_uid, first_name, last_name, gender, birth_date, image_url)
 values (3, 542817925, "Samantha", "Lee-ann", "female", "1989-11-05", "http://graph.facebook.com/542817925/picture");
 
+insert into users (id, fb_uid, first_name, last_name, gender, birth_date, image_url)
+values (4, 506177159, "Valentin", "Kravtsov", "male", "1978-11-05", "http://graph.facebook.com/506177159/picture");
+
 delete from lists;
 
 insert into lists(id, name, owner_id, target_id)
 values (1, "My List", 1, 2);
 
+insert into lists(id, name, owner_id, target_id)
+values (2, "My List", 4, 1);
 
 delete from list_prod;
 
