@@ -51,7 +51,7 @@ public class Application extends Controller {
 			// TODO: render error
 			renderText("Friend does not exist in db and could not be fetched from FB");
 		}
-		Cache.add(SESSION_PARAM_TARGET_FRIEND, targetUser, Constants.CACHE_TIMEOUT);
+		Cache.add(session.get(SESSION_PARAM_TARGET_FRIEND), targetUser, Constants.CACHE_TIMEOUT);
 
 		if (UserCategories.count("byUserId", targetUser.id) == 0) {
 			Application.profile();
@@ -59,9 +59,8 @@ public class Application extends Controller {
 			User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id);
 			if (list == null) {
-				list = new ProductsList("Gift for " + targetUser.firstName, ownerUser.id,
-						targetUser.id);
-				list.create();
+				list = new ProductsList("Gift for " + targetUser.firstName, ownerUser.id, targetUser.id);
+				list.save();
 			}
 			redirect("/lists/" + list.id);
 		}
@@ -75,7 +74,7 @@ public class Application extends Controller {
 
 	public static void profile() {
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree();
-		User user = Cache.get(SESSION_PARAM_TARGET_FRIEND, User.class);
+		User user = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 		render(categories, user);
 	}
 

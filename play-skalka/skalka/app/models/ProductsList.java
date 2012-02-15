@@ -16,7 +16,7 @@ import play.db.jpa.Model;
 @Table(name = "lists")
 public class ProductsList extends Model {
 
-	public static final String HQL_FIND_LISTS = "ownerId=? AND targetId=? ORDER BY lastUpdated ASC";
+	public static final String HQL_FIND_LISTS = "ownerId=? AND targetId=? ORDER BY lastUpdated DESC";
 
 	@Column(name = "name")
 	public String name;
