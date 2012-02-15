@@ -34,14 +34,13 @@ public class Lists extends Controller {
 			t.printStackTrace();
 		}
 		List<Product> products = Product.findAll();
-		renderJSON(list);
-		// render(products);
+		render(products, list);
 	}
 
 	public static void addProduct(long listId, long productId) {
 		ProductsList list = ProductsList.findById(listId);
 		Product p = Product.findById(productId);
-		if(list == null || p == null){
+		if (list == null || p == null) {
 			renderJSON(new ErrorResult());
 		}
 		if (list.productsInList == null) {

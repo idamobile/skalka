@@ -55,7 +55,7 @@ $(document).ready(function($) {
 		}
 	});
 
-	if(showFriendSelectionDialog){
+	if((typeof( showFriendSelectionDialog ) !== 'undefined') && showFriendSelectionDialog){
         $('a[href="#selectFriend"]').click();
 	}
 	
@@ -106,8 +106,8 @@ function ajaxAddProduct(event){
         values[this.name] = $(this).val();
     });
     
-    alert(values.toSource());
-	
+  //  alert(values.toSource());
+	alert("hi");
 	/* Add Product to DB */
 	$.post( url, { url: term }, function( data ) {
 	

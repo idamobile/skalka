@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import play.Logger;
 import play.cache.Cache;
 import play.db.jpa.Model;
 import play.libs.WS;
@@ -123,6 +124,9 @@ public class User extends Model {
 				String response = WS.url("http://graph.facebook.com/" + facebookId).get()
 						.getString();
 				JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
+
+				Logger.warn("Got response from Facebook: " + obj.toString());
+
 				user = User.fromFbJson(obj);
 				user.save();
 
