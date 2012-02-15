@@ -14,7 +14,7 @@
 
         #{if user}
         	<script type="text/javascript">
-        		var access_token = "${user.accessToken}";
+        		var access_token = "${play.scope.Session.current().get(Application.SESSION_PARAM_ACCESS_TOKEN)}";
         	</script>
         #{/if}
         
