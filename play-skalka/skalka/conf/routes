@@ -4,8 +4,9 @@
 
 # Home page
 GET     /                                       Application.index
-GET     /products/                              Products.index
+GET     /products                               Products.index
 GET		/products/list/{<[0-9]+>page}			Products.list
+GET		/lists									Lists.index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

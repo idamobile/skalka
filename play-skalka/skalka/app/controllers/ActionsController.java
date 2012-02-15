@@ -1,16 +1,14 @@
 package controllers;
 
-import java.util.List;
-
-import models.ProductsList;
+import models.UserCategories;
 import play.mvc.Controller;
 
 public class ActionsController extends Controller {
 
 	public static void all() {
-		List<ProductsList> all = ProductsList.all().fetch();
 
-		renderJSON(all);
+		renderText(UserCategories.count("byUserId", 2L));
+
 	}
 
 }
