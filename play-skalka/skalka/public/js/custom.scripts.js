@@ -22,6 +22,28 @@ $(document).ready(function($) {
 			}
 		}
 	});
+
+
+	// Initializing ADD YOUR PRODUCT popup
+	$('.changeFriend').fancybox({
+		fitToView: false,
+		scrolling: 'no',
+		padding: 0,
+		//openEffect : 'elastic',
+		openSpeed  : 150,
+		//closeEffect : 'elastic',
+		closeSpeed  : 150,
+		minHeight: 0,
+		wrapCSS: 'skalkaModal',
+		helpers : {
+			overlay : {
+				css : {
+					'background-color' : '#eee'
+				},
+				opacity: 0.5
+			}
+		}
+	});
 	
 	// Sidebar repositioning on window scroll
 	sidebar = $(".feedSidebar");
