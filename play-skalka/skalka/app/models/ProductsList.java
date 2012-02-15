@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,13 +25,16 @@ public class ProductsList extends Model {
 	@Column(name = "target_id")
 	public Long targetId;
 
-	@OneToMany(fetch= FetchType.LAZY)
+	@Column(name = "last_updated")
+	public Date lastUpdated;
+
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "list_id")
 	public List<ProductInList> productsInList;
 
 	public ProductsList() {
 	}
-	
+
 	public ProductsList(String name, Long ownerId, Long targetId) {
 		this.name = name;
 		this.ownerId = ownerId;
