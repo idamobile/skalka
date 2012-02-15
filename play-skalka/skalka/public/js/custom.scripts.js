@@ -77,7 +77,7 @@ $(document).ready(function($) {
 	});
 
 	if((typeof( showFriendSelectionDialog ) !== 'undefined') && showFriendSelectionDialog){
-        $('a[href="#selectFriend"]').click();
+		$('a[href="#selectFriend"]').click();
 	}
 	
 	window.fbAsyncInit = function () {
@@ -91,16 +91,16 @@ $(document).ready(function($) {
 	// Sidebar repositioning on window scroll
 	sidebar = $(".feedSidebar");
 	start = 52;
-    
-    $(window).scroll(function () {  
-    	windowTop = $(document).scrollTop();
-        if(windowTop >= start){
-        	//sidebar.css('top', windowTop);
-        	sidebar.addClass('fixed');
-        }else{
-        	sidebar.removeClass('fixed');
-        }
-    });
+	
+	$(window).scroll(function () {  
+		windowTop = $(document).scrollTop();
+		if(windowTop >= start){
+			//sidebar.css('top', windowTop);
+			sidebar.addClass('fixed');
+		}else{
+			sidebar.removeClass('fixed');
+		}
+	});
 	
 	/* attach a submit handler to the form */
 	$("#productUrl").submit(function(event) {
@@ -153,34 +153,34 @@ function ajaxProductParce(event){
 	/* Send the data using post and put the results in a div */
 	$.post( url, { url: term }, function( data ) {
 	
-	    if(!data.error){
-	    	prodForm = $("#productForm");
-	    	prodName = prodForm.find('input[name="descr"]');
-	    	prodPrice = prodForm.find('input[name="price"]');
-	    	prodImage = prodForm.find('input[name="imageUrl"]');
-	    	
-	    	if(data.name){ prodName.val(data.name); }
-	    	if(data.imageUrls){
-	    		$('.images ul').empty();
-	    		buttons = $('.imagesContainer .buttons');
-	    		if(buttons){
-	    			buttons.remove();
-	    		}
-	    		images = data.imageUrls;
-	    		$.each(images, function(key, value) {
-	    			$('.images ul').append('<li><img src="' + value + '"/></li>');
-	    		});
-	    		prodImage.val(images[0]);
-	    		initGalley();
-	    	}
-	    	if(data.price){ prodPrice.val(data.price); }
-	    	
-	    	progrs.removeClass('progress');
-	    	prodInfo.show(200, $.fancybox.update());
-	    	
-	    }else{
-	    	alert('Product Parcing returned Error!');
-	    }
+		if(!data.error){
+			prodForm = $("#productForm");
+			prodName = prodForm.find('input[name="descr"]');
+			prodPrice = prodForm.find('input[name="price"]');
+			prodImage = prodForm.find('input[name="imageUrl"]');
+			
+			if(data.name){ prodName.val(data.name); }
+			if(data.imageUrls){
+				$('.images ul').empty();
+				buttons = $('.imagesContainer .buttons');
+				if(buttons){
+					buttons.remove();
+				}
+				images = data.imageUrls;
+				$.each(images, function(key, value) {
+					$('.images ul').append('<li><img src="' + value + '"/></li>');
+				});
+				prodImage.val(images[0]);
+				initGalley();
+			}
+			if(data.price){ prodPrice.val(data.price); }
+			
+			progrs.removeClass('progress');
+			prodInfo.show(200, $.fancybox.update());
+			
+		}else{
+			alert('Product Parcing returned Error!');
+		}
 	}, "json");
 }
 
@@ -296,43 +296,48 @@ var GridLayout = function () {
 
 function initProfileEditor()
 {
-    var selSubmit = "input#btnSubmit";
-    var setSelected = {};
- 
-    $(document).ready( function() {
-        var fnEnableSubmit = function (bEnable) {
-            if( bEnable )
-                 $( selSubmit ).removeAttr( "disabled" );
-            else
-                 $( selSubmit ).attr( "disabled", true );
-        }
- 
-        fnEnableSubmit( false );
-       
-        $( "li.item" ).click( function () {
-            var elt = $( this );
-            elt.toggleClass( "sel" );
-            if( elt.hasClass( "sel" ) )
-                setSelected[ this.id ] = true;
-            else
-                delete setSelected[ this.id ];
-           
-            var count = 0;
-            for( var prop in setSelected )
-                count++;
-            fnEnableSubmit( count >= 5 );
-        })
-    })
- 
-    $(selSubmit).click(function() {
-        var arg = "";
-        for( var prop in setSelected )
-        {
-            if( arg != "" )
-                arg += "&";
-            arg += ( "catIds=" + prop );
-        }
-        // alert(arg);
-        window.location.href = "/friends/addCategories?" + arg;
-    });
+	var selSubmit = "input#btnSubmit";
+	var setSelected = {};
+
+	$(document).ready( function() {
+		setSelected = {};
+
+		var fnEnableSubmit = function () {
+			var count = 0;
+			for( var prop in setSelected )
+				count++;
+			if( count >= 5 )
+				 $( selSubmit ).removeAttr( "disabled" );
+			else
+				 $( selSubmit ).attr( "disabled", true );
+		}
+
+		// count the items that are currently selected.
+		var selectedItems = $( "li.item.sel" );
+		selectedItems.each(function (e) {
+			setSelected[ e.id ] = true;
+		});
+		fnEnableSubmit();
+
+		$( "li.item" ).click( function () {
+			var elt = $( this );
+			elt.toggleClass( "sel" );
+			if( elt.hasClass( "sel" ) )
+				setSelected[ this.id ] = true;
+			else
+				delete setSelected[ this.id ];
+			fnEnableSubmit();
+		})
+	})
+
+	$(selSubmit).click(function() {
+		var arg = "";
+		for( var prop in setSelected )
+		{
+			if( arg != "" )
+				arg += "&";
+			arg += ( "catIds=" + prop );
+		}
+		window.location.href = "/friends/addCategories?" + arg;
+	});
 }
