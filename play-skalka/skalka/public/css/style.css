@@ -393,3 +393,15 @@
 .subCategories .item.sel {
     background: red;
 }
+
+ul.ui-widget {
+	text-align: left;
+}
+
+.ui-menu .ui-menu-item img {
+	vertical-align:middle;
+}
+
+.ui-menu .ui-menu-item a.ui-state-hover {
+	background: #BBBBFF;
+}

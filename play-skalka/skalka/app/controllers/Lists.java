@@ -22,7 +22,7 @@ public class Lists extends Controller {
 
 	public static void index(long id) {
 		ResultSet rs = DB
-				.executeQuery("select * from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
+				.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
 						+ id);
 		List<Product> list = new ArrayList<Product>();
 		try {

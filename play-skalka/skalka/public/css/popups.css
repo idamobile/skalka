@@ -78,6 +78,12 @@
 	display: none;
 }
 
+/* SELECT USER DIALOG */
+
+.friendSuggestion {
+	background-color: #f1f1f1;
+}
+
 /* IMAGES */
 .giftSubmit .productInfo .imagesContainer {
 	float: left;

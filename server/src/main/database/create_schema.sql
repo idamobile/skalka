@@ -128,9 +128,10 @@ on lists ( owner_id );
 drop table if exists list_prod;
 
 create table list_prod (
+    id             bigint                                         not null auto_increment,
     list_id        bigint                                         not null,
     product_id     bigint                                         not null,
-    primary        key(list_id, product_id)
+    primary        key(id)
 );
 
 create index list_prod_lid_idx
