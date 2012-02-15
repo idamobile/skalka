@@ -45,9 +45,6 @@ $(document).ready(function($) {
 		closeSpeed  : 150,
 		minHeight: 0,
 		wrapCSS: 'skalkaModal',
-		onComplete:function() {
-            alert('Completed!');
-		},
 		helpers : {
 			overlay : {
 				css : {
@@ -61,7 +58,7 @@ $(document).ready(function($) {
 	if(showFriendSelectionDialog){
         $('a[href="#selectFriend"]').click();
 	}
-
+	
 	window.fbAsyncInit = function () {
 		friendCompleterSetup();
 		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
@@ -109,7 +106,7 @@ function ajaxAddProduct(event){
         values[this.name] = $(this).val();
     });
     
-    //alert(values.toSource());
+    alert(values.toSource());
 	
 	/* Add Product to DB */
 	$.post( url, { url: term }, function( data ) {

@@ -84,15 +84,14 @@ function friendCompleterSetup()
 			// alert("Friend Selected: " + selectedObj.label);
 			$('input#fbFriendId').val(selectedObj.id);
 			$(this).val(selectedObj.label);
-			$("#invite_control").show();
+			//$("#invite_control").show();
 			return false;
-		},
-		appendTo: "input#friend_finder"
+		}
 	}
 
 	fnAutocompleteRender = function (ul, item) {
 		// My: works OK, with picture, less optimal code
-		var li = $("<li></li>");
+		var li = $("<li class='friendSuggestion'></li>");
 		li.data("item.autocomplete", item);
 		var a = $( "<a></a>" );
 		var img = $("<img src=\"" + item.picture + "\" />");
