@@ -264,3 +264,46 @@ var GridLayout = function () {
 		}
 	}
 } ();
+
+function initProfileEditor()
+{
+    var selSubmit = "input#btnSubmit";
+    var setSelected = {};
+ 
+    $(document).ready( function() {
+        var fnEnableSubmit = function (bEnable) {
+            if( bEnable )
+                 $( selSubmit ).removeAttr( "disabled" );
+            else
+                 $( selSubmit ).attr( "disabled", true );
+        }
+ 
+        fnEnableSubmit( false );
+       
+        $( "li.item" ).click( function () {
+            var elt = $( this );
+            elt.toggleClass( "sel" );
+            if( elt.hasClass( "sel" ) )
+                setSelected[ this.id ] = true;
+            else
+                delete setSelected[ this.id ];
+           
+            var count = 0;
+            for( var prop in setSelected )
+                count++;
+            fnEnableSubmit( count >= 5 );
+        })
+    })
+ 
+    $(selSubmit).click(function() {
+        var arg = "";
+        for( var prop in setSelected )
+        {
+            if( arg != "" )
+                arg += "&";
+            arg += ( "catIds=" + prop );
+        }
+        // alert(arg);
+        window.location.href = "/friends/addCategories?" + arg;
+    });
+}

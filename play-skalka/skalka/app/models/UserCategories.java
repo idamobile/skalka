@@ -16,4 +16,12 @@ public class UserCategories extends Model {
 	@Column(name = "category_id")
 	public Long categoryId;
 
+	public UserCategories() {
+	}
+
+	public UserCategories(Long userId, Long categoryId) {
+		this.userId = userId;
+		this.categoryId = categoryId;
+	}
+
 }
