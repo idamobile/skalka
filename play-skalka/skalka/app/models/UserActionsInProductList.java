@@ -35,5 +35,6 @@ public class UserActionsInProductList extends Model {
 		this.listId = listId;
 		this.productId = productId;
 		this.userId = userId;
+		this.userAction = userAction;
 	}
 }
