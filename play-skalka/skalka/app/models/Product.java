@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class Product extends Model {
 
 	@Column(name = "product_url")
 	public String productUrl;
-	
+
 	@Column(name = "added_by_uid")
 	public Long addedBy;
 
@@ -51,10 +52,13 @@ public class Product extends Model {
 
 	@Column(name = "image_details")
 	public String imageDetails;
-	
+
 	@Column(name = "image_list")
 	public String imageList;
-	
+
+	@Column(name = "is_public")
+	public boolean isPublic;
+
 	public Product() {
 	}
 
@@ -83,5 +87,30 @@ public class Product extends Model {
 		}
 		return author;
 
+	}
+
+	public static Product createFromResultSet(ResultSet rs) {
+		try {
+			Product p = new Product();
+
+			p.id = rs.getLong("id");
+			p.descr = rs.getString("description");
+			p.story = rs.getString("story");
+			p.productUrl = rs.getString("product_url");
+			p.imageUrl = rs.getString("image_url");
+			p.imageDetails = rs.getString("image_details");
+			p.imageFeed = rs.getString("image_feed");
+			p.imageList = rs.getString("image_list");
+			p.addedBy = rs.getLong("added_by_uid");
+			p.price = rs.getFloat("price");
+			p.productType = rs.getString("type");
+			p.addedWhen = rs.getDate("added_when");
+			p.isPublic = rs.getBoolean("is_public");
+
+			return p;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
