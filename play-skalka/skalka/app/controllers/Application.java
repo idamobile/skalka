@@ -8,6 +8,7 @@ import models.ProductsList;
 import models.Subcategory;
 import models.User;
 import models.UserCategories;
+import play.Logger;
 import play.cache.Cache;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -28,9 +29,11 @@ public class Application extends Controller {
 			if (user == null) {
 				// TODO: ask FB in future to populate cache, for now we make
 				// user login again
-				clearCookies();
 				Signin.index();
 			}
+
+			Logger.warn("Access token: ", user.accessToken);
+
 			renderArgs.put("user", user);
 		}
 	}
@@ -74,7 +77,7 @@ public class Application extends Controller {
 		index(null);
 	}
 
-	private static void clearCookies() {
+	public static void clearCookies() {
 		session.remove(SESSION_PARAM_ACCESS_TOKEN, SESSION_PARAM_TARGET_FRIEND);
 	}
 

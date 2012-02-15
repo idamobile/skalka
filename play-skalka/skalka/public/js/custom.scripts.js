@@ -55,7 +55,7 @@ $(document).ready(function($) {
 		}
 	});
 
-	if(showFriendSelectionDialog){
+	if((typeof( showFriendSelectionDialog ) !== 'undefined') && showFriendSelectionDialog){
         $('a[href="#selectFriend"]').click();
 	}
 	
