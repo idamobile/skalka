@@ -19,7 +19,7 @@ import utils.Pair;
 
 public class PintresetPageParser {
 	
-	private static final String FILE ="http://pinterest.com/ilnem/categories?page=3";
+	private static final String FILE ="http://pinterest.com/ilnem/categories?page=2";
 	
 	public static final void main(String[] args) throws IOException, ClassNotFoundException, SQLException{
 		Document doc = Jsoup.connect(FILE).get();

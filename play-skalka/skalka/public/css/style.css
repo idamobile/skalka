@@ -11,7 +11,7 @@
 }
 .main-container {}
 .main {
-	background: transparent url(/public/images/bg_main.png) repeat-y 0 0;
+	/*background: transparent url(/public/images/bg_main.png) repeat-y 0 0;*/
 	padding: 0 28px 0;
 	margin: 0 auto;
 	position: relative;	
