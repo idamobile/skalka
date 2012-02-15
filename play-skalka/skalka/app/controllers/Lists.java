@@ -74,11 +74,14 @@ public class Lists extends Application {
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
 		System.out.println("Action==" + userAction);
-		
-		UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, userId, userAction);
-		uaid.save();
-		pil.userActions.add(uaid);
-		pil.save();
+		try{
+			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, userId, userAction);
+			uaid.save();
+			pil.userActions.add(uaid);
+			pil.save();
+		}catch (Throwable w){
+			renderJSON(new ErrorResult());
+		}
 		renderJSON(ErrorResult.SUCCESS);
 	}
 }

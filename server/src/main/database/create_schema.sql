@@ -131,7 +131,8 @@ create table list_prod (
     id             bigint                                         not null auto_increment,
     list_id        bigint                                         not null,
     product_id     bigint                                         not null,
-    primary        key(id)
+    primary        key(id),
+    unique         key list_prod (list_id, product_id)
 );
 
 create index list_prod_lid_idx
@@ -148,5 +149,6 @@ create table user_actions_in_prod_list (
     product_id      bigint                                        not null,
     user_id         bigint                                        not null,
     user_action     enum('y', 'n', 'in')                          default null,
-    primary         key(id)
+    primary         key(id),
+    unique          key list_prod_user (list_id, product_id, user_id)
 );
