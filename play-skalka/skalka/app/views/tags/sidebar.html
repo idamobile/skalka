@@ -5,15 +5,12 @@
 			<img src="@{'/public/images/userpic.png'}" alt="Valentin Kravtsov"/>
 		</div>
 		<div class="eventName">
-			Valentin’s birthday gift
+			${_user} birthday gift
 		</div>
 		<ul class="items">
-			<li class="item">
-				<img src="@{'/public/images/content/product_thumb1.jpg'}" alt=""/>
-			</li>
-			<li class="item">
-				<img src="@{'/public/images/content/product_thumb2.jpg'}" alt=""/>
-			</li>
+			#{list items:_list, as:'item'}
+				<img src="@{Products.imageFeed(item.id)}" alt=""/>
+			#{/list}
 			<li class="add">Drag<br/> to add</li>
 			<li>&nbsp;</li>
 			<li>&nbsp;</li>

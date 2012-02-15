@@ -2,12 +2,12 @@
 
 <div class="main-container col1-layout">				
     <div class="main productFeed">				    
-    	#{sidebar /}				    
+    	#{sidebar user:user, list: list/}				    
     	<div class="col-main">
 
     		<div class="titleBlock">
     			<p>
-    				Edit <a href="@{Application.profile()}" >Valentin’s profile</a>
+    				Edit <a href="@{Application.profile()}" >${user}'s profile</a>
 					for better suggestions or <a class="submitIdea" href="#addProduct">submit your own idea</a>.
 					<a class="changeFriend" href="#selectFriend">Select friend</a>
     			</p>
