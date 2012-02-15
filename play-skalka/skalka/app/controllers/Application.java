@@ -57,9 +57,12 @@ public class Application extends Controller {
 			Application.profile();
 		} else {
 			User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-			if (!ProductsList.hasLists(ownerUser.id, targetUser.id)) {
-				// TODO: create first list
+			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id); 
+			if (list == null) {
+				list = new ProductsList("Gift for " + targetUser.firstName, ownerUser.id, targetUser.id);
+				list.create();
 			}
+			redirect("/lists/" + list.id);
 		}
 
 		// Target user exists, categories are set, redirecting to list
