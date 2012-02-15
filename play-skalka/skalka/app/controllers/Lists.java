@@ -12,9 +12,8 @@ import models.User;
 import models.UserActionsInProductList;
 import play.db.DB;
 import play.db.jpa.GenericModel.JPAQuery;
-import play.mvc.Controller;
 
-public class Lists extends Controller {
+public class Lists extends Application {
 
 	public static void productsInList(Long ownerId, Long targetId) {
 		// System.out.println("OwnerId:" + ownerId + " targetId:" + targetId);
@@ -56,21 +55,20 @@ public class Lists extends Controller {
 	}
 
 	// render(list, products);
-	
-	public static void addUserAction(Long listId, Long productId, Long userId, String action){
+
+	public static void addUserAction(Long listId, Long productId, Long userId, String action) {
 		JPAQuery query = ProductInList.find("listId = ? AND productId = ? ", listId, productId);
-		ProductInList pil = query.first(); 
-		if(pil == null){
+		ProductInList pil = query.first();
+		if (pil == null) {
 			renderJSON(new ErrorResult(-1, "product not in list"));
 		}
 		User user = User.findById(userId);
-		if(user == null){
+		if (user == null) {
 			renderJSON(new ErrorResult(-1, "wrong user id"));
 		}
-		if(pil.userActions == null){
+		if (pil.userActions == null) {
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
-		
 		System.out.println("Action==" + action);
 		
 		UserActionsInProductList userAction = new UserActionsInProductList(listId, productId, userId, action);
