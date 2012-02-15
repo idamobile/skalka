@@ -14,8 +14,8 @@ import javax.persistence.UniqueConstraint;
 import play.db.jpa.Model;
 
 @Entity
-@Table(name = "list_prod", uniqueConstraints = { @UniqueConstraint(columnNames = { 
-        "list_id", "product_id" }) })
+@Table(name = "list_prod", 
+	uniqueConstraints = { @UniqueConstraint(columnNames = { "list_id", "product_id" }) })
 public class ProductInList extends Model {
 
 	@Column(name = "list_id")

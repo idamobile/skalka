@@ -107,6 +107,10 @@ public class User extends Model {
 		return User.find("byFacebookId", facebookId).first();
 	}
 
+	public static boolean hasUserWithFacebookId(Long facebookId) {
+		return User.count("byFacebookId", facebookId) > 0;
+	}
+
 	@Override
 	public String toString() {
 		return firstName + " " + lastName;
