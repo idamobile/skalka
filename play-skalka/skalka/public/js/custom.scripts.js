@@ -24,7 +24,7 @@ $(document).ready(function($) {
 	});
 	
 	// Sidebar repositioning on window scroll
-	sidebar = $(".sidebar");
+	sidebar = $(".feedSidebar");
 	start = 52;
     
     $(window).scroll(function () {  
@@ -67,7 +67,7 @@ function ajaxAddProduct(event){
 	/* Add Product to DB */
 	$.post( url, { url: term }, function( data ) {
 	
-	    if(data){
+	    if(data == 'true'){
 			alert('Product Added!');
 	    }else{
 	    	alert('Product was not added!');
