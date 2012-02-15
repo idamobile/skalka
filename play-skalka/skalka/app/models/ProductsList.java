@@ -16,6 +16,8 @@ import play.db.jpa.Model;
 @Table(name = "lists")
 public class ProductsList extends Model {
 
+	public static final String HQL_FIND_LISTS = "ownerId=? AND targetId=? ORDER BY lastUpdated ASC";
+
 	@Column(name = "name")
 	public String name;
 
@@ -33,11 +35,21 @@ public class ProductsList extends Model {
 	public List<ProductInList> productsInList;
 
 	public ProductsList() {
+		lastUpdated = new Date();
 	}
 
 	public ProductsList(String name, Long ownerId, Long targetId) {
+		this();
 		this.name = name;
 		this.ownerId = ownerId;
 		this.targetId = targetId;
+	}
+
+	public static boolean hasLists(Long ownerId, Long targetId) {
+		return ProductsList.count(HQL_FIND_LISTS, ownerId, targetId) > 0;
+	}
+
+	public static ProductsList fetchLatest(Long ownerId, Long targetId) {
+		return ProductsList.find(HQL_FIND_LISTS, ownerId, targetId).first();
 	}
 }

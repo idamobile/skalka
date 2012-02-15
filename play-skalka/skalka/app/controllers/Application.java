@@ -9,7 +9,6 @@ import models.Subcategory;
 import models.User;
 import models.UserCategories;
 import play.cache.Cache;
-import play.db.jpa.GenericModel.JPAQuery;
 import play.mvc.Before;
 import play.mvc.Controller;
 
@@ -17,6 +16,7 @@ public class Application extends Controller {
 
 	public static final String SESSION_PARAM_ACCESS_TOKEN = User.JSON_TAG_ACCESS_TOKEN;
 	public static final String SESSION_PARAM_TARGET_FRIEND = "targetFbId";
+	public static final String SESSION_PARAM_CURRENT_LIST = "currentList";
 
 	@Before
 	static void checkConnected() {
@@ -55,11 +55,8 @@ public class Application extends Controller {
 			Application.profile();
 		} else {
 			User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-			JPAQuery query = ProductsList.find("ownerId=? AND targetId=?", ownerUser.id,
-					targetUser.id);
-			List<ProductsList> productLists = query.fetch();
-			if (productLists == null || productLists.size() == 0) {
-
+			if (!ProductsList.hasLists(ownerUser.id, targetUser.id)) {
+				// TODO: create first list
 			}
 		}
 
