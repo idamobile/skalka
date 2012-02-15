@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.ErrorResult;
 import models.Product;
+import models.ProductInList;
 import models.ProductsList;
 import play.db.DB;
 import play.db.jpa.GenericModel.JPAQuery;
@@ -33,7 +35,25 @@ public class Lists extends Controller {
 		}
 		List<Product> products = Product.findAll();
 		renderJSON(list);
-
-		// render(list, products);
+		// render(products);
 	}
+
+	public static void addProduct(long listId, long productId) {
+		ProductsList list = ProductsList.findById(listId);
+		Product p = Product.findById(productId);
+		if (list == null || p == null) {
+			renderJSON(new ErrorResult(5, "list=" + list + " p=" + p));
+		}
+		if (list.productsInList == null) {
+			list.productsInList = new ArrayList<ProductInList>();
+		}
+		ProductInList pil = new ProductInList(listId, productId);
+		pil.save();
+		list.productsInList.add(pil);
+		list.save();
+		renderJSON(ErrorResult.SUCCESS);
+	}
+
+	// render(list, products);
+
 }
