@@ -19,7 +19,7 @@
     		#{list items:products, as:'product'}
     			<div class="item" id="${product.id}" data-id="${product.id}">
     				<div class="image-box">
-    					<!--<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>-->
+    					<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
     					<div class="price">
     						<div>
     							${product.price}
