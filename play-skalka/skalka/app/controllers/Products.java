@@ -117,12 +117,12 @@ public class Products extends Controller {
 						    		   "INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id " +
 									   "INNER JOIN subcategories AS s ON s.id = pc.subcategory_id " +
 									   "INNER JOIN categories AS c ON c.id = s.category_id " +
-									   "WHERE uc.user_id = 1 " +
+									   "WHERE uc.user_id = ? " +
 									   "GROUP BY p.id " + 
 									   "ORDER BY sum(c.weight);";
 
-	public static void orderedList(int page) {
-		ResultSet result = DB.executeQuery(SELECT_PRODUCTS);
+	public static void orderedList(int page, long userId) {
+		ResultSet result = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(userId)));
 		List<Product> products = new ArrayList<Product>();
 		try {
 			while(result.next()){
