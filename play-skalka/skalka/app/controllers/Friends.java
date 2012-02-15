@@ -1,43 +1,28 @@
 package controllers;
 
-import models.ErrorResult;
-import models.User;
-import play.libs.WS;
+import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import models.User;
+import models.UserCategories;
+import play.Logger;
+import play.cache.Cache;
 
 public class Friends extends Application {
 
-	public static void pick(Long facebookId) {
-		User user = User.findByFacebookId(facebookId);
-		if (user == null) {
-			try {
+	public static void addCategories(List<Long> catIds) {
 
-				String response = WS.url("http://graph.facebook.com/" + facebookId).get()
-						.getString();
-				JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
-				user = User.fromFbJson(obj);
-				user.save();
-
-				obj.addProperty("is_new", true);
-				obj.addProperty("error", false);
-				renderText(obj.toString());
-
-			} catch (Throwable e) {
-				System.out.println(e);
-				renderJSON(new ErrorResult(-1, e.getMessage()));
-			}
+		if (catIds == null || catIds.isEmpty()) {
+			renderText("Categories are empty");
 		}
 
-		Gson gson = new GsonBuilder().registerTypeAdapter(User.class, new User.UserSerializer())
-				.create();
-		JsonObject obj = (JsonObject) gson.toJsonTree(user);
-		obj.addProperty("is_new", false);
-		obj.addProperty("error", false);
+		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 
-		renderText(obj.toString());
+		for (Long catId : catIds) {
+			Logger.debug("Adding catId = %s for userId = %s", "" + catId, "" + targetUser.id);
+			new UserCategories(targetUser.id, catId).save();
+		}
+
+		Application.index(null);
 	}
+
 }
