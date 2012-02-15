@@ -2,21 +2,22 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumns;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import play.db.jpa.Model;
+import models.pk.ActionsOnProductsPK;
+import play.db.jpa.GenericModel;
 
 @Entity
-@Table(name = "user_actions_in_prod_list", uniqueConstraints = { @UniqueConstraint(columnNames = { 
-        "list_id", "product_id", "user_id" }) })
-public class UserActionsInProductList extends Model {
+@Table(name = "user_actions_in_prod_list")
+@IdClass(ActionsOnProductsPK.class)
+public class UserActionsInProductList extends GenericModel {
 
-	@Column(name = "list_id")
+	@Id
 	public Long listId;
 
-	@Column(name = "product_id")
+	@Id
 	public Long productId;
 
 	@Column(name = "user_id")
@@ -24,7 +25,7 @@ public class UserActionsInProductList extends Model {
 
 	@Column(name = "user_action")
 	public String userAction;
-	
+
 	public UserActionsInProductList() {
 	}
 
@@ -33,4 +34,5 @@ public class UserActionsInProductList extends Model {
 		this.productId = productId;
 		this.userId = userId;
 	}
+
 }
