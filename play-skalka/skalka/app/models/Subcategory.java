@@ -1,11 +1,13 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,7 +52,12 @@ public class Subcategory extends Model {
 
 		List<Subcategory> cats = Subcategory.all().fetch();
 
-		Map<Category, List<Subcategory>> c = new HashMap<Category, List<Subcategory>>();
+		Map<Category, List<Subcategory>> c = new TreeMap<Category, List<Subcategory>>(new Comparator<Category>() {
+			@Override
+			public int compare(Category lhs, Category rhs) {
+				return rhs.weight.compareTo(lhs.weight);
+			}
+		});
 
 		for (Subcategory sub : cats) {
 			if (subcatIds.contains(sub.id)) {

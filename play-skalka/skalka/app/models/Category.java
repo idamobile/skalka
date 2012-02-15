@@ -15,6 +15,9 @@ public class Category extends Model {
 
 	@Column(name = "image_url")
 	public String imageUrl;
+	
+	@Column(name = "weight")
+	public Float weight;
 
 	@Override
 	public String toString() {
