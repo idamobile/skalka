@@ -70,7 +70,9 @@ public class Lists extends Controller {
 		if(pil.userActions == null){
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
-		pil.userActions.add(new UserActionsInProductList(listId, productId, userId, action));
+		UserActionsInProductList userAction = new UserActionsInProductList(listId, productId, userId, action);
+		userAction.save();
+		pil.userActions.add(userAction);
 		pil.save();
 		renderJSON(ErrorResult.SUCCESS);
 	}
