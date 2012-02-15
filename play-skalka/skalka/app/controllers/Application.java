@@ -30,6 +30,7 @@ public class Application extends Controller {
 		if (targetFbId == null) {
 			if (!session.contains(SESSION_PARAM_TARGET_FRIEND)) {
 				// TODO: show friends selector
+				Lists.index();// TODO: remove this in future
 			} else {
 				targetFbId = new Long(session.get(SESSION_PARAM_TARGET_FRIEND));
 			}
