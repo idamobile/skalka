@@ -27,7 +27,7 @@ public class Lists extends Controller {
 		ProductsList list = ProductsList.findById(listId);
 		Product p = Product.findById(productId);
 		if(list == null || p == null){
-			render(new ErrorResult());
+			renderJSON(new ErrorResult());
 		}
 		if (list.productsInList == null){
 			list.productsInList = new ArrayList<ProductInList>();
@@ -36,7 +36,7 @@ public class Lists extends Controller {
 		pil.save();
 		list.productsInList.add(pil);
 		list.save();
-		render(ErrorResult.SUCCESS);
+		renderJSON(ErrorResult.SUCCESS);
 	}
 
 }
