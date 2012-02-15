@@ -58,7 +58,7 @@ public class Application extends Controller {
 			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id); 
 			if (list == null) {
 				list = new ProductsList("Gift for " + targetUser.firstName, ownerUser.id, targetUser.id);
-				list.save();
+				list.create();
 			}
 			redirect("/lists/" + list.id);
 		}

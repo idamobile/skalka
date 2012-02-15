@@ -110,7 +110,7 @@ on user_subcategories ( subcategory_id );
 drop table if exists lists;
 
 create table lists (
-    id             bigint                                        not null,
+    id             bigint                                        not null auto_increment,
     name           varchar(255)                                  default null,
     owner_id       bigint                                        default null,
     target_id      bigint                                        not null,
