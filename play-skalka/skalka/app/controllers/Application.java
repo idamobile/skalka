@@ -34,7 +34,7 @@ public class Application extends Controller {
 				Signin.index();
 			}
 
-			Logger.warn("Access token: ", user.accessToken);
+			Logger.warn("Access token: " + user.accessToken);
 
 			renderArgs.put("user", user);
 		}

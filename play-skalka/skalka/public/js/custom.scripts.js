@@ -56,7 +56,7 @@ $(document).ready(function($) {
 	});
 
 	// Initializing SHOW PRODUCT popup
-	$('.showProduct').fancybox({
+	$('.feed .item').fancybox({
 		fitToView: false,
 		scrolling: 'no',
 		padding: 0,
