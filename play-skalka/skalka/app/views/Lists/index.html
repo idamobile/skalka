@@ -16,8 +16,8 @@
     		<div class="grid-layout" id="grid-wrapper">
     		<div class="feed" id="items-container">
     		
-    		#{list items:products, as:'product'}<a class="productInFeed" href="#productDetails">aaa</a>
-    			<div class="item" id="${product.id}" data-id="${product.id}">
+    		#{list items:products, as:'product'}
+    			<div class="item feedProduct" id="${product.id}" data-id="${product.id}">
     				<div class="image-box">
     					<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
     					<div class="price">
