@@ -70,6 +70,9 @@ public class Lists extends Controller {
 		if(pil.userActions == null){
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
+		
+		System.out.println("Action==" + action);
+		
 		UserActionsInProductList userAction = new UserActionsInProductList(listId, productId, userId, action);
 		userAction.save();
 		pil.userActions.add(userAction);
