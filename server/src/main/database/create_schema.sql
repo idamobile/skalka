@@ -143,9 +143,10 @@ on list_prod ( list_id );
 drop table if exists user_actions_in_prod_list;
 
 create table user_actions_in_prod_list (
+    id              bigint                                        not null auto_increment,
     list_id         bigint                                        not null,
     product_id      bigint                                        not null,
     user_id         bigint                                        not null,
     user_action     enum('y', 'n', 'in')                          default null,
-    primary         key(list_id, product_id, user_id)
+    primary         key(id)
 );
