@@ -46,7 +46,7 @@ public class Products extends Controller {
 				}
 			}
 
-			product.image = fetchImage(imageUrl);
+			fetchImage(product, imageUrl);
 
 			product.save();
 			renderText("true");
@@ -56,26 +56,23 @@ public class Products extends Controller {
 		}
 	}
 
-	private static String fetchImage(String url) throws IOException {
+	private static String fetchImage(Product product, String url) throws IOException {
 		HttpResponse response = WS.url(url).get();
-
-		if(!new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_FEED_DIR).exists()){
-			new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_FEED_DIR).mkdir();
-			new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_DETAILS_DIR).mkdir();
-			new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_LIST_DIR).mkdir();
-		}
 		
 		Blob from = new Blob();
 		from.set(response.getStream(), response.getContentType());
 		
-		File toInFeed = new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_FEED_DIR, Codec.UUID());
+		File toInFeed = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInFeed, Constants.PRODUCT_IMAGE_IN_FEED, -1);
+		product.imageFeed = toInFeed.getAbsolutePath();
 
-		File toInDetails = new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_DETAILS_DIR + toInFeed.getName());
+		File toInDetails = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInDetails, Constants.PRODUCT_IMAGE_IN_PROD_DETAILS, -1);
+		product.imageDetails = toInDetails.getAbsolutePath();
 
-		File toInList = new File(Blob.getStore().getAbsolutePath() + Constants.IMAGE_IN_LIST_DIR + toInFeed.getName());
+		File toInList = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInList, Constants.PRODUCT_IMAGE_IN_LIST, -1);
+		product.imageList = toInList.getAbsolutePath();
 
 		return toInFeed.getAbsolutePath();
 	}
@@ -84,11 +81,22 @@ public class Products extends Controller {
 		render();
 	}
 
-	public static void image(long id) {
+	public static void imageFeed(long id) {
 		Product p = Product.findById(id);
-		renderBinary(new File(p.image));
+		renderBinary(new File(p.imageFeed));
 	}
 
+	public static void imageDetails(long id) {
+		Product p = Product.findById(id);
+		renderBinary(new File(p.imageDetails));
+	}
+
+	public static void imageList(long id) {
+		Product p = Product.findById(id);
+		renderBinary(new File(p.imageList));
+	}
+
+	
 	public static void list(int page) {
 		page = (page <= 0) ? 1 : page;
 
