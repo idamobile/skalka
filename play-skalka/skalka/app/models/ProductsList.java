@@ -30,5 +30,10 @@ public class ProductsList extends Model {
 
 	public ProductsList() {
 	}
-
+	
+	public ProductsList(String name, Long ownerId, Long targetId) {
+		this.name = name;
+		this.ownerId = ownerId;
+		this.targetId = targetId;
+	}
 }
