@@ -37,7 +37,7 @@ public class Products extends Controller {
 			@Required Float price, String type) {
 		try {
 
-			Logger.debug(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
+			Logger.warn(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
 
 			Product product = new Product(descr, story, imageUrl, null, price, type, new Date());
 
