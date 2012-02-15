@@ -57,7 +57,7 @@ public class Product extends Model {
 	public String imageList;
 
 	@Column(name = "is_public")
-	public boolean isPublic;
+	public String isPublic = "t";
 
 	public Product() {
 	}
@@ -105,7 +105,7 @@ public class Product extends Model {
 			p.price = rs.getFloat("price");
 			p.productType = rs.getString("type");
 			p.addedWhen = rs.getDate("added_when");
-			p.isPublic = rs.getBoolean("is_public");
+			p.isPublic = rs.getString("is_public");
 
 			return p;
 		} catch (Exception e) {
