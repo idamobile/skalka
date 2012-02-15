@@ -2,6 +2,9 @@ package controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +15,7 @@ import models.User;
 import play.Logger;
 import play.cache.Cache;
 import play.data.validation.Required;
+import play.db.DB;
 import play.db.jpa.Blob;
 import play.libs.Codec;
 import play.libs.Images;
@@ -106,8 +110,27 @@ public class Products extends Controller {
 		List<Product> products = Product.all().from(startIndex).fetch(Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
 	}
+	
+	private static final String SELECT_PRODUCTS = "SELECT p.* " + 
+									   "FROM products AS p " +
+						    		   "LEFT JOIN products_subcategories AS pc ON p.id = pc.product_id "+
+						    		   "INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id " +
+									   "INNER JOIN subcategories AS s ON s.id = pc.subcategory_id " +
+									   "INNER JOIN categories AS c ON c.id = s.category_id " +
+									   "WHERE uc.user_id = 1 " +
+									   "GROUP BY p.id " + 
+									   "ORDER BY sum(c.weight);";
 
 	public static void orderedList(int page) {
-
+		ResultSet result = DB.executeQuery(SELECT_PRODUCTS);
+		List<Product> products = new ArrayList<Product>();
+		try {
+			while(result.next()){
+				products.add(Product.createFromResultSet(result));
+			}
+			render(products);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
