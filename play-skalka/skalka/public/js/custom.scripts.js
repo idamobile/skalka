@@ -192,7 +192,7 @@ function initGalley(){
 		continuous: true,
 		speed: 150,
 		onChange: function (indSelected) {
-			var img = $(".images ul li img").get(indSelected);
+			var img = $(".images ul li img").eq(indSelected);
 			$( "#productForm" ).find( 'input[name="imageUrl"]' ).val( img.src );
 		}
 	});
