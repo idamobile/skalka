@@ -393,3 +393,7 @@
 .subCategories .item.sel {
     background: red;
 }
+
+ul.ui-widget {
+	text-align: left;
+}
