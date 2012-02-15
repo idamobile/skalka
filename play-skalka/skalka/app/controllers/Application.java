@@ -23,12 +23,14 @@ public class Application extends Controller {
 	@Before
 	static void checkConnected() {
 		if (!session.contains(SESSION_PARAM_ACCESS_TOKEN)) {
+			clearCookies();
 			Signin.index();
 		} else {
 			User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 			if (user == null) {
 				// TODO: ask FB in future to populate cache, for now we make
 				// user login again
+				clearCookies();
 				Signin.index();
 			}
 
@@ -77,7 +79,7 @@ public class Application extends Controller {
 		index(null);
 	}
 
-	public static void clearCookies() {
+	private static void clearCookies() {
 		session.remove(SESSION_PARAM_ACCESS_TOKEN, SESSION_PARAM_TARGET_FRIEND);
 	}
 
