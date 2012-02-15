@@ -41,8 +41,8 @@ public class Lists extends Controller {
 	public static void addProduct(long listId, long productId) {
 		ProductsList list = ProductsList.findById(listId);
 		Product p = Product.findById(productId);
-		if (list == null || p == null) {
-			renderJSON(new ErrorResult(5, "list=" + list + " p=" + p));
+		if(list == null || p == null){
+			renderJSON(new ErrorResult());
 		}
 		if (list.productsInList == null) {
 			list.productsInList = new ArrayList<ProductInList>();

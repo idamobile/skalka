@@ -63,7 +63,7 @@ public class Product extends Model {
 	}
 
 	public Product(String descr, String story, String imageUrl, Long addedBy, float price,
-			String productType, Date addedWhen, List<Long> subcategoryId) {
+			String productType, Date addedWhen) {
 		System.out.println("subcat:" + subcategoryId);
 		this.descr = descr;
 		this.story = story;
@@ -72,7 +72,6 @@ public class Product extends Model {
 		this.price = price;
 		this.productType = productType;
 		this.addedWhen = addedWhen;
-		this.subcategoryId = subcategoryId;
 	}
 
 	@Transient

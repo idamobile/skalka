@@ -34,14 +34,12 @@ public class Products extends Controller {
 	}
 
 	public static void add(String descr, String story, @Required String imageUrl,
-			@Required Float price, String type, List<Long> subcategoryId) {
+			@Required Float price, String type) {
 		try {
 
-			Logger.debug(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type,
-					"" + subcategoryId }));
+			Logger.debug(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
 
-			Product product = new Product(descr, story, imageUrl, null, price, type, new Date(),
-					subcategoryId);
+			Product product = new Product(descr, story, imageUrl, null, price, type, new Date());
 
 			String accessToken = Session.current().get(User.JSON_TAG_ACCESS_TOKEN);
 			if (accessToken != null) {
@@ -107,5 +105,9 @@ public class Products extends Controller {
 		int startIndex = (page - 1) * Constants.PRODUCTS_PAGE_SIZE;
 		List<Product> products = Product.all().from(startIndex).fetch(Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
+	}
+
+	public static void orderedList(int page) {
+
 	}
 }

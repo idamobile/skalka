@@ -34,7 +34,7 @@ values (1, 1, 1, 'y');
 
 delete from categories;
 
-INSERT INTO `categories` VALUES (1,'car','http://www.google.com'),(2,'favorite music','http://www.google.com'),(3,'clothing and fashion','http://www.google.com'),(4,'clothing','http://www.google.com'),(5,'food','http://www.google.com'),(6,'favorite band','http://www.google.com'),(7,'hobby','http://www.google.com'),(8,'sex','http://www.google.com'),(9,'style','http://www.google.com'),(10,'alcohol','http://www.google.com'),(11,'family','http://www.google.com'),(12,'OS','http://www.google.com'),(13,'neatens','http://www.google.com'),(14,'neatness','http://www.google.com'),(15,'time spending','http://www.google.com'),(16,'character','http://www.google.com');
+INSERT INTO `categories` (id, name, image_url, weight) VALUES (1,'car','http://www.google.com', 1),(2,'favorite music','http://www.google.com', 1),(3,'clothing and fashion','http://www.google.com', 1),(4,'clothing','http://www.google.com', 1),(5,'food','http://www.google.com', 1),(6,'favorite band','http://www.google.com', 1),(7,'hobby','http://www.google.com', 1),(8,'sex','http://www.google.com', 10),(9,'style','http://www.google.com', 1),(10,'alcohol','http://www.google.com', 1),(11,'family','http://www.google.com', 1),(12,'OS','http://www.google.com', 1),(13,'neatens','http://www.google.com', 1),(14,'neatness','http://www.google.com', 1),(15,'time spending','http://www.google.com', 1),(16,'character','http://www.google.com', 1);
 
 delete from subcategories;
 
