@@ -50,9 +50,9 @@ on products ( added_by_uid );
 drop table if exists categories;
 
 create table categories (
-    id             bigint                                         not null auto_increment,
+    id             bigint                                         not null auto_increment, 
     name           varchar(255)                                   default null,
-    image_url      varchar(1024)                                  default not null,
+    image_url      varchar(1024)                                  not null,
     primary        key(id)
 );
 
