@@ -13,15 +13,15 @@ public class UserCategories extends Model {
 	@Column(name = "user_id")
 	public Long userId;
 
-	@Column(name = "category_id")
-	public Long categoryId;
+	@Column(name = "subcategory_id")
+	public Long subcategoryId;
 
 	public UserCategories() {
 	}
 
 	public UserCategories(Long userId, Long categoryId) {
 		this.userId = userId;
-		this.categoryId = categoryId;
+		this.subcategoryId = categoryId;
 	}
 
 }

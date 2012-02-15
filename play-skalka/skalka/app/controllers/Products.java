@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -36,9 +37,7 @@ public class Products extends Controller {
 			@Required Float price, String type) {
 		try {
 
-			Logger.debug(
-					"adding product: descr=%s, story=%d, imageUrl=%s, price=%s, type=%s, subcats=%s",
-					descr, story, imageUrl, "" + price, type);
+			Logger.debug(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
 
 			Product product = new Product(descr, story, imageUrl, null, price, type, new Date());
 
@@ -107,8 +106,8 @@ public class Products extends Controller {
 		List<Product> products = Product.all().from(startIndex).fetch(Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
 	}
-	
-	public static void orderedList(int page){
-		
+
+	public static void orderedList(int page) {
+
 	}
 }
