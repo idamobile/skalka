@@ -114,6 +114,7 @@ create table lists (
     name           varchar(255)                                  default null,
     owner_id       bigint                                        default null,
     target_id      bigint                                        not null,
+    last_updated   date                                          default null,
     primary        key(id)
 );
 

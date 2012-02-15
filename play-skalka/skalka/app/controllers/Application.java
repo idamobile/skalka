@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import models.Category;
+import models.ProductsList;
 import models.Subcategory;
 import models.User;
 import models.UserCategories;
 import play.cache.Cache;
+import play.db.jpa.GenericModel.JPAQuery;
 import play.mvc.Before;
 import play.mvc.Controller;
 
@@ -43,14 +45,21 @@ public class Application extends Controller {
 		}
 		session.put(SESSION_PARAM_TARGET_FRIEND, targetFbId);
 
-		User user = User.ensureUser(targetFbId);
-		if (user == null) {
+		User targetUser = User.ensureUser(targetFbId);
+		if (targetUser == null) {
 			// TODO: render error
 			renderText("Friend does not exist in db and could not be fetched from FB");
 		}
 
-		if (UserCategories.count("byUserId", user.id) == 0) {
+		if (UserCategories.count("byUserId", targetUser.id) == 0) {
 			Application.profile();
+		} else {
+			User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+			JPAQuery query = ProductsList.find("ownerId=? AND targetId=?", ownerUser.id, targetUser.id);
+			List<ProductsList> productLists = query.fetch();
+			if(productLists == null || productLists.size() == 0){
+				
+			}
 		}
 
 		// Target user exists, categories are set, redirecting to list
