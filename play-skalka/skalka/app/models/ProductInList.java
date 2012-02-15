@@ -27,8 +27,8 @@ public class ProductInList extends Model {
 
 	@OneToMany(fetch= FetchType.LAZY)
 	@JoinColumns( {
-		@JoinColumn(name="listId", referencedColumnName="list_id"), 
-		@JoinColumn(name="productId", referencedColumnName="product_id")
+		@JoinColumn(name="list_id", referencedColumnName="list_id"), 
+		@JoinColumn(name="product_id", referencedColumnName="product_id")
 	})
 	public List<UserActionsInProductList> userActions;
 

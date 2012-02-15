@@ -10,6 +10,7 @@ import models.ProductInList;
 import models.ProductsList;
 import models.User;
 import models.UserActionsInProductList;
+import play.cache.Cache;
 import play.db.DB;
 import play.db.jpa.GenericModel.JPAQuery;
 
@@ -35,7 +36,10 @@ public class Lists extends Application {
 			t.printStackTrace();
 		}
 		List<Product> products = Product.findAll();
-		render(products, list);
+
+		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
+
+		render(products, list, targetUser);
 	}
 
 	public static void addProduct(long listId, long productId) {

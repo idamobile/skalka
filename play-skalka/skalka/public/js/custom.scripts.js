@@ -76,6 +76,7 @@ $(document).ready(function($) {
 		}
 	});
 
+
 	if((typeof( showFriendSelectionDialog ) !== 'undefined') && showFriendSelectionDialog){
 		$('a[href="#selectFriend"]').click();
 	}
@@ -111,6 +112,7 @@ $(document).ready(function($) {
 		ajaxAddProduct(event);
 	});
 
+	$('.feedProduct').click(alert('ура!'));
 }); 
 
 
