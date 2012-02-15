@@ -30,7 +30,12 @@
 					<h2 class="categoryTitle">${cat?.name}</h2>
 					<ul class="subCategories">
 					    #{list items:categories.get(cat), as:'sub'}
-							<li class="item" id="${sub.id}">
+					    	#{if sub?.isSelected}
+					    		<li class="item sel" id="${sub.id}">
+					    	#{/if}
+					    	#{else}
+								<li class="item" id="${sub.id}">
+							#{/else}
 								<img src="${sub.imageUrl}" alt="Subcategory Image"/>
 								<p class="name">${sub?.name}</p>
 							</li>	
