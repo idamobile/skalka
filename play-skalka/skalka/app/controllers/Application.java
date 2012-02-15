@@ -28,11 +28,12 @@ public class Application extends Controller {
 
 	public static void index(Long targetFbId) {
 		if (targetFbId == null) {
-			if (!session.contains(SESSION_PARAM_TARGET_FRIEND)) {
+			String storedFbId = session.get(SESSION_PARAM_TARGET_FRIEND);
+			if (storedFbId == null) {
 				// TODO: show friends selector
 				Lists.index();// TODO: remove this in future
 			} else {
-				targetFbId = new Long(session.get(SESSION_PARAM_TARGET_FRIEND));
+				targetFbId = new Long(storedFbId);
 			}
 		}
 		session.put(SESSION_PARAM_TARGET_FRIEND, targetFbId);
