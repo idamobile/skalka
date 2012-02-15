@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ public class ProductsList extends Model {
 	@Column(name = "target_id")
 	public Long targetId;
 
-	@OneToMany
+	@OneToMany(fetch= FetchType.LAZY)
 	@JoinColumn(name = "list_id")
 	public List<ProductInList> productsInList;
 

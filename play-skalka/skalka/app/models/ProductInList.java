@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
@@ -24,7 +25,7 @@ public class ProductInList extends Model {
 	@Column(name = "product_id")
 	public Long productId;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(fetch= FetchType.LAZY)
 	@JoinColumns( {
 		@JoinColumn(name="listId", referencedColumnName="list_id"), 
 		@JoinColumn(name="productId", referencedColumnName="product_id")
