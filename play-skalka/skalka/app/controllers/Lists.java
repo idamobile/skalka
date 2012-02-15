@@ -57,7 +57,7 @@ public class Lists extends Controller {
 
 	// render(list, products);
 	
-	public void addUserAction(Long listId, Long productId, Long userId, String action){
+	public static void addUserAction(Long listId, Long productId, Long userId, String action){
 		JPAQuery query = ProductInList.find("listId = ? AND productId = ? ", listId, productId);
 		ProductInList pil = query.first(); 
 		if(pil == null){
