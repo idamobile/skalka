@@ -1,5 +1,10 @@
 package controllers;
 
+import java.util.List;
+import java.util.Map;
+
+import models.Category;
+import models.Subcategory;
 import models.User;
 import models.UserCategories;
 import play.cache.Cache;
@@ -29,7 +34,7 @@ public class Application extends Controller {
 	public static void index(Long targetFbId) {
 		if (targetFbId == null) {
 			String storedFbId = session.get(SESSION_PARAM_TARGET_FRIEND);
-			if (storedFbId == null) {
+			if (storedFbId == null || !storedFbId.matches("[0-9]+")) {
 				// TODO: show friends selector
 				Lists.index();// TODO: remove this in future
 			} else {
@@ -58,7 +63,8 @@ public class Application extends Controller {
 	}
 
 	public static void profile() {
-		render();
+		Map<Category, List<Subcategory>> categories = Subcategory.getTree();
+		render(categories);
 	}
 
 }

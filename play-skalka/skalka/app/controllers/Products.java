@@ -1,9 +1,5 @@
 package controllers;
 
-import static utils.Constants.ERROR_PARSING_FAILED;
-import static utils.Constants.PRODUCTS_PAGE_SIZE;
-import static utils.Constants.PRODUCT_IMAGE_WIDTH;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -21,6 +17,7 @@ import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Controller;
 import play.mvc.Scope.Session;
+import utils.Constants;
 import utils.html_parser.ProductParser;
 
 public class Products extends Controller {
@@ -30,7 +27,7 @@ public class Products extends Controller {
 			renderJSON(new ProductParser().parse(url));
 		} catch (Exception e) {
 			e.printStackTrace();
-			renderJSON(new ErrorResult(ERROR_PARSING_FAILED, e.getMessage()));
+			renderJSON(new ErrorResult(Constants.ERROR_PARSING_FAILED, e.getMessage()));
 		}
 	}
 
@@ -49,7 +46,7 @@ public class Products extends Controller {
 				}
 			}
 
-			product.image = fetchImage(imageUrl);
+			fetchImage(product, imageUrl);
 
 			product.save();
 			renderText("true");
@@ -59,33 +56,52 @@ public class Products extends Controller {
 		}
 	}
 
-	private static String fetchImage(String url) throws IOException {
+	private static String fetchImage(Product product, String url) throws IOException {
 		HttpResponse response = WS.url(url).get();
-
+		
 		Blob from = new Blob();
 		from.set(response.getStream(), response.getContentType());
+		
+		File toInFeed = new File(Blob.getStore(), Codec.UUID());
+		Images.resize(from.getFile(), toInFeed, Constants.PRODUCT_IMAGE_IN_FEED, -1);
+		product.imageFeed = toInFeed.getAbsolutePath();
 
-		File to = new File(Blob.getStore(), Codec.UUID());
+		File toInDetails = new File(Blob.getStore(), Codec.UUID());
+		Images.resize(from.getFile(), toInDetails, Constants.PRODUCT_IMAGE_IN_PROD_DETAILS, -1);
+		product.imageDetails = toInDetails.getAbsolutePath();
 
-		Images.resize(from.getFile(), to, PRODUCT_IMAGE_WIDTH, -1);
+		File toInList = new File(Blob.getStore(), Codec.UUID());
+		Images.resize(from.getFile(), toInList, Constants.PRODUCT_IMAGE_IN_LIST, -1);
+		product.imageList = toInList.getAbsolutePath();
 
-		return to.getAbsolutePath();
+		return toInFeed.getAbsolutePath();
 	}
 
 	public static void index() {
 		render();
 	}
 
-	public static void image(long id) {
+	public static void imageFeed(long id) {
 		Product p = Product.findById(id);
-		renderBinary(new File(p.image));
+		renderBinary(new File(p.imageFeed));
 	}
 
+	public static void imageDetails(long id) {
+		Product p = Product.findById(id);
+		renderBinary(new File(p.imageDetails));
+	}
+
+	public static void imageList(long id) {
+		Product p = Product.findById(id);
+		renderBinary(new File(p.imageList));
+	}
+
+	
 	public static void list(int page) {
 		page = (page <= 0) ? 1 : page;
 
-		int startIndex = (page - 1) * PRODUCTS_PAGE_SIZE;
-		List<Product> products = Product.all().from(startIndex).fetch(PRODUCTS_PAGE_SIZE);
+		int startIndex = (page - 1) * Constants.PRODUCTS_PAGE_SIZE;
+		List<Product> products = Product.all().from(startIndex).fetch(Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
 	}
 }

@@ -28,8 +28,11 @@ create table products (
     id             bigint                                         not null auto_increment,
     description    varchar(1024)                                  default null,
     story          varchar(1024)                                  default null,
+    product_url    varchar(1024)                                  default null,
     image_url      varchar(1024)                                  default null,
-    image          varchar(1024)                                  default null,
+    image_feed     varchar(1024)                                  default null,
+    image_details  varchar(1024)                                  default null,
+    image_list     varchar(1024)                                  default null,
     added_by_uid   bigint                                         default null,
     price          float                                          default null,
     type           enum('image', 'image_with_story', 'story')     default null,
@@ -49,7 +52,7 @@ drop table if exists categories;
 create table categories (
     id             bigint                                         not null auto_increment,
     name           varchar(255)                                   default null,
-    image_url      varchar(1024)                                  not null,
+    image_url      varchar(1024)                                  default not null,
     primary        key(id)
 );
 
@@ -92,9 +95,10 @@ on products_subcategories ( subcategory_id );
 drop table if exists user_subcategories;
 
 create table user_subcategories (
-    subcategory_id     bigint                                         not null,
-    uid                bigint                                         not null,
-    primary            key(subcategory_id, uid)
+    id                 bigint                                     not null auto_increment,
+    subcategory_id     bigint                                     not null,
+    user_id            bigint                                     not null,
+    primary key(id)
 );
 
 create index user_cat_cid_idx
@@ -107,7 +111,7 @@ drop table if exists lists;
 
 create table lists (
     id             bigint                                        not null,
-    list_name      varchar(255)                                  default null,
+    name           varchar(255)                                  default null,
     owner_id       bigint                                        default null,
     target_id      bigint                                        not null,
     primary        key(id)
