@@ -53,6 +53,7 @@ create table categories (
     id             bigint                                         not null auto_increment, 
     name           varchar(255)                                   default null,
     image_url      varchar(1024)                                  not null,
+    weight         float                                          default 1,
     primary        key(id)
 );
 

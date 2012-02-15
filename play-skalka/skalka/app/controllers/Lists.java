@@ -27,7 +27,7 @@ public class Lists extends Controller {
 		ProductsList list = ProductsList.findById(listId);
 		Product p = Product.findById(productId);
 		if(list == null || p == null){
-			renderJSON(new ErrorResult(5, "list=" + list + " p=" + p));
+			renderJSON(new ErrorResult());
 		}
 		if (list.productsInList == null){
 			list.productsInList = new ArrayList<ProductInList>();
