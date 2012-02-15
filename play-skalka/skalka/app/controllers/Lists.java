@@ -8,6 +8,8 @@ import models.ErrorResult;
 import models.Product;
 import models.ProductInList;
 import models.ProductsList;
+import models.User;
+import models.UserActionsInProductList;
 import play.db.DB;
 import play.db.jpa.GenericModel.JPAQuery;
 import play.mvc.Controller;
@@ -54,5 +56,22 @@ public class Lists extends Controller {
 	}
 
 	// render(list, products);
-
+	
+	public void addUserAction(Long listId, Long productId, Long userId, String action){
+		JPAQuery query = ProductInList.find("listId = ? AND productId = ? ", listId, productId);
+		ProductInList pil = query.first(); 
+		if(pil == null){
+			renderJSON(new ErrorResult(-1, "product not in list"));
+		}
+		User user = User.findById(userId);
+		if(user == null){
+			renderJSON(new ErrorResult(-1, "wrong user id"));
+		}
+		if(pil.userActions == null){
+			pil.userActions = new ArrayList<UserActionsInProductList>();
+		}
+		pil.userActions.add(new UserActionsInProductList(listId, productId, userId, action));
+		pil.save();
+		renderJSON(ErrorResult.SUCCESS);
+	}
 }
