@@ -20,7 +20,7 @@ public class Product extends Model {
 
 	@ElementCollection(targetClass = Long.class)
 	@JoinTable(name = "products_subcategories", joinColumns = { @JoinColumn(name = "product_id", referencedColumnName = "id") })
-	@Column(name = "subcategory_id", nullable = false)
+	@Column(name = "subcategory_id", nullable = true)
 	public List<Long> subcategoryId;
 
 	@Column(name = "description")
