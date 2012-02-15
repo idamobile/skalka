@@ -1,8 +1,8 @@
 #{extends 'main.html' /}
 
-<div class="main-container">				
-    <div class="main userProfile">
-    				    
+<div class="main-container">
+	<div class="main userProfile">
+
 		<div class="col-left sidebar">
 			<div class="userPic">
 				<img src="@{'/public/images/userpic.png'}" alt="Valentin Kravtsov"/>
@@ -10,11 +10,15 @@
 			<div class="callToAction">
 				We havent’t got enough information about Valentin, please answer some questions.
 			</div>
+			<div><input id="btnSubmit" type="button" value="Submit.." /></div>
+			<script type="text/javascript">
+				initProfileEditor();
+			</script>
 		</div>
-		
-    	<div class="col-main">
-    		<div class="titleBlock">
-    			<a href="@{Application.index()}" class="backLink">Back to Valentin’s birthday gift</a>
+
+		<div class="col-main">
+			<div class="titleBlock">
+				<a href="@{Application.index()}" class="backLink">Back to Valentin’s birthday gift</a>
 				<h1 class="title">Describe Valentin</h1>
 				<p class="hint">
 					Click images that match Valentin’s character
@@ -22,96 +26,18 @@
     		</div>
     		
     		<div class="categories">
-    			<h2 class="categoryTitle">What is he like?</h2>
-    			<ul class="subCategories">
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item last">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    			</ul>
-    			
-    			<h2 class="categoryTitle">What is he like?</h2>
-    			<ul class="subCategories">
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item last">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    				<li class="item">
-    					<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
-    					<p class="name">Geek</p>
-    				</li>
-    			</ul>
-    		</div>
-    		
-    	</div>
-    	
+				#{list items:categories.keySet(), as:'cat'}
+					<h2 class="categoryTitle">${cat.name}</h2>
+					<ul class="subCategories">
+					    #{list items:categories.get(cat), as:'sub'}
+							<li class="item" id="${sub.id}">
+								<img src="@{'/public/images/userpic.png'}" alt="Subcategory Image"/>
+								<p class="name">${sub.name}</p>
+							</li>	
+					    #{/list}
+				    </ul>    
+				#{/list}
+    		</div>    		
+    	</div>    	
     </div>
 </div> 
