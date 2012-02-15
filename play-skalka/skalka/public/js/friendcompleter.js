@@ -39,7 +39,7 @@ function autocompleteSource(request, response, filter) {
 		friendName = item.name || item;
 		if (matcher.test(friendName)) {
 			if (null == filter || filter( item ) ) {
-				if (suggestions.length<3) suggestions.push(item);
+				if (suggestions.length <3) suggestions.push(item);
 			}
 		}
 	});

@@ -55,6 +55,27 @@ $(document).ready(function($) {
 		}
 	});
 
+	// Initializing SHOW PRODUCT popup
+	$('.showProduct').fancybox({
+		fitToView: false,
+		scrolling: 'no',
+		padding: 0,
+		//openEffect : 'elastic',
+		openSpeed  : 150,
+		//closeEffect : 'elastic',
+		closeSpeed  : 150,
+		minHeight: 0,
+		wrapCSS: 'skalkaModal',
+		helpers : {
+			overlay : {
+				css : {
+					'background-color' : '#eee'
+				},
+				opacity: 0.5
+			}
+		}
+	});
+
 	if((typeof( showFriendSelectionDialog ) !== 'undefined') && showFriendSelectionDialog){
         $('a[href="#selectFriend"]').click();
 	}
@@ -90,33 +111,29 @@ $(document).ready(function($) {
 		ajaxAddProduct(event);
 	});
 
-});
+}); 
+
 
 function ajaxAddProduct(event){
 
-	event.preventDefault();
-	
-	form = $('#productForm');
-	url = form.attr( 'action' );
-	//inputs = form.children('input', 'textarea');
-	inputs = $('#productForm input, textarea');
-	
-	values = {};
-    inputs.each(function() {
-        values[this.name] = $(this).val();
-    });
-    
-  //  alert(values.toSource());
-	alert("hi");
-	/* Add Product to DB */
-	$.post( url, { url: term }, function( data ) {
-	
-	    if(data == 'true'){
-			alert('Product Added!');
-	    }else{
-	    	alert('Product was not added!');
-	    }
-	});
+ event.preventDefault();
+
+ form = $('#productForm');
+ url = form.attr( 'action' );
+ inputs = $('#productForm input, textarea');
+
+ values = {};
+ inputs.each(function() {
+  values[this.name] = $(this).val();
+ });
+
+ // Add product to the database
+ $.post( url, values, function( data ) {
+  if(data == 'true')
+   alert('Product Added!');
+  else
+   alert('Product was not added!');
+ }); 
 }
 
 function ajaxProductParce(event){
