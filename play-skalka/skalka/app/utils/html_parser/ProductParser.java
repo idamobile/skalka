@@ -148,6 +148,6 @@ public class ProductParser {
 
 	public static final void main(String[] args) throws IOException, URISyntaxException {
 		ProductParser parser = new ProductParser();
-		System.out.println(parser.parse("http://pinterest.com/pin/251568329155038116/"));
+		System.out.println(parser.parse("http://www.ebay.com/itm/Super-Sexy-Purple-Lingerie-Purple-Teddy-babydoll-dress-costume-Q80-/180817482782?pt=AU_Womens_Clothing_2&hash=item2a198fd41e"));
 	}
 }
