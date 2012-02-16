@@ -1,6 +1,7 @@
 package controllers;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,10 @@ public class Lists extends Application {
 	}
 
 	public static void index(long id) {
-		ResultSet rs = DB
-				.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
-						+ id);
+		index(DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id));
+	}
+	
+	private static void index(ResultSet rs) {
 		List<Product> list = new ArrayList<Product>();
 		try {
 			while (rs.next()) {
@@ -49,6 +51,18 @@ public class Lists extends Application {
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 
 		render(products, list, targetUser);
+	}
+	
+	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
+			+ "LEFT JOIN products_subcategories AS pc ON p.id = pc.product_id "
+			+ "INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id "
+			+ "INNER JOIN subcategories AS s ON s.id = pc.subcategory_id "
+			+ "INNER JOIN categories AS c ON c.id = s.category_id WHERE uc.user_id = ? "
+			+ "GROUP BY p.id ORDER BY sum(c.weight);";
+
+	public static void orderedList(long listId) {
+		ProductsList pl = ProductsList.findById(listId);
+		index(DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId))));
 	}
 
 	public static void addProduct(long listId, long productId) {

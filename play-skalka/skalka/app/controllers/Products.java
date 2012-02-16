@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import models.ErrorResult;
 import models.Product;
+import models.ProductsList;
 import models.User;
 import play.Logger;
 import play.cache.Cache;
@@ -126,26 +127,6 @@ public class Products extends Controller {
 		int startIndex = (page - 1) * Constants.PRODUCTS_PAGE_SIZE;
 		List<Product> products = Product.all().from(startIndex).fetch(Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
-	}
-
-	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
-			+ "LEFT JOIN products_subcategories AS pc ON p.id = pc.product_id "
-			+ "INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id "
-			+ "INNER JOIN subcategories AS s ON s.id = pc.subcategory_id "
-			+ "INNER JOIN categories AS c ON c.id = s.category_id " + "WHERE uc.user_id = ? "
-			+ "GROUP BY p.id " + "ORDER BY sum(c.weight);";
-
-	public static void orderedList(int page, long userId) {
-		ResultSet result = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(userId)));
-		List<Product> products = new ArrayList<Product>();
-		try {
-			while (result.next()) {
-				products.add(Product.createFromResultSet(result));
-			}
-			render(products);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void details(Long id, boolean fromList) {
