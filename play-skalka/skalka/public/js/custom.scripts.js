@@ -63,7 +63,9 @@ $(document).ready(function($) {
 		//openEffect : 'elastic',
 		openSpeed  : 150,
 
- 		beforeLoad: function() { alert('hello'); },
+ 		beforeLoad: function() { 
+			$('#productDetails .container').load('/products/details/1?fromList=true');
+		},
 		//closeEffect : 'elastic',
 		closeSpeed  : 150,
 		minHeight: 0,
