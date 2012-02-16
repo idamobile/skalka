@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import models.ErrorResult;
 import models.Product;
@@ -37,14 +39,16 @@ public class Products extends Controller {
 		}
 	}
 
-	public static void add(String descr, String story, @Required String imageUrl,
-			@Required Float price, String type) {
+	public static void add(String descr, String story, @Required String imageUrl, @Required String price, String type) {
 		try {
 
 			Logger.warn(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
 
-			Product product = new Product(descr, story, imageUrl, null, price, type, new Date());
-
+			
+			
+			Product product = new Product(descr, story, imageUrl, null, type, new Date());
+			setPrice(product, price);
+			
 			String accessToken = Session.current().get(User.JSON_TAG_ACCESS_TOKEN);
 			if (accessToken != null) {
 				User user = Cache.get(accessToken, User.class);
@@ -60,6 +64,19 @@ public class Products extends Controller {
 		} catch (Throwable e) {
 			e.printStackTrace();
 			renderText("false");
+		}
+	}
+	
+	private static void setPrice(Product product, String unparsedPrice){
+		Pattern DECIMAL = Pattern.compile("(\\d+\\.?\\d*)");
+		Pattern CURRENCY = Pattern.compile("(\\$|£|€|¥)");
+		Matcher decimalMatcher = DECIMAL.matcher(unparsedPrice);
+		if(decimalMatcher.find()){
+			product.price = Float.parseFloat(decimalMatcher.group(1));
+		}
+		Matcher currencyMatcher = CURRENCY.matcher(unparsedPrice);
+		if(currencyMatcher.find()){
+			product.currency = currencyMatcher.group(1);
 		}
 	}
 

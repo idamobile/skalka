@@ -42,7 +42,7 @@ public class ParsedProductData {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = DECIMAL_FORMAT.format(price);
 	}
 

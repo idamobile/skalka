@@ -40,6 +40,9 @@ public class Product extends Model {
 
 	@Column(name = "price")
 	public float price;
+	
+	@Column(name = "currency")
+	public String currency;
 
 	@Column(name = "type")
 	public String productType;
@@ -65,14 +68,12 @@ public class Product extends Model {
 	public Product() {
 	}
 
-	public Product(String descr, String story, String imageUrl, Long addedBy, float price,
+	public Product(String descr, String story, String imageUrl, Long addedBy,
 			String productType, Date addedWhen) {
-		System.out.println("subcat:" + subcategoryId);
 		this.descr = descr;
 		this.story = story;
 		this.imageUrl = imageUrl;
 		this.addedBy = addedBy;
-		this.price = price;
 		this.productType = productType;
 		this.addedWhen = addedWhen;
 	}

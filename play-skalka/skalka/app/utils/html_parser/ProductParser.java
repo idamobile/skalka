@@ -96,8 +96,8 @@ public class ProductParser {
 
 	private ParsedProductData parsePrice(Document doc) {
 		Elements links = doc.select(":matchesOwn(" + "(\\$\\d+)|(£\\d+))");
-		Pattern CURRENCY_PATTERN = Pattern.compile(POUND_HTML + "(\\d+\\.?\\d*)|" + DOLLAR_HTML
-				+ "(\\d+\\.?\\d*)");
+		Pattern CURRENCY_PATTERN = Pattern.compile("(" + POUND_HTML + "\\d+\\.?\\d*)|(" + DOLLAR_HTML
+				+ "\\d+\\.?\\d*)");
 		for (int i = 0; i < links.size(); i++) {
 			for (Iterator<Attribute> it = links.get(i).attributes().iterator(); it.hasNext();) {
 				Attribute a = it.next();
@@ -108,7 +108,7 @@ public class ProductParser {
 						if (price == null) {
 							price = m.group(2);
 						}
-						productData.setPrice(Double.parseDouble(price));
+						productData.setPrice(price);
 						return productData;
 					}
 				}
