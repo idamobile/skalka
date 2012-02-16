@@ -366,34 +366,34 @@ function initItemsDragDrop(selDrag, selDrop)
 {
 	$(document).ready
 
-	(function (){
+	(function () {
 
 		$(selDrag).draggable
-		( {
+		({
 			// http://stackoverflow.com/a/5848800/126995
 			/* revert: function (event, ui) {
-				//overwrite original position
-				$(this).data("draggable").originalPosition = {
-					top: 10,
-					left: 10
-				};
-				return !event;
+			//overwrite original position
+			$(this).data("draggable").originalPosition = {
+			top: 10,
+			left: 10
+			};
+			return !event;
 			},
 			// helper: function () { return $("#small_cube"); }
 			// helper: function () { return "clone"; }
 			helper: function () {
-				var obj = $("#small_cube")
-					.first()
-					.clone();
-				// obj.style = new { display: "" };
-				obj.show();
-				return obj;
+			var obj = $("#small_cube")
+			.first()
+			.clone();
+			// obj.style = new { display: "" };
+			obj.show();
+			return obj;
 			}, */
-			helper:function () {
+			helper: function () {
 				var id = this.id;
 				return $("<img src='/products/imagelist?id=" + id + "'/>");
 			},
-			cursorAt: { left: 25, top:25 },
+			cursorAt: { left: 25, top: 25 },
 			revert: true
 			/* 
 		
@@ -418,11 +418,18 @@ function initItemsDragDrop(selDrag, selDrop)
 		}); // draggable
 
 		$(selDrop).droppable
-		( {
-			drop: function (event, ui)
-			{
-				alert( "dropped." );
+		({
+			drop: function (event, ui) {
+				// alert( "dropped." );
+				var url = "/products/addProduct?listId=" + context.listId + "&productId=" + ui.draggable[0].id;
+				alert(url);
+				var newDiv = $("<div></div>");
+				newDiv.hide();
+				$("body").append(newDiv);
+				newDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
+					alert("Some content fetched.");
+				});
 			}
-		} ); // droppable
-	} );	// doc.ready
+		}); // droppable
+	});     	// doc.ready
 } // function initItemsDragDrop
