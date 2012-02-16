@@ -17,18 +17,20 @@
     		<div class="feed" id="items-container">
     		
     		#{list items:products, as:'product'}
-    			<div class="item feedProduct" id="${product.id}" data-id="${product.id}">
-    				<div class="image-box">
-    					<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
-    					<div class="price">
-    						<div>
-    							${product.price}
-    						</div>
-    					</div>
-    				</div>
-    				<p class="description">
-    			    	${product.descr}
-    			    </p>
+    			<div class="item" id="${product.id}" data-id="${product.id}">
+					<a class="openProductDetails" href="#productDetails" >
+	    				<div class="image-box">
+	    					<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
+	    					<div class="price">
+	    						<div>
+	    							${product.price}
+	    						</div>
+	    					</div>
+	    				</div>
+	    				<p class="description">
+	    			    	${product.descr}
+	    			    </p>
+					</a>
     			    <div class="user-info">
     			    	<div class="user-img">
     			    		<img src="${product.getAuthor()?.getImageUrl()}" alt="user's image"/>

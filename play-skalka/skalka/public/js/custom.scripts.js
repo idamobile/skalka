@@ -56,12 +56,14 @@ $(document).ready(function($) {
 	});
 
 	// Initializing SHOW PRODUCT popup
-	$('.feed .item').fancybox({
+	$('.openProductDetails').fancybox({
 		fitToView: false,
 		scrolling: 'no',
 		padding: 0,
 		//openEffect : 'elastic',
 		openSpeed  : 150,
+
+ 		beforeLoad: function() { alert('hello'); },
 		//closeEffect : 'elastic',
 		closeSpeed  : 150,
 		minHeight: 0,
@@ -111,8 +113,7 @@ $(document).ready(function($) {
 	$('#productForm').submit(function(event){
 		ajaxAddProduct(event);
 	});
-
-	$('.feedProduct').click(alert('ура!'));
+	
 }); 
 
 
