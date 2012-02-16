@@ -25,9 +25,9 @@ public class Lists extends Application {
 		renderJSON(query.fetch());
 	}
 
-	public static void index(long id) {
-		index(DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id));
-	}
+	//public static void index(long id) {
+	//	index(DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id));
+	//}
 	
 	private static void index(ResultSet rs) {
 		List<Product> list = new ArrayList<Product>();
@@ -62,7 +62,7 @@ public class Lists extends Application {
 			+ "INNER JOIN categories AS c ON c.id = s.category_id WHERE uc.user_id = ? "
 			+ "GROUP BY p.id ORDER BY sum(c.weight);";
 
-	public static void orderedList(long listId) {
+	public static void index(long listId) {
 		ProductsList pl = ProductsList.findById(listId);
 		index(DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId))));
 	}
