@@ -82,7 +82,7 @@ public class Product extends Model {
 	}
 	
 	public String getPrice(){
-		return (currency == null? "" : currency) + currency + DECIMAL_FORMAT.format(price);
+		return (currency == null || "null".equals(currency) ? "" : currency)  + DECIMAL_FORMAT.format(price);
 	}
 
 	@Transient
