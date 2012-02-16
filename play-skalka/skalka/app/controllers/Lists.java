@@ -85,6 +85,17 @@ public class Lists extends Application {
 		pList.productsInList.add(pil);
 		pList.save();
 
+		renderProductList(listId);
+	}
+
+	public static void removeProductFromList(long listId, long productId) {
+		ProductInList pl = ProductInList.find("listId = ? AND productId = ? ", listId, productId)
+				.first();
+		pl.delete();
+		renderProductList(listId);
+	}
+
+	public static void renderProductList(long listId) {
 		List<Product> list = createSidebarList(listId);
 		render(list);
 	}
