@@ -80,7 +80,7 @@ $(document).ready(function ($) {
 		}
 	});
 
-	// Initializing SHOW PRODUCT popup
+	// Initializing INVITE FRIENDS popup
 	$('.inviteFriends').fancybox({
 		fitToView: false,
 		scrolling: 'no',
@@ -89,6 +89,7 @@ $(document).ready(function ($) {
 		openSpeed  : 150,
 
  		beforeLoad: function() { 
+			alert("invite friends");
 		},
 		//closeEffect : 'elastic',
 		closeSpeed  : 150,
