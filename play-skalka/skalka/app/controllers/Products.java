@@ -85,17 +85,17 @@ public class Products extends Controller {
 
 		File toInFeed = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInFeed, Constants.PRODUCT_IMAGE_IN_FEED, -1);
-		product.imageFeed = toInFeed.getAbsolutePath();
+		product.imageFeed = toInFeed.getName();
 
 		File toInDetails = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInDetails, Constants.PRODUCT_IMAGE_IN_PROD_DETAILS, -1);
-		product.imageDetails = toInDetails.getAbsolutePath();
+		product.imageDetails = toInDetails.getName();
 
 		File toInList = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInList, Constants.PRODUCT_IMAGE_IN_LIST, -1);
-		product.imageList = toInList.getAbsolutePath();
+		product.imageList = toInList.getName();
 
-		return toInFeed.getAbsolutePath();
+		return toInFeed.getName();
 	}
 
 	public static void index() {
