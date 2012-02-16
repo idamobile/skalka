@@ -1,6 +1,10 @@
-
 <div class="col-left sidebar feedSidebar">
+	#{if updated}
+	<div class="giftList ui-droppable" id="giftListDropTargetUpdated" style="display:none;">
+	#{/if}
+	#{else}
 	<div class="giftList" id="giftListDropTarget">
+	#{/else}
 		<script type="text/javascript">
 			initItemsDragDrop("div.item", "#giftListDropTarget");
 		</script>
