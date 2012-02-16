@@ -7,9 +7,16 @@
 		<div class="eventName">
 			${_user} birthday gift
 		</div>
-		<ul class="items">
+		<ul class="items">		
 			#{list items:_list, as:'item'}
-				<img src="@{Products.imageList(item.id)}" alt=""/>
+				<li class="item">
+					#{if item.isPlaceholder}
+					&nbsp;
+					#{/if}
+					#{else}
+					<img src="@{Products.imageList(item.id)}" alt=""/>
+					#{/else}
+				</li>
 			#{/list}
 			<li class="add">Drag<br/> to add</li>
 			<div class="clear"></div>

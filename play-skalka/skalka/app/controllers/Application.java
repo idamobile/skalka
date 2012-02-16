@@ -87,7 +87,7 @@ public class Application extends Controller {
 
 	private static void clearCookies() {
 		session.remove(SESSION_PARAM_ACCESS_TOKEN);
-		// session.remove(SESSION_PARAM_TARGET_FRIEND);
+		session.remove(SESSION_PARAM_TARGET_FRIEND);
 	}
 
 	public static void profile() {

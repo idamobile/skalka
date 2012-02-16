@@ -16,6 +16,8 @@ import play.db.jpa.GenericModel.JPAQuery;
 
 public class Lists extends Application {
 
+	public static final int PLACEHOLDERS_COUNT = 9;
+
 	public static void productsInList(Long ownerId, Long targetId) {
 		// System.out.println("OwnerId:" + ownerId + " targetId:" + targetId);
 		JPAQuery query = ProductsList.find("ownerId=? and targetId=?", ownerId, targetId);
@@ -31,6 +33,13 @@ public class Lists extends Application {
 			while (rs.next()) {
 				Product p = Product.createFromResultSet(rs);
 				list.add(p);
+			}
+
+			int placeholdersCount = PLACEHOLDERS_COUNT - list.size();
+			for (int i = 0; i < placeholdersCount; i++) {
+				Product placeholder = new Product();
+				placeholder.isPlaceholder = true;
+				list.add(placeholder);
 			}
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -74,12 +83,13 @@ public class Lists extends Application {
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
 		System.out.println("Action==" + userAction);
-		try{
-			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, userId, userAction);
+		try {
+			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, userId,
+					userAction);
 			uaid.save();
 			pil.userActions.add(uaid);
 			pil.save();
-		}catch (Throwable w){
+		} catch (Throwable w) {
 			renderJSON(new ErrorResult());
 		}
 		renderJSON(ErrorResult.SUCCESS);
