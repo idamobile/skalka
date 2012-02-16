@@ -29,7 +29,9 @@ public class Lists extends Application {
 	//	index(DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id));
 	//}
 	
-	private static void index(ResultSet rs) {
+	public static void index(long listId) {
+		ProductsList pl = ProductsList.findById(listId);
+		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId)));
 		List<Product> list = new ArrayList<Product>();
 		try {
 			while (rs.next()) {
@@ -61,11 +63,6 @@ public class Lists extends Application {
 			+ "INNER JOIN subcategories AS s ON s.id = pc.subcategory_id "
 			+ "INNER JOIN categories AS c ON c.id = s.category_id WHERE uc.user_id = ? "
 			+ "GROUP BY p.id ORDER BY sum(c.weight);";
-
-	public static void index(long listId) {
-		ProductsList pl = ProductsList.findById(listId);
-		index(DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId))));
-	}
 
 	public static void addProduct(long listId, long productId) {
 		ProductsList list = ProductsList.findById(listId);
