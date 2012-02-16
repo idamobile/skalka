@@ -8,7 +8,7 @@ import play.db.jpa.Model;
 
 @Entity
 @Table(name = "categories")
-public class Category extends Model {
+public class Category extends Model implements Comparable<Category>{
 
 	@Column(name = "name")
 	public String name;
@@ -55,4 +55,9 @@ public class Category extends Model {
 		return true;
 	}
 
+	@Override
+	public int compareTo(Category o) {
+		if(o == null || o.weight == null) return 0;
+		return o.weight.compareTo(weight);
+	}
 }

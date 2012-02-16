@@ -52,12 +52,7 @@ public class Subcategory extends Model {
 
 		List<Subcategory> cats = Subcategory.all().fetch();
 
-		Map<Category, List<Subcategory>> c = new TreeMap<Category, List<Subcategory>>(new Comparator<Category>() {
-			@Override
-			public int compare(Category lhs, Category rhs) {
-				return rhs.weight.compareTo(lhs.weight);
-			}
-		});
+		Map<Category, List<Subcategory>> c = new TreeMap<Category, List<Subcategory>>();
 
 		for (Subcategory sub : cats) {
 			if (subcatIds.contains(sub.id)) {

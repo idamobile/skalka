@@ -158,7 +158,6 @@ public class Products extends Controller {
 			while (rs.next()) {
 				Product p = Product.createFromResultSet(rs); 
 				list.add(p);
-				System.out.println("product=" + p);
 			}
 			return list;
 		}catch (Exception e){
