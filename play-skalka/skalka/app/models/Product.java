@@ -92,7 +92,7 @@ public class Product extends Model {
 		if (author == null) {
 			Product product = Product.findById(id);
 			if (product != null && product.addedBy != null) {
-				author = User.findByFacebookId(product.addedBy);
+				author = User.findById(product.addedBy);
 			}
 		}
 		return author;
