@@ -80,7 +80,8 @@ $(document).ready(function($) {
 		}
 	});
 
-	$('.productInFeed').click(function (){
+	$('.productInFeed').click(function (event){
+		event.preventDefault();
 		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=true',function() {
 		  $('a[href="#productDetails"]').click();
 		});
