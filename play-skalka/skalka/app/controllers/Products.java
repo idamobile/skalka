@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import models.ErrorResult;
 import models.Product;
+import models.ProductsList;
 import models.User;
 import play.Logger;
 import play.cache.Cache;
@@ -37,14 +40,16 @@ public class Products extends Controller {
 		}
 	}
 
-	public static void add(String descr, String story, @Required String imageUrl,
-			@Required Float price, String type) {
+	public static void add(String descr, String story, @Required String imageUrl, @Required String price, String type) {
 		try {
 
 			Logger.warn(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
 
-			Product product = new Product(descr, story, imageUrl, null, price, type, new Date());
-
+			
+			
+			Product product = new Product(descr, story, imageUrl, null, type, new Date());
+			setPrice(product, price);
+			
 			String accessToken = Session.current().get(User.JSON_TAG_ACCESS_TOKEN);
 			if (accessToken != null) {
 				User user = Cache.get(accessToken, User.class);
@@ -60,6 +65,19 @@ public class Products extends Controller {
 		} catch (Throwable e) {
 			e.printStackTrace();
 			renderText("false");
+		}
+	}
+	
+	private static void setPrice(Product product, String unparsedPrice){
+		Pattern DECIMAL = Pattern.compile("(\\d+\\.?\\d*)");
+		Pattern CURRENCY = Pattern.compile("(\\$|£|€|¥)");
+		Matcher decimalMatcher = DECIMAL.matcher(unparsedPrice);
+		if(decimalMatcher.find()){
+			product.price = Float.parseFloat(decimalMatcher.group(1));
+		}
+		Matcher currencyMatcher = CURRENCY.matcher(unparsedPrice);
+		if(currencyMatcher.find()){
+			product.currency = currencyMatcher.group(1);
 		}
 	}
 
@@ -109,26 +127,6 @@ public class Products extends Controller {
 		int startIndex = (page - 1) * Constants.PRODUCTS_PAGE_SIZE;
 		List<Product> products = Product.all().from(startIndex).fetch(Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
-	}
-
-	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
-			+ "LEFT JOIN products_subcategories AS pc ON p.id = pc.product_id "
-			+ "INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id "
-			+ "INNER JOIN subcategories AS s ON s.id = pc.subcategory_id "
-			+ "INNER JOIN categories AS c ON c.id = s.category_id " + "WHERE uc.user_id = ? "
-			+ "GROUP BY p.id " + "ORDER BY sum(c.weight);";
-
-	public static void orderedList(int page, long userId) {
-		ResultSet result = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(userId)));
-		List<Product> products = new ArrayList<Product>();
-		try {
-			while (result.next()) {
-				products.add(Product.createFromResultSet(result));
-			}
-			render(products);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void details(Long id, boolean fromList) {

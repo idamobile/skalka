@@ -1,12 +1,9 @@
 package utils.html_parser;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ParsedProductData {
-
-	private final static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
 
 	private enum TYPE {
 		image, image_with_text, text_only
@@ -42,8 +39,8 @@ public class ParsedProductData {
 		return price;
 	}
 
-	public void setPrice(double price) {
-		this.price = DECIMAL_FORMAT.format(price);
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public TYPE getType() {

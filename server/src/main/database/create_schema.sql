@@ -14,7 +14,7 @@ create table users (
     birth_date  date                    default null,
     image_url   varchar(1024)           default null,
     added_when date     default null,
-    last_login date     default null,  
+    last_login date     default null,
     primary key(id),
     unique (fb_uid)
 );
@@ -35,9 +35,9 @@ create table products (
     image_list     varchar(1024)                                  default null,
     added_by_uid   bigint                                         default null,
     price          float                                          default null,
-    currency       varchar(1)                                     default "$",
+    currency       varchar(5)                                     default "$",
     type           enum('image', 'image_with_story', 'story')     default null,
-    added_when    date                                           default null,
+    added_when     date                                           default null,
     is_public      enum('t','f')                                  default 't',
     primary        key(id)
 );

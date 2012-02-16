@@ -1,6 +1,7 @@
 package utils.html_parser;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -12,6 +13,7 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Document;
@@ -96,8 +98,8 @@ public class ProductParser {
 
 	private ParsedProductData parsePrice(Document doc) {
 		Elements links = doc.select(":matchesOwn(" + "(\\$\\d+)|(£\\d+))");
-		Pattern CURRENCY_PATTERN = Pattern.compile(POUND_HTML + "(\\d+\\.?\\d*)|" + DOLLAR_HTML
-				+ "(\\d+\\.?\\d*)");
+		Pattern CURRENCY_PATTERN = Pattern.compile("(" + POUND_HTML + "\\d+\\.?\\d*)|(" + DOLLAR_HTML
+				+ "\\d+\\.?\\d*)");
 		for (int i = 0; i < links.size(); i++) {
 			for (Iterator<Attribute> it = links.get(i).attributes().iterator(); it.hasNext();) {
 				Attribute a = it.next();
@@ -108,7 +110,7 @@ public class ProductParser {
 						if (price == null) {
 							price = m.group(2);
 						}
-						productData.setPrice(Double.parseDouble(price));
+						productData.setPrice(StringEscapeUtils.unescapeHtml(price));
 						return productData;
 					}
 				}
@@ -148,6 +150,6 @@ public class ProductParser {
 
 	public static final void main(String[] args) throws IOException, URISyntaxException {
 		ProductParser parser = new ProductParser();
-		System.out.println(parser.parse("http://pinterest.com/pin/251568329155038116/"));
+		System.out.println(parser.parse("http://www.ebay.co.uk/itm/Sexy-womens-Lingerie-Thongs-G-string-Panties-One-Size-XS-M-UK-4-12-/220954252812?pt=UK_Women_s_Lingerie&var=&hash=item7916817248"));
 	}
 }
