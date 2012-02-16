@@ -1,25 +1,6 @@
-<div class="col-left sidebar feedSidebar">
+<div class="col-left ">
 		<div class="userPic">
 			<img src='${_user?.getImageUrl("normal")}' alt=""/>
 		</div>
-		#{ifnot _hideEvent}
-    		<div class="eventName">
-    			${_user} birthday gift
-    		</div>
-		#{/ifnot}
-		<ul class="items">		
-			#{list items:_list, as:'item'}
-					#{if item.isPlaceholder}
-					<li>&nbsp;</li>
-					#{/if}
-					#{else}
-					<li class="item product_icon" id="${item.id}" onclick="">
-					<img src="@{Products.imageList(item.id)}" alt=""/>
-					</li>
-					#{/else}				
-			#{/list}
-			<li class="add">Drag<br/> to add</li>
-			<div class="clear"></div>
-		</ul>
 	</div>
 </div>
