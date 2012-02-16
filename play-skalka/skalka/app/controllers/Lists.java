@@ -51,10 +51,14 @@ public class Lists extends Application {
 		return list;
 	}
 
-	public static void listPage(long id, long page) {
+	public static void pagesCount() {
+		renderText(Product.count() / Constants.PRODUCTS_PAGE_SIZE);
+	}
+
+	public static void listPage(long listId, long page) {
 		page = (page < 1) ? 1 : page;
 		long startIndex = page * Constants.PRODUCTS_PAGE_SIZE;
-		List<Product> products = Products.getOrderedList(id, startIndex);
+		List<Product> products = Products.getOrderedList(listId, startIndex);
 
 		render(products);
 	}
