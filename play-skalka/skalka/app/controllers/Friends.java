@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import models.ErrorResult;
 import models.User;
 import models.UserCategories;
 import play.Logger;
@@ -17,9 +18,12 @@ public class Friends extends Application {
 		}
 
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
-
+		if(targetUser == null){
+			renderJSON(new ErrorResult());
+		}
+		
 		for (Long catId : catIds) {
-			Logger.debug("Adding catId = %s for userId = %s", "" + catId, "" + targetUser.id);
+			System.out.println("Adding catId = " + catId + " for userId = " + targetUser.id);
 			
 			DB.execute("delete from user_subcategories where user_id = " + targetUser.id);
 			new UserCategories(targetUser.id, catId).save();
