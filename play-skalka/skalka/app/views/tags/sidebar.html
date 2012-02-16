@@ -1,6 +1,9 @@
 
 <div class="col-left sidebar feedSidebar">
-	<div class="giftList">
+	<div class="giftList" id="giftListDropTarget">
+		<script type="text/javascript">
+			initItemsDragDrop("div.item", "#giftListDropTarget");
+		</script>
 		<div class="userPic">
 			<img src="${_user?.getImageUrl()}" alt=""/>
 		</div>

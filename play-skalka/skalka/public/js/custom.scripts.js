@@ -138,7 +138,14 @@ function ajaxAddProduct(event){
    alert('Product Added!');
   else
    alert('Product was not added!');
- }); 
+ });
+}
+
+function setSelectedProductImageIndex( indSelected ) {
+	var allImages = $( "#productInfo_images ul li img" ).eq;
+	var src = allImages[indSelected].src;
+	// alert( "easy slider.onChange: index=" + indSelected.toString() + ", src=" + src );
+	$( "#productForm_imageUrl" ).val( src );
 }
 
 function ajaxProductParce(event){
@@ -156,34 +163,35 @@ function ajaxProductParce(event){
 	progrs.addClass('progress');
 	
 	/* Send the data using post and put the results in a div */
-	$.post( url, { url: term }, function( data ) {
-	
-		if(!data.error){
+	$.post(url, { url: term }, function (data) {
+
+		if (!data.error) {
 			prodForm = $("#productForm");
 			prodName = prodForm.find('input[name="descr"]');
 			prodPrice = prodForm.find('input[name="price"]');
-			prodImage = prodForm.find('input[name="imageUrl"]');
-			
-			if(data.name){ prodName.val(data.name); }
-			if(data.imageUrls){
-				$('.images ul').empty();
+			prodImage = $("#productForm_imageUrl");
+
+			if (data.name) { prodName.val(data.name); }
+			var imgList = $('#productInfo_images ul');
+			imgList.empty();
+			if (data.imageUrls) {
 				buttons = $('.imagesContainer .buttons');
-				if(buttons){
+				if (buttons) {
 					buttons.remove();
 				}
 				images = data.imageUrls;
-				$.each(images, function(key, value) {
-					$('.images ul').append('<li><img src="' + value + '"/></li>');
+				$.each(images, function (key, value) {
+					imgList.append('<li><img src="' + value + '"/></li>');
 				});
-				prodImage.val(images[0]);
+				setSelectedProductImageIndex( 0 );
 				initGalley();
 			}
-			if(data.price){ prodPrice.val(data.price); }
-			
+			if (data.price) { prodPrice.val(data.price); }
+
 			progrs.removeClass('progress');
 			prodInfo.show(200, $.fancybox.update());
-			
-		}else{
+
+		} else {
 			alert('Product Parcing returned Error!');
 		}
 	}, "json");
@@ -197,13 +205,11 @@ function initGalley(){
 		continuous: true,
 		speed: 150,
 		onChange: function (indSelected) {
-			var img = $(".images ul li img").eq(indSelected);
-			$( "#productForm" ).find( 'input[name="imageUrl"]' ).val( img.src );
+			// alert( "easy slider.onChange - " + indSelected.toString() );
+			setSelectedProductImageIndex( indSelected );
 		}
 	});
 }
-
-
 
 var GridLayout = function () {
 	return {
@@ -350,3 +356,64 @@ function initProfileEditor()
 		window.location.href = "/friends/addCategories?" + arg;
 	});
 }
+
+function initItemsDragDrop(selDrag, selDrop)
+{
+	$(document).ready
+
+	(function (){
+
+		$(selDrag).draggable
+		( {
+			// http://stackoverflow.com/a/5848800/126995
+			/* revert: function (event, ui) {
+				//overwrite original position
+				$(this).data("draggable").originalPosition = {
+					top: 10,
+					left: 10
+				};
+				return !event;
+			},
+			// helper: function () { return $("#small_cube"); }
+			// helper: function () { return "clone"; }
+			helper: function () {
+				var obj = $("#small_cube")
+					.first()
+					.clone();
+				// obj.style = new { display: "" };
+				obj.show();
+				return obj;
+			}, */
+			cursorAt: { left: 50, top:50 },
+			revert: true
+			/* 
+		
+			revert: function(socketObj)
+			{
+			//if false then no socket object drop occurred.
+			if(socketObj === false)
+			{
+			//revert the peg by returning true
+			return true;
+			}
+			else
+			{
+			//socket object was returned,
+			//we can perform additional checks here if we like
+			//alert(socketObj.attr('id')); would work fine
+
+			//return false so that the peg does not revert
+			return false;
+			}
+			} */
+		}); // draggable
+
+		$(selDrop).droppable
+		( {
+			drop: function (event, ui)
+			{
+				alert( "dropped." );
+			}
+		} ); // droppable
+	} );	// doc.ready
+} // function initItemsDragDrop
