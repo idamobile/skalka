@@ -103,17 +103,17 @@ public class Products extends Application {
 
 	public static void imageFeed(long id) {
 		Product p = Product.findById(id);
-		renderBinary(new File(p.imageFeed));
+		renderBinary(new File(Blob.getStore(), p.imageFeed));
 	}
 
 	public static void imageDetails(long id) {
 		Product p = Product.findById(id);
-		renderBinary(new File(p.imageDetails));
+		renderBinary(new File(Blob.getStore(), p.imageDetails));
 	}
 
 	public static void imageList(long id) {
 		Product p = Product.findById(id);
-		renderBinary(new File(p.imageList));
+		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
 	public static void details(Long id, boolean fromList) {
