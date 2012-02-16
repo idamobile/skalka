@@ -364,34 +364,32 @@ function initProfileEditor()
 	});
 }
 
+function addProductToList(idProduct) {
+	var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + idProduct;
+	// alert(url);
+	var fetchDiv = $("div#dragDropTmp");
+	if (fetchDiv.length > 0)
+		fetchDiv.empty();
+	else {
+		fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
+		$("body").append(fetchDiv);
+	}
+	fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
+		// alert("Some content fetched.");
+		$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
+		$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
+		var newTarget = $("#giftListDropTarget");
+		newTarget.show();
+		initDroppable(newTarget);
+	});
+}
+
 function initDroppable(obj) {
 	obj.droppable
 	({
 		drop: function (event, ui) {
 			// alert( "dropped." );
-			var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + ui.draggable[0].id;
-			// alert(url);
-			var fetchDiv = $("div#dragDropTmp");
-			if (fetchDiv.length > 0)
-				fetchDiv.empty();
-			else {
-				fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
-				$("body").append(fetchDiv);
-			}
-			fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
-				// alert("Some content fetched.");
-				/* var oldTarget = $("#giftListDropTarget");
-				oldTarget.removeAttr("id");
-				var newTarget = $("div#dragDropTmp div");
-				newTarget.attr("id", "giftListDropTarget");
-				oldTarget.replaceWith(newTarget);
-				$("#giftListDropTarget").show(); */
-				$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
-				$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
-				var newTarget = $("#giftListDropTarget");
-				newTarget.show();
-				initDroppable(newTarget);
-			});
+			addProductToList( ui.draggable[0].id );
 			ui.helper.hide();
 		}
 	});   // droppable
