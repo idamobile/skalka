@@ -29,10 +29,10 @@ public class Lists extends Application {
 	//	index(DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id));
 	//}
 	
-	public static void index(long listId) {
-		ProductsList pl = ProductsList.findById(listId);
+	public static void index(long id) {
+		ProductsList pl = ProductsList.findById(id);
 		if(pl == null){
-			renderJSON(listId + "::::" + new ErrorResult());
+			renderJSON(id + "::::" + new ErrorResult());
 		}
 		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId)));
 		List<Product> list = new ArrayList<Product>();
