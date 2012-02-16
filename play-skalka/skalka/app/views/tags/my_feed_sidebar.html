@@ -1,0 +1,27 @@
+<div class="col-left sidebar feedSidebar">
+		<script type="text/javascript">
+			initItemsDragDrop("div.item", "#giftListDropTarget");
+		</script>
+		<div class="userPic">
+			<img src='${_user?.getImageUrl("normal")}' alt=""/>
+		</div>
+		<ul class="items">		
+			#{list items:_list, as:'item'}
+					#{if item.isPlaceholder}
+					<li>&nbsp;</li>
+					#{/if}
+					#{else}
+					<li class="item product_icon" id="${item.id}" onclick="">
+					<img src="@{Products.imageList(item.id)}" alt=""/>
+					</li>
+					#{/else}				
+			#{/list}
+			<li class="add">Drag<br/> to add</li>
+			<div class="clear"></div>
+		</ul>
+		<script type="text/javascript">
+			setListnersOnIcons();
+		</script>
+	</div>
+	<a class="inviteFriends" href="#inviteFriendsPopup"> Invite friends </a>
+</div>
