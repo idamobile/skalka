@@ -9,14 +9,14 @@
 		</div>
 		<ul class="items">		
 			#{list items:_list, as:'item'}
-				<li class="item">
 					#{if item.isPlaceholder}
-					&nbsp;
+					<li>&nbsp;</li>
 					#{/if}
 					#{else}
+					<li class="item">
 					<img src="@{Products.imageList(item.id)}" alt=""/>
-					#{/else}
-				</li>
+					</li>
+					#{/else}				
 			#{/list}
 			<li class="add">Drag<br/> to add</li>
 			<div class="clear"></div>
