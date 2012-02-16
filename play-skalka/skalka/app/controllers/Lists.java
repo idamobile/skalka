@@ -51,6 +51,14 @@ public class Lists extends Application {
 		return list;
 	}
 
+	public static void listPage(long id, long page) {
+		page = (page < 1) ? 1 : page;
+		long startIndex = page * Constants.PRODUCTS_PAGE_SIZE;
+		List<Product> products = Products.getOrderedList(id, startIndex);
+
+		render(products);
+	}
+
 	public static void listIndex(long id) {
 
 		List<Product> list = createSidebarList(id);
