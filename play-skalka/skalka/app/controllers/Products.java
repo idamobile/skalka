@@ -156,7 +156,9 @@ public class Products extends Controller {
 		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(listId)));
 		try {
 			while (rs.next()) {
-				list.add(Product.createFromResultSet(rs));
+				Product p = Product.createFromResultSet(rs); 
+				list.add(p);
+				System.out.println("product=" + p);
 			}
 			return list;
 		}catch (Exception e){
