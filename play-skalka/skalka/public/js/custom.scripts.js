@@ -136,7 +136,14 @@ function ajaxAddProduct(event){
    alert('Product Added!');
   else
    alert('Product was not added!');
- }); 
+ });
+}
+
+function setSelectedProductImageIndex( indSelected ) {
+	var allImages = $( "#productInfo_images ul li img" ).eq;
+	var src = allImages[indSelected].src;
+	// alert( "easy slider.onChange: index=" + indSelected.toString() + ", src=" + src );
+	$( "#productForm_imageUrl" ).val( src );
 }
 
 function ajaxProductParce(event){
@@ -154,34 +161,35 @@ function ajaxProductParce(event){
 	progrs.addClass('progress');
 	
 	/* Send the data using post and put the results in a div */
-	$.post( url, { url: term }, function( data ) {
-	
-		if(!data.error){
+	$.post(url, { url: term }, function (data) {
+
+		if (!data.error) {
 			prodForm = $("#productForm");
 			prodName = prodForm.find('input[name="descr"]');
 			prodPrice = prodForm.find('input[name="price"]');
-			prodImage = prodForm.find('input[name="imageUrl"]');
-			
-			if(data.name){ prodName.val(data.name); }
-			if(data.imageUrls){
-				$('.images ul').empty();
+			prodImage = $("#productForm_imageUrl");
+
+			if (data.name) { prodName.val(data.name); }
+			var imgList = $('#productInfo_images ul');
+			imgList.empty();
+			if (data.imageUrls) {
 				buttons = $('.imagesContainer .buttons');
-				if(buttons){
+				if (buttons) {
 					buttons.remove();
 				}
 				images = data.imageUrls;
-				$.each(images, function(key, value) {
-					$('.images ul').append('<li><img src="' + value + '"/></li>');
+				$.each(images, function (key, value) {
+					imgList.append('<li><img src="' + value + '"/></li>');
 				});
-				prodImage.val(images[0]);
+				setSelectedProductImageIndex( 0 );
 				initGalley();
 			}
-			if(data.price){ prodPrice.val(data.price); }
-			
+			if (data.price) { prodPrice.val(data.price); }
+
 			progrs.removeClass('progress');
 			prodInfo.show(200, $.fancybox.update());
-			
-		}else{
+
+		} else {
 			alert('Product Parcing returned Error!');
 		}
 	}, "json");
@@ -195,13 +203,11 @@ function initGalley(){
 		continuous: true,
 		speed: 150,
 		onChange: function (indSelected) {
-			var img = $(".images ul li img").eq(indSelected);
-			$( "#productForm" ).find( 'input[name="imageUrl"]' ).val( img.src );
+			// alert( "easy slider.onChange - " + indSelected.toString() );
+			setSelectedProductImageIndex( indSelected );
 		}
 	});
 }
-
-
 
 var GridLayout = function () {
 	return {

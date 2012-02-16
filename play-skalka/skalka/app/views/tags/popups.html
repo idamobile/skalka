@@ -18,7 +18,7 @@
 
 	    	<div class="productInfo">
 	    		<div class="imagesContainer">
-	    			<div class="images">
+	    			<div id="productInfo_images" class="images">
 	    				<ul>
 	    					<li>
 	    						<img src="" alt="Product Name"/>
@@ -34,7 +34,7 @@
 	    		</div>
 	    		<form id="productForm" method="post" action="/products/add">
 	    		<ul class="form-list">
-	    			<input type="hidden" name="imageUrl" value="">
+	    			<input type="hidden" id="productForm_imageUrl" name="imageUrl" value="">
 					<input type="hidden" name="subcategoryId" value="1">
 					<input type="hidden" name="subcategoryId" value="2">
 					<input type="hidden" name="type" value="image">
