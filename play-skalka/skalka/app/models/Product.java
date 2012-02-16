@@ -62,6 +62,9 @@ public class Product extends Model {
 	@Column(name = "is_public")
 	public String isPublic = "t";
 
+	@Transient
+	public boolean isPlaceholder = false;
+
 	public Product() {
 	}
 
