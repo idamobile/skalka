@@ -2,13 +2,9 @@ package models;
 
 import java.lang.reflect.Type;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -111,7 +107,17 @@ public class User extends Model {
 	}
 
 	public String getImageUrl() {
-		return "http://graph.facebook.com/" + facebookId + "/picture";
+		return getImageUrl("square");
+	}
+
+	/**
+	 * [square, small, normal, large] types are allowed
+	 * 
+	 * @param size
+	 * @return
+	 */
+	public String getImageUrl(String size) {
+		return "http://graph.facebook.com/" + facebookId + "/picture?type=" + size;
 	}
 
 	public static User findByFacebookId(Long facebookId) {
