@@ -32,7 +32,7 @@ public class Lists extends Application {
 	public static void index(long listId) {
 		ProductsList pl = ProductsList.findById(listId);
 		if(pl == null){
-			renderJSON(new ErrorResult());
+			renderJSON(listId + "::::" + new ErrorResult());
 		}
 		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId)));
 		List<Product> list = new ArrayList<Product>();
