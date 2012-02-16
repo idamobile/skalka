@@ -25,7 +25,16 @@ public class Lists extends Application {
 		renderJSON(query.fetch());
 	}
 
-	public static void listIndex(long id) {
+	private static void extendList(List<Product> source) {
+		int placeholdersCount = PLACEHOLDERS_COUNT - source.size();
+		for (int i = 0; i < placeholdersCount; i++) {
+			Product placeholder = new Product();
+			placeholder.isPlaceholder = true;
+			source.add(placeholder);
+		}
+	}
+
+	private static List<Product> createSidebarList(long id) {
 		List<Product> list = new ArrayList<Product>();
 		ResultSet rs = DB
 				.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
@@ -35,16 +44,17 @@ public class Lists extends Application {
 				Product p = Product.createFromResultSet(rs);
 				list.add(p);
 			}
-
-			int placeholdersCount = PLACEHOLDERS_COUNT - list.size();
-			for (int i = 0; i < placeholdersCount; i++) {
-				Product placeholder = new Product();
-				placeholder.isPlaceholder = true;
-				list.add(placeholder);
-			}
+			extendList(list);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
+		return list;
+	}
+
+	public static void listIndex(long id) {
+
+		List<Product> list = createSidebarList(id);
+
 		List<Product> products = Products.getOrderedList(id);
 
 		ProductsList requestedList = ProductsList.findById(id);
@@ -62,22 +72,22 @@ public class Lists extends Application {
 	}
 
 	public static void addProduct(long listId, long productId) {
-		ProductsList list = ProductsList.findById(listId);
+		ProductsList pList = ProductsList.findById(listId);
 		Product p = Product.findById(productId);
-		if (list == null || p == null) {
+		if (pList == null || p == null) {
 			renderJSON(new ErrorResult());
 		}
-		if (list.productsInList == null) {
-			list.productsInList = new ArrayList<ProductInList>();
+		if (pList.productsInList == null) {
+			pList.productsInList = new ArrayList<ProductInList>();
 		}
 		ProductInList pil = new ProductInList(listId, productId);
 		pil.save();
-		list.productsInList.add(pil);
-		list.save();
-		renderJSON(ErrorResult.SUCCESS);
-	}
+		pList.productsInList.add(pil);
+		pList.save();
 
-	// render(list, products);
+		List<Product> list = createSidebarList(listId);
+		render(list);
+	}
 
 	public static void addUserAction(Long listId, Long productId, Long userId, String userAction) {
 		JPAQuery query = ProductInList.find("listId = ? AND productId = ? ", listId, productId);
