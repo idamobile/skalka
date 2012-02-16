@@ -64,7 +64,7 @@ $(document).ready(function($) {
 		openSpeed  : 150,
 
  		beforeLoad: function() { 
-			$('#productDetails .container').load('/products/details/1?fromList=true');
+			//$('#productDetails .container').load('/products/details/1?fromList=true');
 		},
 		//closeEffect : 'elastic',
 		closeSpeed  : 150,
@@ -80,6 +80,11 @@ $(document).ready(function($) {
 		}
 	});
 
+	$('.productInFeed').click(function (){
+		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=true',function() {
+		  $('a[href="#productDetails"]').click();
+		});
+	});
 
 	if((typeof( showFriendSelectionDialog ) !== 'undefined') && showFriendSelectionDialog){
 		$('a[href="#selectFriend"]').click();
