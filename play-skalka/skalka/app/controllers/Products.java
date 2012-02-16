@@ -19,6 +19,7 @@ import play.cache.Cache;
 import play.data.validation.Required;
 import play.db.DB;
 import play.db.jpa.Blob;
+import play.db.jpa.GenericModel.JPAQuery;
 import play.libs.Codec;
 import play.libs.Images;
 import play.libs.WS;
@@ -132,6 +133,11 @@ public class Products extends Application {
 
 	public static List<Product> getOrderedList(long listId) {
 		return getOrderedList(listId, 0);
+	}
+	
+	public static List<Product> getUserProducts(long userId) {
+		JPAQuery query = Product.find("userId = ?", userId);
+		return query.fetch();
 	}
 
 	public static List<Product> getOrderedList(long listId, long start) {
