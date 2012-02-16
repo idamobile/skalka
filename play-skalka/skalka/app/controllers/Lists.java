@@ -10,6 +10,7 @@ import models.ProductInList;
 import models.ProductsList;
 import models.User;
 import models.UserActionsInProductList;
+import play.Logger;
 import play.cache.Cache;
 import play.db.DB;
 import play.db.jpa.GenericModel.JPAQuery;
@@ -52,7 +53,10 @@ public class Lists extends Application {
 	}
 
 	public static void pagesCount() {
-		renderText(Product.count() / Constants.PRODUCTS_PAGE_SIZE);
+		long count = Product.count();
+		long pc = count / Constants.PRODUCTS_PAGE_SIZE
+				+ (count % Constants.PRODUCTS_PAGE_SIZE != 0 ? 1 : 0);
+		renderText(pc);
 	}
 
 	public static void listPage(long listId, long page) {
@@ -93,9 +97,13 @@ public class Lists extends Application {
 			pList.productsInList = new ArrayList<ProductInList>();
 		}
 		ProductInList pil = new ProductInList(listId, productId);
-		pil.save();
-		pList.productsInList.add(pil);
-		pList.save();
+		try {
+			pil.save();
+			pList.productsInList.add(pil);
+			pList.save();
+		} catch (Throwable t) {
+			Logger.error("Unable to add product to list", t);
+		}
 		User targetUser = User.findById(pList.targetId);
 		renderProductList(listId, targetUser);
 	}
@@ -103,8 +111,11 @@ public class Lists extends Application {
 	public static void removeProductFromList(long listId, long productId) {
 		ProductInList pl = ProductInList.find("listId = ? AND productId = ? ", listId, productId)
 				.first();
-
-		pl.delete();
+		try {
+			pl.delete();
+		} catch (Throwable t) {
+			Logger.error("Unable to remove product to list", t);
+		}
 
 		ProductsList pList = ProductsList.findById(listId);
 		User targetUser = User.findById(pList.targetId);
