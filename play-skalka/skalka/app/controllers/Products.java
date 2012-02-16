@@ -23,12 +23,11 @@ import play.libs.Codec;
 import play.libs.Images;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
-import play.mvc.Controller;
 import play.mvc.Scope.Session;
 import utils.Constants;
 import utils.html_parser.ProductParser;
 
-public class Products extends Controller {
+public class Products extends Application {
 
 	public static void parseUrl(String url) {
 		try {
