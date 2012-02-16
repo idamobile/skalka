@@ -135,9 +135,10 @@ public class Products extends Application {
 		return getOrderedList(listId, 0);
 	}
 	
-	public static List<Product> getUserProducts(long userId) {
+	public static void listUserProducts(long userId) {
 		JPAQuery query = Product.find("added_by_uid = ?", userId);
-		return query.fetch();
+		List<Product> products = query.fetch();
+		render(products);
 	}
 
 	public static List<Product> getOrderedList(long listId, long start) {
