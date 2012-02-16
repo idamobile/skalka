@@ -133,4 +133,34 @@ public class Products extends Controller {
 		Product product = Product.findById(id);
 		render(product, fromList);
 	}
+	
+	private static final String SELECT_PRODUCTS = "SELECT p.* " +
+			"FROM products AS p " + 
+			"LEFT JOIN " + 
+			"(SELECT pc.product_id as pid, c.weight as weight FROM " + 
+			"products_subcategories AS pc " +
+			"INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id " +
+			"INNER JOIN subcategories AS s ON s.id = pc.subcategory_id " +
+			"INNER JOIN categories AS c ON c.id = s.category_id " +
+			"WHERE uc.user_id = ?) AS second " +
+			"ON p.id = pid " +
+			"GROUP BY p.id " + 
+			"ORDER BY sum(weight);";
+	
+	public static List<Product> getOrderedList(long listId) {
+		List<Product> list = new ArrayList<Product>();
+		ProductsList pl = ProductsList.findById(listId);
+		if(pl == null){
+			return list;
+		}
+		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(listId)));
+		try {
+			while (rs.next()) {
+				list.add(Product.createFromResultSet(rs));
+			}
+			return list;
+		}catch (Exception e){
+			return list;
+		}
+	}
 }

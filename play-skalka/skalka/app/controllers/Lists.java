@@ -54,18 +54,6 @@ public class Lists extends Application {
 
 		render(products, list, targetUser, lists);
 	}
-	
-	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
-			+ "LEFT JOIN products_subcategories AS pc ON p.id = pc.product_id "
-			+ "INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id "
-			+ "INNER JOIN subcategories AS s ON s.id = pc.subcategory_id "
-			+ "INNER JOIN categories AS c ON c.id = s.category_id WHERE uc.user_id = ? "
-			+ "GROUP BY p.id ORDER BY sum(c.weight);";
-
-	public static void orderedList(long listId) {
-		ProductsList pl = ProductsList.findById(listId);
-		index(DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId))));
-	}
 
 	public static void addProduct(long listId, long productId) {
 		ProductsList list = ProductsList.findById(listId);
