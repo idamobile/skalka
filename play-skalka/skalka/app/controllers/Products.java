@@ -153,7 +153,7 @@ public class Products extends Controller {
 		if(pl == null){
 			return list;
 		}
-		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(listId)));
+		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId)));
 		try {
 			while (rs.next()) {
 				Product p = Product.createFromResultSet(rs); 
