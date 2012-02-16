@@ -80,6 +80,30 @@ $(document).ready(function ($) {
 		}
 	});
 
+	// Initializing SHOW PRODUCT popup
+	$('.inviteFriends').fancybox({
+		fitToView: false,
+		scrolling: 'no',
+		padding: 0,
+		//openEffect : 'elastic',
+		openSpeed  : 150,
+
+ 		beforeLoad: function() { 
+		},
+		//closeEffect : 'elastic',
+		closeSpeed  : 150,
+		minHeight: 0,
+		wrapCSS: 'skalkaModal',
+		helpers : {
+			overlay : {
+				css : {
+					'background-color' : '#eee'
+				},
+				opacity: 0.5
+			}
+		}
+	});
+
 	$('.productInFeed').click(function (event) {
 		event.preventDefault();
 		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?fromList=false', function () {
