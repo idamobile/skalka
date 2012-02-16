@@ -1,7 +1,6 @@
 package controllers;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +25,10 @@ public class Lists extends Application {
 	}
 
 	public static void index(long id) {
-		index(DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id));
+		index(DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
+				+ id));
 	}
-	
+
 	private static void index(ResultSet rs) {
 		List<Product> list = new ArrayList<Product>();
 		try {
@@ -54,7 +54,7 @@ public class Lists extends Application {
 
 		render(products, list, targetUser, lists);
 	}
-	
+
 	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
 			+ "LEFT JOIN products_subcategories AS pc ON p.id = pc.product_id "
 			+ "INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id "
@@ -109,5 +109,16 @@ public class Lists extends Application {
 			renderJSON(new ErrorResult());
 		}
 		renderJSON(ErrorResult.SUCCESS);
+	}
+
+	public static void create() {
+		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
+		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+
+		ProductsList list = new ProductsList("Gift for " + targetUser.firstName, ownerUser.id,
+				targetUser.id);
+		list.save();
+
+		index(list.id);
 	}
 }
