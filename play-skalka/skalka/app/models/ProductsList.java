@@ -18,6 +18,8 @@ public class ProductsList extends Model {
 
 	public static final String HQL_FIND_LISTS = "ownerId=? AND targetId=? ORDER BY lastUpdated DESC";
 
+	public static final String HQL_FIND_LATEST = "ownerId=? ORDER BY lastUpdated DESC";
+
 	@Column(name = "name")
 	public String name;
 
@@ -52,4 +54,9 @@ public class ProductsList extends Model {
 	public static ProductsList fetchLatest(Long ownerId, Long targetId) {
 		return ProductsList.find(HQL_FIND_LISTS, ownerId, targetId).first();
 	}
+
+	public static ProductsList fetchLatest(Long ownerId) {
+		return ProductsList.find(HQL_FIND_LATEST, ownerId).first();
+	}
+
 }

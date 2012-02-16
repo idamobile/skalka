@@ -8,7 +8,6 @@ import models.ProductsList;
 import models.Subcategory;
 import models.User;
 import models.UserCategories;
-import play.Logger;
 import play.cache.Cache;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -34,25 +33,33 @@ public class Application extends Controller {
 				Signin.index();
 			}
 
-			Logger.warn("Access token: " + user.accessToken);
-
 			renderArgs.put("user", user);
 		}
 	}
 
 	public static void index(Long targetFbId) {
+		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		User targetUser = null;
+
 		if (targetFbId == null) {
 			String storedFbId = session.get(SESSION_PARAM_TARGET_FRIEND);
 			if (storedFbId == null || !storedFbId.matches("[0-9]+")) {
-				renderArgs.put("showFriendsSelector", true);
-				render();
+
+				ProductsList lastList = ProductsList.fetchLatest(ownerUser.id);
+				if (lastList != null) {
+					targetUser = User.findById(lastList.targetId);
+					targetFbId = targetUser.facebookId;
+				} else {
+					renderArgs.put("showFriendsSelector", true);
+					render();
+				}
 			} else {
 				targetFbId = new Long(storedFbId);
 			}
 		}
 		session.put(SESSION_PARAM_TARGET_FRIEND, targetFbId);
 
-		User targetUser = User.ensureUser(targetFbId);
+		targetUser = User.ensureUser(targetFbId);
 		if (targetUser == null) {
 			// TODO: render error
 			renderText("Friend does not exist in db and could not be fetched from FB");
@@ -62,7 +69,6 @@ public class Application extends Controller {
 		if (UserCategories.count("byUserId", targetUser.id) == 0) {
 			Application.profile();
 		} else {
-			User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id);
 			if (list == null) {
 				list = new ProductsList("Gift for " + targetUser.firstName, ownerUser.id,
@@ -80,7 +86,8 @@ public class Application extends Controller {
 	}
 
 	private static void clearCookies() {
-		session.remove(SESSION_PARAM_ACCESS_TOKEN, SESSION_PARAM_TARGET_FRIEND);
+		session.remove(SESSION_PARAM_ACCESS_TOKEN);
+		// session.remove(SESSION_PARAM_TARGET_FRIEND);
 	}
 
 	public static void profile() {
