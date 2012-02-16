@@ -15,10 +15,10 @@
     		<div class="jsout"></div>
     		<div class="grid-layout" id="grid-wrapper">
     		<div class="feed" id="items-container">
-    		
+    		<a class="openProductDetails" href="#productDetails"></a>
     		#{list items:products, as:'product'}
     			<div class="item" id="${product.id}" data-id="${product.id}">
-					<a class="openProductDetails" href="#productDetails" >
+					<a class="productInFeed" href="#"  id="${product.id}">
 	    				<div class="image-box">
 	    					<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
 	    					<div class="price">

@@ -23,7 +23,7 @@ function convertFriendListToCompletable(){
 function populateFriendList() {
 	if (!window.fbFriendList) {
 		// alert("PFL");
-		FB.api("/me/friends?access_token=" + access_token + "&fields=id,name,picture", function (response) {
+		FB.api("/me/friends?access_token=" + context.access_token + "&fields=id,name,picture", function (response) {
 			window.fbFriendList = response.data;
 			convertFriendListToCompletable();
 		});
