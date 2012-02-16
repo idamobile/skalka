@@ -3,7 +3,7 @@
 		<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
 		<div class="price">
 			<div>
-				${product.currency}${product.price}
+				${product.getPrice()}
 			</div>
 		</div>
 	</div>
