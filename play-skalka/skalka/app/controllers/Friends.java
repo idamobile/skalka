@@ -22,10 +22,8 @@ public class Friends extends Application {
 			renderJSON(new ErrorResult());
 		}
 		
+		DB.execute("delete from user_subcategories where user_id = " + targetUser.id);
 		for (Long catId : catIds) {
-			System.out.println("Adding catId = " + catId + " for userId = " + targetUser.id);
-			
-			DB.execute("delete from user_subcategories where user_id = " + targetUser.id);
 			new UserCategories(targetUser.id, catId).save();
 		}
 
