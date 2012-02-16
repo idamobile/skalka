@@ -80,6 +80,30 @@ $(document).ready(function ($) {
 		}
 	});
 
+	// Initializing SHOW PRODUCT popup
+	$('.inviteFriends').fancybox({
+		fitToView: false,
+		scrolling: 'no',
+		padding: 0,
+		//openEffect : 'elastic',
+		openSpeed  : 150,
+
+ 		beforeLoad: function() { 
+		},
+		//closeEffect : 'elastic',
+		closeSpeed  : 150,
+		minHeight: 0,
+		wrapCSS: 'skalkaModal',
+		helpers : {
+			overlay : {
+				css : {
+					'background-color' : '#eee'
+				},
+				opacity: 0.5
+			}
+		}
+	});
+
 	$('.productInFeed').click(function (event) {
 		event.preventDefault();
 		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?fromList=false', function () {
@@ -410,6 +434,27 @@ function addProductToList(idProduct) {
 		initDroppable(newTarget);
 	});
 }
+
+
+function removeProductFromList(idProduct) {
+	var url = "/lists/removeProductFromList?listId=" + context.listId + "&productId=" + idProduct;
+	var fetchDiv = $("div#dragDropTmp");
+	if (fetchDiv.length > 0)
+		fetchDiv.empty();
+	else {
+		fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
+		$("body").append(fetchDiv);
+	}
+	fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
+		// alert("Some content fetched.");
+		$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
+		$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
+		var newTarget = $("#giftListDropTarget");
+		newTarget.show();
+		initDroppable(newTarget);
+	});
+}
+
 
 function initDroppable(obj) {
 	obj.droppable
