@@ -391,7 +391,7 @@ function initDroppable(obj) {
 				newTarget.show();
 				initDroppable(newTarget);
 			});
-			ui.draggable.hide();
+			ui.helper.hide();
 		}
 	});   // droppable
 }
