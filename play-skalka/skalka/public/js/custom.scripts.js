@@ -82,7 +82,7 @@ $(document).ready(function($) {
 
 	$('.productInFeed').click(function (event){
 		event.preventDefault();
-		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=true',function() {
+		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=false',function() {
 		  $('a[href="#productDetails"]').click();
 		});
 	});

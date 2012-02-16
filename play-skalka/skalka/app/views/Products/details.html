@@ -1,4 +1,4 @@
-<div class="product_details item" id="${product.id}" data-id="${product.id}">
+
 	<div class="image-box">
 		<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
 		<div class="price">
@@ -21,10 +21,9 @@
 		<div class="clear">
 		</div>
 	</div>
-</div>
 #{if fromList}
    Colloboration goes here
 #{/if}
 #{else}
-	<input type="button">Some button</input>
+	<input class="addToListButton" id="${product.id}" type="button" value="Addtolist" disabled="disabled">
 #{/else}
