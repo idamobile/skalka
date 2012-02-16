@@ -24,7 +24,7 @@ public class Lists extends Application {
 		renderJSON(query.fetch());
 	}
 
-	private static void listIndex(long id) {
+	public static void listIndex(long id) {
 		List<Product> list = new ArrayList<Product>();
 		ResultSet rs = DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id);
 		try {
