@@ -11,17 +11,16 @@
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/popups.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/js/jquery/fancybox/jquery.fancybox.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/jquery.ui.autocomplete.css'}" />
-
-        #{if user}
-        	<script type="text/javascript">
-        		var context = {
-        			access_token = "${user.accessToken}";        			
-        		}
-        		#{if listId}
-        			context.listId = ${listId};
-        		#{/if}
-        	</script>
-        #{/if}
+        
+       	<script type="text/javascript">
+       		var context = {};
+       		#{if user}		
+       			access_token = "${user.accessToken}";        			
+       		#{/if}
+       		#{if listId}
+       			context.listId = ${listId};
+       		#{/if}
+       	</script>
         
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
