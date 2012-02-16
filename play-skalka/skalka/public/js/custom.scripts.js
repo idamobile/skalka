@@ -1,8 +1,8 @@
 //var $j = jQuery.noConflict();
 
-$(document).ready(function($) {
+$(document).ready(function ($) {
 
-	// Load the SDK Asynchronously
+	// Load the facebook SDK asynchronously
 	(function (d) {
 		var js, id = 'facebook-jssdk';
 		if (d.getElementById(id)) { return; }
@@ -19,15 +19,15 @@ $(document).ready(function($) {
 		scrolling: 'no',
 		padding: 0,
 		//openEffect : 'elastic',
-		openSpeed  : 150,
+		openSpeed: 150,
 		//closeEffect : 'elastic',
-		closeSpeed  : 150,
+		closeSpeed: 150,
 		minHeight: 0,
 		wrapCSS: 'skalkaModal',
-		helpers : {
-			overlay : {
-				css : {
-					'background-color' : '#eee'
+		helpers: {
+			overlay: {
+				css: {
+					'background-color': '#eee'
 				},
 				opacity: 0.5
 			}
@@ -40,15 +40,15 @@ $(document).ready(function($) {
 		scrolling: 'no',
 		padding: 0,
 		//openEffect : 'elastic',
-		openSpeed  : 150,
+		openSpeed: 150,
 		//closeEffect : 'elastic',
-		closeSpeed  : 150,
+		closeSpeed: 150,
 		minHeight: 0,
 		wrapCSS: 'skalkaModal',
-		helpers : {
-			overlay : {
-				css : {
-					'background-color' : '#eee'
+		helpers: {
+			overlay: {
+				css: {
+					'background-color': '#eee'
 				},
 				opacity: 0.5
 			}
@@ -61,41 +61,41 @@ $(document).ready(function($) {
 		scrolling: 'no',
 		padding: 0,
 		//openEffect : 'elastic',
-		openSpeed  : 150,
+		openSpeed: 150,
 
- 		beforeLoad: function() { 
+		beforeLoad: function () {
 			//$('#productDetails .container').load('/products/details/1?fromList=true');
 		},
 		//closeEffect : 'elastic',
-		closeSpeed  : 150,
+		closeSpeed: 150,
 		minHeight: 0,
 		wrapCSS: 'skalkaModal',
-		helpers : {
-			overlay : {
-				css : {
-					'background-color' : '#eee'
+		helpers: {
+			overlay: {
+				css: {
+					'background-color': '#eee'
 				},
 				opacity: 0.5
 			}
 		}
 	});
 
-	$('.productInFeed').click(function (event){
+	$('.productInFeed').click(function (event) {
 		event.preventDefault();
-		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=false',function() {
-			$('.addToListButton').click(function (event){
+		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?fromList=false', function () {
+			$('.addToListButton').click(function (event) {
 				event.preventDefault();
-				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") } );
+				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") });
 			});
-		  $('a[href="#productDetails"]').click();
+			$('a[href="#productDetails"]').click();
 		});
 	});
 
 
-	if((typeof( showFriendSelectionDialog ) !== 'undefined') && showFriendSelectionDialog){
+	if ((typeof (showFriendSelectionDialog) !== 'undefined') && showFriendSelectionDialog) {
 		$('a[href="#selectFriend"]').click();
 	}
-	
+
 	window.fbAsyncInit = function () {
 		friendCompleterSetup();
 		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
@@ -107,26 +107,35 @@ $(document).ready(function($) {
 	// Sidebar repositioning on window scroll
 	sidebar = $(".feedSidebar");
 	start = 52;
-	
-	$(window).scroll(function () {  
+
+	$(window).scroll(function () {
 		windowTop = $(document).scrollTop();
-		if(windowTop >= start){
+		if (windowTop >= start) {
 			//sidebar.css('top', windowTop);
 			sidebar.addClass('fixed');
-		}else{
+		} else {
 			sidebar.removeClass('fixed');
 		}
 	});
-	
+
 	/* attach a submit handler to the form */
-	$("#productUrl").submit(function(event) {
+	$("#productUrl").submit(function (event) {
 		ajaxProductParce(event);
 	});
-	
-	$('#productForm').submit(function(event){
+
+	$('#productForm').submit(function (event) {
 		ajaxAddProduct(event);
 	});
-	
+
+	// pageless..
+	$("div#items-container").pageless(
+	{
+		url: "/lists/listPage",
+		params: { listId: context.listId },
+		complete: function () {
+			GridLayout.allPins();
+		}
+	});
 }); 
 
 function setListnersOnIcons(){
