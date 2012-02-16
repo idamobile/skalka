@@ -24,14 +24,9 @@ public class Lists extends Application {
 		renderJSON(query.fetch());
 	}
 
-	public static void listIndex(long id) {
-		listIndex(DB
-				.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
-						+ id));
-	}
-
-	private static void listIndex(ResultSet rs) {
+	private static void listIndex(long id) {
 		List<Product> list = new ArrayList<Product>();
+		ResultSet rs = DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id);
 		try {
 			while (rs.next()) {
 				Product p = Product.createFromResultSet(rs);
@@ -47,7 +42,7 @@ public class Lists extends Application {
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
-		List<Product> products = Product.findAll();
+		List<Product> products = Products.getOrderedList(id);
 
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
