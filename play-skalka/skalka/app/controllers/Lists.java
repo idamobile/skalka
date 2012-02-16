@@ -16,7 +16,7 @@ import play.db.jpa.GenericModel.JPAQuery;
 
 public class Lists extends Application {
 
-	public static final int PLACEHOLDERS_COUNT = 9;
+	public static final int PLACEHOLDERS_COUNT = 8;
 
 	public static void productsInList(Long ownerId, Long targetId) {
 		// System.out.println("OwnerId:" + ownerId + " targetId:" + targetId);
