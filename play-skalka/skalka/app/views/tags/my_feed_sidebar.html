@@ -5,6 +5,11 @@
 		<div class="userPic">
 			<img src='${_user?.getImageUrl("normal")}' alt=""/>
 		</div>
+		#{ifnot _hideEvent}
+    		<div class="eventName">
+    			${_user} birthday gift
+    		</div>
+		#{/ifnot}
 		<ul class="items">		
 			#{list items:_list, as:'item'}
 					#{if item.isPlaceholder}
@@ -23,5 +28,4 @@
 			setListnersOnIcons();
 		</script>
 	</div>
-	<a class="inviteFriends" href="#inviteFriendsPopup"> Invite friends </a>
 </div>
