@@ -84,17 +84,17 @@ public class Products extends Application {
 
 		File toInFeed = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInFeed, Constants.PRODUCT_IMAGE_IN_FEED, -1);
-		product.imageFeed = toInFeed.getAbsolutePath();
+		product.imageFeed = toInFeed.getName();
 
 		File toInDetails = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInDetails, Constants.PRODUCT_IMAGE_IN_PROD_DETAILS, -1);
-		product.imageDetails = toInDetails.getAbsolutePath();
+		product.imageDetails = toInDetails.getName();
 
 		File toInList = new File(Blob.getStore(), Codec.UUID());
 		Images.resize(from.getFile(), toInList, Constants.PRODUCT_IMAGE_IN_LIST, -1);
-		product.imageList = toInList.getAbsolutePath();
+		product.imageList = toInList.getName();
 
-		return toInFeed.getAbsolutePath();
+		return toInFeed.getName();
 	}
 
 	public static void index() {
@@ -103,17 +103,17 @@ public class Products extends Application {
 
 	public static void imageFeed(long id) {
 		Product p = Product.findById(id);
-		renderBinary(new File(p.imageFeed));
+		renderBinary(new File(Blob.getStore(), p.imageFeed));
 	}
 
 	public static void imageDetails(long id) {
 		Product p = Product.findById(id);
-		renderBinary(new File(p.imageDetails));
+		renderBinary(new File(Blob.getStore(), p.imageDetails));
 	}
 
 	public static void imageList(long id) {
 		Product p = Product.findById(id);
-		renderBinary(new File(p.imageList));
+		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
 	public static void details(Long id, boolean fromList) {

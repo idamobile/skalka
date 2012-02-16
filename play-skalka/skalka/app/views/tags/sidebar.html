@@ -20,7 +20,7 @@
 					<li>&nbsp;</li>
 					#{/if}
 					#{else}
-					<li class="item">
+					<li class="item product_icon" id="${item.id}" onclick="">
 					<img src="@{Products.imageList(item.id)}" alt=""/>
 					</li>
 					#{/else}				
@@ -28,5 +28,8 @@
 			<li class="add">Drag<br/> to add</li>
 			<div class="clear"></div>
 		</ul>
+		<script type="text/javascript">
+			setListnersOnIcons();
+		</script>
 	</div>
 </div>
