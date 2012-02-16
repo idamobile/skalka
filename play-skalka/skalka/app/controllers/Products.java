@@ -50,7 +50,7 @@ public class Products extends Application {
 			if (accessToken != null) {
 				User user = Cache.get(accessToken, User.class);
 				if (user != null) {
-					product.addedBy = user.facebookId;
+					product.addedBy = user.id;
 				}
 			}
 
