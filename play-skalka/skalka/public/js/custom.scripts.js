@@ -402,6 +402,27 @@ function addProductToList(idProduct) {
 	});
 }
 
+
+function removeProductFromList(idProduct) {
+	var url = "/lists/removeProductFromList?listId=" + context.listId + "&productId=" + idProduct;
+	var fetchDiv = $("div#dragDropTmp");
+	if (fetchDiv.length > 0)
+		fetchDiv.empty();
+	else {
+		fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
+		$("body").append(fetchDiv);
+	}
+	fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
+		// alert("Some content fetched.");
+		$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
+		$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
+		var newTarget = $("#giftListDropTarget");
+		newTarget.show();
+		initDroppable(newTarget);
+	});
+}
+
+
 function initDroppable(obj) {
 	obj.droppable
 	({
