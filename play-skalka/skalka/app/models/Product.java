@@ -106,6 +106,7 @@ public class Product extends Model {
 			p.imageList = rs.getString("image_list");
 			p.addedBy = rs.getLong("added_by_uid");
 			p.price = rs.getFloat("price");
+			p.currency = rs.getString("currency");
 			p.productType = rs.getString("type");
 			p.addedWhen = rs.getDate("added_when");
 			p.isPublic = rs.getString("is_public");
