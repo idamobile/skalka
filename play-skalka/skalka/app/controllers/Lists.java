@@ -49,8 +49,10 @@ public class Lists extends Application {
 		List<Product> products = Product.findAll();
 
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
+		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		List<ProductsList> lists = ProductsList.fetchLists(ownerUser.id, targetUser.id);
 
-		render(products, list, targetUser);
+		render(products, list, targetUser, lists);
 	}
 	
 	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "

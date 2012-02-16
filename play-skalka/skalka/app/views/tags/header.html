@@ -1,16 +1,23 @@
-
 <div class="header-container">
     <div class="header">
         <a class="logo" href="#">
         	<img src="@{'/public/images/logo.png'}" alt="Skalka logo" />
         </a>
+        
         <div class="giftLists select">
         	<p class="label">My gift lists</p>
-        	<a class="expander" href="#">&nbsp;</a>
+			<ul class="dropDownMenu" id="giftListsMenu">
+				<li id="new">New List</li>
+	        	#{if _lists}
+	        		#{list items:_lists, as:'item'}
+	        			<li><a class="expader" href="@{Lists.index(item.id)}">${item.name}</a></li>
+	        		#{/list}
+	        	#{/if}				
+			</ul>
         </div>
+        
         <div class="myFeed select">
         	<p class="label">My feed</p>
-        	<a class="expander" href="#">&nbsp;</a>
         </div>
         
 		#{if _user}
