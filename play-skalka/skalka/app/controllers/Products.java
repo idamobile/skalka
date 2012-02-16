@@ -136,7 +136,7 @@ public class Products extends Application {
 	}
 	
 	public static List<Product> getUserProducts(long userId) {
-		JPAQuery query = Product.find("userId = ?", userId);
+		JPAQuery query = Product.find("added_by_uid = ?", userId);
 		return query.fetch();
 	}
 
