@@ -432,15 +432,17 @@ function initItemsDragDrop(selDrag, selDrop)
 				}
 				fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
 					// alert("Some content fetched.");
-					var oldTarget = $("#giftListDropTarget");
-					var parent = oldTarget.parent();
+					/* var oldTarget = $("#giftListDropTarget");
 					oldTarget.removeAttr("id");
 					var newTarget = $("div#dragDropTmp div");
 					newTarget.attr("id", "giftListDropTarget");
 					oldTarget.replaceWith(newTarget);
+					$("#giftListDropTarget").show(); */
+					$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
+					$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
 					$("#giftListDropTarget").show();
 				});
 			}
 		}); // droppable
-	});               	// doc.ready
+	});                 	// doc.ready
 } // function initItemsDragDrop
