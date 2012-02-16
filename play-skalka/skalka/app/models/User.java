@@ -2,9 +2,13 @@ package models;
 
 import java.lang.reflect.Type;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -51,6 +55,11 @@ public class User extends Model {
 
 	@Column(name = "last_login")
 	public Date lastLogin;
+	
+	@ElementCollection(targetClass = Long.class)
+	@JoinTable(name = "user_subcategories", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") })
+	@Column(name = "subcategory_id", nullable = true)
+	public List<Long> subcategoryId;
 
 	@Transient
 	public String accessToken;

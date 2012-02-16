@@ -19,7 +19,9 @@ public class Friends extends Application {
 
 		for (Long catId : catIds) {
 			Logger.debug("Adding catId = %s for userId = %s", "" + catId, "" + targetUser.id);
-			new UserCategories(targetUser.id, catId).save();
+			targetUser.subcategoryId = catIds;
+			targetUser.save();
+			//new UserCategories(targetUser.id, catId).save();
 		}
 
 		Application.index(null);
