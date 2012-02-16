@@ -391,8 +391,9 @@ function initDroppable(obj) {
 				newTarget.show();
 				initDroppable(newTarget);
 			});
+			ui.draggable.hide();
 		}
-	});  // droppable
+	});   // droppable
 }
 
 function initItemsDragDrop(selDrag, selDrop) {
