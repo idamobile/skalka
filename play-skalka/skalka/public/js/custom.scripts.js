@@ -356,3 +356,64 @@ function initProfileEditor()
 		window.location.href = "/friends/addCategories?" + arg;
 	});
 }
+
+function initItemsDragDrop(selDrag, selDrop)
+{
+	$(document).ready
+
+	(function (){
+
+		$(selDrag).draggable
+		( {
+			// http://stackoverflow.com/a/5848800/126995
+			/* revert: function (event, ui) {
+				//overwrite original position
+				$(this).data("draggable").originalPosition = {
+					top: 10,
+					left: 10
+				};
+				return !event;
+			},
+			// helper: function () { return $("#small_cube"); }
+			// helper: function () { return "clone"; }
+			helper: function () {
+				var obj = $("#small_cube")
+					.first()
+					.clone();
+				// obj.style = new { display: "" };
+				obj.show();
+				return obj;
+			}, */
+			cursorAt: { left: 50, top:50 },
+			revert: true
+			/* 
+		
+			revert: function(socketObj)
+			{
+			//if false then no socket object drop occurred.
+			if(socketObj === false)
+			{
+			//revert the peg by returning true
+			return true;
+			}
+			else
+			{
+			//socket object was returned,
+			//we can perform additional checks here if we like
+			//alert(socketObj.attr('id')); would work fine
+
+			//return false so that the peg does not revert
+			return false;
+			}
+			} */
+		}); // draggable
+
+		$(selDrop).droppable
+		( {
+			drop: function (event, ui)
+			{
+				alert( "dropped." );
+			}
+		} ); // droppable
+	} );	// doc.ready
+} // function initItemsDragDrop
