@@ -24,12 +24,13 @@ public class Lists extends Application {
 		renderJSON(query.fetch());
 	}
 
-	public static void index(long id) {
-		index(DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
-				+ id));
+	public static void listIndex(long id) {
+		listIndex(DB
+				.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
+						+ id));
 	}
 
-	private static void index(ResultSet rs) {
+	private static void listIndex(ResultSet rs) {
 		List<Product> list = new ArrayList<Product>();
 		try {
 			while (rs.next()) {
@@ -64,7 +65,7 @@ public class Lists extends Application {
 
 	public static void orderedList(long listId) {
 		ProductsList pl = ProductsList.findById(listId);
-		index(DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId))));
+		listIndex(DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId))));
 	}
 
 	public static void addProduct(long listId, long productId) {
@@ -119,6 +120,6 @@ public class Lists extends Application {
 				targetUser.id);
 		list.save();
 
-		index(list.id);
+		Lists.listIndex(list.id);
 	}
 }
