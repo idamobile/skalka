@@ -82,7 +82,22 @@ $(document).ready(function($) {
 
 	$('.productInFeed').click(function (event){
 		event.preventDefault();
+		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=false',function() {
+			$('.addToListButton').click(function (event){
+				event.preventDefault();
+				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") } );
+			});
+		  $('a[href="#productDetails"]').click();
+		});
+	});
+
+	$('.product_icon').click(function (event){
+		event.preventDefault();
 		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=true',function() {
+			$('.addToListButton').click(function (event){
+				event.preventDefault();
+				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") } );
+			});
 		  $('a[href="#productDetails"]').click();
 		});
 	});
@@ -148,8 +163,9 @@ function ajaxAddProduct(event){
 }
 
 function setSelectedProductImageIndex( indSelected ) {
-	var allImages = $( "#productInfo_images ul li img" ).eq;
-	var src = allImages[indSelected].src;
+	var allImages = $("#productInfo_images ul li img");
+	var img = allImages.eq(indSelected);
+	var src = img[0].src;
 	// alert( "easy slider.onChange: index=" + indSelected.toString() + ", src=" + src );
 	$( "#productForm_imageUrl" ).val( src );
 }
@@ -363,34 +379,32 @@ function initProfileEditor()
 	});
 }
 
+function addProductToList(idProduct) {
+	var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + idProduct;
+	// alert(url);
+	var fetchDiv = $("div#dragDropTmp");
+	if (fetchDiv.length > 0)
+		fetchDiv.empty();
+	else {
+		fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
+		$("body").append(fetchDiv);
+	}
+	fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
+		// alert("Some content fetched.");
+		$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
+		$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
+		var newTarget = $("#giftListDropTarget");
+		newTarget.show();
+		initDroppable(newTarget);
+	});
+}
+
 function initDroppable(obj) {
 	obj.droppable
 	({
 		drop: function (event, ui) {
 			// alert( "dropped." );
-			var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + ui.draggable[0].id;
-			// alert(url);
-			var fetchDiv = $("div#dragDropTmp");
-			if (fetchDiv.length > 0)
-				fetchDiv.empty();
-			else {
-				fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
-				$("body").append(fetchDiv);
-			}
-			fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
-				// alert("Some content fetched.");
-				/* var oldTarget = $("#giftListDropTarget");
-				oldTarget.removeAttr("id");
-				var newTarget = $("div#dragDropTmp div");
-				newTarget.attr("id", "giftListDropTarget");
-				oldTarget.replaceWith(newTarget);
-				$("#giftListDropTarget").show(); */
-				$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
-				$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
-				var newTarget = $("#giftListDropTarget");
-				newTarget.show();
-				initDroppable(newTarget);
-			});
+			addProductToList( ui.draggable[0].id );
 			ui.helper.hide();
 		}
 	});   // droppable

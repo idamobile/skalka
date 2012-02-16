@@ -80,6 +80,12 @@
 
 /* PRODUCT DETAIL DIALOG */
 
+#productDetailsContent{
+margin: 0;
+max-height: 300px;
+overflow: auto;
+}
+
 .product_details {
 	width: 294px;
 	background: #fff;

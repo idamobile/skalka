@@ -3,7 +3,6 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,12 +23,11 @@ import play.libs.Codec;
 import play.libs.Images;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
-import play.mvc.Controller;
 import play.mvc.Scope.Session;
 import utils.Constants;
 import utils.html_parser.ProductParser;
 
-public class Products extends Controller {
+public class Products extends Application {
 
 	public static void parseUrl(String url) {
 		try {
@@ -40,12 +38,13 @@ public class Products extends Controller {
 		}
 	}
 
-	public static void add(String descr, String story, @Required String imageUrl, @Required String price, String type) {
+	public static void add(String descr, String story, @Required String imageUrl,
+			@Required String price, String type) {
 		try {
 			Logger.warn(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
 			Product product = new Product(descr, story, imageUrl, null, type, new Date());
 			setPrice(product, price);
-			
+
 			String accessToken = Session.current().get(User.JSON_TAG_ACCESS_TOKEN);
 			if (accessToken != null) {
 				User user = Cache.get(accessToken, User.class);
@@ -63,16 +62,16 @@ public class Products extends Controller {
 			renderText("false");
 		}
 	}
-	
-	private static void setPrice(Product product, String unparsedPrice){
+
+	private static void setPrice(Product product, String unparsedPrice) {
 		Pattern DECIMAL = Pattern.compile("(\\d+\\.?\\d*)");
 		Pattern CURRENCY = Pattern.compile("(\\$|£|€|¥)");
 		Matcher decimalMatcher = DECIMAL.matcher(unparsedPrice);
-		if(decimalMatcher.find()){
+		if (decimalMatcher.find()) {
 			product.price = Float.parseFloat(decimalMatcher.group(1));
 		}
 		Matcher currencyMatcher = CURRENCY.matcher(unparsedPrice);
-		if(currencyMatcher.find()){
+		if (currencyMatcher.find()) {
 			product.currency = currencyMatcher.group(1);
 		}
 	}
@@ -117,46 +116,39 @@ public class Products extends Controller {
 		renderBinary(new File(p.imageList));
 	}
 
-	public static void list(int page) {
-		page = (page <= 0) ? 1 : page;
-
-		int startIndex = (page - 1) * Constants.PRODUCTS_PAGE_SIZE;
-		List<Product> products = Product.all().from(startIndex).fetch(Constants.PRODUCTS_PAGE_SIZE);
-		render(products);
-	}
-
 	public static void details(Long id, boolean fromList) {
 		Product product = Product.findById(id);
 		render(product, fromList);
 	}
-	
-	private static final String SELECT_PRODUCTS = "SELECT p.* " +
-			"FROM products AS p " + 
-			"LEFT JOIN " + 
-			"(SELECT pc.product_id as pid, c.weight as weight FROM " + 
-			"products_subcategories AS pc " +
-			"INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id " +
-			"INNER JOIN subcategories AS s ON s.id = pc.subcategory_id " +
-			"INNER JOIN categories AS c ON c.id = s.category_id " +
-			"WHERE uc.user_id = ?) AS second " +
-			"ON p.id = pid " +
-			"GROUP BY p.id " + 
-			"ORDER BY sum(weight) DESC;";
-	
+
+	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
+			+ "LEFT JOIN " + "(SELECT pc.product_id as pid, c.weight as weight FROM "
+			+ "products_subcategories AS pc "
+			+ "INNER JOIN user_subcategories AS uc ON pc.subcategory_id = uc.subcategory_id "
+			+ "INNER JOIN subcategories AS s ON s.id = pc.subcategory_id "
+			+ "INNER JOIN categories AS c ON c.id = s.category_id "
+			+ "WHERE uc.user_id = ?) AS second " + "ON p.id = pid " + "GROUP BY p.id "
+			+ "ORDER BY sum(weight) DESC LIMIT ";
+
 	public static List<Product> getOrderedList(long listId) {
+		return getOrderedList(listId, 0);
+	}
+
+	public static List<Product> getOrderedList(long listId, long start) {
 		List<Product> list = new ArrayList<Product>();
 		ProductsList pl = ProductsList.findById(listId);
-		if(pl == null){
+		if (pl == null) {
 			return list;
 		}
-		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId)));
+		ResultSet rs = DB.executeQuery(SELECT_PRODUCTS.replace("?", String.valueOf(pl.targetId))
+				+ start + ", " + Constants.PRODUCTS_PAGE_SIZE);
 		try {
 			while (rs.next()) {
-				Product p = Product.createFromResultSet(rs); 
+				Product p = Product.createFromResultSet(rs);
 				list.add(p);
 			}
 			return list;
-		}catch (Exception e){
+		} catch (Exception e) {
 			return list;
 		}
 	}

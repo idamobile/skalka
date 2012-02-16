@@ -5,7 +5,6 @@
 # Home page
 GET     /                                       Application.index
 GET     /products                               Products.index
-GET		/products/list/{<[0-9]+>page}			Products.list
 GET		/products/details/{<[0-9]+>id}			Products.details
 GET		/lists/{<[0-9]*>id}						Lists.listIndex
 

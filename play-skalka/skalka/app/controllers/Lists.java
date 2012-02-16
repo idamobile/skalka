@@ -51,6 +51,18 @@ public class Lists extends Application {
 		return list;
 	}
 
+	public static void pagesCount() {
+		renderText(Product.count() / Constants.PRODUCTS_PAGE_SIZE);
+	}
+
+	public static void listPage(long listId, long page) {
+		page = (page < 1) ? 1 : page;
+		long startIndex = page * Constants.PRODUCTS_PAGE_SIZE;
+		List<Product> products = Products.getOrderedList(listId, startIndex);
+
+		render(products);
+	}
+
 	public static void listIndex(long id) {
 
 		List<Product> list = createSidebarList(id);
@@ -84,20 +96,24 @@ public class Lists extends Application {
 		pil.save();
 		pList.productsInList.add(pil);
 		pList.save();
-
-		renderProductList(listId);
+		User targetUser = User.findById(pList.targetId);
+		renderProductList(listId, targetUser);
 	}
 
 	public static void removeProductFromList(long listId, long productId) {
 		ProductInList pl = ProductInList.find("listId = ? AND productId = ? ", listId, productId)
 				.first();
+
 		pl.delete();
-		renderProductList(listId);
+
+		ProductsList pList = ProductsList.findById(listId);
+		User targetUser = User.findById(pList.targetId);
+		renderProductList(listId, targetUser);
 	}
 
-	public static void renderProductList(long listId) {
+	public static void renderProductList(long listId, User targetUser) {
 		List<Product> list = createSidebarList(listId);
-		render(list);
+		render(list, targetUser);
 	}
 
 	public static void addUserAction(Long listId, Long productId, Long userId, String userAction) {

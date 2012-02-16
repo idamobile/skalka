@@ -1,4 +1,13 @@
-<div class="product_details item" id="${product.id}" data-id="${product.id}">
+#{if fromList}
+ 	<input class="addToListButton" type="button" value="Imin" onclick="addProductToList(${product.id})">
+ 	<input class="voteForButton" type="button" value="Yes" onclick="voteFore(${product.id})">
+ 	<input class="voteAgainstButton" type="button" value="No" onclick="voteAgainst(${product.id})">
+#{/if}
+#{else}
+	<input class="addToListButton" type="button" value="Addtolist" onclick="addProductToList(${product.id});">
+
+#{/else}
+<br/>
 	<div class="image-box">
 		<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
 		<div class="price">
@@ -21,10 +30,3 @@
 		<div class="clear">
 		</div>
 	</div>
-</div>
-#{if fromList}
-   Colloboration goes here
-#{/if}
-#{else}
-	<input type="button">Some button</input>
-#{/else}
