@@ -1,4 +1,11 @@
-
+#{if fromList}
+   Colloboration goes here
+#{/if}
+#{else}
+	<input class="addToListButton" type="button" value="Addtolist" 
+		onclick="$.get('/lists/addProduct', { listId: context.listId, productId: ${product.id} } );">
+#{/else}
+<br/>
 	<div class="image-box">
 		<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
 		<div class="price">
@@ -21,9 +28,3 @@
 		<div class="clear">
 		</div>
 	</div>
-#{if fromList}
-   Colloboration goes here
-#{/if}
-#{else}
-	<input class="addToListButton" id="${product.id}" type="button" value="Addtolist" disabled="disabled">
-#{/else}

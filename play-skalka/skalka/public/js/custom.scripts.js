@@ -83,9 +83,15 @@ $(document).ready(function($) {
 	$('.productInFeed').click(function (event){
 		event.preventDefault();
 		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=false',function() {
+			$('.addToListButton').click(function (event){
+				event.preventDefault();
+				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") } );
+			});
 		  $('a[href="#productDetails"]').click();
 		});
 	});
+
+
 
 	if((typeof( showFriendSelectionDialog ) !== 'undefined') && showFriendSelectionDialog){
 		$('a[href="#selectFriend"]').click();
