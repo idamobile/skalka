@@ -14,7 +14,12 @@
 
         #{if user}
         	<script type="text/javascript">
-        		var access_token = "${user.accessToken}";
+        		var context {
+        			access_token = "${user.accessToken}";        			
+        		}
+        		#{if listId}
+        			context.listId = ${listId};
+        		#{/if}
         	</script>
         #{/if}
         

@@ -26,7 +26,9 @@ public class Lists extends Application {
 
 	public static void listIndex(long id) {
 		List<Product> list = new ArrayList<Product>();
-		ResultSet rs = DB.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = " + id);
+		ResultSet rs = DB
+				.executeQuery("select p.* from list_prod lp, products p where p.id = lp.product_id and lp.list_id = "
+						+ id);
 		try {
 			while (rs.next()) {
 				Product p = Product.createFromResultSet(rs);
@@ -48,7 +50,8 @@ public class Lists extends Application {
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		List<ProductsList> lists = ProductsList.fetchLists(ownerUser.id, targetUser.id);
 
-		render(products, list, targetUser, lists);
+		Long listId = id;
+		render(products, list, targetUser, lists, listId);
 	}
 
 	public static void addProduct(long listId, long productId) {
