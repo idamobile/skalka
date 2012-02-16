@@ -15,7 +15,7 @@
        	<script type="text/javascript">
        		var context = {};
        		#{if user}		
-       			access_token = "${user.accessToken}";        			
+       			context.access_token = "${user.accessToken}";        			
        		#{/if}
        		#{if listId}
        			context.listId = ${listId};
