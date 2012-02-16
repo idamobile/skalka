@@ -57,7 +57,11 @@ public class Category extends Model implements Comparable<Category>{
 
 	@Override
 	public int compareTo(Category o) {
-		if(o == null || o.weight == null) return 0;
-		return o.weight.compareTo(weight);
+		if(o == null || o.weight == null) return 1;
+		int result = o.weight.compareTo(weight);
+		if(result != 0 || o.name == null){
+			return result;
+		}
+		return o.name.compareTo(name);
 	}
 }
