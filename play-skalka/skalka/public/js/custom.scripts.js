@@ -363,8 +363,40 @@ function initProfileEditor()
 	});
 }
 
-function initItemsDragDrop(selDrag, selDrop)
-{
+function initDroppable(obj) {
+	obj.droppable
+	({
+		drop: function (event, ui) {
+			// alert( "dropped." );
+			var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + ui.draggable[0].id;
+			// alert(url);
+			var fetchDiv = $("div#dragDropTmp");
+			if (fetchDiv.length > 0)
+				fetchDiv.empty();
+			else {
+				fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
+				$("body").append(fetchDiv);
+			}
+			fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
+				// alert("Some content fetched.");
+				/* var oldTarget = $("#giftListDropTarget");
+				oldTarget.removeAttr("id");
+				var newTarget = $("div#dragDropTmp div");
+				newTarget.attr("id", "giftListDropTarget");
+				oldTarget.replaceWith(newTarget);
+				$("#giftListDropTarget").show(); */
+				$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
+				$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
+				var newTarget = $("#giftListDropTarget");
+				newTarget.show();
+				initDroppable(newTarget);
+			});
+		}
+	});  // droppable
+}
+
+function initItemsDragDrop(selDrag, selDrop) {
+
 	$(document).ready
 
 	(function () {
@@ -418,32 +450,6 @@ function initItemsDragDrop(selDrag, selDrop)
 			} */
 		}); // draggable
 
-		$(selDrop).droppable
-		({
-			drop: function (event, ui) {
-				// alert( "dropped." );
-				var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + ui.draggable[0].id;
-				// alert(url);
-				var fetchDiv = $("div#dragDropTmp");
-				if (fetchDiv.length > 0)
-					fetchDiv.empty();
-				else {
-					fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
-					$("body").append(fetchDiv);
-				}
-				fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
-					// alert("Some content fetched.");
-					/* var oldTarget = $("#giftListDropTarget");
-					oldTarget.removeAttr("id");
-					var newTarget = $("div#dragDropTmp div");
-					newTarget.attr("id", "giftListDropTarget");
-					oldTarget.replaceWith(newTarget);
-					$("#giftListDropTarget").show(); */
-					$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
-					$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
-					$("#giftListDropTarget").show();
-				});
-			}
-		}); // droppable
-	});                 	// doc.ready
+		initDroppable($(selDrop));
+	});                  	// doc.ready
 } // function initItemsDragDrop
