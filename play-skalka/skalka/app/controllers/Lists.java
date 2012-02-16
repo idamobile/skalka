@@ -84,20 +84,24 @@ public class Lists extends Application {
 		pil.save();
 		pList.productsInList.add(pil);
 		pList.save();
-
-		renderProductList(listId);
+		User targetUser = User.findById(pList.targetId);
+		renderProductList(listId, targetUser);
 	}
 
 	public static void removeProductFromList(long listId, long productId) {
 		ProductInList pl = ProductInList.find("listId = ? AND productId = ? ", listId, productId)
 				.first();
+
 		pl.delete();
-		renderProductList(listId);
+
+		ProductsList pList = ProductsList.findById(listId);
+		User targetUser = User.findById(pList.targetId);
+		renderProductList(listId, targetUser);
 	}
 
-	public static void renderProductList(long listId) {
+	public static void renderProductList(long listId, User targetUser) {
 		List<Product> list = createSidebarList(listId);
-		render(list);
+		render(list, targetUser);
 	}
 
 	public static void addUserAction(Long listId, Long productId, Long userId, String userAction) {
