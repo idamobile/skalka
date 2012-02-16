@@ -42,11 +42,7 @@ public class Products extends Controller {
 
 	public static void add(String descr, String story, @Required String imageUrl, @Required String price, String type) {
 		try {
-
 			Logger.warn(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
-
-			
-			
 			Product product = new Product(descr, story, imageUrl, null, type, new Date());
 			setPrice(product, price);
 			
