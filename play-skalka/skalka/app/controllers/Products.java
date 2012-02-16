@@ -50,7 +50,7 @@ public class Products extends Application {
 			if (accessToken != null) {
 				User user = Cache.get(accessToken, User.class);
 				if (user != null) {
-					product.addedBy = user.facebookId;
+					product.addedBy = user.id;
 				}
 			}
 
@@ -135,9 +135,10 @@ public class Products extends Application {
 		return getOrderedList(listId, 0);
 	}
 	
-	public static List<Product> getUserProducts(long userId) {
-		JPAQuery query = Product.find("userId = ?", userId);
-		return query.fetch();
+	public static void listUserProducts(long userId) {
+		JPAQuery query = Product.find("added_by_uid = ?", userId);
+		List<Product> products = query.fetch();
+		render(products);
 	}
 
 	public static List<Product> getOrderedList(long listId, long start) {
