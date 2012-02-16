@@ -55,6 +55,10 @@ public class ProductsList extends Model {
 		return ProductsList.find(HQL_FIND_LISTS, ownerId, targetId).first();
 	}
 
+	public static List<ProductsList> fetchLists(Long ownerId, Long targetId) {
+		return ProductsList.find(HQL_FIND_LISTS, ownerId, targetId).fetch();
+	}
+
 	public static ProductsList fetchLatest(Long ownerId) {
 		return ProductsList.find(HQL_FIND_LATEST, ownerId).first();
 	}
