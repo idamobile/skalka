@@ -73,7 +73,7 @@ public class Application extends Controller {
 			if (list == null) {
 				Lists.create();
 			}
-			Lists.index(list.id);
+			redirect("/lists/" + list.id);
 		}
 
 	}
