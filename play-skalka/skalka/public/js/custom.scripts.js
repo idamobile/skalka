@@ -421,15 +421,26 @@ function initItemsDragDrop(selDrag, selDrop)
 		({
 			drop: function (event, ui) {
 				// alert( "dropped." );
-				var url = "/products/addProduct?listId=" + context.listId + "&productId=" + ui.draggable[0].id;
-				alert(url);
-				var newDiv = $("<div></div>");
-				newDiv.hide();
-				$("body").append(newDiv);
-				newDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
-					alert("Some content fetched.");
+				var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + ui.draggable[0].id;
+				// alert(url);
+				var fetchDiv = $("div#dragDropTmp");
+				if (fetchDiv.length > 0)
+					fetchDiv.empty();
+				else {
+					fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
+					$("body").append(fetchDiv);
+				}
+				fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
+					// alert("Some content fetched.");
+					var oldTarget = $("#giftListDropTarget");
+					var parent = oldTarget.parent();
+					oldTarget.removeAttr("id");
+					var newTarget = $("div#dragDropTmp div");
+					newTarget.attr("id", "giftListDropTarget");
+					oldTarget.replaceWith(newTarget);
+					$("#giftListDropTarget").show();
 				});
 			}
 		}); // droppable
-	});     	// doc.ready
+	});               	// doc.ready
 } // function initItemsDragDrop
