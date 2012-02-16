@@ -13,6 +13,7 @@ import models.UserActionsInProductList;
 import play.cache.Cache;
 import play.db.DB;
 import play.db.jpa.GenericModel.JPAQuery;
+import utils.Constants;
 
 public class Lists extends Application {
 
@@ -46,7 +47,13 @@ public class Lists extends Application {
 		}
 		List<Product> products = Products.getOrderedList(id);
 
-		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
+		ProductsList requestedList = ProductsList.findById(id);
+		Long targetId = requestedList.targetId;
+
+		User targetUser = User.findById(targetId);
+		session.put(SESSION_PARAM_TARGET_FRIEND, targetUser.facebookId);
+		Cache.set(String.valueOf(targetUser.facebookId), targetUser, Constants.CACHE_TIMEOUT);
+
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		List<ProductsList> lists = ProductsList.fetchLists(ownerUser.id, targetUser.id);
 
