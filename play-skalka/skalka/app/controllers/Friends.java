@@ -6,6 +6,7 @@ import models.User;
 import models.UserCategories;
 import play.Logger;
 import play.cache.Cache;
+import play.db.DB;
 
 public class Friends extends Application {
 
@@ -19,9 +20,9 @@ public class Friends extends Application {
 
 		for (Long catId : catIds) {
 			Logger.debug("Adding catId = %s for userId = %s", "" + catId, "" + targetUser.id);
-			targetUser.subcategoryId = catIds;
-			targetUser.save();
-			//new UserCategories(targetUser.id, catId).save();
+			
+			DB.execute("delete from user_subcategories where user_id = " + targetUser.id);
+			new UserCategories(targetUser.id, catId).save();
 		}
 
 		Application.index(null);

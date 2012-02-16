@@ -55,11 +55,6 @@ public class User extends Model {
 
 	@Column(name = "last_login")
 	public Date lastLogin;
-	
-	@ElementCollection(targetClass = Long.class)
-	@JoinTable(name = "user_subcategories", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") })
-	@Column(name = "subcategory_id", nullable = true)
-	public List<Long> subcategoryId;
 
 	@Transient
 	public String accessToken;
