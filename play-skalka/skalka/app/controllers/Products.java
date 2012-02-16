@@ -145,7 +145,7 @@ public class Products extends Controller {
 			"WHERE uc.user_id = ?) AS second " +
 			"ON p.id = pid " +
 			"GROUP BY p.id " + 
-			"ORDER BY sum(weight);";
+			"ORDER BY sum(weight) DESC;";
 	
 	public static List<Product> getOrderedList(long listId) {
 		List<Product> list = new ArrayList<Product>();
