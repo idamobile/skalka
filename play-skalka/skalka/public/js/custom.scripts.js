@@ -384,7 +384,11 @@ function initItemsDragDrop(selDrag, selDrop)
 				obj.show();
 				return obj;
 			}, */
-			cursorAt: { left: 50, top:50 },
+			helper:function () {
+				var id = this.id;
+				return $("<img src='/products/imagelist?id=" + id + "'/>");
+			},
+			cursorAt: { left: 25, top:25 },
 			revert: true
 			/* 
 		
