@@ -12,7 +12,6 @@ import play.db.DB;
 public class Friends extends Application {
 
 	public static void addCategories(List<Long> catIds) {
-		System.out.println("Categories = " + catIds);
 		if (catIds == null || catIds.isEmpty()) {
 			renderText("Categories are empty");
 		}

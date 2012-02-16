@@ -1,7 +1,6 @@
 package utils.html_parser;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -9,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +31,8 @@ public class ProductParser {
 	private final static String POUND_HTML = "&pound;";
 	private final static String DOLLAR_SYMBOL = "$";
 	private final static String DOLLAR_HTML = "\\$";
+	
+	private static final int MIN_SIZE_BYTE = 1024;
 
 	private static final HashMap<String, String> CURRENCIES = new HashMap<String, String>();
 
@@ -49,9 +53,9 @@ public class ProductParser {
 	}
 
 	private ParsedProductData parseImages(Document doc) {
-		ArrayList<Pair<URL, Integer>> images = parseEbayImages(doc);
+		List<Pair<URL, Integer>> images = new ArrayList<Pair<URL,Integer>>(parseEbayImages(doc));
 		if (images.size() == 0) {
-			images = parseAmazonImages(doc);
+			images = new ArrayList<Pair<URL,Integer>>(parseAmazonImages(doc));
 		}
 		Collections.sort(images, new Comparator<Pair<URL, Integer>>() {
 			@Override
@@ -65,35 +69,42 @@ public class ProductParser {
 		return productData;
 	}
 
-	private ArrayList<Pair<URL, Integer>> parseAmazonImages(Document doc) {
-		ArrayList<Pair<URL, Integer>> images = new ArrayList<Pair<URL, Integer>>();
+	private Set<Pair<URL, Integer>> parseAmazonImages(Document doc) {
+		Set<Pair<URL, Integer>> images = new HashSet<Pair<URL, Integer>>();
 		Elements links = doc.select("img[src]");
 		for (int i = 0; i < links.size(); i++) {
 			try {
-				URL url = new URL(links.get(i).attr("src"));
-				URLConnection conn = url.openConnection();
-				images.add(new Pair<URL, Integer>(url, conn.getContentLength()));
-			} catch (Exception e) {
-			}
-			;
+				Pair<URL, Integer> pair = parseAttribute(links.get(i).attr("src"));
+				if(pair != null){
+					images.add(pair);
+				}
+			} catch (Exception e) { }
 		}
 		return images;
 	}
 
-	private ArrayList<Pair<URL, Integer>> parseEbayImages(Document doc) {
-		ArrayList<Pair<URL, Integer>> images = new ArrayList<Pair<URL, Integer>>();
+	private Set<Pair<URL, Integer>> parseEbayImages(Document doc) {
+		Set<Pair<URL, Integer>> images = new HashSet<Pair<URL, Integer>>();
 		Elements links = doc.select("span[content~=(?i)\\.(png|jpe?g)]");
 		for (int i = 0; i < links.size(); i++) {
 			try {
-				// System.out.println(links.get(i).attr("content"));
-				URL url = new URL(links.get(i).attr("content"));
-				URLConnection conn = url.openConnection();
-				images.add(new Pair<URL, Integer>(url, conn.getContentLength()));
-			} catch (Exception e) {
-			}
-			;
+				Pair<URL, Integer> pair = parseAttribute(links.get(i).attr("content"));
+				if(pair != null){
+					images.add(pair);
+				}
+			} catch (Exception e) { }
 		}
 		return images;
+	}
+	
+	private Pair<URL, Integer> parseAttribute(String link) throws IOException{
+		URL url = new URL(link);
+		URLConnection conn = url.openConnection();
+		int length = conn.getContentLength();
+		if(length < MIN_SIZE_BYTE){
+			return null;
+		}
+		return new Pair<URL, Integer>(url, length);
 	}
 
 	private ParsedProductData parsePrice(Document doc) {
