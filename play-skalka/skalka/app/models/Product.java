@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import play.db.jpa.Model;
 @Entity
 @Table(name = "products")
 public class Product extends Model {
+	
+	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
 
 	@ElementCollection(targetClass = Long.class)
 	@JoinTable(name = "products_subcategories", joinColumns = { @JoinColumn(name = "product_id", referencedColumnName = "id") })
@@ -77,6 +80,10 @@ public class Product extends Model {
 		this.productType = productType;
 		this.addedWhen = addedWhen;
 	}
+	
+	public String getPrice(){
+		return (currency == null || "null".equals(currency) ? "" : currency)  + DECIMAL_FORMAT.format(price);
+	}
 
 	@Transient
 	private User author;
@@ -106,6 +113,7 @@ public class Product extends Model {
 			p.imageList = rs.getString("image_list");
 			p.addedBy = rs.getLong("added_by_uid");
 			p.price = rs.getFloat("price");
+			p.currency = rs.getString("currency");
 			p.productType = rs.getString("type");
 			p.addedWhen = rs.getDate("added_when");
 			p.isPublic = rs.getString("is_public");

@@ -1,6 +1,7 @@
 package utils.html_parser;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -12,6 +13,7 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Document;
@@ -108,7 +110,7 @@ public class ProductParser {
 						if (price == null) {
 							price = m.group(2);
 						}
-						productData.setPrice(price);
+						productData.setPrice(StringEscapeUtils.unescapeHtml(price));
 						return productData;
 					}
 				}
@@ -148,6 +150,6 @@ public class ProductParser {
 
 	public static final void main(String[] args) throws IOException, URISyntaxException {
 		ProductParser parser = new ProductParser();
-		System.out.println(parser.parse("http://www.ebay.com/itm/Super-Sexy-Purple-Lingerie-Purple-Teddy-babydoll-dress-costume-Q80-/180817482782?pt=AU_Womens_Clothing_2&hash=item2a198fd41e"));
+		System.out.println(parser.parse("http://www.ebay.co.uk/itm/Sexy-womens-Lingerie-Thongs-G-string-Panties-One-Size-XS-M-UK-4-12-/220954252812?pt=UK_Women_s_Lingerie&var=&hash=item7916817248"));
 	}
 }
