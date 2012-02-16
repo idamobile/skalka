@@ -1,9 +1,11 @@
 #{if fromList}
-   Colloboration goes here
+ 	<input class="addToListButton" type="button" value="Imin" onclick="addProductToList(${product.id})">
+ 	<input class="voteForButton" type="button" value="Yes" onclick="voteFore(${product.id})">
+ 	<input class="voteAgainstButton" type="button" value="No" onclick="voteAgainst(${product.id})">
 #{/if}
 #{else}
-	<input class="addToListButton" type="button" value="Addtolist" 
-		onclick="$.get('/lists/addProduct', { listId: context.listId, productId: ${product.id} } );">
+	<input class="addToListButton" type="button" value="Addtolist" onclick="addProductToList(${product.id});">
+
 #{/else}
 <br/>
 	<div class="image-box">
