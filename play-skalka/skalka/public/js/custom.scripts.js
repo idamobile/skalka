@@ -154,8 +154,9 @@ function ajaxAddProduct(event){
 }
 
 function setSelectedProductImageIndex( indSelected ) {
-	var allImages = $( "#productInfo_images ul li img" ).eq;
-	var src = allImages[indSelected].src;
+	var allImages = $("#productInfo_images ul li img");
+	var img = allImages.eq(indSelected);
+	var src = img[0].src;
 	// alert( "easy slider.onChange: index=" + indSelected.toString() + ", src=" + src );
 	$( "#productForm_imageUrl" ).val( src );
 }
