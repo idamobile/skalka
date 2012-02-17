@@ -133,8 +133,11 @@
 		};
 
 		this.showOnlyMutual = function (bOnlyMutual) {
-			var display = (bOnlyMutual) ? "none" : "";
-			$("div.jfmfs-friend[data-mutualfriend='false']").css("display", display);
+			var selecta = "div.jfmfs-friend[data-mutualfriend='false']";
+			if (bOnlyMutual)
+				$(selecta).hide();
+			else
+				$(selecta).show();
 			showImagesInViewPort();
 		}
 
