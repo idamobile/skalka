@@ -27,7 +27,9 @@ $(document).ready(function ($) {
 			// alert("inviteFriends.afterLoad");
 			// $("div#mutual").jfmfs({ max_selected: 15, max_selected_message: "{0} of {1} selected" });
 			// $("div#facebookFriendPicker").jfmfs({ max_selected: 15, max_selected_message: "{0} of {1} selected" });
-			$("div#facebookFriendPicker").jfmfs({ exclude_friends: [context.targetFacebookId] });
+
+			var selFacebookFriendPicker = "div#facebookFriendPicker";
+			$(selFacebookFriendPicker).jfmfs({ exclude_friends: [context.targetFacebookId] });
 
 			var showOnlyMutual = function (bOnlyMutual) {
 				$("div#facebookFriendPicker").data("jfmfs").showOnlyMutual(bOnlyMutual);
@@ -35,7 +37,23 @@ $(document).ready(function ($) {
 
 			$("#inviteFriends_mutual").click(function () { showOnlyMutual(true); });
 			$("#inviteFriends_all").click(function () { showOnlyMutual(false); });
-			// showOnlyMutual(true);
+
+			var selInviteButton = "input#facebookFriendsInvite";
+			$(selInviteButton).attr('disabled', true);
+
+			$(selFacebookFriendPicker).bind("jfmfs.selection.changed", function () {
+				// alert("jfmfs.selection.changed");
+				var arrFBIDs = $(selFacebookFriendPicker).data("jfmfs").getSelectedIds();
+				if (arrFBIDs.length > 0)
+					$(selInviteButton).attr('disabled', false);
+				else
+					$(selInviteButton).attr('disabled', true);
+			});
+
+			$(selInviteButton).click(function () {
+				var arrFBIDs = $(selFacebookFriendPicker).data("jfmfs").getSelectedIds();
+				alert(arrFBIDs.join(", "));
+			});
 		}
 	});
 
