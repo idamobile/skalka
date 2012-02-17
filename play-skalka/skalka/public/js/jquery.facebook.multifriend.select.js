@@ -75,30 +75,38 @@
 			all_friends;
 
 		FB.api('/me/friends?access_token=' + context.access_token + '&fields=' + settings.friend_fields, function (response) {
-			var sortedFriendData = response.data.sort(settings.sorter),
-				preselectedFriends = {},
-				buffer = [],
-				selectedClass = "";
+			FB.api('me/mutualfriends/' + context.targetFacebookId + '?fields=id&access_token=' + context.access_token, function (responseMutual) {
 
-			$.each(sortedFriendData, function (i, friend) {
-				if (!(friend.id in excluded_friends_graph)) {
-					selectedClass = (friend.id in preselected_friends_graph) ? "selected" : "";
-					buffer.push("<div class='jfmfs-friend " + selectedClass + " ' id='" + friend.id + "'><img/><div class='friend-name'>" + friend.name + "</div></div>");
-				}
+				var sortedFriendData = response.data.sort(settings.sorter),
+					preselectedFriends = {},
+					buffer = [],
+					selectedClass = "";
+
+				var mutualFriends = {};
+				$.each(responseMutual.data, function (i, e) {
+					mutualFriends[e.id] = true;
+				})
+
+				$.each(sortedFriendData, function (i, friend) {
+					if (!(friend.id in excluded_friends_graph)) {
+						selectedClass = (friend.id in preselected_friends_graph) ? "selected" : "";
+						var isMutualFriend = (mutualFriends[friend.id]) ? true : false;
+						buffer.push("<div class='jfmfs-friend " + selectedClass + " ' id='" + friend.id + "' data-mutualfriend='" + isMutualFriend + "'><img/><div class='friend-name'>" + friend.name + "</div></div>");
+					}
+				});
+				friend_container.append(buffer.join(""));
+
+				uninitializedImagefriendElements = $(".jfmfs-friend", elem);
+				uninitializedImagefriendElements.bind('inview', function (event, visible) {
+					if ($(this).attr('src') === undefined) {
+						$("img", $(this)).attr("src", "//graph.facebook.com/" + this.id + "/picture");
+					}
+					$(this).unbind('inview');
+				});
+
+				init();
 			});
-			friend_container.append(buffer.join(""));
-
-			uninitializedImagefriendElements = $(".jfmfs-friend", elem);
-			uninitializedImagefriendElements.bind('inview', function (event, visible) {
-				if ($(this).attr('src') === undefined) {
-					$("img", $(this)).attr("src", "//graph.facebook.com/" + this.id + "/picture");
-				}
-				$(this).unbind('inview');
-			});
-
-			init();
 		});
-
 
 		// ----------+----------+----------+----------+----------+----------+----------+
 		// Public functions
@@ -124,9 +132,17 @@
 			all_friends.removeClass("selected");
 		};
 
+		this.showOnlyMutual = function (bOnlyMutual) {
+			var display = (bOnlyMutual) ? "none" : "";
+			$("div.jfmfs-friend[data-mutualfriend='false']").css("display", display);
+			showImagesInViewPort();
+		}
+
 		// ----------+----------+----------+----------+----------+----------+----------+
 		// Private functions
 		// ----------+----------+----------+----------+----------+----------+----------+
+
+		var showImagesInViewPort = null;
 
 		var init = function () {
 			all_friends = $(".jfmfs-friend", elem);
@@ -272,7 +288,7 @@
 				return height;
 			};
 
-			var showImagesInViewPort = function () {
+			showImagesInViewPort = function () {
 				var container_height_px = friend_container.innerHeight(),
 					scroll_top_px = friend_container.scrollTop(),
 					container_offset_px = friend_container.offset().top,
@@ -280,6 +296,7 @@
 					elementVisitedCount = 0,
 					foundVisible = false,
 					allVisibleFriends = $(".jfmfs-friend:not(.hide-filtered )");
+				allVisibleFriends = $(allVisibleFriends.filter(":visible"));
 
 				$.each(allVisibleFriends, function (i, $el) {
 					elementVisitedCount++;
@@ -287,7 +304,7 @@
 						$el = $(allVisibleFriends[i]);
 						top_px = (first_element_offset_px + (friend_height_px * Math.ceil(elementVisitedCount / friends_per_row))) - scroll_top_px - container_offset_px;
 						if (top_px + friend_height_px >= -10 &&
-							top_px - friend_height_px < container_height_px) {  // give some extra padding for broser differences
+							top_px - friend_height_px < container_height_px) {  // give some extra padding for browser differences
 							$el.data('inview', true);
 							$el.trigger('inview', [true]);
 							foundVisible = true;
@@ -308,6 +325,8 @@
 			friend_container.bind('scroll', $.debounce(250, showImagesInViewPort));
 
 			updateMaxSelectedMessage();
+
+			$("div.jfmfs-friend[data-mutualfriend='false']").hide();
 			showImagesInViewPort();
 			updateSelectedCount();
 			elem.trigger("jfmfs.friendload.finished");
