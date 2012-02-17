@@ -20,7 +20,11 @@
         </div>
         
         <div class="myFeed select">
-        	<a class="label" href="@{Products.listUserProducts()}">My feed</p>
+			<p class="label">Curation</p>
+			<ul class="dropDownMenu" id="giftListsMenu">
+        		<li id="submitGiftitem"><a class="submitIdea expander" class="label" href="#addProduct">Submit gift idea</p></li>
+				<li id="myFeed"><a class="expander" class="label" href="@{Products.listUserProducts()}">My feed</p></li>
+			</ul>
         </div>
         
 		#{if _user}
