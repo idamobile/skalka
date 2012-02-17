@@ -14,11 +14,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import play.db.jpa.Model;
+import utils.Constants;
 
 @Entity
 @Table(name = "products")
 public class Product extends Model {
-	
+
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
 
 	@ElementCollection(targetClass = Long.class)
@@ -43,7 +44,7 @@ public class Product extends Model {
 
 	@Column(name = "price")
 	public float price;
-	
+
 	@Column(name = "currency")
 	public String currency;
 
@@ -71,8 +72,8 @@ public class Product extends Model {
 	public Product() {
 	}
 
-	public Product(String descr, String story, String imageUrl, Long addedBy,
-			String productType, Date addedWhen) {
+	public Product(String descr, String story, String imageUrl, Long addedBy, String productType,
+			Date addedWhen) {
 		this.descr = descr;
 		this.story = story;
 		this.imageUrl = imageUrl;
@@ -80,9 +81,10 @@ public class Product extends Model {
 		this.productType = productType;
 		this.addedWhen = addedWhen;
 	}
-	
-	public String getPrice(){
-		return (currency == null || "null".equals(currency) ? "" : currency)  + DECIMAL_FORMAT.format(price);
+
+	public String getPrice() {
+		return (currency == null || "null".equals(currency) ? "" : currency)
+				+ DECIMAL_FORMAT.format(price);
 	}
 
 	@Transient
@@ -123,5 +125,19 @@ public class Product extends Model {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public static long pagesCount(Long ownerId) {
+		long count = 0;
+
+		if (ownerId == null) {
+			count = Product.count();
+		} else {
+			count = Product.count("byAddedBy", ownerId);
+		}
+
+		long pc = count / Constants.PRODUCTS_PAGE_SIZE
+				+ (count % Constants.PRODUCTS_PAGE_SIZE != 0 ? 1 : 0);
+		return pc;
 	}
 }

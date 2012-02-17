@@ -2,7 +2,6 @@ package models;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,8 +14,8 @@ import javax.persistence.UniqueConstraint;
 import play.db.jpa.Model;
 
 @Entity
-@Table(name = "list_prod", 
-	uniqueConstraints = { @UniqueConstraint(columnNames = { "list_id", "product_id" }), })
+@Table(name = "list_prod", uniqueConstraints = { @UniqueConstraint(columnNames = { "list_id",
+		"product_id" }), })
 public class ProductInList extends Model {
 
 	@Column(name = "list_id")
@@ -25,11 +24,9 @@ public class ProductInList extends Model {
 	@Column(name = "product_id")
 	public Long productId;
 
-	@OneToMany(fetch= FetchType.LAZY)
-	@JoinColumns( {
-		@JoinColumn(name="list_id", referencedColumnName="list_id"), 
-		@JoinColumn(name="product_id", referencedColumnName="product_id")
-	})
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumns({ @JoinColumn(name = "list_id", referencedColumnName = "list_id"),
+			@JoinColumn(name = "product_id", referencedColumnName = "product_id") })
 	public List<UserActionsInProductList> userActions;
 
 	public ProductInList() {
@@ -39,4 +36,5 @@ public class ProductInList extends Model {
 		this.listId = listId;
 		this.productId = productId;
 	}
+
 }

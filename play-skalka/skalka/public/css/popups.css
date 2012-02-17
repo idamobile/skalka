@@ -2,11 +2,12 @@
 /************************************************************************/
 /* Modal Dialogs */
 
+
+/* .skalkaModal */
 .skalkaModal .fancybox-outer {
 	background: #fff;
 	text-align: left;
 }
-.skalkaModal .fancybox-outer {}
 .skalkaModal .popupTitle {
 	height: 50px;
 	line-height: 50px;
@@ -64,6 +65,31 @@
 	padding: 0;
 }
 
+/* .skalkaModalRound */
+
+.skalkaModalRound {
+	text-align: left;
+}
+.skalkaModalRound .fancybox-outer {
+	border-radius: 15px;
+	box-shadow: 0px 25px 50px #000!important;
+}
+.skalkaModalRound .fancybox-inner {
+	overflow: visible!important;
+}
+.skalkaModalRound .input-text {
+	border: none;
+	height: auto;
+	font-size: 22px;
+	font-family: Helvetica;
+	color: #343434;
+	padding: 0;
+	height: 34px;
+}
+.skalkaModalRound select {
+	border: none;
+	height: 34px;
+}
 
 /************************************************************************/
 /* PRODUCT ADD DIALOG */
@@ -149,12 +175,6 @@ overflow: auto;
 	font-style: italic;
 }
 
-
-/* SELECT USER DIALOG */
-
-.friendSuggestion {
-	background-color: #f1f1f1;
-}
 
 /* IMAGES */
 .giftSubmit .productInfo .imagesContainer {
@@ -260,12 +280,147 @@ overflow: auto;
 	background: transparent url(/public/images/icons/invite_friends.png) no-repeat 0 0;
 	line-height: 1;
 }
+.inviteFriends .inviteBlock .tab-content {
+	height: 200px;
+	overflow-y: auto;
+}
+.inviteFriends .inviteBlock .friendList {
+	margin-left: -14px;
+}
+.inviteFriends .inviteBlock .friendList li {
+	float: left;
+	padding: 2px;
+	width: 152px;
+	border: 1px solid #e2e2e2;
+	border-radius: 2px;
+	font-family: Arial;
+	margin: 0 0 9px 14px;
+}
+.inviteFriends .inviteBlock .friendList img {
+	width: 35px;
+	height: 35px;
+	float: left;
+}
+.inviteFriends .inviteBlock .friendList .label {
+	margin: 0 0 0 44px;
+	font-size: 11px;
+}
+.inviteFriends .inviteBlock .friendList .userName {
+	margin: 0 0 0 44px;
+	font-size: 13px;
+}
+
 .inviteFriends .participantsBlock {
 	width: 217px;
 	float: right;
 }
+.inviteFriends .participantsBlock .participantsList {
+	margin: 0 0 0 -8px;
+}
+.inviteFriends .participantsBlock li {
+	float: left;
+	margin: 0 0 8px 8px;
+	background: #fff;
+	padding: 3px;
+	border: 1px solid #e2e2e2;
+}
+.inviteFriends .participantsBlock li img {
+	width: 49px;
+	height: 49px;
+}
 
+/************************************************************************/
+/* SELECT FRIEND DIALOG */
 
-
+.selectFriend {
+	padding: 60px 28px 50px 33px;
+	background: transparent url(/public/images/bg_body.gif) 0 0;
+	border-radius: 15px;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	width: 600px;
+	position: relative;
+}
+.selectFriend .title {
+	font-size: 40px;
+	line-height: 1;
+	margin: 0 0 12px;
+}
+.selectFriend .hint {
+	font-size: 15px;
+	line-height: 1;
+	margin: 0 0 38px;
+}
+.selectFriend .formList {
+	height: 150px;
+}
+.selectFriend .inputContainer {
+	width: 375px;
+	border: 1px solid #b1b1b1;
+	border-radius: 9px;
+	background: #fff;
+	padding: 0 10px;
+	margin-bottom: 18px;
+	box-shadow: 0px 1px 1px #fff;
+}
+.selectFriend .inputContainer:focus {
+	border-color: #0da8d5;
+}
+.selectFriend .inputContainer .inner {
+	padding: 10px 0 10px 48px;
+}
+.selectFriend .inputContainer.friend .inner {
+	background: transparent url(/public/images/icons/select_friend.png) no-repeat 0 50%;
+}
+.selectFriend .inputContainer.occasion .inner {
+	background: transparent url(/public/images/icons/select_occasion.png) no-repeat 2px 4px;
+}
+.selectFriend .input-text {
+	width: 325px;
+}
+.selectFriend select {
+	width: 329px;
+}
+.selectFriend .buttonsContainer {
+	text-align: center;
+	padding: 22px 0 0;
+}
+.selectFriend .bow {
+	width: 276px;
+	height: 284px;
+	position: absolute;
+	top: -32px;
+	right: -65px;
+	background: transparent url(/public/images/icons/bow.png) no-repeat 0 0;	
+}
+.ui-autocomplete {
+	padding: 0;
+	border-radius: 0 0 9px 9px;
+	box-shadow: 0 2px 3px #c8c8c8;
+}
+.ui-autocomplete .ui-menu-item {
+	border-bottom: 1px solid #cfcfcf;
+	background: #fefefe;
+	line-height: 49px;
+}
+.ui-autocomplete .ui-menu-item:hover {
+	background: #eaeaea;
+}
+.ui-autocomplete .ui-menu-item:last-child {
+	border-radius: 0 0 9px 9px;
+}
+.ui-autocomplete .ui-menu-item a {
+	color: #292929;
+	text-decoration: none;
+	padding: 5px 14px!important;
+}
+.ui-autocomplete .ui-menu-item a,
+.ui-autocomplete .ui-menu-item a:hover {
+	background: none!important;
+}
+.ui-autocomplete .ui-menu-item img {
+	height: 49px;
+	width: 49px;
+	margin: 0 10px 0 0;
+}
 
 
