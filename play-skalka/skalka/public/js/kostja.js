@@ -9,7 +9,7 @@ $(document).ready(function ($) {
 		openSpeed: 150,
 
 		beforeLoad: function() { 
-			$.get("/lists/45/collaborators", function (data) {
+			$.get("/lists/"+context.listId+"/collaborators", function (data) {
 				$("#participantsList").html(data);
 			});
 		},
@@ -71,17 +71,26 @@ $(document).ready(function ($) {
 					method: 'send',					
 					api_key: '270568069679176',					
 					name: 'Skalka',
-					link: 'http://project.idamob.ru:9000/lists/45',
+					link: window.location.href,
 					display: 'popup',					
 					to: arrFBIDs
 				},
 					function (response) {
 						if(response == null){
 						}else{
-							var url = "/lists/45/collaborators/add?"
-							//for arrFBIDs 
-							//userIds=2
-							$.get("/lists/45/collaborators", function (data) {
+							var url = "";
+							if(arrFBIDs.length==0){
+								url = "/lists/"+context.listId+"/collaborators";
+							}else{
+								for (i=0;i<arrFBIDs.length;i++) {
+									if (i==0){
+										var url = "/lists/"+context.listId+"/collaborators/add?userIds=" + arrFBIDs[i];
+									}else{
+								    	url = url + "&userIds=" + arrFBIDs[i];
+									}
+								}
+							}
+							$.get(url, function (data) {
 								$("#participantsList").html(data);
 							});
 						}
