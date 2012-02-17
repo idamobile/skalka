@@ -5,7 +5,7 @@
 
 		<div class="col-left sidebar">
 			<div class="userPic">
-				<img src="${product?.imageFeed}" alt=""/>
+				<img src="@{Products.imageFeed(product.id)}" alt=""/>
 			</div>
 			<div class="callToAction">
 				Who will buy ${product?.descr}?
@@ -18,9 +18,9 @@
 
 		<div class="col-main">
 			<div class="titleBlock">
-				<h1 class="title">Describe ${product?.descr}</h1>
+				<h1 class="title">${product?.descr}</h1>
 				<p class="hint">
-					Click images that match ${product?.descr}'s target users
+					Click images that match product's target users.
 				</p>
     		</div>
     		
