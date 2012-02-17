@@ -41,11 +41,16 @@ public class Application extends Controller {
 		}
 	}
 
-	public static void index(Long targetFbId) {
+	public static void index(Long targetFbId, boolean createNewList) {
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		User targetUser = null;
 
 		if (targetFbId == null) {
+			if (createNewList) {
+				renderArgs.put("showFriendsSelector", true);
+				render();
+			}
+
 			String storedFbId = session.get(SESSION_PARAM_TARGET_FRIEND);
 			if (storedFbId == null || !storedFbId.matches("[0-9]+")) {
 
@@ -74,7 +79,7 @@ public class Application extends Controller {
 			Application.profile();
 		} else {
 			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id);
-			if (list == null) {
+			if (createNewList || list == null) {
 				Lists.create();
 			}
 			Lists.listIndex(list.id);
@@ -84,7 +89,7 @@ public class Application extends Controller {
 
 	public static void logout() {
 		clearCookies();
-		index(null);
+		index(null, false);
 	}
 
 	private static void clearCookies() {

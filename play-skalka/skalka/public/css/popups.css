@@ -241,14 +241,23 @@ overflow: auto;
 /************************************************************************/
 /* INVITE FRIENDS DIALOG */
 
-.inviteFriends {}
-.inviteFriends .container {
-	padding: 0;
+.inviteFriends {
+	background: transparent url(/public/images/bg_body.gif) 0 0;
+	border-radius: 6px;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 }
 .inviteFriends .inviteBlock {
 	width: 510px;
 	float: left;
 	padding: 20px 28px 20px 32px;
+	border-right: 1px solid #bbb;
+	background: #fff;
+	border-radius: 5px 0 0 5px;
+}
+.inviteFriends .inviteBlock .blockTitle {
+	font-size: 26px;
+	padding: 0 0 10px 50px;
+	background: transparent url(/public/images/icons/invite_friends.png) no-repeat 0 0;
 }
 .inviteFriends .participantsBlock {
 	width: 217px;
