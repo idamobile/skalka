@@ -73,8 +73,8 @@
 			preselected_friends_graph = arrayToObjectGraph(settings.pre_selected_friends),
 			excluded_friends_graph = arrayToObjectGraph(settings.exclude_friends),
             all_friends;
-            
-        FB.api('/me/friends?fields=' + settings.friend_fields, function(response) {
+
+        FB.api('/me/friends?access_token=' + context.access_token + '&fields=' + settings.friend_fields, function (response) {
             var sortedFriendData = response.data.sort(settings.sorter),
                 preselectedFriends = {},
                 buffer = [],
