@@ -161,9 +161,9 @@ public class Products extends Application {
 		JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ?", listId, productId);
 		List<UserActionsInProductList> userActions = query.fetch();
 		UserActionsInProductList userActionInList = new UserActionsInProductList(listId, productId, userId, "not_voted");
-		int likes = 0;
-		int dislikes = 0;
 		if(userActions != null){
+			int likes = 0;
+			int dislikes = 0;
 			for(UserActionsInProductList ua : userActions){
 				if(ua.userId.equals(userId) && !"in".equals(ua.userAction)){
 					userActionInList = ua;
