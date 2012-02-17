@@ -1,7 +1,9 @@
 #{if fromList}
- 	<input class="addToListButton" type="button" value="Imin" onclick="addProductToList(${product.id})">
- 	<input class="voteForButton" type="button" value="Yes" onclick="voteFore(${product.id})">
- 	<input class="voteAgainstButton" type="button" value="No" onclick="voteAgainst(${product.id})">
+	<div id="votingPanel">
+ 		<input class="imInButton" type="button" value="Imin" onclick="userAction(${product.id}, 'in')">
+ 		<input class="voteForButton" type="button" value="Yes" onclick="userAction(${product.id}, 'y')">
+ 		<input class="voteAgainstButton" type="button" value="No" onclick="userAction(${product.id}, 'n')">
+	</div>
  	<input class="removeProductButton" type="button" value="Remove" onclick="removeProductFromList(${product.id})">
 #{/if}
 #{else}
