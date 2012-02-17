@@ -30,6 +30,7 @@ import play.libs.Codec;
 import play.libs.Images;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
+import play.mvc.Before;
 import play.mvc.Scope.Session;
 import utils.Constants;
 import utils.html_parser.ProductParser;
@@ -37,6 +38,14 @@ import utils.html_parser.ProductParser;
 public class Products extends Application {
 
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00%");
+
+	@Before
+	static void storeMyLists() {
+		User me = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		List<ProductsList> myLists = ProductsList.getMyLists(me.id);
+
+		renderArgs.put("myLists", myLists);
+	}
 
 	public static void parseUrl(String url) {
 		try {
@@ -224,10 +233,7 @@ public class Products extends Application {
 
 		String nextPageUrl = "/products/listUserProducts";
 
-		User me = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		List<ProductsList> myLists = ProductsList.getMyLists(me.id);
-
-		render(products, nextPageUrl, myLists);
+		render(products, nextPageUrl);
 	}
 
 	/**
