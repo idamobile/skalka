@@ -475,8 +475,10 @@ function initItemsDragDrop(selDrag, selDrop) {
 function initPageless() {
 	$(document).ready(function ($) {
 		var optionz = {
-			url: "/lists/listPage",
-			params: { listId: context.listId },
+			// url: "/lists/listPage",
+			url: context.nextPageUrl,
+			// params: { listId: context.listId },
+			params: context.nextPageParams,
 			complete: function () {
 				alert("pageless complete");
 				GridLayout.allPins();
