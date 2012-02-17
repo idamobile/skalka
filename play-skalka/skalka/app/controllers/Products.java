@@ -219,7 +219,7 @@ public class Products extends Application {
 	 */
 	public static void listUserProducts() {
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		JPAQuery query = Product.find("added_by_uid = ?", user.id);
+		JPAQuery query = Product.find("addedBy = ? ORDER BY addedWhen DESC", user.id);
 		List<Product> products = query.fetch();
 
 		String nextPageUrl = "/products/listUserProducts";
