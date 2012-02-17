@@ -63,7 +63,8 @@ public class Products extends Application {
 			product.save();
 
 			if (session.contains(SESSION_PARAM_CURRENT_LIST)) {
-				ProductsList list = ProductsList.findById(session.get(SESSION_PARAM_CURRENT_LIST));
+				ProductsList list = ProductsList.findById(new Long(session
+						.get(SESSION_PARAM_CURRENT_LIST)));
 				if (list == null || !list.addProduct(product.id)) {
 					Logger.error("Unable to add product to current list");
 				}
@@ -129,17 +130,22 @@ public class Products extends Application {
 		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
-	public static void details(Long id, Long listId) { // listId < 0 means the request did not come from a list 
+	public static void details(Long id, Long listId) { // listId < 0 means the
+														// request did not come
+														// from a list
 		Product product = Product.findById(id);
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		
+
 		UserActionsInProductList userActionInList = null;
-		if(listId > 0){
-			JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ? AND user_id = ?", listId, product.id, user.id);
+		if (listId > 0) {
+			JPAQuery query = UserActionsInProductList.find(
+					"user_action != 'in' AND list_id = ? AND product_id = ? AND user_id = ?",
+					listId, product.id, user.id);
 			userActionInList = query.first();
-			if(userActionInList == null){
-				//we came from a list, but user did not vote yet
-				userActionInList = new UserActionsInProductList(listId,product.id, user.id, "not_voted");
+			if (userActionInList == null) {
+				// we came from a list, but user did not vote yet
+				userActionInList = new UserActionsInProductList(listId, product.id, user.id,
+						"not_voted");
 			}
 		}
 		render(product, userActionInList);
