@@ -131,8 +131,8 @@ public class Products extends Application {
 		
 		UserActionsInProductList userActionInList = null;
 		boolean shouldHaveAddToListButton = true;
-		String likePercentage = "0.5";
-		String dislikePercentage = "0.5";
+		String likePercentage = "0";
+		String dislikePercentage = "0";
 		if(clickedFromFeed){
 			// user clicked on a product in feed(not list)
 			ProductsList list = ProductsList.findById(listId);
