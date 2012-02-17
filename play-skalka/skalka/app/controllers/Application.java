@@ -18,6 +18,7 @@ public class Application extends Controller {
 	public static final String SESSION_PARAM_ACCESS_TOKEN = User.JSON_TAG_ACCESS_TOKEN;
 	public static final String SESSION_PARAM_TARGET_FRIEND = "targetFbId";
 	public static final String SESSION_PARAM_CURRENT_LIST = "currentList";
+	public static final String SESSION_PARAM_CURRENT_PRODUCT = "currentProduct";
 
 	@Before
 	static void checkConnected() {
