@@ -382,9 +382,7 @@ function initProfileEditor()
 	});
 }
 
-function addProductToList(idProduct) {
-	var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + idProduct;
-	// alert(url);
+function reloadLeftDiv(url, fnReInitLeftPanel) {
 	var fetchDiv = $("div#dragDropTmp");
 	if (fetchDiv.length > 0)
 		fetchDiv.empty();
@@ -394,44 +392,39 @@ function addProductToList(idProduct) {
 	}
 	fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
 		// alert("Some content fetched.");
-		$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
-		$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
-		var newTarget = $("#giftListDropTarget");
-		newTarget.show();
-		initDroppable(newTarget);
+		$("#giftListDropTarget").fadeOut(null, function () {
+			$(this).replaceWith($("#giftListDropTargetUpdated"));
+			$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
+			$('#giftListDropTarget').fadeIn(null);
+			fnReInitLeftPanel($('#giftListDropTarget'));
+		});
 	});
 }
 
+function addProductToList(idProduct) {
+	var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + idProduct;
+	reloadLeftDiv(url, function (jqNewDiv) {
+		initDroppable(jqNewDiv);
+	});
+}
 
 function removeProductFromList(idProduct) {
 	var url = "/lists/removeProductFromList?listId=" + context.listId + "&productId=" + idProduct;
-	var fetchDiv = $("div#dragDropTmp");
-	if (fetchDiv.length > 0)
-		fetchDiv.empty();
-	else {
-		fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
-		$("body").append(fetchDiv);
-	}
-	fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
-		// alert("Some content fetched.");
-		$("#giftListDropTarget").replaceWith($("#giftListDropTargetUpdated"));
-		$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
-		var newTarget = $("#giftListDropTarget");
-		newTarget.show();
-		initDroppable(newTarget);
+	reloadLeftDiv(url, function (jqNewDiv) {
+		initDroppable(jqNewDiv);
 	});
 }
 
-
-function initDroppable(obj) {
-	obj.droppable
+function initDroppable(jqTarget) {
+	jqTarget.droppable
 	({
 		drop: function (event, ui) {
 			// alert( "dropped." );
-			addProductToList( ui.draggable[0].id );
+			var eltBeingDropped = ui.draggable[0];
+			addProductToList(eltBeingDropped.id);
 			ui.helper.hide();
 		}
-	});   // droppable
+	});    // droppable
 }
 
 function initItemsDragDrop(selDrag, selDrop) {
