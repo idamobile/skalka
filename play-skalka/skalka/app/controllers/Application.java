@@ -33,6 +33,10 @@ public class Application extends Controller {
 				Signin.index();
 			}
 
+			if (session.contains(SESSION_PARAM_TARGET_FRIEND)) {
+				renderArgs.put("targetFbId", session.get(SESSION_PARAM_TARGET_FRIEND));
+			}
+
 			renderArgs.put("user", user);
 		}
 	}

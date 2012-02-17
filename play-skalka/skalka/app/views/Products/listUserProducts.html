@@ -10,7 +10,7 @@
     		<a class="openProductDetails" href="#productDetails"></a>
     		#{list items:products, as:'product'}
     			<div class="item" id="${product.id}" data-id="${product.id}">
-					<a class="productInFeed" href="#"  id="${product.id}">
+					<a class="productInCuratorFeed" href="@{Products.productProfile(product.id)}"  id="${product.id}">
 	    				<div class="image-box">
 	    					<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
 	    					<div class="price">

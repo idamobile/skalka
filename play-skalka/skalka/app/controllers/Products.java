@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import models.Category;
 import models.ErrorResult;
 import models.Product;
 import models.ProductsList;
+import models.Subcategory;
 import models.User;
 import play.Logger;
 import play.cache.Cache;
@@ -134,14 +137,24 @@ public class Products extends Application {
 	public static List<Product> getOrderedList(long listId) {
 		return getOrderedList(listId, 0);
 	}
-	
+
+	/**
+	 * My products feed main page
+	 */
 	public static void listUserProducts() {
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		JPAQuery query = Product.find("added_by_uid = ?", user.id);
 		List<Product> products = query.fetch();
-		render(products);
+
+		String nextPageUrl = "/products/listUserProducts";
+		render(products, nextPageUrl);
 	}
-	
+
+	/**
+	 * My products feed specific page
+	 * 
+	 * @param page
+	 */
 	public static void listUserProductsPage(int page) {
 		page = (page < 1) ? 1 : page;
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
@@ -149,7 +162,6 @@ public class Products extends Application {
 		List<Product> products = query.fetch(page, Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
 	}
-
 
 	public static List<Product> getOrderedList(long listId, long start) {
 		List<Product> list = new ArrayList<Product>();
@@ -168,5 +180,11 @@ public class Products extends Application {
 		} catch (Exception e) {
 			return list;
 		}
+	}
+	
+	public static void productProfile(Long productId) {
+		Product product = Product.findById(productId);
+		Map<Category, List<Subcategory>> categories = Subcategory.getTree(product);
+		render(categories, product);
 	}
 }

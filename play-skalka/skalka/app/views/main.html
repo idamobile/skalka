@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/style.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/popups.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/js/jquery/fancybox/jquery.fancybox.css'}" />
+		<link rel="stylesheet" type="text/css" href="@{'/public/js/jquery/simple.tabs/tabs.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/jquery.ui.autocomplete.css'}" />
         
        	<script type="text/javascript">
@@ -19,6 +20,13 @@
        		#{/if}
        		#{if listId}
        			context.listId = ${listId};
+       			context.nextPageParams = {listId: context.listId};
+       		#{/if}
+       		#{if nextPageUrl}
+       			context.nextPageUrl = "${nextPageUrl}";
+       		#{/if}
+       		#{if targetFbId}
+       			context.targetFacebookId = "${targetFbId}";
        		#{/if}
        	</script>
         
@@ -29,6 +37,7 @@
 		<script type="text/javascript" src="@{'/public/js/jquery.pageless.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery/fancybox/jquery.fancybox.pack.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery/easy.slider/easySlider1.7.js'}"></script>
+		<script type="text/javascript" src="@{'/public/js/jquery/simple.tabs/tabs.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/custom.scripts.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/kostja.js'}"></script>
 	</head>
@@ -38,7 +47,7 @@
 		    <div class="page">
 		    
 		    	<!-- Header Include -->
-				#{header user: user, lists: lists/}   
+				#{header user: user, lists: myLists/}   
 				
 				<!-- Main Part comes in here -->
 				#{doLayout /}
