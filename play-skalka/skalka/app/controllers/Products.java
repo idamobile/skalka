@@ -176,9 +176,11 @@ public class Products extends Application {
 				}
 			}
 			int total = likes + dislikes;
-			double like = total == 0 ? 0 : likes / total;
-			likePercentage = DECIMAL_FORMAT.format(like);
-			dislikePercentage = DECIMAL_FORMAT.format(1 - like);
+			if(total != 0){
+				double like = total == 0 ? 0 : likes / total;
+				likePercentage = DECIMAL_FORMAT.format(like);
+				dislikePercentage = DECIMAL_FORMAT.format(1 - like);				
+			}
 		}
 		return new VotingContainer(userActionInList, likePercentage, dislikePercentage);
 	}
