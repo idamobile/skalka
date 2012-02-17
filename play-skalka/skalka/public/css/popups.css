@@ -256,7 +256,7 @@ overflow: auto;
 }
 .inviteFriends .inviteBlock .blockTitle {
 	font-size: 26px;
-	padding: 0 0 0 50px;
+	padding: 0 0 10px 50px;
 	background: transparent url(/public/images/icons/invite_friends.png) no-repeat 0 0;
 }
 .inviteFriends .participantsBlock {
