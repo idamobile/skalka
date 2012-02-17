@@ -17,11 +17,27 @@ import play.Logger;
 import play.cache.Cache;
 import play.db.DB;
 import play.db.jpa.GenericModel.JPAQuery;
+import play.mvc.Before;
+import play.mvc.Scope.Params;
 import utils.Constants;
 
 public class Lists extends Application {
 
 	public static final int PLACEHOLDERS_COUNT = 8;
+
+	@Before
+	static void storeCurrentGiftBox() {
+		String paramName = null;
+		if (Params.current()._contains("listId")) {
+			paramName = "listId";
+		} else if (Params.current()._contains("id")) {
+			paramName = "id";
+		}
+
+		if (paramName != null) {
+			session.put(SESSION_PARAM_CURRENT_LIST, Params.current().get(paramName));
+		}
+	}
 
 	public static void productsInList(Long ownerId, Long targetId) {
 		// System.out.println("OwnerId:" + ownerId + " targetId:" + targetId);
@@ -94,23 +110,13 @@ public class Lists extends Application {
 	}
 
 	public static void addProduct(long listId, long productId) {
-		ProductsList pList = ProductsList.findById(listId);
-		Product p = Product.findById(productId);
-		if (pList == null || p == null) {
-			renderJSON(new ErrorResult());
+
+		ProductsList list = ProductsList.findById(listId);
+		if (list == null || !list.addProduct(productId)) {
+			renderJSON(new ErrorResult(-1, "Unable to add product"));
 		}
-		if (pList.productsInList == null) {
-			pList.productsInList = new ArrayList<ProductInList>();
-		}
-		ProductInList pil = new ProductInList(listId, productId);
-		try {
-			pil.save();
-			pList.productsInList.add(pil);
-			pList.save();
-		} catch (Throwable t) {
-			Logger.error("Unable to add product to list", t);
-		}
-		User targetUser = User.findById(pList.targetId);
+
+		User targetUser = User.findById(list.targetId);
 		renderProductList(listId, targetUser);
 	}
 

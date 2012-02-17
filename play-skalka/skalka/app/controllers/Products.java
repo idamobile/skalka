@@ -61,6 +61,14 @@ public class Products extends Application {
 			fetchImage(product, imageUrl);
 
 			product.save();
+
+			if (session.contains(SESSION_PARAM_CURRENT_LIST)) {
+				ProductsList list = ProductsList.findById(session.get(SESSION_PARAM_CURRENT_LIST));
+				if (list == null || !list.addProduct(product.id)) {
+					Logger.error("Unable to add product to current list");
+				}
+			}
+
 			renderText("true");
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -193,7 +201,7 @@ public class Products extends Application {
 			return list;
 		}
 	}
-	
+
 	public static void productProfile(Long productId) {
 		Product product = Product.findById(productId);
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree(product);
