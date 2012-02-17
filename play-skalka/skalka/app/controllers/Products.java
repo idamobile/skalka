@@ -131,10 +131,9 @@ public class Products extends Application {
 		if(clickedFromFeed){
 			// user clicked on a product in feed(not list)
 			ProductsList list = ProductsList.findById(listId);
-			System.out.println("listid=" + listId + " list:" + list);
 			if(list != null){
 				for(ProductInList pil : list.productsInList){
-					if(pil.productId.equals(listId)){
+					if(pil.listId.equals(listId)){
 						shouldHaveAddToListButton = false;
 						break;
 					}
