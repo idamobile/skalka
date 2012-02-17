@@ -10,6 +10,9 @@ import models.ProductInList;
 import models.ProductsList;
 import models.User;
 import models.UserActionsInProductList;
+
+import org.apache.commons.lang.StringUtils;
+
 import play.Logger;
 import play.cache.Cache;
 import play.db.DB;
@@ -165,5 +168,21 @@ public class Lists extends Application {
 		list.save();
 
 		Lists.listIndex(list.id);
+	}
+
+	public static void rename(long id, String name) {
+		if (StringUtils.isEmpty(name)) {
+			renderText("false");
+		}
+
+		ProductsList list = ProductsList.findById(id);
+		if (list == null) {
+			renderText("false");
+		}
+
+		list.name = name;
+		list.save();
+
+		renderText("true");
 	}
 }
