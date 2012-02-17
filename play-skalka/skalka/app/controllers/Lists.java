@@ -127,13 +127,13 @@ public class Lists extends Application {
 		render(list, targetUser);
 	}
 
-	public static void addUserAction(Long listId, Long productId, Long userId, String userAction) {
+	public static void addUserAction(Long listId, Long productId, String userAction) {
 		JPAQuery query = ProductInList.find("listId = ? AND productId = ? ", listId, productId);
 		ProductInList pil = query.first();
 		if (pil == null) {
 			renderJSON(new ErrorResult(-1, "product not in list"));
 		}
-		User user = User.findById(userId);
+		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		if (user == null) {
 			renderJSON(new ErrorResult(-1, "wrong user id"));
 		}
@@ -142,8 +142,7 @@ public class Lists extends Application {
 		}
 		System.out.println("Action==" + userAction);
 		try {
-			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, userId,
-					userAction);
+			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, user.id, userAction);
 			uaid.save();
 			pil.userActions.add(uaid);
 			pil.save();
