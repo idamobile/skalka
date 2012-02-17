@@ -16,5 +16,5 @@ public class Constants {
 	public static final String IMAGE_IN_DETAILS_DIR = "/details/";
 	public static final String IMAGE_IN_LIST_DIR = "/list/";
 
-	public static final int PRODUCTS_PAGE_SIZE = 20;
+	public static final int PRODUCTS_PAGE_SIZE = 5;
 }

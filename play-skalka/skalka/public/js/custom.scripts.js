@@ -81,7 +81,7 @@ $(document).ready(function ($) {
 		friendCompleterSetup();
 		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
 			// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
-			$.form('/', { targetFbId: selectedObj.id }, 'GET').submit();
+			$.form('/', { targetFbId: selectedObj.id, createNewList: context.createNewList }, 'GET').submit();
 		});
 	};
 
