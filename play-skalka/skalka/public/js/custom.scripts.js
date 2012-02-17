@@ -442,68 +442,34 @@ function initItemsDragDrop(selDrag, selDrop) {
 
 		$(selDrag).draggable
 		({
-			// http://stackoverflow.com/a/5848800/126995
-			/* revert: function (event, ui) {
-			//overwrite original position
-			$(this).data("draggable").originalPosition = {
-			top: 10,
-			left: 10
-			};
-			return !event;
-			},
-			// helper: function () { return $("#small_cube"); }
-			// helper: function () { return "clone"; }
-			helper: function () {
-			var obj = $("#small_cube")
-			.first()
-			.clone();
-			// obj.style = new { display: "" };
-			obj.show();
-			return obj;
-			}, */
+			// see http://stackoverflow.com/a/5848800/126995 for overriding original position..
 			helper: function () {
 				var id = this.id;
 				return $("<img src='/products/imagelist?id=" + id + "'/>");
 			},
 			cursorAt: { left: 25, top: 25 },
 			revert: true
-			/* 
-		
-			revert: function(socketObj)
-			{
-			//if false then no socket object drop occurred.
-			if(socketObj === false)
-			{
-			//revert the peg by returning true
-			return true;
-			}
-			else
-			{
-			//socket object was returned,
-			//we can perform additional checks here if we like
-			//alert(socketObj.attr('id')); would work fine
-
-			//return false so that the peg does not revert
-			return false;
-			}
-			} */
 		}); // draggable
-
 		initDroppable($(selDrop));
 	});                  	// doc.ready
 } // function initItemsDragDrop
 
 function initPageless() {
 	$(document).ready(function ($) {
-		// pageless..
-		$("div#items-container").pageless(
-		{
+		var optionz = {
 			url: "/lists/listPage",
 			params: { listId: context.listId },
 			complete: function () {
 				alert("pageless complete");
 				GridLayout.allPins();
 			}
-		});
+		}
+
+		if (context.nextPageUrl)
+			optionz.url = context.nextPageUrl;
+		if (context.nextPageParams)
+			optionz.params = context.nextPageParams;
+
+		$("div#items-container").pageless(optionz);
 	})
 }

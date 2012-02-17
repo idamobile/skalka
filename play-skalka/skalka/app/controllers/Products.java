@@ -137,14 +137,24 @@ public class Products extends Application {
 	public static List<Product> getOrderedList(long listId) {
 		return getOrderedList(listId, 0);
 	}
-	
+
+	/**
+	 * My products feed main page
+	 */
 	public static void listUserProducts() {
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		JPAQuery query = Product.find("added_by_uid = ?", user.id);
 		List<Product> products = query.fetch();
-		render(products);
+
+		String nextPageUrl = "/products/listUserProducts";
+		render(products, nextPageUrl);
 	}
-	
+
+	/**
+	 * My products feed specific page
+	 * 
+	 * @param page
+	 */
 	public static void listUserProductsPage(int page) {
 		page = (page < 1) ? 1 : page;
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
