@@ -46,11 +46,16 @@ public class Application extends Controller {
 		User targetUser = null;
 
 		if (targetFbId == null) {
+			if (createNewList) {
+				renderArgs.put("showFriendsSelector", true);
+				render();
+			}
+
 			String storedFbId = session.get(SESSION_PARAM_TARGET_FRIEND);
 			if (storedFbId == null || !storedFbId.matches("[0-9]+")) {
 
 				ProductsList lastList = ProductsList.fetchLatest(ownerUser.id);
-				if (!createNewList && lastList != null) {
+				if (lastList != null) {
 					targetUser = User.findById(lastList.targetId);
 					targetFbId = targetUser.facebookId;
 				} else {
