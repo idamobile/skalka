@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
@@ -34,7 +36,7 @@ public class ProductsList extends Model {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "list_id")
-	public List<ProductInList> productsInList;
+	public List<ProductInList> productsInList = new ArrayList<ProductInList>();
 
 	public ProductsList() {
 		lastUpdated = new Date();
@@ -71,5 +73,30 @@ public class ProductsList extends Model {
 	 */
 	public static List<ProductsList> getMyLists(Long ownerId) {
 		return ProductsList.find(HQL_FIND_LATEST, ownerId).fetch();
+	}
+
+	public boolean addProduct(Long productId) {
+
+		if (Product.findById(productId) == null) {
+			Logger.error("There is no product with id: " + productId);
+			return false;
+		}
+
+		if (ProductInList.find("productId=? AND listId=?", productId, id) != null) {
+			Logger.error("Product is already in the list: pid = " + productId + "; lid = " + id);
+			return false;
+		}
+
+		ProductInList pil = new ProductInList(id, productId);
+		try {
+			pil.save();
+			productsInList.add(pil);
+			save();
+		} catch (Throwable t) {
+			Logger.error("Unable to add product to list", t);
+			return false;
+		}
+
+		return true;
 	}
 }
