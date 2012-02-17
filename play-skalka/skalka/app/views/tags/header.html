@@ -1,6 +1,6 @@
 <div class="header-container">
     <div class="header">
-        <a class="logo" href="/">
+        <a class="logo" href="#">
         	<img src="@{'/public/images/logo.png'}" alt="Skalka logo" />
         </a>
         
@@ -28,14 +28,12 @@
         </div>
         
 		#{if _user}
-        <div class="user select">
+        <div class="user">
         	<!--<img alt="user's image" src="${_user.getImageUrl()}">-->
     		<a class="expander" href="#" onclick="javascript:void(0)">&nbsp;</a>
     		<p class="username">${_user}</p>
-			<ul class="dropDownMenu" id="userSettings">
-				<li id="logout"><a  class="expander" href="@{Application.logout()}">Logout</a></li>
-			</ul>
         </div>
 		#{/if}
+		<a href="@{Application.logout()}">Logout</a>
     </div>
 </div>
