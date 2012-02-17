@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import models.Category;
 import models.ErrorResult;
 import models.Product;
+import models.ProductCategories;
 import models.ProductInList;
 import models.ProductsList;
 import models.Subcategory;
@@ -272,5 +273,23 @@ public class Products extends Application {
 		Product product = Product.findById(productId);
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree(product);
 		render(categories, product);
+	}
+	
+	public static void addCategories(Long productId, List<Long> catIds) {
+		if (catIds == null || catIds.isEmpty()) {
+			renderText("Categories are empty");
+		}
+
+		Product product = Product.findById(productId);
+		if (product == null) {
+			renderJSON(new ErrorResult());
+		}
+
+		DB.execute("delete from products_subcategories where product_id = " + productId);
+		for (Long catId : catIds) {
+			new ProductCategories(productId, catId).save();
+		}
+
+		productProfile(productId);
 	}
 }
