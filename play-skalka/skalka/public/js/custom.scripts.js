@@ -395,6 +395,11 @@ function removeProductFromList(idProduct) {
 	});
 }
 
+function userAction(idProduct,action) {
+	var url = "/lists/addUserAction?listId=" + context.listId + "&userAction" + action;
+	$("#votingPanel").load(url);
+}
+
 function initLeftPanelDragDrop(jqTarget) {
 	// Droppable
 	jqTarget.droppable
