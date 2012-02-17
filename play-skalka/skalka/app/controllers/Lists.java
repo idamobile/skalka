@@ -80,8 +80,8 @@ public class Lists extends Application {
 		session.put(SESSION_PARAM_TARGET_FRIEND, targetUser.facebookId);
 		Cache.set(String.valueOf(targetUser.facebookId), targetUser, Constants.CACHE_TIMEOUT);
 
-		List<ProductsList> myLists = ProductsList.getMyLists(new Long(session
-				.get(SESSION_PARAM_ACCESS_TOKEN)));
+		User me = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		List<ProductsList> myLists = ProductsList.getMyLists(me.id);
 
 		Long listId = id;
 
