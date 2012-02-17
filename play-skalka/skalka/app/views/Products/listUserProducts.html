@@ -7,8 +7,8 @@
     		<div class="jsout"></div>
     		<div class="grid-layout" id="grid-wrapper">
     		<div class="feed" id="items-container">
-    		<a class="openProductDetails" href="@{Products.productProfile(product.id)}"></a>
     		#{list items:products, as:'product'}
+    		  <a class="openProductDetails" href="@{Products.productProfile(product.id)}"></a>
     			<div class="item" id="${product.id}" data-id="${product.id}">
 					<a class="productInFeed" href="#"  id="${product.id}">
 	    				<div class="image-box">
