@@ -106,7 +106,8 @@ $(document).ready(function ($) {
 	});
 
 	$('#productForm').submit(function (event) {
-		ajaxAddProduct(event);
+	 	event.preventDefault();
+		ajaxAddProduct();
 	});
 }); 
 
@@ -156,8 +157,6 @@ function setSelectedProductImageIndex( indSelected ) {
 
 function ajaxProductParce(event){
 
-	/* stop form from submitting normally */
-	event.preventDefault(); 
 	
 	/* get some values from elements on the page: */
 	form = $('#productUrl');

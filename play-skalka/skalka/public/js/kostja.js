@@ -8,9 +8,11 @@ $(document).ready(function ($) {
 		//openEffect : 'elastic',
 		openSpeed: 150,
 
-		//beforeLoad: function() { 
-		//	alert("invite friends");
-		//},
+		beforeLoad: function() { 
+			$.get("/lists/45/collaborators", function (data) {
+				$("#votingPanel").html(data);
+			});
+		},
 		//closeEffect : 'elastic',
 		closeSpeed: 150,
 		minHeight: 0,
