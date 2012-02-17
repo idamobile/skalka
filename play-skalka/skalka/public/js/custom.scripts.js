@@ -399,7 +399,9 @@ function removeProductFromList(idProduct) {
 
 function userAction(idProduct,action) {
 	var url = "/lists/addUserAction?listId=" + context.listId + "&productId=" + idProduct + "&userAction" + action;
-	$("#votingPanel").load(url);
+	$.get(url, function (data) {
+		$("#votingPanel").html(data);
+	});
 }
 
 function initLeftPanelDragDrop(jqTarget) {
