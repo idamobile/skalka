@@ -151,6 +151,7 @@ public class Products extends Application {
 			likePercentage = vc.likePercentage;
 			dislikePercentage = vc.dislikePercentage;
 		}
+		System.out.println("like=" + likePercentage + " dis=" + dislikePercentage);
 		render(product, userActionInList, shouldHaveAddToListButton, likePercentage, dislikePercentage);
 	}
 	
