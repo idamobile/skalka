@@ -480,7 +480,7 @@ function initPageless() {
 			// params: { listId: context.listId },
 			params: context.nextPageParams,
 			complete: function () {
-				alert("pageless complete");
+				// alert("pageless complete");
 				GridLayout.allPins();
 			}
 		}
