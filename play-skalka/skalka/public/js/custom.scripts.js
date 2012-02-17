@@ -398,7 +398,7 @@ function removeProductFromList(idProduct) {
 }
 
 function userAction(idProduct,action) {
-	var url = "/lists/addUserAction?listId=" + context.listId + "&userAction" + action;
+	var url = "/lists/addUserAction?listId=" + context.listId + "&productId=" + idProduct + "&userAction" + action;
 	$("#votingPanel").load(url);
 }
 
