@@ -32,17 +32,14 @@ public class Collaborator extends GenericModel {
 		this.listId = listId;
 	}
 
-	public static boolean addUsers(List<Long> users, Long listId) {
-		boolean success = true;
+	public static void addUsers(List<Long> users, Long listId) {
 		for (Long userId : users) {
 			try {
 				new Collaborator(userId, listId).save();
 			} catch (Throwable e) {
-				success = false;
 				Logger.error("Unable to add userId: " + userId, e);
 			}
 		}
-		return success;
 	}
 
 	public static List<User> getUsers(Long listId) {
@@ -57,18 +54,10 @@ public class Collaborator extends GenericModel {
 		return users;
 	}
 
-	public static boolean removeUsers(List<Long> users, Long listId) {
-		boolean success = true;
-		try {
-			for (Long userId : users) {
-				Collaborator.delete("userId = ? AND listId = ?", userId, listId);
-			}
-		} catch (Throwable e) {
-			success = false;
-			Logger.error("Unable to remove users", e);
+	public static void removeUsers(List<Long> users, Long listId) {
+		for (Long userId : users) {
+			Collaborator.delete("userId = ? AND listId = ?", userId, listId);
 		}
-
-		return success;
 	}
 
 }
