@@ -19,6 +19,13 @@
        		#{/if}
        		#{if listId}
        			context.listId = ${listId};
+       			context.nextPageParams = {listId: context.listId};
+       		#{/if}
+       		#{if nextPageUrl}
+       			context.nextPageUrl = ${nextPageUrl};
+       		#{/if}
+       		#{if targetFbId}
+       			context.targetFacebookId = ${targetFbId};
        		#{/if}
        	</script>
         
