@@ -72,15 +72,20 @@
 
 	<!-- SELECT FRIEND POPUP -->
 	<div class="selectFriend" id="selectFriend">
-	    <div class="popupTitle">
-	    	Select friend
-	    </div>
-	    <div class="container">
-			<form id="selectFriendForm" width="100px">
-			<input id="friend_finder" />
-			<button type="submit">Вперед!!</button>
-	    	</form>
-	    </div>
+		<p class="title">Welcome to Skalka</p>
+		<p class="hint">Pick one of your Facebook friends to find him a perfect gift</p>
+		<div class="content">
+		<form id="selectFriendForm" width="100px" method="post" action="">
+			<input type="text" class="input-text" id="friend_finder" />
+			<select id="occasionSelect" title="Please choose occasion">
+				<option value="occasion1">Any occasion</option>
+				<option value="occasion2">Birthday</option>
+				<option value="occasion3">Wedding</option>
+				<option value="occasion4">Graduation</option>
+	        </select>
+			<button type="submit" class="button blue big"><span><span>Let's rock!</span></span></button>
+		</form>
+		</div>
 	</div>
 
 

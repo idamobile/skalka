@@ -2,11 +2,12 @@
 /************************************************************************/
 /* Modal Dialogs */
 
+
+/* .skalkaModal */
 .skalkaModal .fancybox-outer {
 	background: #fff;
 	text-align: left;
 }
-.skalkaModal .fancybox-outer {}
 .skalkaModal .popupTitle {
 	height: 50px;
 	line-height: 50px;
@@ -64,6 +65,14 @@
 	padding: 0;
 }
 
+/* .skalkaModalRound */
+
+.skalkaModalRound {}
+
+.skalkaModalRound .fancybox-outer {
+	border-radius: 10px;
+	box-shadow: 0px 25px 30px #000;
+}
 
 /************************************************************************/
 /* PRODUCT ADD DIALOG */
