@@ -173,6 +173,7 @@ public class Products extends Application {
 		List<Product> products = query.fetch();
 
 		String nextPageUrl = "/products/listUserProducts";
+		renderArgs.put("productPagesCount", Product.pagesCount(user.id));
 		render(products, nextPageUrl);
 	}
 
