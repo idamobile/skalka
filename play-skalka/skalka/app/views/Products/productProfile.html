@@ -1,0 +1,47 @@
+#{extends 'main.html' /}
+
+<div class="main-container">
+	<div class="main userProfile">
+
+		<div class="col-left sidebar">
+			<div class="userPic">
+				<img src="${product?.imageFeed}" alt=""/>
+			</div>
+			<div class="callToAction">
+				Who will buy ${product.descr}?
+			</div>
+			<div><input id="btnSubmit" type="button" value="Submit.." /></div>
+			<script type="text/javascript">
+				initProfileEditor();
+			</script>
+		</div>
+
+		<div class="col-main">
+			<div class="titleBlock">
+				<h1 class="title">Describe ${product?.descr}</h1>
+				<p class="hint">
+					Click images that match ${product?.descr}'s target users
+				</p>
+    		</div>
+    		
+    		<div class="categories">
+				#{list items:categories.keySet(), as:'cat'}
+					<h2 class="categoryTitle">${cat?.name}</h2>
+					<ul class="subCategories">
+					    #{list items:categories.get(cat), as:'sub'}
+					    	#{if sub?.isSelected}
+					    		<li class="item sel" id="${sub.id}">
+					    	#{/if}
+					    	#{else}
+								<li class="item" id="${sub.id}">
+							#{/else}
+								<img src="${sub.imageUrl}" alt="Subcategory Image"/>
+								<p class="name">${sub?.name}</p>
+							</li>	
+					    #{/list}
+				    </ul>    
+				#{/list}
+    		</div>    		
+    	</div>    	
+    </div>
+</div> 
