@@ -62,7 +62,7 @@ $(document).ready(function ($) {
 
 	$('.productInFeed').click(function (event) {
 		event.preventDefault();
-		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId='+context.listId+'&clickedFromFeed=false', function () {
+		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId='+context.listId+'&clickedFromFeed=true', function () {
 			$('.addToListButton').click(function (event) {
 				event.preventDefault();
 				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") });
@@ -111,7 +111,7 @@ $(document).ready(function ($) {
 function setListnersOnIcons(){
 	$('.product_icon').click(function (event){
 		event.preventDefault();
-		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?listId='+context.listId+'&clickedFromFeed=true',function() {
+		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?listId='+context.listId+'&clickedFromFeed=false',function() {
 			$('.addToListButton').click(function (event){
 				event.preventDefault();
 				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") } );
