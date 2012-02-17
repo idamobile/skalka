@@ -27,7 +27,8 @@ $(document).ready(function ($) {
 		afterLoad: function () {
 			// alert("inviteFriends.afterLoad");
 			// $("div#mutual").jfmfs({ max_selected: 15, max_selected_message: "{0} of {1} selected" });
-			$("div#all").jfmfs({ max_selected: 15, max_selected_message: "{0} of {1} selected" });
+			// $("div#facebookFriendPicker").jfmfs({ max_selected: 15, max_selected_message: "{0} of {1} selected" });
+			$("div#facebookFriendPicker").jfmfs({});
 		}
 	});
 });
