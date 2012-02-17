@@ -189,6 +189,7 @@ button.disabled span {}
 .buttons-set p.required { margin:0 0 5px; }
 
 /* Clears ================================================================================ */
+.friendList:after,
 .subCategories:after,
 .giftSubmit .productInfo:after,
 .friend-box .profile:after,

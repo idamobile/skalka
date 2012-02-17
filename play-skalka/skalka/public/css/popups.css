@@ -260,11 +260,54 @@ overflow: auto;
 	background: transparent url(/public/images/icons/invite_friends.png) no-repeat 0 0;
 	line-height: 1;
 }
+.inviteFriends .inviteBlock .tab-content {
+	height: 200px;
+	overflow-y: auto;
+}
+.inviteFriends .inviteBlock .friendList {
+	margin-left: -14px;
+}
+.inviteFriends .inviteBlock .friendList li {
+	float: left;
+	padding: 2px;
+	width: 152px;
+	border: 1px solid #e2e2e2;
+	border-radius: 2px;
+	font-family: Arial;
+	margin: 0 0 9px 14px;
+}
+.inviteFriends .inviteBlock .friendList img {
+	width: 35px;
+	height: 35px;
+	float: left;
+}
+.inviteFriends .inviteBlock .friendList .label {
+	margin: 0 0 0 44px;
+	font-size: 11px;
+}
+.inviteFriends .inviteBlock .friendList .userName {
+	margin: 0 0 0 44px;
+	font-size: 13px;
+}
+
 .inviteFriends .participantsBlock {
 	width: 217px;
 	float: right;
 }
-
+.inviteFriends .participantsBlock .participantsList {
+	margin: 0 0 0 -8px;
+}
+.inviteFriends .participantsBlock li {
+	float: left;
+	margin: 0 0 8px 8px;
+	background: #fff;
+	padding: 3px;
+	border: 1px solid #e2e2e2;
+}
+.inviteFriends .participantsBlock li img {
+	width: 49px;
+	height: 49px;
+}
 
 
 
