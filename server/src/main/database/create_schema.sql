@@ -165,7 +165,5 @@ drop table if exists collaborators;
 create table collaborators (
     list_id bigint not null, 
     user_id bigint not null,
-    primary key(list_id, user_id),
-    foreign key (list_id) references lists(id),
-    foreign key (user_id) references users(id)
-) engine = INNODB;
+    primary key(list_id, user_id)
+);

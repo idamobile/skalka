@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import play.Logger;
@@ -14,9 +15,11 @@ import play.db.jpa.GenericModel;
 @Table(name = "collaborators")
 public class Collaborator extends GenericModel {
 
+	@Id
 	@Column(name = "user_id")
 	public Long userId;
 
+	@Id
 	@Column(name = "list_id")
 	public Long listId;
 
