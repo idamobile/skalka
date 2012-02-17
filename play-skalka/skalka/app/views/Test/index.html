@@ -1,0 +1,21 @@
+<html xmlns:fb="http://www.facebook.com/2008/fbml">
+  <body>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
+    <div id="fb-root"></div>
+    <script>
+      // assume we are already logged in
+      FB.init({appId: '270568069679176', xfbml: true, cookie: true});
+
+      FB.ui({
+          method: 'send',
+          name: 'People Argue Just to Win',
+          link: 'http://project.idamob.ru:9000/lists/45',
+          display: 'popup',
+          to: 'sergey.roiz'
+          },
+          function (response) {
+              alert(response);
+          });
+     </script>
+  </body>
+</html>
