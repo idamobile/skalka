@@ -135,11 +135,21 @@ public class Products extends Application {
 		return getOrderedList(listId, 0);
 	}
 	
-	public static void listUserProducts(long userId) {
-		JPAQuery query = Product.find("added_by_uid = ?", userId);
+	public static void listUserProducts() {
+		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		JPAQuery query = Product.find("added_by_uid = ?", user.id);
 		List<Product> products = query.fetch();
 		render(products);
 	}
+	
+	public static void listUserProductsPage(int page) {
+		page = (page < 1) ? 1 : page;
+		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		JPAQuery query = Product.find("added_by_uid = ?", user.id);
+		List<Product> products = query.fetch(page, Constants.PRODUCTS_PAGE_SIZE);
+		render(products);
+	}
+
 
 	public static List<Product> getOrderedList(long listId, long start) {
 		List<Product> list = new ArrayList<Product>();
