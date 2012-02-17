@@ -46,11 +46,11 @@ public class Collaborator extends GenericModel {
 	}
 
 	public static List<User> getUsers(Long listId) {
-		List<Long> userIds = Collaborator.find("byListId", listId).fetch();
+		List<Collaborator> collabs = Collaborator.find("byListId", listId).fetch();
 		List<User> users = new ArrayList<User>();
 
-		for (Long userId : userIds) {
-			User user = User.findById(userId);
+		for (Collaborator cl : collabs) {
+			User user = User.findById(cl.userId);
 			users.add(user);
 		}
 
