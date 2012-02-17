@@ -133,7 +133,7 @@ public class Products extends Application {
 			ProductsList list = ProductsList.findById(listId);
 			if(list != null){
 				for(ProductInList pil : list.productsInList){
-					if(pil.listId.equals(listId)){
+					if(pil.productId.equals(id)){
 						shouldHaveAddToListButton = false;
 						break;
 					}
