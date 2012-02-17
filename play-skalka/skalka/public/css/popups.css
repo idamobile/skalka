@@ -237,3 +237,25 @@ overflow: auto;
 	height: 75px;
 	padding: 5px 0 0;
 }
+
+/************************************************************************/
+/* INVITE FRIENDS DIALOG */
+
+.inviteFriends {}
+.inviteFriends .container {
+	padding: 0;
+}
+.inviteFriends .inviteBlock {
+	width: 510px;
+	float: left;
+	padding: 20px 28px 20px 32px;
+}
+.inviteFriends .participantsBlock {
+	width: 217px;
+	float: right;
+}
+
+
+
+
+
