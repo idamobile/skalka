@@ -1,35 +1,26 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Skalka</title>
 		<link rel="icon" href="#" type="image/x-icon" />
 		<link rel="shortcut icon" href="#" type="image/x-icon" />
-		
+
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/reset.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/style.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/popups.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/js/jquery/fancybox/jquery.fancybox.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/js/jquery/simple.tabs/tabs.css'}" />
 		<link rel="stylesheet" type="text/css" href="@{'/public/css/jquery.ui.autocomplete.css'}" />
-        
-       	<script type="text/javascript">
-       		var context = {};
-       		#{if user}		
-       			context.access_token = "${user.accessToken}";        			
-       		#{/if}
-       		#{if listId}
-       			context.listId = ${listId};
-       			context.nextPageParams = {listId: context.listId};
-       		#{/if}
-       		#{if nextPageUrl}
-       			context.nextPageUrl = "${nextPageUrl}";
-       		#{/if}
-       		#{if targetFbId}
-       			context.targetFacebookId = "${targetFbId}";
-       		#{/if}
-       	</script>
-        
+		<link rel="stylesheet" type="text/css" href="@{'/public/css/jquery.facebook.multifriend.select.css'}" />
+		<script type="text/javascript">
+			var context = {};#{if user}
+			context.access_token = "${user.accessToken}";#{/if}#{if listId}
+			context.listId = ${listId};
+			context.nextPageParams = { listId: context.listId };#{/if}#{if nextPageUrl}
+			context.nextPageUrl = "${nextPageUrl}";#{/if}#{if targetFbId}
+			context.targetFacebookId = "${targetFbId}";#{/if}
+		</script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
 		<script type="text/javascript" src="@{'/public/js/friendcompleter.js'}"></script>
@@ -40,25 +31,26 @@
 		<script type="text/javascript" src="@{'/public/js/jquery/simple.tabs/tabs.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/custom.scripts.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/kostja.js'}"></script>
+		<script type="text/javascript" src="@{'/public/js/jquery.facebook.multifriend.select.js'}"></script>
 	</head>
-	
+
 	<body>
 		<div class="wrapper">
-		    <div class="page">
-		    
-		    	<!-- Header Include -->
+			<div class="page">
+			
+				<!-- Header Include -->
 				#{header user: user, lists: myLists/}   
 				
 				<!-- Main Part comes in here -->
 				#{doLayout /}
 				
 				<div class="footer-container">
-    				<div class="footer"></div>
-    				<div class="post-footer"></div>
-    			</div>
+					<div class="footer"></div>
+					<div class="post-footer"></div>
+				</div>
 
-    		</div>
-    	</div>
-    	#{popups /}
+			</div>
+		</div>
+		#{popups /}
 	</body>
 </html>
