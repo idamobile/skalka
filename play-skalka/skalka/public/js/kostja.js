@@ -52,7 +52,31 @@ $(document).ready(function ($) {
 
 			$(selInviteButton).click(function () {
 				var arrFBIDs = $(selFacebookFriendPicker).data("jfmfs").getSelectedIds();
-				alert(arrFBIDs.join(", "));
+				// alert(arrFBIDs.join(", "));
+
+				// assume we are already logged in
+				try {
+					FB.init({ appId: '270568069679176', xfbml: true, cookie: true });
+				}catch (ex1) {
+					try {
+						FB.init({ appId: '270568069679176', xfbml: true, cookie: true });
+					}catch (ex2) {
+						
+					}
+				}
+
+				FB.ui({
+					method: 'send',					
+					api_key: '270568069679176',					
+					name: 'Skalka',
+					link: 'http://project.idamob.ru:9000/lists/45',
+					display: 'popup',					
+					to: arrFBIDs
+				},
+					function (response) {
+						alert(response);
+					}); 
+
 			});
 		}
 	});
