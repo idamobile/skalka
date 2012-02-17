@@ -12,7 +12,7 @@
 	        		#{list items:_lists, as:'item'}
 	        			<li>
 	        				<a class="expader" href="@{Lists.listIndex(item.id)}">${item.name}</a>
-	        				<img alt="Target user image" src="${User.findById(item.targetId).getImageUrl()}">
+	        				<img alt="Target user image" src="${models.User.findById(item.targetId).getImageUrl()}">
 	        			</li>
 	        		#{/list}
 	        	#{/if}				
