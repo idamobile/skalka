@@ -32,7 +32,7 @@ public class ProductParser {
 	private final static String DOLLAR_SYMBOL = "$";
 	private final static String DOLLAR_HTML = "\\$";
 	
-	private static final int MIN_SIZE_BYTE = 1024;
+	private static final int MIN_SIZE_BYTE = 10*1024;
 
 	private static final HashMap<String, String> CURRENCIES = new HashMap<String, String>();
 
