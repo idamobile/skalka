@@ -241,20 +241,21 @@ overflow: auto;
 /************************************************************************/
 /* INVITE FRIENDS DIALOG */
 
-.inviteFriends {}
-.inviteFriends .container {
-	padding: 0;
+.inviteFriends {
+	background: transparent url(/public/images/bg_body.gif) 0 0;
+	border-radius: 6px;
 }
 .inviteFriends .inviteBlock {
 	width: 510px;
 	float: left;
 	padding: 20px 28px 20px 32px;
+	border-right: 1px solid #bbb;
+	background: #fff;
+	border-radius: 5px 0 0 5px;
 }
 .inviteFriends .participantsBlock {
 	width: 217px;
 	float: right;
-	background: transparent url(/public/images/bg_body.gif) 0 0;
-	border-left: 1px solid #bbb;
 }
 
 
