@@ -423,6 +423,8 @@ function initLeftPanelDragDrop(jqTarget) {
 		drop: function (event, ui) {
 			// alert( "dropped." );
 			var eltBeingDropped = ui.draggable[0];
+			if( eltBeingDropped.tagName != "DIV" )
+				return;
 			addProductToList(eltBeingDropped.id);
 			ui.helper.hide();
 		}
@@ -456,8 +458,21 @@ function initItemsDragDrop(selDrag, selDrop) {
 			cursorAt: { left: 25, top: 25 },
 			revert: true
 		}); // draggable
+
+		$("div#grid-wrapper").droppable
+		({
+			drop: function (event, ui) {
+				// alert( "dropped." );
+				var eltBeingDropped = ui.draggable[0];
+				if (eltBeingDropped.tagName != "LI")
+					return;
+				removeProductFromList(eltBeingDropped.id);
+				ui.helper.hide();
+			}
+		}); // droppable
+
 		initLeftPanelDragDrop($(selDrop));
-	});                  	// doc.ready
+	});  // doc.ready
 } // function initItemsDragDrop
 
 function initPageless() {
