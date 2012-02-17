@@ -131,8 +131,8 @@ public class Products extends Application {
 		
 		UserActionsInProductList userActionInList = null;
 		boolean shouldHaveAddToListButton = true;
-		String likePercentage = "0.5";
-		String dislikePercentage = "0.5";
+		String likePercentage = "0";
+		String dislikePercentage = "0";
 		if(clickedFromFeed){
 			// user clicked on a product in feed(not list)
 			ProductsList list = ProductsList.findById(listId);
@@ -156,14 +156,14 @@ public class Products extends Application {
 	}
 	
 	public static VotingContainer calculateUserActions(Long listId, Long productId, Long userId){
-		String likePercentage = "0.5";
-		String dislikePercentage = "0.5";
+		String likePercentage = "0";
+		String dislikePercentage = "0";
 		JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ?", listId, productId);
 		List<UserActionsInProductList> userActions = query.fetch();
 		UserActionsInProductList userActionInList = new UserActionsInProductList(listId, productId, userId, "not_voted");
-		int likes = 0;
-		int dislikes = 0;
 		if(userActions != null){
+			int likes = 0;
+			int dislikes = 0;
 			for(UserActionsInProductList ua : userActions){
 				if(ua.userId.equals(userId) && !"in".equals(ua.userAction)){
 					userActionInList = ua;
@@ -176,9 +176,11 @@ public class Products extends Application {
 				}
 			}
 			int total = likes + dislikes;
-			double like = total == 0 ? 0.5 : likes / total;
-			likePercentage = DECIMAL_FORMAT.format(like);
-			dislikePercentage = DECIMAL_FORMAT.format(1 - like);
+			if(total != 0){
+				double like = total == 0 ? 0 : likes / total;
+				likePercentage = DECIMAL_FORMAT.format(like);
+				dislikePercentage = DECIMAL_FORMAT.format(1 - like);				
+			}
 		}
 		return new VotingContainer(userActionInList, likePercentage, dislikePercentage);
 	}
