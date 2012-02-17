@@ -82,7 +82,7 @@ public class ProductsList extends Model {
 			return false;
 		}
 
-		if (ProductInList.find("productId=? AND listId=?", productId, id) != null) {
+		if (ProductInList.find("productId=? AND listId=?", productId, id).first() != null) {
 			Logger.error("Product is already in the list: pid = " + productId + "; lid = " + id);
 			return false;
 		}
