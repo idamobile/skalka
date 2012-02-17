@@ -10,7 +10,7 @@ $(document).ready(function ($) {
 
 		beforeLoad: function() { 
 			$.get("/lists/45/collaborators", function (data) {
-				$("#votingPanel").html(data);
+				$("#participantsList").html(data);
 			});
 		},
 		//closeEffect : 'elastic',
@@ -76,7 +76,15 @@ $(document).ready(function ($) {
 					to: arrFBIDs
 				},
 					function (response) {
-						alert(response);
+						if(response == null){
+						}else{
+							var url = "/lists/45/collaborators/add?"
+							//for arrFBIDs 
+							//userIds=2
+							$.get("/lists/45/collaborators", function (data) {
+								$("#participantsList").html(data);
+							});
+						}
 					}); 
 
 			});

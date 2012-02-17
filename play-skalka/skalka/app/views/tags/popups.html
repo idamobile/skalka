@@ -10,7 +10,7 @@
 	    		<div class="inputContainer">
 	    			<div class="inner">
 	    				<span class="label">URL</span>
-	    				<input type="text" title="Paste your URL here"  onpaste="ajaxAddProduct();" class="input-text url-for-parsing" id="url" value="" name="url">
+	    				<input type="text" title="Paste your URL here"  class="input-text url-for-parsing" id="url" value="" name="url">
 	    				<div class="progress"></div>
 	    			</div>
 	    		</div>
@@ -134,17 +134,8 @@
 		</div>
 		<div class="participantsBlock">
 		    <p class="title">Already participating</p>
-		    <ul class="participantsList">
-		    	<li>
-		    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-		    	</li>
-		    	<li>
-		    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-		    	</li>
-		    	<li>
-		    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-		    	</li>
-		    </ul>
+			<ul id="participantsList">
+			</ul>
 		</div>
 		<div class="clear"></div>
 	</div>
