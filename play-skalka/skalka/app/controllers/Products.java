@@ -32,6 +32,7 @@ import play.libs.Images;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Before;
+import play.mvc.Scope.Params;
 import play.mvc.Scope.Session;
 import utils.Constants;
 import utils.html_parser.ProductParser;
@@ -46,6 +47,18 @@ public class Products extends Application {
 		List<ProductsList> myLists = ProductsList.getMyLists(me.id);
 
 		renderArgs.put("myLists", myLists);
+
+		String paramName = null;
+		if (Params.current()._contains("productId")) {
+			paramName = "productId";
+		} else if (Params.current()._contains("id")) {
+			paramName = "id";
+		}
+
+		if (paramName != null) {
+			session.put(SESSION_PARAM_CURRENT_PRODUCT, Params.current().get(paramName));
+		}
+
 	}
 
 	public static void parseUrl(String url) {
@@ -274,11 +287,13 @@ public class Products extends Application {
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree(product);
 		render(categories, product);
 	}
-	
-	public static void addCategories(Long productId, List<Long> catIds) {
+
+	public static void addCategories(List<Long> catIds) {
 		if (catIds == null || catIds.isEmpty()) {
 			renderText("Categories are empty");
 		}
+
+		Long productId = new Long(session.get(SESSION_PARAM_CURRENT_PRODUCT));
 
 		Product product = Product.findById(productId);
 		if (product == null) {

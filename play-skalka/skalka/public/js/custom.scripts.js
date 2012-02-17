@@ -314,9 +314,8 @@ var GridLayout = function () {
 	}
 } ();
 
-function initProfileEditor()
-{
-	var selSubmit = "input#btnSubmit";
+function initProfileEditorSpec(submitSelector, actionUrl) {
+
 	var setSelected = {};
 
 	$(document).ready( function() {
@@ -327,9 +326,9 @@ function initProfileEditor()
 			for( var prop in setSelected )
 				count++;
 			if( count >= 5 )
-				 $( selSubmit ).removeAttr( "disabled" );
+				 $( submitSelector ).removeAttr( "disabled" );
 			else
-				 $( selSubmit ).attr( "disabled", true );
+				 $( submitSelector ).attr( "disabled", true );
 		}
 
 		// count the items that are currently selected.
@@ -350,7 +349,7 @@ function initProfileEditor()
 		})
 	})
 
-	$(selSubmit).click(function() {
+	$(submitSelector).click(function() {
 		var arg = "";
 		for( var prop in setSelected )
 		{
@@ -358,8 +357,15 @@ function initProfileEditor()
 				arg += "&";
 			arg += ( "catIds=" + prop );
 		}
-		window.location.href = "/friends/addCategories?" + arg;
+		window.location.href = actionUrl + arg;
 	});
+
+}
+
+function initProfileEditor()
+{
+	initProfileEditorSpec("input#btnSubmit", "/friends/addCategories?");
+	initProfileEditorSpec("input#btnSubmitProductCategories", "/products/addCategories?");
 }
 
 function reloadLeftDiv(url, fnReInitLeftPanel) {
