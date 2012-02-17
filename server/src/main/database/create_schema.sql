@@ -151,5 +151,11 @@ create table user_actions_in_prod_list (
     user_id         bigint                                        not null,
     user_action     enum('y', 'n', 'in')                          default null,
     primary         key(id),
-    unique          key list_prod_user (list_id, product_id, user_id)
+    unique          key list_prod_user (list_id, product_id, user_id, user_action)
 );
+
+create index user_actions_in_prod_all_idx
+on user_actions_in_prod_list ( list_id, product_id, user_id );
+
+create index user_actions_in_prod_list_prod_idx
+on user_actions_in_prod_list ( list_id, product_id );
