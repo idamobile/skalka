@@ -10,7 +10,10 @@
 				<li id="new"><a class="expander" href="@{Lists.create()}">Create new list</a></li>
 	        	#{if _lists}
 	        		#{list items:_lists, as:'item'}
-	        			<li><a class="expader" href="@{Lists.listIndex(item.id)}">${item.name}</a></li>
+	        			<li>
+	        				<a class="expader" href="@{Lists.listIndex(item.id)}">${item.name}</a>
+	        				<img alt="Target user image" src="${User.findById(item.targetId).getImageUrl()}">
+	        			</li>
 	        		#{/list}
 	        	#{/if}				
 			</ul>

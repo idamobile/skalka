@@ -63,4 +63,13 @@ public class ProductsList extends Model {
 		return ProductsList.find(HQL_FIND_LATEST, ownerId).first();
 	}
 
+	/**
+	 * Returns list of product lists
+	 * 
+	 * @param ownerId
+	 * @return
+	 */
+	public static List<ProductsList> getMyLists(Long ownerId) {
+		return ProductsList.find(HQL_FIND_LATEST, ownerId).fetch();
+	}
 }
