@@ -80,14 +80,14 @@ public class Lists extends Application {
 		session.put(SESSION_PARAM_TARGET_FRIEND, targetUser.facebookId);
 		Cache.set(String.valueOf(targetUser.facebookId), targetUser, Constants.CACHE_TIMEOUT);
 
-		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		List<ProductsList> lists = ProductsList.fetchLists(ownerUser.id, targetUser.id);
+		List<ProductsList> myLists = ProductsList.getMyLists(new Long(session
+				.get(SESSION_PARAM_ACCESS_TOKEN)));
 
 		Long listId = id;
 
 		String nextPageUrl = "/lists/listPage";
 
-		render(products, list, targetUser, lists, listId, nextPageUrl);
+		render(products, list, targetUser, myLists, listId, nextPageUrl);
 	}
 
 	public static void addProduct(long listId, long productId) {
