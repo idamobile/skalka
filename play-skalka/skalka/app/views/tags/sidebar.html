@@ -11,11 +11,11 @@
 		<div class="userPic">
 			<img src='${_user?.getImageUrl("normal")}' alt=""/>
 		</div>
-		#{ifnot _hideEvent}
+		#{if _giftBox}
     		<div class="eventName">
-    			${_user} birthday gift
+    			${_giftBox.name}	
     		</div>
-		#{/ifnot}
+    	#{/if}
 		<ul class="items">		
 			#{list items:_list, as:'item'}
 					#{if item.isPlaceholder}

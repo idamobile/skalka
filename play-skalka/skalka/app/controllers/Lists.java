@@ -76,8 +76,8 @@ public class Lists extends Application {
 
 		List<Product> products = Products.getOrderedList(id);
 
-		ProductsList requestedList = ProductsList.findById(id);
-		Long targetId = requestedList.targetId;
+		ProductsList giftBox = ProductsList.findById(id);
+		Long targetId = giftBox.targetId;
 
 		User targetUser = User.findById(targetId);
 		session.put(SESSION_PARAM_TARGET_FRIEND, targetUser.facebookId);
@@ -90,7 +90,7 @@ public class Lists extends Application {
 
 		String nextPageUrl = "/lists/listPage";
 
-		render(products, list, targetUser, myLists, listId, nextPageUrl);
+		render(products, list, targetUser, myLists, listId, nextPageUrl, giftBox);
 	}
 
 	public static void addProduct(long listId, long productId) {
@@ -129,8 +129,9 @@ public class Lists extends Application {
 	}
 
 	public static void renderProductList(long listId, User targetUser) {
+		ProductsList giftBox = ProductsList.findById(listId);
 		List<Product> list = createSidebarList(listId);
-		render(list, targetUser);
+		render(list, targetUser, giftBox);
 	}
 
 	public static void addUserAction(Long listId, Long productId, String userAction) {
