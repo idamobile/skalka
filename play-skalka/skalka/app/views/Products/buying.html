@@ -1,3 +1,12 @@
 <div id="byingPanel">
- 	<input class="imInButton" type="button" value="Imin" onclick="userAction(${product.id}, 'in')">
+ 	<input class="imInButton" type="button" value="Imin" onclick="userAction(${product.id}, 'in')"> 
+	<div id="collaborators">
+		${collaborators_number}
+	</div>
+	<div class="price">
+		<div>
+			${product.getPrice()}
+		</div>
+	</div>
+	<a href="${product.getURL()}">Купить</a>
 </div>

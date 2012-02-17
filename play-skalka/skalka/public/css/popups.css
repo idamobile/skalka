@@ -249,15 +249,16 @@ overflow: auto;
 .inviteFriends .inviteBlock {
 	width: 510px;
 	float: left;
-	padding: 20px 28px 20px 32px;
+	padding: 28px 28px 20px 32px;
 	border-right: 1px solid #bbb;
 	background: #fff;
 	border-radius: 5px 0 0 5px;
 }
 .inviteFriends .inviteBlock .blockTitle {
 	font-size: 26px;
-	padding: 0 0 10px 50px;
+	padding: 0 0 20px 50px;
 	background: transparent url(/public/images/icons/invite_friends.png) no-repeat 0 0;
+	line-height: 1;
 }
 .inviteFriends .participantsBlock {
 	width: 217px;
