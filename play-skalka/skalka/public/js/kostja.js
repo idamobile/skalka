@@ -1,4 +1,3 @@
-
 $(document).ready(function ($) {
 
 	// Initializing INVITE FRIENDS popup
@@ -37,6 +36,27 @@ $(document).ready(function ($) {
 			$("#inviteFriends_mutual").click(function () { showOnlyMutual(true); });
 			$("#inviteFriends_all").click(function () { showOnlyMutual(false); });
 			// showOnlyMutual(true);
+		}
+	});
+
+	// Initializing SELECT FRIEND popup
+	$('.changeFriend').fancybox({
+		scrolling: 'no',
+		modal: true,
+		padding: 0,
+		//openEffect : 'elastic',
+		openSpeed: 150,
+		//closeEffect : 'elastic',
+		closeSpeed: 150,
+		minHeight: 0,
+		wrapCSS: 'skalkaModalRound',
+		helpers: {
+			overlay: {
+				css: {
+					'background-color': '#000'
+				},
+				opacity: 0.3
+			}
 		}
 	});
 });
