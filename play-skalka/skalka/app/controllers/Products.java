@@ -156,8 +156,8 @@ public class Products extends Application {
 	}
 	
 	public static VotingContainer calculateUserActions(Long listId, Long productId, Long userId){
-		String likePercentage = "0.5";
-		String dislikePercentage = "0.5";
+		String likePercentage = "0";
+		String dislikePercentage = "0";
 		JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ?", listId, productId);
 		List<UserActionsInProductList> userActions = query.fetch();
 		UserActionsInProductList userActionInList = new UserActionsInProductList(listId, productId, userId, "not_voted");
