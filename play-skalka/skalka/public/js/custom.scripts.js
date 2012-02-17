@@ -116,6 +116,7 @@ function setListnersOnIcons(){
 			$('.addToListButton').click(function (event){
 				event.preventDefault();
 				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") } );
+				$('.addToListButton').show();
 			});
 		  $('a[href="#productDetails"]').click();
 		});
