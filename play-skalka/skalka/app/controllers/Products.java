@@ -35,7 +35,7 @@ import utils.Constants;
 import utils.html_parser.ProductParser;
 
 public class Products extends Application {
-	
+
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00%");
 
 	public static void parseUrl(String url) {
@@ -125,20 +125,20 @@ public class Products extends Application {
 		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
-	public static void details(Long id, Long listId, boolean clickedFromFeed) { 
+	public static void details(Long id, Long listId, boolean clickedFromFeed) {
 		Product product = Product.findById(id);
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		
+
 		UserActionsInProductList userActionInList = null;
 		boolean shouldHaveAddToListButton = true;
 		String likePercentage = "0";
 		String dislikePercentage = "0";
-		if(clickedFromFeed){
+		if (clickedFromFeed) {
 			// user clicked on a product in feed(not list)
 			ProductsList list = ProductsList.findById(listId);
-			if(list != null){
-				for(ProductInList pil : list.productsInList){
-					if(pil.productId.equals(id)){
+			if (list != null) {
+				for (ProductInList pil : list.productsInList) {
+					if (pil.productId.equals(id)) {
 						shouldHaveAddToListButton = false;
 						break;
 					}
@@ -151,49 +151,54 @@ public class Products extends Application {
 			likePercentage = vc.likePercentage;
 			dislikePercentage = vc.dislikePercentage;
 		}
-		render(product, userActionInList, shouldHaveAddToListButton, likePercentage, dislikePercentage);
+		render(product, userActionInList, shouldHaveAddToListButton, likePercentage,
+				dislikePercentage);
 	}
-	
-	public static VotingContainer calculateUserActions(Long listId, Long productId, Long userId){
+
+	public static VotingContainer calculateUserActions(Long listId, Long productId, Long userId) {
 		String likePercentage = "0";
 		String dislikePercentage = "0";
-		JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ?", listId, productId);
+		JPAQuery query = UserActionsInProductList.find(
+				"user_action != 'in' AND list_id = ? AND product_id = ?", listId, productId);
 		List<UserActionsInProductList> userActions = query.fetch();
-		UserActionsInProductList userActionInList = new UserActionsInProductList(listId, productId, userId, "not_voted");
-		if(userActions != null){
+		UserActionsInProductList userActionInList = new UserActionsInProductList(listId, productId,
+				userId, "not_voted");
+		if (userActions != null) {
 			int likes = 0;
 			int dislikes = 0;
-			for(UserActionsInProductList ua : userActions){
-				if(ua.userId.equals(userId) && !"in".equals(ua.userAction)){
+			for (UserActionsInProductList ua : userActions) {
+				if (ua.userId.equals(userId) && !"in".equals(ua.userAction)) {
 					userActionInList = ua;
 				}
-				if("y".equals(ua.userAction)){
+				if ("y".equals(ua.userAction)) {
 					likes++;
 				}
-				if("n".equals(ua.userAction)){
+				if ("n".equals(ua.userAction)) {
 					dislikes++;
 				}
 			}
 			int total = likes + dislikes;
-			if(total != 0){
+			if (total != 0) {
 				double like = total == 0 ? 0 : likes / total;
 				likePercentage = DECIMAL_FORMAT.format(like);
-				dislikePercentage = DECIMAL_FORMAT.format(1 - like);				
+				dislikePercentage = DECIMAL_FORMAT.format(1 - like);
 			}
 		}
 		return new VotingContainer(userActionInList, likePercentage, dislikePercentage);
 	}
-	
-	public static class VotingContainer{
+
+	public static class VotingContainer {
 		public UserActionsInProductList userActionsInProductList;
 		public String likePercentage;
 		public String dislikePercentage;
-		public VotingContainer(UserActionsInProductList userActionsInProductList, String likePercentage, String dislikePercentage) {
+
+		public VotingContainer(UserActionsInProductList userActionsInProductList,
+				String likePercentage, String dislikePercentage) {
 			this.userActionsInProductList = userActionsInProductList;
 			this.likePercentage = likePercentage;
 			this.dislikePercentage = dislikePercentage;
 		}
-		
+
 	}
 
 	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
@@ -214,11 +219,15 @@ public class Products extends Application {
 	 */
 	public static void listUserProducts() {
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		JPAQuery query = Product.find("added_by_uid = ?", user.id);
+		JPAQuery query = Product.find("addedBy = ? ORDER BY addedWhen DESC", user.id);
 		List<Product> products = query.fetch();
 
 		String nextPageUrl = "/products/listUserProducts";
-		render(products, nextPageUrl);
+
+		User me = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		List<ProductsList> myLists = ProductsList.getMyLists(me.id);
+
+		render(products, nextPageUrl, myLists);
 	}
 
 	/**
@@ -252,7 +261,7 @@ public class Products extends Application {
 			return list;
 		}
 	}
-	
+
 	public static void productProfile(Long productId) {
 		Product product = Product.findById(productId);
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree(product);

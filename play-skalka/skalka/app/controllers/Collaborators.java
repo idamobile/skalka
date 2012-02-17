@@ -13,12 +13,13 @@ public class Collaborators extends Lists {
 	}
 
 	public static void add(long id, List<Long> userIds) {
-		renderText(Collaborator.addUsers(userIds, id));
-
+		Collaborator.addUsers(userIds, id);
+		all(id);
 	}
 
 	public static void remove(long id, List<Long> userIds) {
-		renderText(Collaborator.removeUsers(userIds, id));
+		Collaborator.removeUsers(userIds, id);
+		all(id);
 	}
 
 }
