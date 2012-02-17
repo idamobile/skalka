@@ -66,6 +66,7 @@ $(document).ready(function ($) {
 			$('.addToListButton').click(function (event) {
 				event.preventDefault();
 				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") });
+				$('.addToListButton').hide();
 			});
 			$('a[href="#productDetails"]').click();
 		});
