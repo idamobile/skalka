@@ -129,6 +129,10 @@ public class Products extends Application {
 		if(listId > 0){
 			JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ? AND user_id = ?", listId, product.id, user.id);
 			userActionInList = query.first();
+			if(userActionInList == null){
+				//we came from a list, but user did not vote yet
+				userActionInList = new UserActionsInProductList(listId,product.id, user.id, "not_voted");
+			}
 		}
 		render(product, userActionInList);
 	}
