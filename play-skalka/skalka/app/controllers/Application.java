@@ -41,7 +41,7 @@ public class Application extends Controller {
 		}
 	}
 
-	public static void index(Long targetFbId) {
+	public static void index(Long targetFbId, boolean createNewList) {
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		User targetUser = null;
 
@@ -50,7 +50,7 @@ public class Application extends Controller {
 			if (storedFbId == null || !storedFbId.matches("[0-9]+")) {
 
 				ProductsList lastList = ProductsList.fetchLatest(ownerUser.id);
-				if (lastList != null) {
+				if (!createNewList && lastList != null) {
 					targetUser = User.findById(lastList.targetId);
 					targetFbId = targetUser.facebookId;
 				} else {
@@ -74,7 +74,7 @@ public class Application extends Controller {
 			Application.profile();
 		} else {
 			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id);
-			if (list == null) {
+			if (createNewList || list == null) {
 				Lists.create();
 			}
 			Lists.listIndex(list.id);
@@ -84,7 +84,7 @@ public class Application extends Controller {
 
 	public static void logout() {
 		clearCookies();
-		index(null);
+		index(null, false);
 	}
 
 	private static void clearCookies() {
