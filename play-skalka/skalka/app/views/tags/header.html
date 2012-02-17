@@ -1,6 +1,6 @@
 <div class="header-container">
     <div class="header">
-        <a class="logo" href="#">
+        <a class="logo" href="/">
         	<img src="@{'/public/images/logo.png'}" alt="Skalka logo" />
         </a>
         
@@ -20,16 +20,22 @@
         </div>
         
         <div class="myFeed select">
-        	<a class="label" href="@{Products.listUserProducts()}">My feed</p>
+			<p class="label">Curation</p>
+			<ul class="dropDownMenu" id="giftListsMenu">
+        		<li id="submitGiftitem"><a class="submitIdea expander" class="label" href="#addProduct">Submit gift idea</p></li>
+				<li id="myFeed"><a class="expander" class="label" href="@{Products.listUserProducts()}">My feed</p></li>
+			</ul>
         </div>
         
 		#{if _user}
-        <div class="user">
+        <div class="user select">
         	<!--<img alt="user's image" src="${_user.getImageUrl()}">-->
     		<a class="expander" href="#" onclick="javascript:void(0)">&nbsp;</a>
     		<p class="username">${_user}</p>
+			<ul class="dropDownMenu" id="userSettings">
+				<li id="logout"><a  class="expander" href="@{Application.logout()}">Logout</a></li>
+			</ul>
         </div>
 		#{/if}
-		<a href="@{Application.logout()}">Logout</a>
     </div>
 </div>

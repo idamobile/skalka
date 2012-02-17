@@ -38,11 +38,16 @@
 /************************************************************************/
 /* Header */
 
+/* WOODEN HEADER
 .header-container {
 	background: transparent url(/public/images/bg_header.jpg) repeat-y 0 0;
 	border-bottom: 1px solid #91673d;
 }
-
+*/
+.header-container {
+	background: transparent url(/public/images/bg_header.jpg) 0 0;
+	border-bottom: 1px solid #91673d;
+}
 .header { 
 	position: relative;
 	height: 27px;
