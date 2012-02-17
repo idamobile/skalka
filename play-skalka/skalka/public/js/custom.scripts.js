@@ -59,7 +59,7 @@ $(document).ready(function ($) {
 		}
 	});
 
-
+	//Open product dialog in feed 
 	$('.productInFeed').click(function (event) {
 		event.preventDefault();
 		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId='+context.listId+'&clickedFromFeed=true', function () {
@@ -101,7 +101,8 @@ $(document).ready(function ($) {
 
 	/* attach a submit handler to the form */
 	$("#productUrl").submit(function (event) {
-		ajaxProductParce(event);
+	 	event.preventDefault();
+		ajaxProductParce();
 	});
 
 	$('#productForm').submit(function (event) {
@@ -124,26 +125,24 @@ function setListnersOnIcons(){
 }
 
 
-function ajaxAddProduct(event){
-
- event.preventDefault();
-
- form = $('#productForm');
- url = form.attr( 'action' );
- inputs = $('#productForm input, textarea');
-
- values = {};
- inputs.each(function() {
-  values[this.name] = $(this).val();
- });
-
- // Add product to the database
- $.post( url, values, function( data ) {
-  if(data == 'true')
-   alert('Product Added!');
-  else
-   alert('Product was not added!');
- });
+function ajaxAddProduct(){
+	
+	 form = $('#productForm');
+	 url = form.attr( 'action' );
+	 inputs = $('#productForm input, textarea');
+	
+	 values = {};
+	 inputs.each(function() {
+	  values[this.name] = $(this).val();
+	 });
+	
+	 // Add product to the database
+	 $.post( url, values, function( data ) {
+	  if(data == 'true')
+	   alert('Product Added!');
+	  else
+	   alert('Product was not added!');
+	 });
 }
 
 function setSelectedProductImageIndex( indSelected ) {
