@@ -317,6 +317,10 @@ var GridLayout = function () {
 
 function initProfileEditorSpec(submitSelector, actionUrl) {
 
+	if($(submitSelector).length <= 0 ) {
+		return;
+	}
+	
 	var setSelected = {};
 
 	$(document).ready( function() {
