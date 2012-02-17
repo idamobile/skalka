@@ -122,19 +122,19 @@ public class Products extends Application {
 		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
-	public static void details(Long id, Long listId, boolean clickedFromFeed) { // listId < 0 means the request did not come from a list 
+	public static void details(Long id, Long listId, boolean clickedFromFeed) { 
 		Product product = Product.findById(id);
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		
 		UserActionsInProductList userActionInList = null;
-		boolean productAlreadyInList = false;
+		boolean shouldHaveAddToListButton = true;
 		if(clickedFromFeed){
 			// user clicked on a product in feed(not list)
 			ProductsList list = ProductsList.findById(listId);
 			if(list != null){
 				for(ProductInList pil : list.productsInList){
 					if(pil.productId.equals(listId)){
-						productAlreadyInList = true;
+						shouldHaveAddToListButton = false;
 						break;
 					}
 				}
@@ -148,7 +148,7 @@ public class Products extends Application {
 				userActionInList = new UserActionsInProductList(listId,product.id, user.id, "not_voted");
 			}
 		}
-		render(product, userActionInList, productAlreadyInList);
+		render(product, userActionInList, shouldHaveAddToListButton);
 	}
 
 	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "

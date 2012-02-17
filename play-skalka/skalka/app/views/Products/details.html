@@ -4,10 +4,10 @@
 	</div>
  	<input class="removeProductButton" type="button" value="Remove" onclick="removeProductFromList(${product.id})">
 #{/if}
-#{else}
+#{elseif shouldHaveAddToListButton}
 	<input class="addToListButton" type="button" value="Addtolist" onclick="addProductToList(${product.id});">
 
-#{/else}
+#{/elseif}
 <br/>
 	<div class="image-box">
 		<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
