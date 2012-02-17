@@ -34,27 +34,6 @@ $(document).ready(function ($) {
 		}
 	});
 
-	// Initializing SELECT FRIEND popup
-	$('.changeFriend').fancybox({
-		fitToView: false,
-		scrolling: 'no',
-		padding: 0,
-		//openEffect : 'elastic',
-		openSpeed: 150,
-		//closeEffect : 'elastic',
-		closeSpeed: 150,
-		minHeight: 0,
-		wrapCSS: 'skalkaModal',
-		helpers: {
-			overlay: {
-				css: {
-					'background-color': '#eee'
-				},
-				opacity: 0.5
-			}
-		}
-	});
-
 	// Initializing SHOW PRODUCT popup
 	$('.openProductDetails').fancybox({
 		fitToView: false,
@@ -83,7 +62,7 @@ $(document).ready(function ($) {
 
 	$('.productInFeed').click(function (event) {
 		event.preventDefault();
-		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId=-1', function () {
+		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId='+context.listId+'&clickedFromFeed=true', function () {
 			$('.addToListButton').click(function (event) {
 				event.preventDefault();
 				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") });
@@ -132,7 +111,7 @@ $(document).ready(function ($) {
 function setListnersOnIcons(){
 	$('.product_icon').click(function (event){
 		event.preventDefault();
-		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?listId='+context.listId,function() {
+		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?listId='+context.listId+'&clickedFromFeed=false',function() {
 			$('.addToListButton').click(function (event){
 				event.preventDefault();
 				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") } );
@@ -414,6 +393,11 @@ function removeProductFromList(idProduct) {
 	reloadLeftDiv(url, function (jqNewDiv) {
 		initLeftPanelDragDrop(jqNewDiv);
 	});
+}
+
+function userAction(idProduct,action) {
+	var url = "/lists/addUserAction?listId=" + context.listId + "&userAction" + action;
+	$("#votingPanel").load(url);
 }
 
 function initLeftPanelDragDrop(jqTarget) {

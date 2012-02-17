@@ -1,5 +1,5 @@
 ul.tabs {
-	margin: 0;
+	margin: 0 0 17px;
 	padding: 0;
 	list-style: none;
 	height: 25px;
@@ -42,13 +42,12 @@ ul.tabs li.active span {
 ul.tabs li.active a {
 	color: #333333;
 }
-
-.tab-container {
+.tabContainer {
 	overflow: hidden;
 	clear: both;
 	float: left; 
 	width: 100%;
-	padding: 34px 0;
+	padding: 17px 0 0;
 }
-.tab-content {
+.tabContent {
 }

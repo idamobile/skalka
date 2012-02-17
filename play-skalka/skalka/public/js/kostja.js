@@ -27,4 +27,25 @@ $(document).ready(function($) {
 		
 	});
 	
+	// Initializing SELECT FRIEND popup
+	$('.changeFriend').fancybox({
+		scrolling: 'no',
+		modal: true,
+		padding: 0,
+		//openEffect : 'elastic',
+		openSpeed: 150,
+		//closeEffect : 'elastic',
+		closeSpeed: 150,
+		minHeight: 0,
+		wrapCSS: 'skalkaModalRound',
+		helpers: {
+			overlay: {
+				css: {
+					'background-color': '#000'
+				},
+				opacity: 0.3
+			}
+		}
+	});
+	
 });

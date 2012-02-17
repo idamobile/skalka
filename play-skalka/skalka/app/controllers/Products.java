@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import models.Category;
 import models.ErrorResult;
 import models.Product;
+import models.ProductInList;
 import models.ProductsList;
 import models.Subcategory;
 import models.User;
@@ -61,15 +62,6 @@ public class Products extends Application {
 			fetchImage(product, imageUrl);
 
 			product.save();
-
-			if (session.contains(SESSION_PARAM_CURRENT_LIST)) {
-				ProductsList list = ProductsList.findById(new Long(session
-						.get(SESSION_PARAM_CURRENT_LIST)));
-				if (list == null || !list.addProduct(product.id)) {
-					Logger.error("Unable to add product to current list");
-				}
-			}
-
 			renderText("true");
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -130,25 +122,33 @@ public class Products extends Application {
 		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
-	public static void details(Long id, Long listId) { // listId < 0 means the
-														// request did not come
-														// from a list
+	public static void details(Long id, Long listId, boolean clickedFromFeed) { 
 		Product product = Product.findById(id);
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-
+		
 		UserActionsInProductList userActionInList = null;
-		if (listId > 0) {
-			JPAQuery query = UserActionsInProductList.find(
-					"user_action != 'in' AND list_id = ? AND product_id = ? AND user_id = ?",
-					listId, product.id, user.id);
+		boolean shouldHaveAddToListButton = true;
+		if(clickedFromFeed){
+			// user clicked on a product in feed(not list)
+			ProductsList list = ProductsList.findById(listId);
+			if(list != null){
+				for(ProductInList pil : list.productsInList){
+					if(pil.productId.equals(id)){
+						shouldHaveAddToListButton = false;
+						break;
+					}
+				}
+			}
+		} else {
+			// user cliked on a product from list
+			JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ? AND user_id = ?", listId, product.id, user.id);
 			userActionInList = query.first();
-			if (userActionInList == null) {
-				// we came from a list, but user did not vote yet
-				userActionInList = new UserActionsInProductList(listId, product.id, user.id,
-						"not_voted");
+			if(userActionInList == null){
+				//we came from a list, but user did not vote yet
+				userActionInList = new UserActionsInProductList(listId,product.id, user.id, "not_voted");
 			}
 		}
-		render(product, userActionInList);
+		render(product, userActionInList, shouldHaveAddToListButton);
 	}
 
 	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
@@ -173,7 +173,6 @@ public class Products extends Application {
 		List<Product> products = query.fetch();
 
 		String nextPageUrl = "/products/listUserProducts";
-		renderArgs.put("productPagesCount", Product.pagesCount(user.id));
 		render(products, nextPageUrl);
 	}
 
@@ -208,7 +207,7 @@ public class Products extends Application {
 			return list;
 		}
 	}
-
+	
 	public static void productProfile(Long productId) {
 		Product product = Product.findById(productId);
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree(product);
