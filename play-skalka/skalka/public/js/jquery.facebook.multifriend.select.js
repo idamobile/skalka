@@ -138,6 +138,10 @@
 				$(selecta).hide();
 			else
 				$(selecta).show();
+
+			$("input#jfmfs-friend-filter-text").val("");
+			all_friends.removeClass("hide-filtered");
+
 			showImagesInViewPort();
 		}
 

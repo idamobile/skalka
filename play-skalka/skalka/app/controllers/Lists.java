@@ -13,6 +13,8 @@ import models.UserActionsInProductList;
 
 import org.apache.commons.lang.StringUtils;
 
+import controllers.Products.VotingContainer;
+
 import play.Logger;
 import play.cache.Cache;
 import play.db.DB;
@@ -136,7 +138,8 @@ public class Lists extends Application {
 	}
 
 	public static void addUserAction(Long listId, Long productId, String userAction) {
-		JPAQuery query = ProductInList.find("listId = ? AND productId = ? ", listId, productId);
+		JPAQuery query = ProductInList.find("list_id = ? AND product_id = ? ", listId, productId);
+		System.out.println("prodId=" + productId + " listId=" + listId);
 		ProductInList pil = query.first();
 		if (pil == null) {
 			renderJSON(new ErrorResult(-1, "product not in list"));
@@ -148,17 +151,19 @@ public class Lists extends Application {
 		if (pil.userActions == null) {
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
-		System.out.println("Action==" + userAction);
 		try {
-			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId,
-					user.id, userAction);
+			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, user.id, userAction);
 			uaid.save();
 			pil.userActions.add(uaid);
 			pil.save();
 		} catch (Throwable w) {
-			renderJSON(new ErrorResult());
 		}
-		renderJSON(ErrorResult.SUCCESS);
+		VotingContainer vc = Products.calculateUserActions(listId, productId, user.id);
+		UserActionsInProductList userActionInList = vc.userActionsInProductList;
+		String likePercentage = vc.likePercentage;
+		String dislikePercentage = vc.dislikePercentage;
+		Product product = Product.findById(productId);
+		render(userActionInList, product, likePercentage, dislikePercentage);
 	}
 
 	public static void create() {

@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -34,6 +35,8 @@ import utils.Constants;
 import utils.html_parser.ProductParser;
 
 public class Products extends Application {
+	
+	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00%");
 
 	public static void parseUrl(String url) {
 		try {
@@ -128,6 +131,8 @@ public class Products extends Application {
 		
 		UserActionsInProductList userActionInList = null;
 		boolean shouldHaveAddToListButton = true;
+		String likePercentage = "0.5";
+		String dislikePercentage = "0.5";
 		if(clickedFromFeed){
 			// user clicked on a product in feed(not list)
 			ProductsList list = ProductsList.findById(listId);
@@ -141,14 +146,53 @@ public class Products extends Application {
 			}
 		} else {
 			// user cliked on a product from list
-			JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ? AND user_id = ?", listId, product.id, user.id);
-			userActionInList = query.first();
-			if(userActionInList == null){
-				//we came from a list, but user did not vote yet
-				userActionInList = new UserActionsInProductList(listId,product.id, user.id, "not_voted");
-			}
+			VotingContainer vc = calculateUserActions(listId, product.id, user.id);
+			userActionInList = vc.userActionsInProductList;
+			likePercentage = vc.likePercentage;
+			dislikePercentage = vc.dislikePercentage;
 		}
-		render(product, userActionInList, shouldHaveAddToListButton);
+		System.out.println("like=" + likePercentage + " dis=" + dislikePercentage);
+		render(product, userActionInList, shouldHaveAddToListButton, likePercentage, dislikePercentage);
+	}
+	
+	public static VotingContainer calculateUserActions(Long listId, Long productId, Long userId){
+		String likePercentage = "0.5";
+		String dislikePercentage = "0.5";
+		JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ?", listId, productId);
+		List<UserActionsInProductList> userActions = query.fetch();
+		UserActionsInProductList userActionInList = new UserActionsInProductList(listId, productId, userId, "not_voted");
+		int likes = 0;
+		int dislikes = 0;
+		if(userActions != null){
+			for(UserActionsInProductList ua : userActions){
+				if(ua.userId.equals(userId) && !"in".equals(ua.userAction)){
+					userActionInList = ua;
+				}
+				if("y".equals(ua.userAction)){
+					likes++;
+				}
+				if("n".equals(ua.userAction)){
+					dislikes++;
+				}
+			}
+			int total = likes + dislikes;
+			double like = total == 0 ? 0.5 : likes / total;
+			likePercentage = DECIMAL_FORMAT.format(like);
+			dislikePercentage = DECIMAL_FORMAT.format(1 - like);
+		}
+		return new VotingContainer(userActionInList, likePercentage, dislikePercentage);
+	}
+	
+	public static class VotingContainer{
+		public UserActionsInProductList userActionsInProductList;
+		public String likePercentage;
+		public String dislikePercentage;
+		public VotingContainer(UserActionsInProductList userActionsInProductList, String likePercentage, String dislikePercentage) {
+			this.userActionsInProductList = userActionsInProductList;
+			this.likePercentage = likePercentage;
+			this.dislikePercentage = dislikePercentage;
+		}
+		
 	}
 
 	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
