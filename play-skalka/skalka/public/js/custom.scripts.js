@@ -139,7 +139,8 @@ function ajaxAddProduct(){
 	 // Add product to the database
 	 $.post( url, values, function( data ) {
 	  if(data == 'true')
-	   alert('Product Added!');
+	   //alert('Product Added!');
+       window.location.reload();
 	  else
 	   alert('Product was not added!');
 	 });
