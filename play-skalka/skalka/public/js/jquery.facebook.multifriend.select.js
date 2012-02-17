@@ -135,9 +135,9 @@
 		this.showOnlyMutual = function (bOnlyMutual) {
 			var selecta = "div.jfmfs-friend[data-mutualfriend='false']";
 			if (bOnlyMutual)
-				$(selecta).hide();
+				$(selecta).css("display", "none");
 			else
-				$(selecta).show();
+				$(selecta).css("display", "");
 
 			$("input#jfmfs-friend-filter-text").val("");
 			all_friends.removeClass("hide-filtered");
@@ -333,7 +333,7 @@
 
 			updateMaxSelectedMessage();
 
-			$("div.jfmfs-friend[data-mutualfriend='false']").hide();
+			$("div.jfmfs-friend[data-mutualfriend='false']").css("display", "none");
 			showImagesInViewPort();
 			updateSelectedCount();
 			elem.trigger("jfmfs.friendload.finished");
