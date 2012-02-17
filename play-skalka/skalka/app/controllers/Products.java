@@ -17,6 +17,7 @@ import models.Product;
 import models.ProductsList;
 import models.Subcategory;
 import models.User;
+import models.UserActionsInProductList;
 import play.Logger;
 import play.cache.Cache;
 import play.data.validation.Required;
@@ -120,9 +121,16 @@ public class Products extends Application {
 		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
-	public static void details(Long id, boolean fromList) {
+	public static void details(Long id, Long listId) { // listId < 0 means the request did not come from a list 
 		Product product = Product.findById(id);
-		render(product, fromList);
+		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		
+		UserActionsInProductList userActionInList = null;
+		if(listId > 0){
+			JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ? AND user_id = ?", listId, product.id, user.id);
+			userActionInList = query.first();
+		}
+		render(product, userActionInList);
 	}
 
 	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
