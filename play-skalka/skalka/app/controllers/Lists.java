@@ -110,7 +110,7 @@ public class Lists extends Application {
 
 		ProductsList list = ProductsList.findById(listId);
 		if (list == null || !list.addProduct(productId)) {
-			renderJSON(new ErrorResult(-1, "Unable to add product"));
+			Logger.error("Unable to add product to list");
 		}
 
 		User targetUser = User.findById(list.targetId);
@@ -123,7 +123,7 @@ public class Lists extends Application {
 		try {
 			pl.delete();
 		} catch (Throwable t) {
-			Logger.error("Unable to remove product to list", t);
+			Logger.error("Unable to remove product from list", t);
 		}
 
 		ProductsList pList = ProductsList.findById(listId);

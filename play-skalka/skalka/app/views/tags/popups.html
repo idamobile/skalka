@@ -114,62 +114,30 @@
 	<!-- INVITE FRIENDS POPUP -->
 	<div class="inviteFriends" id="inviteFriendsPopup">
 		<div class="inviteBlock">
-		    <div class="blockTitle">
-		    	Invite your friends
-		    </div>
-		    <ul class="tabs">
-		    	<li>
-		    		<a class="first" href="#mutual">
-		    			<span>Mutual Friends</span>
-		    		</a>
-		    	</li>
-		    	<li>
-		    		<a class="last" href="#all">
-		    			<span>All Friends</span>
-		    		</a>
-		    	</li>
-		    </ul>
-		    <div class="tab-container">
-		        <div class="tab-content" id="mutual">
-					<ul class="friendList">
-				    	<li>
-				    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-				    		<p class="label">Invite</p>
-				    		<p class="userName">Ilya Leirikh</p>
-				    	</li>
-				    	<li>
-				    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-				    		<p class="label">Invite</p>
-				    		<p class="userName">Ilya Leirikh</p>
-				    	</li>
-				    	<li>
-				    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-				    		<p class="label">Invite</p>
-				    		<p class="userName">Ilya Leirikh</p>
-				    	</li>
-				    	<li>
-				    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-				    		<p class="label">Invite</p>
-				    		<p class="userName">Ilya Leirikh</p>
-				    	</li>
-				    	<li>
-				    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-				    		<p class="label">Invite</p>
-				    		<p class="userName">Ilya Leirikh</p>
-				    	</li>
-				    	<li>
-				    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
-				    		<p class="label">Invite</p>
-				    		<p class="userName">Ilya Leirikh</p>
-				    	</li>
-					</ul>
-					<button type="submit" class="button"><span><span>Send</span></span></button>
-		        </div>
-		        <div class="tab-content" id="all">
-		    		<p>Nothing here yet!</p>
-		        </div>
-		        <div class="clear"></div>
-		    </div>
+			<div class="blockTitle">
+				Invite your friends
+			</div>
+			<ul class="tabs">
+				<li id="inviteFriends_mutual">
+					<a class="first" href="#">
+						<span>Mutual Friends</span>
+					</a>
+				</li>
+				<li id="inviteFriends_all">
+					<a class="last" href="#">
+						<span>All Friends</span>
+					</a>
+				</li>
+			</ul>
+			<!--<div class="tab-container">
+				<div class="tab-content" id="mutual">
+					<p>Nothing here yet (mutual).</p>
+				</div>
+				<div class="tab-content" id="all">
+					<p>Nothing here yet (all).</p>
+				</div>
+			</div>-->
+			<div id="facebookFriendPicker" ></div>
 		</div>
 		<div class="participantsBlock">
 		    <p class="title">Already participating</p>
