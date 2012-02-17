@@ -13,8 +13,6 @@ import models.UserActionsInProductList;
 
 import org.apache.commons.lang.StringUtils;
 
-import controllers.Products.VotingContainer;
-
 import play.Logger;
 import play.cache.Cache;
 import play.db.DB;
@@ -22,6 +20,7 @@ import play.db.jpa.GenericModel.JPAQuery;
 import play.mvc.Before;
 import play.mvc.Scope.Params;
 import utils.Constants;
+import controllers.Products.VotingContainer;
 
 public class Lists extends Application {
 
@@ -118,10 +117,14 @@ public class Lists extends Application {
 	}
 
 	public static void removeProductFromList(long listId, long productId) {
-		ProductInList pl = ProductInList.find("listId = ? AND productId = ? ", listId, productId)
-				.first();
+		// ProductInList pl =
+		// ProductInList.find("listId = ? AND productId = ? ", listId,
+		// productId)
+		// .first();
 		try {
-			pl.delete();
+			DB.execute("delete from list_prod where list_id = " + listId + " and product_id = "
+					+ productId);
+			// pl.delete();
 		} catch (Throwable t) {
 			Logger.error("Unable to remove product from list", t);
 		}
@@ -150,9 +153,12 @@ public class Lists extends Application {
 		if (pil.userActions == null) {
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
-		DB.execute("delete from user_actions_in_prod_list where list_id=" + listId + " and product_id=" + productId + " and user_id="+user.id + " and user_action in ('y','n');");
+		DB.execute("delete from user_actions_in_prod_list where list_id=" + listId
+				+ " and product_id=" + productId + " and user_id=" + user.id
+				+ " and user_action in ('y','n');");
 		try {
-			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, user.id, userAction);
+			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId,
+					user.id, userAction);
 			uaid.save();
 			pil.userActions.add(uaid);
 			pil.save();
