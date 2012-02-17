@@ -1,0 +1,56 @@
+ul.tabs {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	height: 69px;
+	width: 100%;
+	border-bottom: 1px solid #a2a2a2;
+}
+ul.tabs li {
+	float: left;
+	margin: 0 30px 0 0;
+	overflow: hidden;
+	position: relative;
+	height: 78px;
+}
+ul.tabs li a {
+	text-decoration: none;
+	color: #231f20;
+	display: block;
+	font-size: 34px;
+	font-family: 'DaxlineProThin';
+	border-right: 1px solid #a4a4a4;
+	line-height: 1;
+	padding: 0 30px 0 0;
+}
+ul.tabs li span {
+	display: block;
+	padding: 0 0 4px;
+	border-bottom: 1px solid #2CA737;
+}
+ul.tabs li a.first {
+	padding-left: 0;
+}
+ul.tabs li a.last {
+	background: none;
+	border-right: none;
+}
+ul.tabs li.active {
+	background: transparent url(bg_tabs_item_active.png) no-repeat 50% 100%;
+}
+ul.tabs li.active span {
+	border-bottom: none;
+}
+ul.tabs li.active a {
+	color: #929292;
+}
+
+.tab-container {
+	overflow: hidden;
+	clear: both;
+	float: left; 
+	width: 100%;
+	padding: 34px 0;
+}
+.tab-content {
+}
