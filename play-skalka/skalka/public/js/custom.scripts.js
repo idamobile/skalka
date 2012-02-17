@@ -150,16 +150,6 @@ $(document).ready(function ($) {
 	$('#productForm').submit(function (event) {
 		ajaxAddProduct(event);
 	});
-
-	// pageless..
-	$("div#items-container").pageless(
-	{
-		url: "/lists/listPage",
-		params: { listId: context.listId },
-		complete: function () {
-			GridLayout.allPins();
-		}
-	});
 }); 
 
 function setListnersOnIcons(){
@@ -525,3 +515,18 @@ function initItemsDragDrop(selDrag, selDrop) {
 		initDroppable($(selDrop));
 	});                  	// doc.ready
 } // function initItemsDragDrop
+
+function initPageless() {
+	$(document).ready(function ($) {
+		// pageless..
+		$("div#items-container").pageless(
+		{
+			url: "/lists/listPage",
+			params: { listId: context.listId },
+			complete: function () {
+				alert("pageless complete");
+				GridLayout.allPins();
+			}
+		});
+	})
+}
