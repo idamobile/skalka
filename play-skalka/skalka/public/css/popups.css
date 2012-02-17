@@ -175,6 +175,29 @@ overflow: auto;
 	font-style: italic;
 }
 
+.vote-ratebar {
+    height: 10px;
+    margin: 2px 0;
+    border: 1px solid #CCC;
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.vote-ratebar-likes {
+    float: left;
+    height: 10px;
+    border-right: 1px solid white;
+    background: #060;
+}
+
+.vote-ratebar-dislikes {
+    float: right;
+    height: 10px;
+    margin-right: -1px;
+    background: #C00;
+}
 
 /* IMAGES */
 .giftSubmit .productInfo .imagesContainer {

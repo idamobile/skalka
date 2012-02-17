@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import models.Category;
 import models.ErrorResult;
 import models.Product;
+import models.ProductCategories;
 import models.ProductInList;
 import models.ProductsList;
 import models.Subcategory;
@@ -30,13 +31,22 @@ import play.libs.Codec;
 import play.libs.Images;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
+import play.mvc.Before;
 import play.mvc.Scope.Session;
 import utils.Constants;
 import utils.html_parser.ProductParser;
 
 public class Products extends Application {
-	
+
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00%");
+
+	@Before
+	static void storeMyLists() {
+		User me = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+		List<ProductsList> myLists = ProductsList.getMyLists(me.id);
+
+		renderArgs.put("myLists", myLists);
+	}
 
 	public static void parseUrl(String url) {
 		try {
@@ -125,20 +135,20 @@ public class Products extends Application {
 		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
-	public static void details(Long id, Long listId, boolean clickedFromFeed) { 
+	public static void details(Long id, Long listId, boolean clickedFromFeed) {
 		Product product = Product.findById(id);
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		
+
 		UserActionsInProductList userActionInList = null;
 		boolean shouldHaveAddToListButton = true;
-		String likePercentage = "0.5";
-		String dislikePercentage = "0.5";
-		if(clickedFromFeed){
+		String likePercentage = "0";
+		String dislikePercentage = "0";
+		if (clickedFromFeed) {
 			// user clicked on a product in feed(not list)
 			ProductsList list = ProductsList.findById(listId);
-			if(list != null){
-				for(ProductInList pil : list.productsInList){
-					if(pil.productId.equals(id)){
+			if (list != null) {
+				for (ProductInList pil : list.productsInList) {
+					if (pil.productId.equals(id)) {
 						shouldHaveAddToListButton = false;
 						break;
 					}
@@ -151,47 +161,54 @@ public class Products extends Application {
 			likePercentage = vc.likePercentage;
 			dislikePercentage = vc.dislikePercentage;
 		}
-		render(product, userActionInList, shouldHaveAddToListButton, likePercentage, dislikePercentage);
+		render(product, userActionInList, shouldHaveAddToListButton, likePercentage,
+				dislikePercentage);
 	}
-	
-	public static VotingContainer calculateUserActions(Long listId, Long productId, Long userId){
-		String likePercentage = "0.5";
-		String dislikePercentage = "0.5";
-		JPAQuery query = UserActionsInProductList.find("user_action != 'in' AND list_id = ? AND product_id = ?", listId, productId);
+
+	public static VotingContainer calculateUserActions(Long listId, Long productId, Long userId) {
+		String likePercentage = "0";
+		String dislikePercentage = "0";
+		JPAQuery query = UserActionsInProductList.find(
+				"user_action != 'in' AND list_id = ? AND product_id = ?", listId, productId);
 		List<UserActionsInProductList> userActions = query.fetch();
-		UserActionsInProductList userActionInList = new UserActionsInProductList(listId, productId, userId, "not_voted");
-		int likes = 0;
-		int dislikes = 0;
-		if(userActions != null){
-			for(UserActionsInProductList ua : userActions){
-				if(ua.userId.equals(userId) && !"in".equals(ua.userAction)){
+		UserActionsInProductList userActionInList = new UserActionsInProductList(listId, productId,
+				userId, "not_voted");
+		if (userActions != null) {
+			int likes = 0;
+			int dislikes = 0;
+			for (UserActionsInProductList ua : userActions) {
+				if (ua.userId.equals(userId) && !"in".equals(ua.userAction)) {
 					userActionInList = ua;
 				}
-				if("y".equals(ua.userAction)){
+				if ("y".equals(ua.userAction)) {
 					likes++;
 				}
-				if("n".equals(ua.userAction)){
+				if ("n".equals(ua.userAction)) {
 					dislikes++;
 				}
 			}
 			int total = likes + dislikes;
-			double like = total == 0 ? 0.5 : likes / total;
-			likePercentage = DECIMAL_FORMAT.format(like);
-			dislikePercentage = DECIMAL_FORMAT.format(1 - like);
+			if (total != 0) {
+				double like = total == 0 ? 0 : likes / total;
+				likePercentage = DECIMAL_FORMAT.format(like);
+				dislikePercentage = DECIMAL_FORMAT.format(1 - like);
+			}
 		}
 		return new VotingContainer(userActionInList, likePercentage, dislikePercentage);
 	}
-	
-	public static class VotingContainer{
+
+	public static class VotingContainer {
 		public UserActionsInProductList userActionsInProductList;
 		public String likePercentage;
 		public String dislikePercentage;
-		public VotingContainer(UserActionsInProductList userActionsInProductList, String likePercentage, String dislikePercentage) {
+
+		public VotingContainer(UserActionsInProductList userActionsInProductList,
+				String likePercentage, String dislikePercentage) {
 			this.userActionsInProductList = userActionsInProductList;
 			this.likePercentage = likePercentage;
 			this.dislikePercentage = dislikePercentage;
 		}
-		
+
 	}
 
 	private static final String SELECT_PRODUCTS = "SELECT p.* " + "FROM products AS p "
@@ -212,10 +229,11 @@ public class Products extends Application {
 	 */
 	public static void listUserProducts() {
 		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		JPAQuery query = Product.find("added_by_uid = ?", user.id);
+		JPAQuery query = Product.find("addedBy = ? ORDER BY addedWhen DESC", user.id);
 		List<Product> products = query.fetch();
 
 		String nextPageUrl = "/products/listUserProducts";
+
 		render(products, nextPageUrl);
 	}
 
@@ -250,10 +268,28 @@ public class Products extends Application {
 			return list;
 		}
 	}
-	
+
 	public static void productProfile(Long productId) {
 		Product product = Product.findById(productId);
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree(product);
 		render(categories, product);
+	}
+	
+	public static void addCategories(Long productId, List<Long> catIds) {
+		if (catIds == null || catIds.isEmpty()) {
+			renderText("Categories are empty");
+		}
+
+		Product product = Product.findById(productId);
+		if (product == null) {
+			renderJSON(new ErrorResult());
+		}
+
+		DB.execute("delete from products_subcategories where product_id = " + productId);
+		for (Long catId : catIds) {
+			new ProductCategories(productId, catId).save();
+		}
+
+		productProfile(productId);
 	}
 }

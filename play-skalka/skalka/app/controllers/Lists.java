@@ -150,6 +150,7 @@ public class Lists extends Application {
 		if (pil.userActions == null) {
 			pil.userActions = new ArrayList<UserActionsInProductList>();
 		}
+		DB.execute("delete from user_actions_in_prod_list where list_id=" + listId + " and product_id=" + productId + " and user_id="+user.id + " and user_action in ('y','n');");
 		try {
 			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, user.id, userAction);
 			uaid.save();

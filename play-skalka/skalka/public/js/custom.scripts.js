@@ -398,8 +398,10 @@ function removeProductFromList(idProduct) {
 }
 
 function userAction(idProduct,action) {
-	var url = "/lists/addUserAction?listId=" + context.listId + "&userAction" + action;
-	$("#votingPanel").load(url);
+	var url = "/lists/addUserAction?listId=" + context.listId + "&productId=" + idProduct + "&userAction=" + action;
+	$.get(url, function (data) {
+		$("#votingPanel").html(data);
+	});
 }
 
 function initLeftPanelDragDrop(jqTarget) {

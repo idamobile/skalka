@@ -11,10 +11,15 @@
           name: 'People Argue Just to Win',
           link: 'http://project.idamob.ru:9000/lists/45',
           display: 'popup',
-          to: 'sergey.roiz'
+          to: 'sergey.roiz',
+	  show_error: true,
           },
           function (response) {
-              alert(response);
+              	var props ="";
+		for (p in response) {
+			props = props + p + "; ";
+		}
+		alert(props);
           });
      </script>
   </body>
