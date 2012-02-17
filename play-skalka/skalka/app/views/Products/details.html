@@ -1,5 +1,5 @@
 #{if userActionInList}
-    #{voting userActionInList:userActionInList/}
+    #{voting userActionInList:userActionInList product:product/}
  	<input class="removeProductButton" type="button" value="Remove" onclick="removeProductFromList(${product.id})">
 #{/if}
 #{else}
