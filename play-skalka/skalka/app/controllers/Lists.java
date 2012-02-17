@@ -84,7 +84,10 @@ public class Lists extends Application {
 		List<ProductsList> lists = ProductsList.fetchLists(ownerUser.id, targetUser.id);
 
 		Long listId = id;
-		render(products, list, targetUser, lists, listId);
+
+		String nextPageUrl = "/lists/listPage";
+
+		render(products, list, targetUser, lists, listId, nextPageUrl);
 	}
 
 	public static void addProduct(long listId, long productId) {
@@ -142,7 +145,8 @@ public class Lists extends Application {
 		}
 		System.out.println("Action==" + userAction);
 		try {
-			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId, user.id, userAction);
+			UserActionsInProductList uaid = new UserActionsInProductList(listId, productId,
+					user.id, userAction);
 			uaid.save();
 			pil.userActions.add(uaid);
 			pil.save();
