@@ -395,8 +395,9 @@ function reloadLeftDiv(url, fnReInitLeftPanel) {
 		$("#giftListDropTarget").fadeOut(null, function () {
 			$(this).replaceWith($("#giftListDropTargetUpdated"));
 			$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
-			$('#giftListDropTarget').fadeIn(null);
-			fnReInitLeftPanel($('#giftListDropTarget'));
+			var jqNewDiv = $('#giftListDropTarget');
+			jqNewDiv.fadeIn(null);
+			fnReInitLeftPanel(jqNewDiv);
 		});
 	});
 }
@@ -404,18 +405,19 @@ function reloadLeftDiv(url, fnReInitLeftPanel) {
 function addProductToList(idProduct) {
 	var url = "/lists/addProduct?listId=" + context.listId + "&productId=" + idProduct;
 	reloadLeftDiv(url, function (jqNewDiv) {
-		initDroppable(jqNewDiv);
+		initLeftPanelDragDrop(jqNewDiv);
 	});
 }
 
 function removeProductFromList(idProduct) {
 	var url = "/lists/removeProductFromList?listId=" + context.listId + "&productId=" + idProduct;
 	reloadLeftDiv(url, function (jqNewDiv) {
-		initDroppable(jqNewDiv);
+		initLeftPanelDragDrop(jqNewDiv);
 	});
 }
 
-function initDroppable(jqTarget) {
+function initLeftPanelDragDrop(jqTarget) {
+	// Droppable
 	jqTarget.droppable
 	({
 		drop: function (event, ui) {
@@ -424,7 +426,18 @@ function initDroppable(jqTarget) {
 			addProductToList(eltBeingDropped.id);
 			ui.helper.hide();
 		}
-	});    // droppable
+	});
+
+	// Draggable
+	jqTarget.find("li.item.product_icon").draggable
+	({
+		helper: "clone",
+		cursorAt: { left: 25, top: 25 },
+		revert: true,
+		start: function (event, ui) {
+			ui.helper.css( 'z-index', 9001 );
+		}
+	});
 }
 
 function initItemsDragDrop(selDrag, selDrop) {
@@ -443,7 +456,7 @@ function initItemsDragDrop(selDrag, selDrop) {
 			cursorAt: { left: 25, top: 25 },
 			revert: true
 		}); // draggable
-		initDroppable($(selDrop));
+		initLeftPanelDragDrop($(selDrop));
 	});                  	// doc.ready
 } // function initItemsDragDrop
 
