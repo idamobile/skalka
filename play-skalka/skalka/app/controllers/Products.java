@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import models.Category;
 import models.ErrorResult;
 import models.Product;
 import models.ProductsList;
+import models.Subcategory;
 import models.User;
 import play.Logger;
 import play.cache.Cache;
@@ -150,7 +153,6 @@ public class Products extends Application {
 		render(products);
 	}
 
-
 	public static List<Product> getOrderedList(long listId, long start) {
 		List<Product> list = new ArrayList<Product>();
 		ProductsList pl = ProductsList.findById(listId);
@@ -168,5 +170,11 @@ public class Products extends Application {
 		} catch (Exception e) {
 			return list;
 		}
+	}
+	
+	public static void productProfile(Long productId) {
+		Product product = Product.findById(productId);
+		Map<Category, List<Subcategory>> categories = Subcategory.getTree(product);
+		render(categories, product);
 	}
 }

@@ -49,21 +49,38 @@ public class Subcategory extends Model {
 		for (UserCategories cat : usersCats) {
 			subcatIds.add(cat.subcategoryId);
 		}
+		return getSubcategories(subcatIds);
+	}
+	
+	public static Map<Category, List<Subcategory>> getTree(Product product) {
+		List<ProductCategories> productCats = new ArrayList<ProductCategories>();
+		if (product != null) {
+			productCats = ProductCategories.find("byProductId", product.id).fetch();
+		}
 
+		Set<Long> subcatIds = new HashSet<Long>();
+		for (ProductCategories cat : productCats) {
+			subcatIds.add(cat.subcategoryId);
+		}
+		return getSubcategories(subcatIds);
+	}
+
+	private static Map<Category, List<Subcategory>> getSubcategories(Set<Long> selectedSubcategoriesIds){
 		List<Subcategory> cats = Subcategory.all().fetch();
 
 		Map<Category, List<Subcategory>> c = new TreeMap<Category, List<Subcategory>>();
 
 		for (Subcategory sub : cats) {
-			if (subcatIds.contains(sub.id)) {
+			if (selectedSubcategoriesIds.contains(sub.id)) {
 				sub.isSelected = true;
 			}
-			if (!c.containsKey(sub.category)) {
-				c.put(sub.category, new ArrayList<Subcategory>());
+			List<Subcategory> subcats = c.get(sub.category); 
+			if (subcats == null) {
+				c.put(sub.category, subcats = new ArrayList<Subcategory>());
 			}
-			c.get(sub.category).add(sub);
+			subcats.add(sub);
 		}
-		return c;
+		return c;		
 	}
-
+	
 }
