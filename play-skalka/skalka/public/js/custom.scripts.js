@@ -64,7 +64,7 @@ $(document).ready(function ($) {
 		openSpeed: 150,
 
 		beforeLoad: function () {
-			//$('#productDetails .container').load('/products/details/1?fromList=true');
+			//$('#productDetails .container').load('/products/details/1?listId=1');
 		},
 		//closeEffect : 'elastic',
 		closeSpeed: 150,
@@ -83,7 +83,7 @@ $(document).ready(function ($) {
 
 	$('.productInFeed').click(function (event) {
 		event.preventDefault();
-		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?fromList=false', function () {
+		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId=-1', function () {
 			$('.addToListButton').click(function (event) {
 				event.preventDefault();
 				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") });
@@ -132,7 +132,7 @@ $(document).ready(function ($) {
 function setListnersOnIcons(){
 	$('.product_icon').click(function (event){
 		event.preventDefault();
-		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?fromList=true',function() {
+		$('#productDetails .container').load('/products/details/'+$(this).attr("id")+'?listId='+context.listId,function() {
 			$('.addToListButton').click(function (event){
 				event.preventDefault();
 				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") } );
