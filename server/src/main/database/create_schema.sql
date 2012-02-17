@@ -159,3 +159,11 @@ on user_actions_in_prod_list ( list_id, product_id, user_id );
 
 create index user_actions_in_prod_list_prod_idx
 on user_actions_in_prod_list ( list_id, product_id );
+
+drop table if exists collaborators;
+
+create table collaborators (
+    list_id bigint not null, 
+    user_id bigint not null,
+    primary key(list_id, user_id)
+);
