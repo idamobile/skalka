@@ -2,116 +2,118 @@
 		
 	<!-- SUBMIT NEW PRODUCT POPUP -->
 	<div class="giftSubmit" id="addProduct">
-		<div class="popupTitle">
-			Submit your gift
-		</div>
-		<div class="container">
-			<form id="productUrl" method="post" action="/products/parseUrl">
-				<div class="inputContainer">
-					<div class="inner">
-						<span class="label">URL</span>
-						<input type="text" title="Paste your URL here" class="input-text" id="url" value="" name="url">
-						<div class="progress"></div>
-					</div>
-				</div>
-			</form>
+	    <div class="popupTitle">
+	    	Submit your gift
+	    </div>
+	    <div class="container">
+	    	<form id="productUrl" method="post" action="/products/parseUrl">
+	    		<div class="inputContainer">
+	    			<div class="inner">
+	    				<span class="label">URL</span>
+	    				<input type="text" title="Paste your URL here" class="input-text" id="url" value="" name="url">
+	    				<div class="progress"></div>
+	    			</div>
+	    		</div>
+	    	</form>
 
-			<div class="productInfo">
-				<div class="imagesContainer">
-					<div id="productInfo_images" class="images">
-						<ul>
-							<li>
-								<img src="" alt="Product Name"/>
-							</li>
-							<li>
-								<img src="" alt="Product Name"/>
-							</li>
-							<li>
-								<img src="" alt="Product Name"/>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<form id="productForm" method="post" action="/products/add">
-				<ul class="form-list">
-					<input type="hidden" id="productForm_imageUrl" name="imageUrl" value="">
+	    	<div class="productInfo">
+	    		<div class="imagesContainer">
+	    			<div id="productInfo_images" class="images">
+	    				<ul>
+	    					<li>
+	    						<img src="" alt="Product Name"/>
+	    					</li>
+	    					<li>
+	    						<img src="" alt="Product Name"/>
+	    					</li>
+	    					<li>
+	    						<img src="" alt="Product Name"/>
+	    					</li>
+	    				</ul>
+	    			</div>
+	    		</div>
+	    		<form id="productForm" method="post" action="/products/add">
+	    		<ul class="form-list">
+	    			<input type="hidden" id="productForm_imageUrl" name="imageUrl" value="">
 					<input type="hidden" name="subcategoryId" value="1">
 					<input type="hidden" name="subcategoryId" value="2">
 					<input type="hidden" name="type" value="image">
-					<!--
-					<li class="name">
-						<input type="text" title="Name of the chosen product" class="input-text" id="name" value="Product Name" name="name">
-					</li>
-					-->
-					<li class="description inputContainer">
-						<div class="inner">
-							<span class="label">Title</span>
-							<input type="text" title="Name of the chosen product" class="input-text" id="descr" value="" name="descr">
-						</div>
-					</li>
-					<li class="price inputContainer">
-						<div class="inner">
-							<span class="label">Price</span>
-							<input type="text" title="Product price" class="input-text" id="price" value="" name="price">
-						</div>
-					</li>
-					<div class="clear"></div>
-					<li class="story inputContainer">
-						<div class="inner">
-							<span class="label">Gift story</span>
-							<textarea class="input-text" title="Product story" id="story" name="story">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet, purus eget dapibus accumsan, ante dui lacinia tellus, ut pellentesque lacus libero sed tellus.</textarea>
-						</div>
-					</li>
-				</ul>
-				<button type="submit">Submit</button>
-				</form>
-			</div>
-			
-		</div>
+	    			<!--
+	    			<li class="name">
+	    				<input type="text" title="Name of the chosen product" class="input-text" id="name" value="Product Name" name="name">
+	    			</li>
+	    			-->
+	    			<li class="description inputContainer">
+	    				<div class="inner">
+	    					<span class="label">Title</span>
+	    					<input type="text" title="Name of the chosen product" class="input-text" id="descr" value="" name="descr">
+	    				</div>
+	    			</li>
+	    			<li class="price inputContainer">
+	    				<div class="inner">
+	    					<span class="label">Price</span>
+	    					<input type="text" title="Product price" class="input-text" id="price" value="" name="price">
+	    				</div>
+	    			</li>
+	    			<div class="clear"></div>
+	    			<li class="story inputContainer">
+	    				<div class="inner">
+	    					<span class="label">Gift story</span>
+	    					<textarea class="input-text" title="Product story" id="story" name="story">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet, purus eget dapibus accumsan, ante dui lacinia tellus, ut pellentesque lacus libero sed tellus.</textarea>
+	    				</div>
+	    			</li>	    			
+	    		</ul>
+	    		<button type="submit">Submit</button>
+	    		</form>
+	    	</div>
+	    	
+	    </div>
 	</div>
 
 	<!-- SELECT FRIEND POPUP -->
 	<div class="selectFriend" id="selectFriend">
-<<<<<<< HEAD
 		<p class="title">Welcome to Skalka</p>
 		<p class="hint">Pick one of your Facebook friends to find him a perfect gift</p>
 		<div class="content">
 		<form id="selectFriendForm" width="100px" method="post" action="">
-			<input type="text" class="input-text" id="friend_finder" />
-			<select id="occasionSelect" title="Please choose occasion">
-				<option value="occasion1">Any occasion</option>
-				<option value="occasion2">Birthday</option>
-				<option value="occasion3">Wedding</option>
-				<option value="occasion4">Graduation</option>
-	        </select>
-			<button type="submit" class="button blue big"><span><span>Let's rock!</span></span></button>
+	    	<ul class="formList">
+				<li class="friend inputContainer">
+				    <div class="inner">
+				    	<input type="text" class="input-text" id="friend_finder" />
+				    </div>
+				</li>
+				<li class="occasion inputContainer">
+				    <div class="inner">
+						<select id="occasionSelect" title="Please choose occasion">
+							<option value="occasion1">Any occasion</option>
+							<option value="occasion2">Birthday</option>
+							<option value="occasion3">Wedding</option>
+							<option value="occasion4">Graduation</option>
+				        </select>
+				    </div>
+				</li>
+			</ul>
+			<div class="buttonsContainer">
+				<button type="submit" class="button blue big"><span><span>Let's rock!</span></span></button>
+			</div>
 		</form>
-=======
-		<div class="popupTitle">
-			Select friend
 		</div>
-		<div class="container">
-			<form id="selectFriendForm" width="100px">
-			<input id="friend_finder" />
-			<button type="submit">Вперед!!</button>
-			</form>
->>>>>>> 712cc83aceaa93c944efacea4b9ac449ddd13c10
-		</div>
+		<div class="bow"></div>
 	</div>
+
 
 	<!-- PRODUCT DETAILS POPUP -->
 	<div class="productDetails" id="productDetails">
-		<div class="popupTitle">
-			Product details
-		</div>
-		<div class="product_details container" id="productDetailsContent">
-		</div>
+	    <div class="popupTitle">
+	    	Product details
+	    </div>
+	    <div class="product_details container" id="productDetailsContent">
+	    </div>
 	</div>
 
 	<!-- INVITE FRIENDS POPUP -->
 	<div class="inviteFriends" id="inviteFriendsPopup">
 		<div class="inviteBlock">
-<<<<<<< HEAD
 		    <div class="blockTitle">
 		    	Invite your friends
 		    </div>
@@ -182,36 +184,8 @@
 		    		<img src="@{'/public/images/userpic.png'}" alt="User Name" />
 		    	</li>
 		    </ul>
-=======
-			<div class="blockTitle">
-				Invite your friends
-			</div>
-			<ul class="tabs">
-				<li>
-					<a class="first" href="#mutual">
-						<span>Mutual Friends</span>
-					</a>
-				</li>
-				<li>
-					<a class="last" href="#all">
-						<span>All Friends</span>
-					</a>
-				</li>
-			</ul>
-			<div class="tab-container">
-				<div class="tab-content" id="mutual">
-					<p>Nothing here yet (mutual).</p>
-				</div>
-				<div class="tab-content" id="all">
-					<p>Nothing here yet (all).</p>
-				</div>
-			</div>
-		</div>
-		<div class="participantsBlock">
-			участники тут
->>>>>>> 712cc83aceaa93c944efacea4b9ac449ddd13c10
 		</div>
 		<div class="clear"></div>
 	</div>
 
-</div>
+</div> 

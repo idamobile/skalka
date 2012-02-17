@@ -30,6 +30,7 @@ $(document).ready(function($) {
 	// Initializing SELECT FRIEND popup
 	$('.changeFriend').fancybox({
 		scrolling: 'no',
+		modal: true,
 		padding: 0,
 		//openEffect : 'elastic',
 		openSpeed: 150,
@@ -40,9 +41,9 @@ $(document).ready(function($) {
 		helpers: {
 			overlay: {
 				css: {
-					'background-color': '#eee'
+					'background-color': '#000'
 				},
-				opacity: 0.5
+				opacity: 0.3
 			}
 		}
 	});
