@@ -198,6 +198,6 @@ public class Lists extends Application {
 		list.name = name;
 		list.save();
 
-		renderText("true");
+		renderText(name);
 	}
 }
