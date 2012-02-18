@@ -1,5 +1,11 @@
 #{list items:_products, as:'product'}
 	<div class="item" id="${product.id}" data-id="${product.id}">
+		#{if _inFeed}
+		<a class="productInFeed" href="#"  id="${product.id}">
+		#{/if}
+		#{else}
+		<a class="productInCuratorFeed" href="@{Products.productProfile(product.id)}"  id="${product.id}">
+		#{/else}
 		<div class="image-box">
 			<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
 			<div class="price">
@@ -11,6 +17,7 @@
 		<p class="description">
 	    	${product.descr}
 	    </p>
+	    </a>
 	    <div class="user-info">
 	    	<div class="user-img">
 	    		<img src="${product.getAuthor()?.getImageUrl()}" alt="user's image"/>
