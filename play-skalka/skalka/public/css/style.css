@@ -434,3 +434,9 @@ ul.ui-widget {
 .ui-menu .ui-menu-item a.ui-state-hover {
 	background: #BBBBFF;
 }
+
+/* Clears */
+.clear:after
+{ 
+	display:block; content:"."; clear:both; font-size:0; line-height:0; height:0; overflow:hidden;
+}

@@ -134,9 +134,10 @@ function ajaxAddProduct(){
 	
 	 values = {};
 	 inputs.each(function() {
+	 // alert(this.name+ '  '+ $(this).val());
 	  values[this.name] = $(this).val();
 	 });
-	
+	 values['imageUrl']= context.imageUrl;
 	 // Add product to the database
 	 $.post( url, values, function( data ) {
 	  if(data == 'true')
@@ -185,6 +186,8 @@ function ajaxProductParce(event){
 					buttons.remove();
 				}
 				images = data.imageUrls;
+				context.imageUrls = data.imageUrls
+				//alert('images'+images.length);
 				$.each(images, function (key, value) {
 					imgList.append('<li><img src="' + value + '"/></li>');
 				});
@@ -212,6 +215,7 @@ function initGalley(){
 		onChange: function (indSelected) {
 			// alert( "easy slider.onChange - " + indSelected.toString() );
 			setSelectedProductImageIndex( indSelected );
+			context.imageUrl = context.imageUrls[indSelected];
 		}
 	});
 }
