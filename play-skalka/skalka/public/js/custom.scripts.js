@@ -487,8 +487,10 @@ function initPageless() {
 		var optionz = {
 			url: "/lists/listPage",
 			params: { listId: context.listId },
+			totalPages: context.productPagesCount,
+			loaderMsg: "Loading, please wait..",
 			complete: function () {
-				alert("pageless complete");
+				// alert("pageless complete");
 				GridLayout.allPins();
 			}
 		}
