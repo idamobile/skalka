@@ -25,7 +25,7 @@ public class Friends extends Application {
 			new UserCategories(targetUser.id, catId).save();
 		}
 
-		Application.index(null, false);
+		Application.index(null, false, null);
 	}
 
 }
