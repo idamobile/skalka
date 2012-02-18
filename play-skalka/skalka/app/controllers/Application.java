@@ -104,7 +104,7 @@ public class Application extends Controller {
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree(targetUser);
 
-		render(categories, targetUser);
+		render(categories, targetUser, occasion);
 	}
 
 }
