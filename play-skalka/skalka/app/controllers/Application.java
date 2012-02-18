@@ -77,7 +77,7 @@ public class Application extends Controller {
 		Cache.add(session.get(SESSION_PARAM_TARGET_FRIEND), targetUser, Constants.CACHE_TIMEOUT);
 
 		if (UserCategories.count("byUserId", targetUser.id) == 0) {
-			Application.profile();
+			Application.profile(occasion);
 		} else {
 			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id);
 			if (createNewList || list == null) {
@@ -99,7 +99,7 @@ public class Application extends Controller {
 		session.remove(SESSION_PARAM_CURRENT_LIST);
 	}
 
-	public static void profile() {
+	public static void profile(String occasion) {
 
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 		Map<Category, List<Subcategory>> categories = Subcategory.getTree(targetUser);
