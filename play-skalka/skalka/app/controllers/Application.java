@@ -42,7 +42,7 @@ public class Application extends Controller {
 		}
 	}
 
-	public static void index(Long targetFbId, boolean createNewList) {
+	public static void index(Long targetFbId, boolean createNewList, String occasion) {
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		User targetUser = null;
 
@@ -81,7 +81,7 @@ public class Application extends Controller {
 		} else {
 			ProductsList list = ProductsList.fetchLatest(ownerUser.id, targetUser.id);
 			if (createNewList || list == null) {
-				Lists.create();
+				Lists.create(occasion);
 			}
 			Lists.listIndex(list.id);
 		}
@@ -90,7 +90,7 @@ public class Application extends Controller {
 
 	public static void logout() {
 		clearCookies();
-		index(null, false);
+		index(null, false, null);
 	}
 
 	private static void clearCookies() {
