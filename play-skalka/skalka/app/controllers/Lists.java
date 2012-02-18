@@ -207,7 +207,7 @@ public class Lists extends Application {
 			DB.execute("delete from collaborators where list_id = " + listId);
 			DB.execute("delete from user_actions_in_prod_list where list_id = " + listId);
 			DB.execute("delete from list_prod where list_id = " + listId);
-			DB.execute("delete from lists where list_id = " + listId);
+			DB.execute("delete from lists where id = " + listId);
 		} catch (Throwable e) {
 			Logger.error(e, "Unable to remove list");
 		}
