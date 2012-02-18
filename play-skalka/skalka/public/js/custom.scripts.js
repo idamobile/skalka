@@ -17,7 +17,7 @@ $(document).ready(function ($) {
     $('.eventName').editable("rename", { 
          submitdata   : {listId:context.listId},
          callback : function(value, settings) {
-             alert(value);
+             $("#headerListId_"+context.listId+" a").html(value);
          }
      });
 
