@@ -15,12 +15,7 @@ $(document).ready(function ($) {
 
     // editable list name
     $('.eventName').editable("rename", { 
-         submitdata   : {listId:context.listId},
-         callback : function(value, settings) {
-             console.log(this);
-             console.log(value);
-             console.log(settings);
-         }
+         submitdata   : {listId:context.listId}
      });
 
 	// Initializing ADD YOUR PRODUCT popup
