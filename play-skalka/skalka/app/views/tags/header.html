@@ -11,7 +11,7 @@
 				<li id="new"><a class="changeFriend expander" onclick="context.createNewList=true;" href="#selectFriend">Create a new list</a></li>
 	        	#{if _lists}
 	        		#{list items:_lists, as:'item'}
-	        			<li>
+	        			<li id="headerListId_${item.id}">
 	        				<img alt="Target user image" src="${models.User.findById(item.targetId).getImageUrl()}">
 	        				<a href="@{Lists.listIndex(item.id)}">${item.name}</a>
 	        			</li>

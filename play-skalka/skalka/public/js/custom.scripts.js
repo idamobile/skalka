@@ -17,9 +17,7 @@ $(document).ready(function ($) {
     $('.eventName').editable("rename", { 
          submitdata   : {listId:context.listId},
          callback : function(value, settings) {
-             console.log(this);
-             console.log(value);
-             console.log(settings);
+             alert(value);
          }
      });
 
