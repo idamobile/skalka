@@ -185,12 +185,12 @@ public class Lists extends Application {
 		Lists.listIndex(list.id);
 	}
 
-	public static void rename(long id, String name) {
+	public static void rename(long listId, String name) {
 		if (StringUtils.isEmpty(name)) {
 			renderText("false");
 		}
 
-		ProductsList list = ProductsList.findById(id);
+		ProductsList list = ProductsList.findById(listId);
 		if (list == null) {
 			renderText("false");
 		}
