@@ -177,6 +177,7 @@ public class Lists extends Application {
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 
+		Logger.error("Lists.create: occassion=" + occasion);
 		String name = "Gift for " + targetUser.firstName
 				+ (occasion != null ? "'s " + occasion : "");
 		ProductsList list = new ProductsList(name, ownerUser.id, targetUser.id);
