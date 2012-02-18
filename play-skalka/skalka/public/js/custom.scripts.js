@@ -138,7 +138,7 @@ function reloadBox(){
 	reloadLeftDiv(url, function (jqNewDiv) {
 		initLeftPanelDragDrop(jqNewDiv);
 	});
-}	
+}		
 
 function ajaxAddProduct(event){
 
