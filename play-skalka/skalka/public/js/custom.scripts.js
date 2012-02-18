@@ -326,38 +326,37 @@ var GridLayout = function () {
 	}
 } ();
 
-function initProfileEditor( selSubmitButton, urlSubmitAction )
-{
+function initProfileEditor(selSubmitButton, urlSubmitAction) {
 	// var selSubmit = "input#btnSubmit";
 	var setSelected = {};
 
-	$(document).ready( function() {
+	$(document).ready(function () {
 		setSelected = {};
 
 		var fnEnableSubmit = function () {
 			var count = 0;
-			for( var prop in setSelected )
+			for (var prop in setSelected)
 				count++;
-			if( count >= 5 )
-				$( selSubmitButton ).removeAttr("disabled");
+			if (count >= 5)
+				$(selSubmitButton).removeAttr("disabled");
 			else
-				$( selSubmitButton ).attr("disabled", true);
+				$(selSubmitButton).attr("disabled", true);
 		}
 
 		// count the items that are currently selected.
-		var selectedItems = $( "li.item.sel" );
-		selectedItems.each(function (e) {
-			setSelected[ e.id ] = true;
+		var selectedItems = $("li.item.sel");
+		selectedItems.each(function (ind, elt) {
+			setSelected[elt.id] = true;
 		});
 		fnEnableSubmit();
 
-		$( "li.item" ).click( function () {
-			var elt = $( this );
-			elt.toggleClass( "sel" );
-			if( elt.hasClass( "sel" ) )
-				setSelected[ this.id ] = true;
+		$("li.item").click(function () {
+			var elt = $(this);
+			elt.toggleClass("sel");
+			if (elt.hasClass("sel"))
+				setSelected[this.id] = true;
 			else
-				delete setSelected[ this.id ];
+				delete setSelected[this.id];
 			fnEnableSubmit();
 		})
 	})
