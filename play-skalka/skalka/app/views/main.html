@@ -22,12 +22,15 @@
 			context.targetFacebookId = "${targetFbId}";#{/if}#{if productPagesCount}
 			context.productPagesCount = ${productPagesCount};#{/if}
 			context.createNewList=true;
+			context.imageUrl="";
+			context.imageUrls=[];
 		</script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
 		<script type="text/javascript" src="@{'/public/js/friendcompleter.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/form.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery.pageless.js'}"></script>
+		<script type="text/javascript" src="@{'/public/js/jquery/jeditable/jeditable.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery/fancybox/jquery.fancybox.pack.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery/easy.slider/easySlider1.7.js'}"></script>
 		<script type="text/javascript" src="@{'/public/js/jquery/simple.tabs/tabs.js'}"></script>
