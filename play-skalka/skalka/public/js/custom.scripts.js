@@ -2,6 +2,12 @@
 
 $(document).ready(function ($) {
 
+    // editable list name
+    $('.eventName').editable('lists/rename', { 
+         id   : context.listId,
+         name : 'newvalue'
+     });
+
 	// Load the facebook SDK asynchronously
 	(function (d) {
 		var js, id = 'facebook-jssdk';
