@@ -2,10 +2,6 @@
 
 $(document).ready(function ($) {
 
-    // editable list name
-    //$('.eventName').editable("rename", { 
-    //     submitdata   : {listId:context.listId}
-    // });
 	// Load the facebook SDK asynchronously
 	(function (d) {
 		var js, id = 'facebook-jssdk';
@@ -16,6 +12,11 @@ $(document).ready(function ($) {
 		js.src = "//connect.facebook.net/en_US/all.js";
 		d.getElementsByTagName('head')[0].appendChild(js);
 	} (document))
+
+    // editable list name
+    $('.eventName').editable("rename", { 
+         submitdata   : {listId:context.listId}
+     });
 
 	// Initializing ADD YOUR PRODUCT popup
 	$('.submitIdea').fancybox({
@@ -63,7 +64,7 @@ $(document).ready(function ($) {
 		}
 	});
 
-	//Open product dialog in feed 
+
 	$('.productInFeed').click(function (event) {
 		event.preventDefault();
 		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId='+context.listId+'&clickedFromFeed=true', function () {
@@ -85,7 +86,7 @@ $(document).ready(function ($) {
 		friendCompleterSetup();
 		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
 			// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
-			$.form('/', { targetFbId: selectedObj.id, createNewList: context.createNewList }, 'GET').submit();
+			$.form('/', { targetFbId: selectedObj.id }, 'GET').submit();
 		});
 	};
 
@@ -105,13 +106,11 @@ $(document).ready(function ($) {
 
 	/* attach a submit handler to the form */
 	$("#productUrl").submit(function (event) {
-	 	event.preventDefault();
-		ajaxProductParce();
+		ajaxProductParce(event);
 	});
 
 	$('#productForm').submit(function (event) {
-	 	event.preventDefault();
-		ajaxAddProduct();
+		ajaxAddProduct(event);
 	});
 }); 
 
@@ -130,26 +129,27 @@ function setListnersOnIcons(){
 }
 
 
-function ajaxAddProduct(){
-	
-	 form = $('#productForm');
-	 url = form.attr( 'action' );
-	 inputs = $('#productForm input, textarea');
-	
-	 values = {};
-	 inputs.each(function() {
-	 // alert(this.name+ '  '+ $(this).val());
-	  values[this.name] = $(this).val();
-	 });
-	 values['imageUrl']= context.imageUrl;
-	 // Add product to the database
-	 $.post( url, values, function( data ) {
-	  if(data == 'true')
-	   //alert('Product Added!');
-       window.location.reload();
-	  else
-	   alert('Product was not added!');
-	 });
+function ajaxAddProduct(event){
+
+ event.preventDefault();
+
+ form = $('#productForm');
+ url = form.attr( 'action' );
+ inputs = $('#productForm input, textarea');
+
+ values = {};
+ inputs.each(function() {
+  values[this.name] = $(this).val();
+ });
+
+ // Add product to the database
+ $.post( url, values, function( data ) {
+  if(data == 'true')
+   //alert('Product Added!');
+   window.location.reload()
+  else
+   alert('Product was not added!');
+ });
 }
 
 function setSelectedProductImageIndex( indSelected ) {
@@ -162,6 +162,8 @@ function setSelectedProductImageIndex( indSelected ) {
 
 function ajaxProductParce(event){
 
+	/* stop form from submitting normally */
+	event.preventDefault(); 
 	
 	/* get some values from elements on the page: */
 	form = $('#productUrl');
@@ -190,8 +192,6 @@ function ajaxProductParce(event){
 					buttons.remove();
 				}
 				images = data.imageUrls;
-				context.imageUrls = data.imageUrls
-				//alert('images'+images.length);
 				$.each(images, function (key, value) {
 					imgList.append('<li><img src="' + value + '"/></li>');
 				});
@@ -219,7 +219,6 @@ function initGalley(){
 		onChange: function (indSelected) {
 			// alert( "easy slider.onChange - " + indSelected.toString() );
 			setSelectedProductImageIndex( indSelected );
-			context.imageUrl = context.imageUrls[indSelected];
 		}
 	});
 }
@@ -322,12 +321,9 @@ var GridLayout = function () {
 	}
 } ();
 
-function initProfileEditorSpec(submitSelector, actionUrl) {
-
-	if($(submitSelector).length <= 0 ) {
-		return;
-	}
-	
+function initProfileEditor()
+{
+	var selSubmit = "input#btnSubmit";
 	var setSelected = {};
 
 	$(document).ready( function() {
@@ -338,9 +334,9 @@ function initProfileEditorSpec(submitSelector, actionUrl) {
 			for( var prop in setSelected )
 				count++;
 			if( count >= 5 )
-				 $( submitSelector ).removeAttr( "disabled" );
+				 $( selSubmit ).removeAttr( "disabled" );
 			else
-				 $( submitSelector ).attr( "disabled", true );
+				 $( selSubmit ).attr( "disabled", true );
 		}
 
 		// count the items that are currently selected.
@@ -361,7 +357,7 @@ function initProfileEditorSpec(submitSelector, actionUrl) {
 		})
 	})
 
-	$(submitSelector).click(function() {
+	$(selSubmit).click(function() {
 		var arg = "";
 		for( var prop in setSelected )
 		{
@@ -369,15 +365,8 @@ function initProfileEditorSpec(submitSelector, actionUrl) {
 				arg += "&";
 			arg += ( "catIds=" + prop );
 		}
-		window.location.href = actionUrl + arg;
+		window.location.href = "/friends/addCategories?" + arg;
 	});
-
-}
-
-function initProfileEditor()
-{
-	initProfileEditorSpec("input#btnSubmit", "/friends/addCategories?");
-	initProfileEditorSpec("input#btnSubmitProductCategories", "/products/addCategories?");
 }
 
 function reloadLeftDiv(url, fnReInitLeftPanel) {
@@ -483,10 +472,8 @@ function initItemsDragDrop(selDrag, selDrop) {
 function initPageless() {
 	$(document).ready(function ($) {
 		var optionz = {
-			// url: "/lists/listPage",
-			url: context.nextPageUrl,
-			// params: { listId: context.listId },
-			params: context.nextPageParams,
+			url: "/lists/listPage",
+			params: { listId: context.listId },
 			complete: function () {
 				alert("pageless complete");
 				GridLayout.allPins();
