@@ -185,19 +185,19 @@ public class Lists extends Application {
 		Lists.listIndex(list.id);
 	}
 
-	public static void rename(long id, String name) {
-		if (StringUtils.isEmpty(name)) {
+	public static void rename(long listId, String value) {
+		if (StringUtils.isEmpty(value)) {
 			renderText("false");
 		}
 
-		ProductsList list = ProductsList.findById(id);
+		ProductsList list = ProductsList.findById(listId);
 		if (list == null) {
 			renderText("false");
 		}
 
-		list.name = name;
+		list.name = value;
 		list.save();
 
-		renderText("true");
+		renderText(value);
 	}
 }
