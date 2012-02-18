@@ -122,6 +122,8 @@ public class Lists extends Application {
 		// productId)
 		// .first();
 		try {
+			DB.execute("delete from user_actions_in_prod_list where list_id = " + listId
+					+ " and product_id = " + productId);
 			DB.execute("delete from list_prod where list_id = " + listId + " and product_id = "
 					+ productId);
 			// pl.delete();
