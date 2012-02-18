@@ -209,7 +209,7 @@ public class Lists extends Application {
 			DB.execute("delete from list_prod where list_id = " + listId);
 			DB.execute("delete from lists where list_id = " + listId);
 		} catch (Throwable e) {
-			Logger.error("Unable to remove list", e);
+			Logger.error(e, "Unable to remove list");
 		}
 
 		Application.index(null, false, null);
