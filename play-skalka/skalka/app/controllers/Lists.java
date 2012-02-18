@@ -185,8 +185,8 @@ public class Lists extends Application {
 		Lists.listIndex(list.id);
 	}
 
-	public static void rename(long listId, String name) {
-		if (StringUtils.isEmpty(name)) {
+	public static void rename(long listId, String value) {
+		if (StringUtils.isEmpty(value)) {
 			renderText("false");
 		}
 
@@ -195,9 +195,9 @@ public class Lists extends Application {
 			renderText("false");
 		}
 
-		list.name = name;
+		list.name = value;
 		list.save();
 
-		renderText("true");
+		renderText(value);
 	}
 }
