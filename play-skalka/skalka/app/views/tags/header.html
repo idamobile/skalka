@@ -6,11 +6,12 @@
         
         <div class="giftLists select active">
         	<p class="label">My gift lists</p>
+			<p class="expander">&nbsp;</p>
 			<ul class="dropDownMenu" id="giftListsMenu">
 				<li id="new"><a class="changeFriend expander" onclick="context.createNewList=true;" href="#selectFriend">Create a new list</a></li>
 	        	#{if _lists}
 	        		#{list items:_lists, as:'item'}
-	        			<li>
+	        			<li id="headerListId_${item.id}">
 	        				<img alt="Target user image" src="${models.User.findById(item.targetId).getImageUrl()}">
 	        				<a href="@{Lists.listIndex(item.id)}">${item.name}</a>
 	        			</li>
@@ -21,6 +22,7 @@
         
         <div class="myFeed select">
 			<p class="label">Curation</p>
+			<p class="expander">&nbsp;</p>
 			<ul class="dropDownMenu" id="feedMenu">
         		<li id="submitGiftitem">
         			<a class="submitIdea" href="#addProduct">Submit gift idea</a>
@@ -35,6 +37,7 @@
         <div class="user select">
         	<!--<img alt="user's image" src="${_user.getImageUrl()}">-->
 			<p class="label">${_user}</p>
+			<p class="expander">&nbsp;</p>
 			<ul class="dropDownMenu" id="userMenu">
 				<li id="logout">
 					<a href="@{Application.logout()}">Logout</a>
