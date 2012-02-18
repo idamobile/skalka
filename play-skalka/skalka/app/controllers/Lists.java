@@ -134,7 +134,8 @@ public class Lists extends Application {
 	}
 
 	public static void renderProductList(long listId) {
-		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
+		ProductsList pl = ProductsList.findById(listId);
+		User targetUser = User.findById(pl.targetId);
 		ProductsList giftBox = ProductsList.findById(listId);
 		List<Product> list = createSidebarList(listId);
 		render(list, targetUser, giftBox);
