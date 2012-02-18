@@ -15,12 +15,7 @@ $(document).ready(function ($) {
 
     // editable list name
     $('.eventName').editable("rename", { 
-         submitdata   : {listId:context.listId},
-         callback : function(value, settings) {
-             console.log(this);
-             console.log(value);
-             console.log(settings);
-         }
+         submitdata   : {listId:context.listId}
      });
 
 	// Initializing ADD YOUR PRODUCT popup
@@ -352,8 +347,8 @@ function initProfileEditor()
 
 		// count the items that are currently selected.
 		var selectedItems = $( "li.item.sel" );
-		selectedItems.each(function (e) {
-			setSelected[ e.id ] = true;
+		selectedItems.each(function (ind, elt) {
+			setSelected[ elt.id ] = true;
 		});
 		fnEnableSubmit();
 
@@ -486,7 +481,7 @@ function initPageless() {
 			url: "/lists/listPage",
 			params: { listId: context.listId },
 			complete: function () {
-				alert("pageless complete");
+				// alert("pageless complete");
 				GridLayout.allPins();
 			}
 		}
