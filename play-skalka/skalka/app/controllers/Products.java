@@ -249,7 +249,7 @@ public class Products extends Application {
 		JPAQuery query = Product.find("addedBy = ? ORDER BY addedWhen DESC", user.id);
 		List<Product> products = query.fetch();
 
-		String nextPageUrl = "/products/listUserProducts";
+		String nextPageUrl = "/products/listUserProductsPage";
 
 		renderArgs.put("productPagesCount", 100);
 
