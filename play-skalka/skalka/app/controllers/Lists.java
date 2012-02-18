@@ -202,4 +202,16 @@ public class Lists extends Application {
 		renderText(value);
 	}
 
+	public static void remove(long listId) {
+		try {
+			DB.execute("delete from collaborators where list_id = " + listId);
+			DB.execute("delete from user_actions_in_prod_list where list_id = " + listId);
+			DB.execute("delete from list_prod where list_id = " + listId);
+			DB.execute("delete from lists where list_id = " + listId);
+		} catch (Throwable e) {
+			Logger.error("Unable to remove list", e);
+		}
+
+	}
+
 }
