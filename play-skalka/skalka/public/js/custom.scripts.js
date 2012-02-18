@@ -337,8 +337,8 @@ function initProfileEditorSpec(submitSelector, actionUrl) {
 
 		// count the items that are currently selected.
 		var selectedItems = $( "li.item.sel" );
-		selectedItems.each(function (e) {
-			setSelected[ e.id ] = true;
+		selectedItems.each(function (ind, elt) {
+			setSelected[ elt.id ] = true;
 		});
 		fnEnableSubmit();
 
