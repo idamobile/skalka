@@ -128,6 +128,12 @@ function setListnersOnIcons(){
 	});
 }
 
+function reloadBox(){
+	var url = "/lists/addProduct";
+	reloadLeftDiv(url, function (jqNewDiv) {
+		initLeftPanelDragDrop(jqNewDiv);
+	});
+}	
 
 function ajaxAddProduct(event){
 
