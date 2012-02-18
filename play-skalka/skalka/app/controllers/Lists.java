@@ -200,4 +200,8 @@ public class Lists extends Application {
 
 		renderText(value);
 	}
+
+	public static void pagesCount() {
+		renderText(Product.pagesCount(null));
+	}
 }
