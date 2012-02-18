@@ -129,7 +129,7 @@ function setListnersOnIcons(){
 }
 
 function reloadBox(){
-	var url = "/lists/addProduct";
+	var url = "/lists/addProduct?listId=" + context.listId;
 	reloadLeftDiv(url, function (jqNewDiv) {
 		initLeftPanelDragDrop(jqNewDiv);
 	});
