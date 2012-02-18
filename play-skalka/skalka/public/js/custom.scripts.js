@@ -17,9 +17,7 @@ $(document).ready(function ($) {
     $('.eventName').editable("rename", { 
          submitdata   : {listId:context.listId},
          callback : function(value, settings) {
-             console.log(this);
-             console.log(value);
-             console.log(settings);
+             alert(value);
          }
      });
 
@@ -133,6 +131,12 @@ function setListnersOnIcons(){
 	});
 }
 
+function reloadBox(){
+	var url = "/lists/addProduct?listId=" + context.listId;
+	reloadLeftDiv(url, function (jqNewDiv) {
+		initLeftPanelDragDrop(jqNewDiv);
+	});
+}		
 
 function ajaxAddProduct(event){
 
@@ -346,8 +350,8 @@ function initProfileEditor( selSubmitButton, urlSubmitAction )
 
 		// count the items that are currently selected.
 		var selectedItems = $( "li.item.sel" );
-		selectedItems.each(function (ind, elt) {
-			setSelected[ elt.id ] = true;
+		selectedItems.each(function (e) {
+			setSelected[ e.id ] = true;
 		});
 		fnEnableSubmit();
 
@@ -480,7 +484,7 @@ function initPageless() {
 			url: "/lists/listPage",
 			params: { listId: context.listId },
 			complete: function () {
-				// alert("pageless complete");
+				alert("pageless complete");
 				GridLayout.allPins();
 			}
 		}

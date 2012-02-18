@@ -78,15 +78,19 @@
 	height: 18px;
 	padding-right: 11px;
 	border-right: 1px solid #bfbfbf;
-	margin-right: 25px;
+	float: left;
 }
 .header .select .expander {
 	float: right;
 	width: 25px;
-	background: transparent url(/public/images/icons/arrow_select.gif) no-repeat 50% 50%;
+	line-height: 18px;
+	height: 18px;
+	display: block;
+	text-indent: -9999em;
+	background: transparent url(/public/images/icons/arrow_select.gif) no-repeat 50% 6px;
 }
 .header .select:hover .expander {
-	background: transparent url(/public/images/icons/arrow_select.gif) no-repeat 50% -20px;
+	background: transparent url(/public/images/icons/arrow_select.gif) no-repeat 50% -39px;
 }
 .header .select.active {
 	border-top: 4px solid #00c0ea;
@@ -105,7 +109,7 @@
 .header .dropDownMenu {
 	display: none;
 	position: absolute;
-	left: 0px;
+	left: -9999px;
 	top: 45px;
 	z-index: 100;
 	background: #fff;
@@ -129,7 +133,8 @@
 	clear: both;  
 }
 .header .select:hover .dropDownMenu {
-
+	display: block;
+	left: 0px;
 }
 
 .header .myFeed #submitGiftitem {
