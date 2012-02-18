@@ -507,6 +507,7 @@ function initPageless() {
 			params: { listId: context.listId },
 			totalPages: context.productPagesCount,
 			loaderMsg: "Loading, please wait..",
+			loaderHtml: "<div style='display:none;'></div>",
 			complete: function () {
 				// alert("pageless complete");
 				GridLayout.allPins();
