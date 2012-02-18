@@ -35,7 +35,8 @@ public class Collaborator extends GenericModel {
 	public static void addUsers(List<Long> users, Long listId) {
 		for (Long userId : users) {
 			try {
-				new Collaborator(userId, listId).save();
+				User user = User.ensureUser(userId);
+				new Collaborator(user.id, listId).save();
 			} catch (Throwable e) {
 				Logger.error("Unable to add userId: " + userId, e);
 			}
@@ -56,7 +57,8 @@ public class Collaborator extends GenericModel {
 
 	public static void removeUsers(List<Long> users, Long listId) {
 		for (Long userId : users) {
-			Collaborator.delete("userId = ? AND listId = ?", userId, listId);
+			User user = User.findByFacebookId(userId);
+			Collaborator.delete("userId = ? AND listId = ?", user.id, listId);
 		}
 	}
 

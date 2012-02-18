@@ -65,7 +65,7 @@ $(document).ready(function ($) {
 		}
 	});
 
-
+	//Open product dialog in feed 
 	$('.productInFeed').click(function (event) {
 		event.preventDefault();
 		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId='+context.listId+'&clickedFromFeed=true', function () {
@@ -87,7 +87,7 @@ $(document).ready(function ($) {
 		friendCompleterSetup();
 		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
 			// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
-			$.form('/', { targetFbId: selectedObj.id }, 'GET').submit();
+			$.form('/', { targetFbId: selectedObj.id, createNewList: context.createNewList }, 'GET').submit();
 		});
 	};
 
@@ -107,11 +107,13 @@ $(document).ready(function ($) {
 
 	/* attach a submit handler to the form */
 	$("#productUrl").submit(function (event) {
-		ajaxProductParce(event);
+	 	event.preventDefault();
+		ajaxProductParce();
 	});
 
 	$('#productForm').submit(function (event) {
-		ajaxAddProduct(event);
+	 	event.preventDefault();
+		ajaxAddProduct();
 	});
 }); 
 
@@ -130,27 +132,26 @@ function setListnersOnIcons(){
 }
 
 
-function ajaxAddProduct(event){
-
- event.preventDefault();
-
- form = $('#productForm');
- url = form.attr( 'action' );
- inputs = $('#productForm input, textarea');
-
- values = {};
- inputs.each(function() {
-  values[this.name] = $(this).val();
- });
-
- // Add product to the database
- $.post( url, values, function( data ) {
-  if(data == 'true')
-   //alert('Product Added!');
-   window.location.reload()
-  else
-   alert('Product was not added!');
- });
+function ajaxAddProduct(){
+	
+	 form = $('#productForm');
+	 url = form.attr( 'action' );
+	 inputs = $('#productForm input, textarea');
+	
+	 values = {};
+	 inputs.each(function() {
+	 // alert(this.name+ '  '+ $(this).val());
+	  values[this.name] = $(this).val();
+	 });
+	 values['imageUrl']= context.imageUrl;
+	 // Add product to the database
+	 $.post( url, values, function( data ) {
+	  if(data == 'true')
+	   //alert('Product Added!');
+       window.location.reload();
+	  else
+	   alert('Product was not added!');
+	 });
 }
 
 function setSelectedProductImageIndex( indSelected ) {
@@ -163,8 +164,6 @@ function setSelectedProductImageIndex( indSelected ) {
 
 function ajaxProductParce(event){
 
-	/* stop form from submitting normally */
-	event.preventDefault(); 
 	
 	/* get some values from elements on the page: */
 	form = $('#productUrl');
@@ -193,6 +192,8 @@ function ajaxProductParce(event){
 					buttons.remove();
 				}
 				images = data.imageUrls;
+				context.imageUrls = data.imageUrls
+				//alert('images'+images.length);
 				$.each(images, function (key, value) {
 					imgList.append('<li><img src="' + value + '"/></li>');
 				});
@@ -220,6 +221,7 @@ function initGalley(){
 		onChange: function (indSelected) {
 			// alert( "easy slider.onChange - " + indSelected.toString() );
 			setSelectedProductImageIndex( indSelected );
+			context.imageUrl = context.imageUrls[indSelected];
 		}
 	});
 }
@@ -322,9 +324,12 @@ var GridLayout = function () {
 	}
 } ();
 
-function initProfileEditor()
-{
-	var selSubmit = "input#btnSubmit";
+function initProfileEditorSpec(submitSelector, actionUrl) {
+
+	if($(submitSelector).length <= 0 ) {
+		return;
+	}
+	
 	var setSelected = {};
 
 	$(document).ready( function() {
@@ -335,9 +340,9 @@ function initProfileEditor()
 			for( var prop in setSelected )
 				count++;
 			if( count >= 5 )
-				 $( selSubmit ).removeAttr( "disabled" );
+				 $( submitSelector ).removeAttr( "disabled" );
 			else
-				 $( selSubmit ).attr( "disabled", true );
+				 $( submitSelector ).attr( "disabled", true );
 		}
 
 		// count the items that are currently selected.
@@ -358,7 +363,7 @@ function initProfileEditor()
 		})
 	})
 
-	$(selSubmit).click(function() {
+	$(submitSelector).click(function() {
 		var arg = "";
 		for( var prop in setSelected )
 		{
@@ -366,8 +371,15 @@ function initProfileEditor()
 				arg += "&";
 			arg += ( "catIds=" + prop );
 		}
-		window.location.href = "/friends/addCategories?" + arg;
+		window.location.href = actionUrl + arg;
 	});
+
+}
+
+function initProfileEditor()
+{
+	initProfileEditorSpec("input#btnSubmit", "/friends/addCategories?");
+	initProfileEditorSpec("input#btnSubmitProductCategories", "/products/addCategories?");
 }
 
 function reloadLeftDiv(url, fnReInitLeftPanel) {
@@ -473,8 +485,10 @@ function initItemsDragDrop(selDrag, selDrop) {
 function initPageless() {
 	$(document).ready(function ($) {
 		var optionz = {
-			url: "/lists/listPage",
-			params: { listId: context.listId },
+			// url: "/lists/listPage",
+			url: context.nextPageUrl,
+			// params: { listId: context.listId },
+			params: context.nextPageParams,
 			complete: function () {
 				alert("pageless complete");
 				GridLayout.allPins();

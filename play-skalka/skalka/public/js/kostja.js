@@ -8,9 +8,11 @@ $(document).ready(function ($) {
 		//openEffect : 'elastic',
 		openSpeed: 150,
 
-		//beforeLoad: function() { 
-		//	alert("invite friends");
-		//},
+		beforeLoad: function() { 
+			$.get("/lists/"+context.listId+"/collaborators", function (data) {
+				$("#participantsList").html(data);
+			});
+		},
 		//closeEffect : 'elastic',
 		closeSpeed: 150,
 		minHeight: 0,
@@ -69,12 +71,29 @@ $(document).ready(function ($) {
 					method: 'send',					
 					api_key: '270568069679176',					
 					name: 'Skalka',
-					link: 'http://project.idamob.ru:9000/lists/45',
+					link: window.location.href,
 					display: 'popup',					
 					to: arrFBIDs
 				},
 					function (response) {
-						alert(response);
+						if(response == null){
+						}else{
+							var url = "";
+							if(arrFBIDs.length==0){
+								url = "/lists/"+context.listId+"/collaborators";
+							}else{
+								for (i=0;i<arrFBIDs.length;i++) {
+									if (i==0){
+										var url = "/lists/"+context.listId+"/collaborators/add?userIds=" + arrFBIDs[i];
+									}else{
+								    	url = url + "&userIds=" + arrFBIDs[i];
+									}
+								}
+							}
+							$.get(url, function (data) {
+								$("#participantsList").html(data);
+							});
+						}
 					}); 
 
 			});
