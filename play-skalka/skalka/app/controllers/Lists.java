@@ -212,6 +212,8 @@ public class Lists extends Application {
 			Logger.error("Unable to remove list", e);
 		}
 
+		Application.index(null, false, null);
+
 	}
 
 }
