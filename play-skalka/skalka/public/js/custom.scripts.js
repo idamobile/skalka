@@ -13,13 +13,7 @@ $(document).ready(function ($) {
 		d.getElementsByTagName('head')[0].appendChild(js);
 	} (document))
 
-    // editable list name
-    $('.eventName').editable("rename", { 
-         submitdata   : {listId:context.listId},
-         callback : function(value, settings) {
-             $("#headerListId_"+context.listId+" a").html(value);
-         }
-     });
+	listNameChangeHandler();
 
 	// Initializing ADD YOUR PRODUCT popup
 	$('.submitIdea').fancybox({
@@ -116,6 +110,8 @@ $(document).ready(function ($) {
 		ajaxAddProduct(event);
 	});
 }); 
+
+
 
 function setListnersOnIcons(){
 	$('.product_icon').click(function (event){
@@ -377,10 +373,22 @@ function initProfileEditor(selSubmitButton, urlSubmitAction) {
 	});
 }
 
-function reloadLeftDiv(url, fnReInitLeftPanel) {
 
-	if(context.boxReloading){
+function listNameChangeHandler() {
+ 	$('.eventName').click(function (){context.boxReloading = true;});
+    $('.eventName').editable("rename", { 
+         submitdata   : {listId:context.listId},
+         callback : function(value, settings) {
+             $("#headerListId_"+context.listId+" a").html(value);
+			 context.boxReloading = false;
+         }
+     });
+}
+
+function reloadLeftDiv(url, fnReInitLeftPanel) {
+	if(context.boxReloading==false){
 		context.boxReloading = true;
+		listNameChangeHandler();
 		var fetchDiv = $("div#dragDropTmp");
 		if (fetchDiv.length > 0)
 			fetchDiv.empty();

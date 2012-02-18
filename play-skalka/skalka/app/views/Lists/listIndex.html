@@ -19,33 +19,7 @@
     		<div class="grid-layout" id="grid-wrapper">
     		<div class="feed" id="items-container">
     		<a class="openProductDetails" href="#productDetails"></a>
-    		#{list items:products, as:'product'}
-    			<div class="item" id="${product.id}" data-id="${product.id}">
-					<a class="productInFeed" href="#"  id="${product.id}">
-	    				<div class="image-box">
-	    					<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
-	    					<div class="price">
-	    						<div>
-	    							${product.getPrice()}
-	    						</div>
-	    					</div>
-	    				</div>
-	    				<p class="description">
-	    			    	${product.descr}
-	    			    </p>
-					</a>
-    			    <div class="user-info">
-    			    	<div class="user-img">
-    			    		<img src="${product.getAuthor()?.getImageUrl()}" alt="user's image"/>
-    			    	</div>
-    			    	<p class="user-name">
-    			    		Submitted by <span>${product.getAuthor()}</span>
-    			    	</p>
-    			    	<div class="clear"></div>
-    			    </div>
-    			</div>
-    		#{/list}
-    		
+				#{product products: products/}    		
     		</div>
     		</div>
     		
