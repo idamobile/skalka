@@ -32,7 +32,6 @@ import play.libs.Images;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Before;
-import play.mvc.Http.Response;
 import play.mvc.Scope.Params;
 import play.mvc.Scope.Session;
 import utils.Constants;
@@ -136,19 +135,19 @@ public class Products extends Application {
 
 	public static void imageFeed(long id) {
 		Product p = Product.findById(id);
-		Response.current().cacheFor("3h");
+		response.setHeader("Cache-Control", "max-age=3600");
 		renderBinary(new File(Blob.getStore(), p.imageFeed));
 	}
 
 	public static void imageDetails(long id) {
 		Product p = Product.findById(id);
-		Response.current().cacheFor("3h");
+		response.setHeader("Cache-Control", "max-age=3600");
 		renderBinary(new File(Blob.getStore(), p.imageDetails));
 	}
 
 	public static void imageList(long id) {
 		Product p = Product.findById(id);
-		Response.current().cacheFor("3h");
+		response.setHeader("Cache-Control", "max-age=3600");
 		renderBinary(new File(Blob.getStore(), p.imageList));
 	}
 
