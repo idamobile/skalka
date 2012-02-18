@@ -83,7 +83,7 @@ $(document).ready(function ($) {
 		friendCompleterSetup();
 		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
 			// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
-			$.form('/', { targetFbId: selectedObj.id }, 'GET').submit();
+			context.fbFriendSelected=selectedObj.id;
 		});
 	};
 
@@ -111,6 +111,14 @@ $(document).ready(function ($) {
 	});
 }); 
 
+function submitFriendForm(){
+	if(context.fbFriendSelected != null){
+		$.form('/', { targetFbId: context.fbFriendSelected, occasion:context.occasion }, 'GET').submit();
+	}else{
+		alert("You sould select a friend using a picker.");
+	}	
+	context.fbFriendSelected=null;
+}
 
 
 function setListnersOnIcons(){
