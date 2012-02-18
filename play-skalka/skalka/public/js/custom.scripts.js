@@ -3,9 +3,9 @@
 $(document).ready(function ($) {
 
     // editable list name
-    $('.eventName').editable("rename", { 
-         submitdata   : {listId:context.listId}
-     });
+    //$('.eventName').editable("rename", { 
+    //     submitdata   : {listId:context.listId}
+    // });
 	// Load the facebook SDK asynchronously
 	(function (d) {
 		var js, id = 'facebook-jssdk';
