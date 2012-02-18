@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import play.Logger;
@@ -87,12 +85,6 @@ public class ProductsList extends Model {
 		return lists;
 	}
 
-	@PreUpdate
-	@PrePersist
-	public void updateTime() {
-		lastUpdated = new Date();
-	}
-
 	public boolean addProduct(Long productId) {
 
 		if (Product.findById(productId) == null) {
@@ -109,6 +101,7 @@ public class ProductsList extends Model {
 		try {
 			pil.save();
 			productsInList.add(pil);
+			lastUpdated = new Date();
 			save();
 		} catch (Throwable t) {
 			Logger.error("Unable to add product to list", t);
