@@ -74,7 +74,7 @@ public class Lists extends Application {
 
 	public static void listPage(long listId, long page) {
 		page = (page < 1) ? 1 : page;
-		long startIndex = page * Constants.PRODUCTS_PAGE_SIZE;
+		long startIndex = (page - 1) * Constants.PRODUCTS_PAGE_SIZE;
 		List<Product> products = Products.getOrderedList(listId, startIndex);
 
 		render(products);
@@ -100,7 +100,7 @@ public class Lists extends Application {
 
 		String nextPageUrl = "/lists/listPage";
 
-		renderArgs.put("productPagesCount", Product.pagesCount(null));
+		renderArgs.put("productPagesCount", 100);
 
 		render(products, list, targetUser, myLists, listId, nextPageUrl, giftBox);
 	}
@@ -201,7 +201,4 @@ public class Lists extends Application {
 		renderText(value);
 	}
 
-	public static void pagesCount() {
-		renderText(Product.pagesCount(null));
-	}
 }

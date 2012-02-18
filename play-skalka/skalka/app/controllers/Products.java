@@ -251,7 +251,7 @@ public class Products extends Application {
 
 		String nextPageUrl = "/products/listUserProducts";
 
-		renderArgs.put("productPagesCount", Product.pagesCount(user.id));
+		renderArgs.put("productPagesCount", 100);
 
 		render(products, nextPageUrl);
 	}
