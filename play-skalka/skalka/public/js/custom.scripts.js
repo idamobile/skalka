@@ -388,11 +388,11 @@ function reloadLeftDiv(url, fnReInitLeftPanel) {
 	}
 	fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
 		// alert("Some content fetched.");
-		$("#giftListDropTarget").fadeOut(null, function () {
+		$("#giftListDropTarget").fadeOut(0, function () {
 			$(this).replaceWith($("#giftListDropTargetUpdated"));
 			$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
 			var jqNewDiv = $('#giftListDropTarget');
-			jqNewDiv.fadeIn(null);
+			jqNewDiv.fadeIn(0);
 			fnReInitLeftPanel(jqNewDiv);
 		});
 	});
