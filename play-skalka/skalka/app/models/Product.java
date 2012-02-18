@@ -136,6 +136,8 @@ public class Product extends Model {
 			count = Product.count("byAddedBy", ownerId);
 		}
 
+		System.out.println("Products count: " + count);
+
 		long pc = count / Constants.PRODUCTS_PAGE_SIZE
 				+ (count % Constants.PRODUCTS_PAGE_SIZE != 0 ? 1 : 0);
 		return pc;
