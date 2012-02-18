@@ -8,6 +8,7 @@ import models.ProductsList;
 import models.Subcategory;
 import models.User;
 import models.UserCategories;
+import play.Logger;
 import play.cache.Cache;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -43,7 +44,7 @@ public class Application extends Controller {
 	}
 
 	public static void index(Long targetFbId, boolean createNewList, String occasion) {
-		System.out.println("occassion=" + occasion);
+		Logger.error("occassion=" + occasion);
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		User targetUser = null;
 
