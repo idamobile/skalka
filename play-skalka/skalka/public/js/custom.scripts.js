@@ -17,7 +17,7 @@ $(document).ready(function ($) {
     $('.eventName').editable("rename", { 
          submitdata   : {listId:context.listId},
          callback : function(value, settings) {
-             alert(value);
+             $("#headerListId_"+context.listId+" a").html(value);
          }
      });
 
@@ -330,9 +330,9 @@ var GridLayout = function () {
 	}
 } ();
 
-function initProfileEditor()
+function initProfileEditor( selSubmitButton, urlSubmitAction )
 {
-	var selSubmit = "input#btnSubmit";
+	// var selSubmit = "input#btnSubmit";
 	var setSelected = {};
 
 	$(document).ready( function() {
@@ -343,9 +343,9 @@ function initProfileEditor()
 			for( var prop in setSelected )
 				count++;
 			if( count >= 5 )
-				 $( selSubmit ).removeAttr( "disabled" );
+				$( selSubmitButton ).removeAttr("disabled");
 			else
-				 $( selSubmit ).attr( "disabled", true );
+				$( selSubmitButton ).attr("disabled", true);
 		}
 
 		// count the items that are currently selected.
@@ -366,19 +366,20 @@ function initProfileEditor()
 		})
 	})
 
-	$(selSubmit).click(function() {
+	$(selSubmitButton).click(function () {
 		var arg = "";
-		for( var prop in setSelected )
-		{
-			if( arg != "" )
+		for (var prop in setSelected) {
+			if (arg != "")
 				arg += "&";
-			arg += ( "catIds=" + prop );
+			arg += ("catIds=" + prop);
 		}
-		window.location.href = "/friends/addCategories?" + arg;
+		// window.location.href = "/friends/addCategories?" + arg;
+		window.location.href = urlSubmitAction + arg;
 	});
 }
 
 function reloadLeftDiv(url, fnReInitLeftPanel) {
+
 	if(context.boxReloading){
 		context.boxReloading = true;
 		var fetchDiv = $("div#dragDropTmp");
@@ -390,11 +391,11 @@ function reloadLeftDiv(url, fnReInitLeftPanel) {
 		}
 		fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
 			// alert("Some content fetched.");
-			$("#giftListDropTarget").fadeOut(null, function () {
+			$("#giftListDropTarget").fadeOut(0, function () {
 				$(this).replaceWith($("#giftListDropTargetUpdated"));
 				$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
 				var jqNewDiv = $('#giftListDropTarget');
-				jqNewDiv.fadeIn(null);
+				jqNewDiv.fadeIn(0);
 				fnReInitLeftPanel(jqNewDiv);
 			});
 		});
