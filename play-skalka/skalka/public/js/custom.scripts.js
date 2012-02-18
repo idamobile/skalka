@@ -4,8 +4,7 @@ $(document).ready(function ($) {
 
     // editable list name
     $('.eventName').editable('lists/rename', { 
-         listId   : context.listId,
-         name : 'newvalue'
+         submitdata   : {listId:context.listId, name : 'newvalue'};
      });
 
 	// Load the facebook SDK asynchronously
