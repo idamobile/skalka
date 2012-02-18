@@ -381,23 +381,27 @@ function initProfileEditor()
 }
 
 function reloadLeftDiv(url, fnReInitLeftPanel) {
-	var fetchDiv = $("div#dragDropTmp");
-	if (fetchDiv.length > 0)
-		fetchDiv.empty();
-	else {
-		fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
-		$("body").append(fetchDiv);
-	}
-	fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
-		// alert("Some content fetched.");
-		$("#giftListDropTarget").fadeOut(null, function () {
-			$(this).replaceWith($("#giftListDropTargetUpdated"));
-			$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
-			var jqNewDiv = $('#giftListDropTarget');
-			jqNewDiv.fadeIn(null);
-			fnReInitLeftPanel(jqNewDiv);
+	if(context.boxReloading){
+		context.boxReloading = true;
+		var fetchDiv = $("div#dragDropTmp");
+		if (fetchDiv.length > 0)
+			fetchDiv.empty();
+		else {
+			fetchDiv = $("<div id='dragDropTmp' style='display:none;'></div>")
+			$("body").append(fetchDiv);
+		}
+		fetchDiv.load(url, null, function (responseText, textStatus, XMLHttpRequest) {
+			// alert("Some content fetched.");
+			$("#giftListDropTarget").fadeOut(null, function () {
+				$(this).replaceWith($("#giftListDropTargetUpdated"));
+				$("#giftListDropTargetUpdated").attr("id", "giftListDropTarget");
+				var jqNewDiv = $('#giftListDropTarget');
+				jqNewDiv.fadeIn(null);
+				fnReInitLeftPanel(jqNewDiv);
+			});
 		});
-	});
+		context.boxReloading = false;
+	}
 }
 
 function addProductToList(idProduct) {
