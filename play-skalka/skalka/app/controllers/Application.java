@@ -43,6 +43,7 @@ public class Application extends Controller {
 	}
 
 	public static void index(Long targetFbId, boolean createNewList, String occasion) {
+		System.out.println("occassion=" + occasion);
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		User targetUser = null;
 
