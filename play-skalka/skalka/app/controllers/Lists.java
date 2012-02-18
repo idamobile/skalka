@@ -112,8 +112,7 @@ public class Lists extends Application {
 			Logger.error("Unable to add product to list");
 		}
 
-		User targetUser = User.findById(list.targetId);
-		renderProductList(listId, targetUser);
+		renderProductList(listId);
 	}
 
 	public static void removeProductFromList(long listId, long productId) {
@@ -131,12 +130,11 @@ public class Lists extends Application {
 			Logger.error("Unable to remove product from list", t);
 		}
 
-		ProductsList pList = ProductsList.findById(listId);
-		User targetUser = User.findById(pList.targetId);
-		renderProductList(listId, targetUser);
+		renderProductList(listId);
 	}
 
-	public static void renderProductList(long listId, User targetUser) {
+	public static void renderProductList(long listId) {
+		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 		ProductsList giftBox = ProductsList.findById(listId);
 		List<Product> list = createSidebarList(listId);
 		render(list, targetUser, giftBox);
@@ -178,7 +176,8 @@ public class Lists extends Application {
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 
-		String name = "Gift for " + targetUser.firstName + (occasion != null ? "'s " + occasion : "");
+		String name = "Gift for " + targetUser.firstName
+				+ (occasion != null ? "'s " + occasion : "");
 		ProductsList list = new ProductsList(name, ownerUser.id, targetUser.id);
 		list.save();
 
