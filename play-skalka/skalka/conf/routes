@@ -8,6 +8,8 @@ GET     /products                               	Products.index
 GET		/products/details/{<[0-9]+>id}				Products.details
 GET		/lists/{<[0-9]*>id}							Lists.listIndex
 GET		/lists/{<[0-9]*>id}/rename					Lists.rename
+GET		/lists/{<[0-9]*>id}/remove					Lists.remove
+
 
 GET		/lists/{<[0-9]*>id}/collaborators			Collaborators.all
 GET		/lists/{<[0-9]*>id}/collaborators/add		Collaborators.add
