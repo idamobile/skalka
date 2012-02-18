@@ -74,7 +74,7 @@ public class ProductsList extends Model {
 	 * @return
 	 */
 	public static List<ProductsList> getMyLists(Long ownerId) {
-		List<Collaborator> colls = Collaborator.find("byOwnerId", ownerId).fetch();
+		List<Collaborator> colls = Collaborator.find("byUserId", ownerId).fetch();
 		List<ProductsList> lists = new ArrayList<ProductsList>();
 
 		for (Collaborator coll : colls) {
