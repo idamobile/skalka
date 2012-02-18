@@ -15,7 +15,12 @@ $(document).ready(function ($) {
 
     // editable list name
     $('.eventName').editable("rename", { 
-         submitdata   : {listId:context.listId}
+         submitdata   : {listId:context.listId},
+         callback : function(value, settings) {
+             console.log(this);
+             console.log(value);
+             console.log(settings);
+         }
      });
 
 	// Initializing ADD YOUR PRODUCT popup
@@ -152,7 +157,7 @@ function ajaxAddProduct(event){
  $.post( url, values, function( data ) {
   if(data == 'true')
    //alert('Product Added!');
-   window.location.reload()
+   window.location.reload();
   else
    alert('Product was not added!');
  });
