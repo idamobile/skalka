@@ -10,7 +10,7 @@ import play.db.DB;
 
 public class Friends extends Application {
 
-	public static void addCategories(List<Long> catIds) {
+	public static void addCategories(List<Long> catIds, String occasion) {
 		if (catIds == null || catIds.isEmpty()) {
 			renderText("Categories are empty");
 		}
@@ -25,7 +25,7 @@ public class Friends extends Application {
 			new UserCategories(targetUser.id, catId).save();
 		}
 
-		Application.index(null, false, null);
+		Application.index(null, false, occasion);
 	}
 
 }
