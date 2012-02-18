@@ -13,7 +13,7 @@ $(document).ready(function ($) {
 		d.getElementsByTagName('head')[0].appendChild(js);
 	} (document))
 
-	listNameChangeHandler();
+//	listNameChangeHandler();
 
 	// Initializing ADD YOUR PRODUCT popup
 	$('.submitIdea').fancybox({
@@ -381,6 +381,7 @@ function listNameChangeHandler() {
          callback : function(value, settings) {
              $("#headerListId_"+context.listId+" a").html(value);
 			 context.boxReloading = false;
+			//alert("ffff");
          }
      });
 }
@@ -388,7 +389,6 @@ function listNameChangeHandler() {
 function reloadLeftDiv(url, fnReInitLeftPanel) {
 	if(context.boxReloading==false){
 		context.boxReloading = true;
-		listNameChangeHandler();
 		var fetchDiv = $("div#dragDropTmp");
 		if (fetchDiv.length > 0)
 			fetchDiv.empty();
@@ -406,6 +406,8 @@ function reloadLeftDiv(url, fnReInitLeftPanel) {
 				fnReInitLeftPanel(jqNewDiv);
 			});
 		});
+
+		//listNameChangeHandler();
 		context.boxReloading = false;
 	}
 }
@@ -495,8 +497,10 @@ function initPageless() {
 		var optionz = {
 			url: "/lists/listPage",
 			params: { listId: context.listId },
+			totalPages: context.productPagesCount,
+			loaderMsg: "Loading, please wait..",
 			complete: function () {
-				alert("pageless complete");
+				// alert("pageless complete");
 				GridLayout.allPins();
 			}
 		}
