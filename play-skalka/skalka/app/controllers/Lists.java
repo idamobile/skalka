@@ -174,12 +174,12 @@ public class Lists extends Application {
 		render(userActionInList, product, likePercentage, dislikePercentage);
 	}
 
-	public static void create() {
+	public static void create(String occasion) {
 		User targetUser = Cache.get(session.get(SESSION_PARAM_TARGET_FRIEND), User.class);
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 
-		ProductsList list = new ProductsList("Gift for " + targetUser.firstName, ownerUser.id,
-				targetUser.id);
+		String name = "Gift for " + targetUser.firstName + (occasion != null ? "'s " + occasion : "");
+		ProductsList list = new ProductsList(name, ownerUser.id, targetUser.id);
 		list.save();
 
 		Lists.listIndex(list.id);
