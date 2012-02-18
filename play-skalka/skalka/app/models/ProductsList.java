@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import play.Logger;
@@ -72,7 +74,23 @@ public class ProductsList extends Model {
 	 * @return
 	 */
 	public static List<ProductsList> getMyLists(Long ownerId) {
-		return ProductsList.find(HQL_FIND_LATEST, ownerId).fetch();
+		List<Collaborator> colls = Collaborator.find("byOwnerId", ownerId).fetch();
+		List<ProductsList> lists = new ArrayList<ProductsList>();
+
+		for (Collaborator coll : colls) {
+			ProductsList pl = ProductsList.findById(coll.listId);
+			lists.add(pl);
+		}
+		List<ProductsList> result = ProductsList.find(HQL_FIND_LATEST, ownerId).fetch();
+		lists.addAll(result);
+
+		return lists;
+	}
+
+	@PreUpdate
+	@PrePersist
+	public void updateTime() {
+		lastUpdated = new Date();
 	}
 
 	public boolean addProduct(Long productId) {
