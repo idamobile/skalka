@@ -204,6 +204,7 @@ public class Lists extends Application {
 
 	public static void remove(long listId) {
 		try {
+			Logger.warn("Deleting list: " + listId);
 			DB.execute("delete from collaborators where list_id = " + listId);
 			DB.execute("delete from user_actions_in_prod_list where list_id = " + listId);
 			DB.execute("delete from list_prod where list_id = " + listId);
