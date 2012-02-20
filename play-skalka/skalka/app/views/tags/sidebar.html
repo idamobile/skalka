@@ -10,7 +10,7 @@
 			initItemsDragDrop("div.item", "#giftListDropTarget");
 		</script>
 		<div class="userPic">
-			<img src='${_user?.getImageUrl("normal")}' alt=""/>
+			<a class="changeFriend" href="#selectFriend"><img src='${_user?.getImageUrl("normal")}' alt=""/></a>
 		</div>
 		#{if _giftBox}
     		<div class="eventName">
@@ -35,5 +35,32 @@
 			setListnersOnIcons();
 		</script>
 	</div>
-	<a class="inviteFriendsButton" href="#inviteFriendsPopup">Invite friends</a>
+	<div class="collab">
+		<div class="info">
+			<p class="status">Not shared!</p>
+			<p class="hint">
+				Invite friends to help you choose.<br/>
+				You have <span>23 mutal friends</span>:
+			</p>
+		</div>
+		<div class="friends">
+			<ul class="suggestions">
+				<li>
+					<img src="@{'/public/images/userpic.png'}" alt="Friend avatar"/>
+				</li>
+				<li>
+					<img src="@{'/public/images/userpic.png'}" alt="Friend avatar"/>
+				</li>
+				<li>
+					<img src="@{'/public/images/userpic.png'}" alt="Friend avatar"/>
+				</li>
+				<li>
+					<img src="@{'/public/images/userpic.png'}" alt="Friend avatar"/>
+				</li>
+			</ul>
+			<a class="button blue inviteFriendsButton" href="#inviteFriendsPopup" title="Invite your friends">
+				<span><span>Invite</span></span>
+			</a>
+		</div>
+	</div>
 </div>

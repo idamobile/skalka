@@ -8,6 +8,7 @@
 	background: #fff;
 	text-align: left;
 }
+/*
 .skalkaModal .popupTitle {
 	height: 50px;
 	line-height: 50px;
@@ -18,8 +19,9 @@
 	background: #999;
 	border-radius: 5px 5px 0 0;
 }
+*/
 .skalkaModal .container {
-	padding: 15px 18px;
+	padding: 27px;
 }
 .skalkaModal .inputContainer {
 	background: #f1f1f1;
@@ -70,9 +72,17 @@
 .skalkaModalRound {
 	text-align: left;
 }
+.skalkaModalRound .popupTitle {
+	height: 40px;
+	line-height: 40px;
+	padding: 22px 27px 0;
+	font-size: 26px;
+	color: #333333;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+}
 .skalkaModalRound .fancybox-outer {
 	border-radius: 15px;
-	box-shadow: 0px 25px 50px #000!important;
+	box-shadow: 0px 20px 100px #323232!important;
 }
 .skalkaModalRound .fancybox-inner {
 	overflow: visible!important;
@@ -95,7 +105,12 @@
 /* PRODUCT ADD DIALOG */
 
 .giftSubmit {
-	width: 670px;
+	width: 690px;
+	min-height: 181px;
+}
+.giftSubmit .popupTitle {
+	padding-left: 80px;
+	background: transparent url(/public/images/icons/gift_green.png) no-repeat 30px 20px;
 }
 .giftSubmit .inputContainer .input-text {
 	width: 500px;
@@ -107,9 +122,9 @@
 /* PRODUCT DETAIL DIALOG */
 
 #productDetailsContent{
-margin: 0;
-max-height: 300px;
-overflow: auto;
+	margin: 0;
+	max-height: 300px;
+	overflow: auto;
 }
 
 .product_details {
@@ -224,7 +239,7 @@ overflow: auto;
 .giftSubmit .productInfo .imagesContainer .buttons span {
 	width: 37px;
 	height: 25px;
-	background: transparent url(/public/images/bg_button_blue.jpg) repeat-x 0 0;
+	background: transparent url(/public/images/bg_btn_blue.jpg) repeat-x 0 0;
 	border-radius: 4px;
 	cursor: pointer;
 	display: block;
@@ -406,6 +421,14 @@ overflow: auto;
 .selectFriend .buttonsContainer {
 	text-align: center;
 	padding: 22px 0 0;
+}
+.selectFriend .buttonsContainer .button {
+	display: inline-block;
+	margin-bottom: 25px;
+}
+.selectFriend .buttonsContainer .close {
+	font-weight: bold;
+	cursor: pointer;
 }
 .selectFriend .bow {
 	width: 276px;

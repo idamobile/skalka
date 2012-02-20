@@ -1,29 +1,25 @@
 $(document).ready(function ($) {
+	
+	// Initializing SELECT FRIEND popup
+	$('.changeFriend').fancybox($.extend({}, fancyConf, {
+		/* config overrides */
+		wrapCSS: 'skalkaModalRound'
+	}));
+
+	// Initializing ADD YOUR PRODUCT popup
+	$('.submitIdea').fancybox($.extend({}, fancyConf, {
+		/* config overrides */
+		wrapCSS: 'skalkaModalRound skalkaModal'
+	}));
 
 	// Initializing INVITE FRIENDS popup
-	$('.inviteFriendsButton').fancybox({
+	$('.inviteFriendsButton').fancybox($.extend({}, fancyConf, {
 
-		scrolling: 'no',
-		padding: 0,
-		//openEffect : 'elastic',
-		openSpeed: 150,
-
+		wrapCSS: 'skalkaModal',
 		beforeLoad: function() { 
 			$.get("/lists/"+context.listId+"/collaborators", function (data) {
 				$("#participantsList").html(data);
 			});
-		},
-		//closeEffect : 'elastic',
-		closeSpeed: 150,
-		minHeight: 0,
-		wrapCSS: 'skalkaModal',
-		helpers: {
-			overlay: {
-				css: {
-					'background-color': '#eee'
-				},
-				opacity: 0.5
-			}
 		},
 		afterLoad: function () {
 			// alert("inviteFriends.afterLoad");
@@ -98,26 +94,6 @@ $(document).ready(function ($) {
 
 			});
 		}
-	});
+	}));
 
-	// Initializing SELECT FRIEND popup
-	$('.changeFriend').fancybox({
-		scrolling: 'no',
-		modal: true,
-		padding: 0,
-		//openEffect : 'elastic',
-		openSpeed: 150,
-		//closeEffect : 'elastic',
-		closeSpeed: 150,
-		minHeight: 0,
-		wrapCSS: 'skalkaModalRound',
-		helpers: {
-			overlay: {
-				css: {
-					'background-color': '#000'
-				},
-				opacity: 0.3
-			}
-		}
-	});
 });

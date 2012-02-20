@@ -102,35 +102,49 @@ button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 	background:transparent; 
 	cursor:pointer;
 	text-decoration: none;
+	border-radius: 4px;
+	display: block;
 }
 .button span {	
-	background: transparent url(/public/images/bg_btn.png) 0 0; 
+	background: #079fbf; 
 	display: block;
-	height: 30px; 
+	height: 35px; 
 	padding: 0 0 0 10px; 
-	font-size: 15px;
-	line-height: 31px;
+	font-size: 17px;
+	line-height: 35px;
 	text-align: center; 
 	white-space: nowrap; 
 	color: #fff;
-	text-shadow: 0px -1px 1px #086080;
+	text-shadow: 0px -1px 1px #077c94;
+	font-family: Helvetica;
+	border-radius: 4px;
 }
 .button span span { 
 	background-position: 100% 0; 
 	padding:0 10px 0 0;
 }
 
-button.blue.big {
-	border-radius: 9px;
+/* Standard Blue Btn */
+.button.blue {
+	box-shadow: 0px 1px 1px #005364;
 }
-button.blue.big span {
+.button.blue span {
+	background: transparent url(/public/images/bg_btn_blue.jpg) 0 0; 
+}
+
+/* BIG Blue Btn */
+.button.blue.big {
+	border-radius: 9px;
+	box-shadow: none;
+}
+.button.blue.big span {
 	background: transparent url(/public/images/bg_btn_blue_big.png) 0 0;
 	height: 56px;
 	font-size: 22px;
 	line-height: 56px;
 	padding: 0 0 0 25px;
 }
-button.blue.big span span { 
+.button.blue.big span span { 
 	padding:0 25px 0 0;
 }
 

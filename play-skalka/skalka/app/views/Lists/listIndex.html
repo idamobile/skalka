@@ -9,18 +9,17 @@
     	<div class="col-main">
 
     		<div class="titleBlock">
+    			<h1>Gift Suggestions for ${targetUser}</h1>
     			<p>
-    				Edit <a href="@{Application.profile()}" >${targetUser}'s profile</a>
-					for better suggestions or <a class="submitIdea" href="#addProduct">submit your own idea</a>.
-					<a class="changeFriend" href="#selectFriend">Select friend</a>
+    				Edit <a href="@{Application.profile()}" >${targetUser}'s profile</a> for better suggestions or 
+    				<a class="submitIdea" href="#addProduct">submit your own idea</a>.
     			</p>
     		</div>
-    		<div class="jsout"></div>
     		<div class="grid-layout" id="grid-wrapper">
-    		<div class="feed" id="items-container">
-    		<a class="openProductDetails" href="#productDetails"></a>
-				#{product products: products, inFeed: true/}    		
-    		</div>
+    			<div class="feed" id="items-container">
+    				<a class="openProductDetails" href="#productDetails"></a>
+					#{product products: products, inFeed: true/}    		
+    			</div>
     		</div>
     		
     		<script type="text/javascript">
