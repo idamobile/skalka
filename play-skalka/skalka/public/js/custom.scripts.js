@@ -1,5 +1,33 @@
 //var $j = jQuery.noConflict();
 
+// DEFAULT FANCYBOX CONFIGURATION
+var fancyConf = {
+    fitToView: true,
+    scrolling: 'no',
+    padding: 0,
+    //openEffect : 'elastic',
+    //openSpeed: 150,
+    //closeEffect : 'elastic',
+    //closeSpeed: 150,
+    minHeight: 0,
+    wrapCSS: 'skalkaModalRound skalkaModal',
+    helpers: {
+    	overlay: {
+    		css: {
+    			'background-color': '#eee'
+    		},
+    		opacity: 0.5
+    	}
+    },
+    beforeShow: function() { 
+    	$("body").css({'overflow':'hidden'}); 
+    }, 
+    afterClose: function() { 
+    	$("body").css({"overflow":"visible"}); 
+    }
+};
+
+
 $(document).ready(function ($) {
 
 	// Load the facebook SDK asynchronously
@@ -12,54 +40,16 @@ $(document).ready(function ($) {
 		js.src = "//connect.facebook.net/en_US/all.js";
 		d.getElementsByTagName('head')[0].appendChild(js);
 	} (document))
-
+	
 //	listNameChangeHandler();
 
-	// Initializing ADD YOUR PRODUCT popup
-	$('.submitIdea').fancybox({
-		fitToView: false,
-		scrolling: 'no',
-		padding: 0,
-		//openEffect : 'elastic',
-		openSpeed: 150,
-		//closeEffect : 'elastic',
-		closeSpeed: 150,
-		minHeight: 0,
-		wrapCSS: 'skalkaModal',
-		helpers: {
-			overlay: {
-				css: {
-					'background-color': '#eee'
-				},
-				opacity: 0.5
-			}
-		}
-	});
-
 	// Initializing SHOW PRODUCT popup
-	$('.openProductDetails').fancybox({
-		fitToView: false,
-		scrolling: 'no',
-		padding: 0,
-		//openEffect : 'elastic',
-		openSpeed: 150,
-
+	$('.openProductDetails').fancybox($.extend(fancyConf, {
+		wrapCSS: 'skalkaModal',
 		beforeLoad: function () {
 			//$('#productDetails .container').load('/products/details/1?listId=1');
 		},
-		//closeEffect : 'elastic',
-		closeSpeed: 150,
-		minHeight: 0,
-		wrapCSS: 'skalkaModal',
-		helpers: {
-			overlay: {
-				css: {
-					'background-color': '#eee'
-				},
-				opacity: 0.5
-			}
-		}
-	});
+	}));
 
 
 	$('.productInFeed').click(function (event) {
@@ -83,7 +73,7 @@ $(document).ready(function ($) {
 		friendCompleterSetup();
 		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
 			// alert("Friend Selected (1): " + selectedObj.label + ", ID=" + selectedObj.id);
-			$.form('/', { targetFbId: selectedObj.id }, 'GET').submit();
+			context.fbFriendSelected=selectedObj.id;
 		});
 	};
 
@@ -101,6 +91,14 @@ $(document).ready(function ($) {
 		}
 	});
 
+    $("#occasionSelect").change(function () {
+          var str = "";
+          $("#occasionSelect option:selected").each(function () {
+                str += $(this).text() + " ";
+              });
+         context.occasion = str;
+    }).change();
+
 	/* attach a submit handler to the form */
 	$("#productUrl").submit(function (event) {
 		ajaxProductParce(event);
@@ -111,6 +109,20 @@ $(document).ready(function ($) {
 	});
 }); 
 
+function removeList(ListId){
+	//$.post(url)
+ 	$("#headerListId_"+ListId).remove();
+	
+}
+
+function submitFriendForm(){
+	if(context.fbFriendSelected != null){
+		$.form('/', { targetFbId: context.fbFriendSelected, occasion:context.occasion }, 'GET').submit();
+	}else{
+		alert("You sould select a friend using a picker.");
+	}	
+	context.fbFriendSelected=null;
+}
 
 
 function setListnersOnIcons(){
@@ -128,7 +140,7 @@ function setListnersOnIcons(){
 }
 
 function reloadBox(){
-	var url = "/lists/addProduct?listId=" + context.listId;
+	var url = "/lists/renderProductList?listId=" + context.listId;
 	reloadLeftDiv(url, function (jqNewDiv) {
 		initLeftPanelDragDrop(jqNewDiv);
 	});

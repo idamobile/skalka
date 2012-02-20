@@ -75,7 +75,7 @@
 		<p class="title">Welcome to Skalka</p>
 		<p class="hint">Pick one of your Facebook friends to find him a perfect gift</p>
 		<div class="content">
-		<form id="selectFriendForm" width="100px" method="post" action="">
+		<div id="selectFriendForm" width="100px" method="post" action="">
 	    	<ul class="formList">
 				<li class="friend inputContainer">
 				    <div class="inner">
@@ -91,12 +91,15 @@
 							<option value="occasion4">Graduation</option>
 				        </select>
 				    </div>
+
 				</li>
 			</ul>
 			<div class="buttonsContainer">
-				<button type="submit" class="button blue big"><span><span>Let's rock!</span></span></button>
+				<button type="submit" class="button blue big" onclick="submitFriendForm();"><span><span>Let's rock!</span></span></button>
+				<br/>
+				<a class="close" onclick="$.fancybox.close();">Cancel</a>
 			</div>
-		</form>
+		</div>
 		</div>
 		<div class="bow"></div>
 	</div>
