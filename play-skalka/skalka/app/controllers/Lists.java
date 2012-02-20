@@ -186,12 +186,12 @@ public class Lists extends Application {
 		Lists.listIndex(list.id);
 	}
 
-	public static void rename(long listId, String value) {
+	public static void rename(long id, String value) {
 		if (StringUtils.isEmpty(value)) {
 			renderText("false");
 		}
 
-		ProductsList list = ProductsList.findById(listId);
+		ProductsList list = ProductsList.findById(id);
 		if (list == null) {
 			renderText("false");
 		}
@@ -202,13 +202,13 @@ public class Lists extends Application {
 		renderText(value);
 	}
 
-	public static void remove(long listId) {
+	public static void remove(long id) {
 		try {
-			Logger.warn("Deleting list: " + listId);
-			DB.execute("delete from collaborators where list_id = " + listId);
-			DB.execute("delete from user_actions_in_prod_list where list_id = " + listId);
-			DB.execute("delete from list_prod where list_id = " + listId);
-			DB.execute("delete from lists where id = " + listId);
+			Logger.warn("Deleting list: " + id);
+			DB.execute("delete from collaborators where list_id = " + id);
+			DB.execute("delete from user_actions_in_prod_list where list_id = " + id);
+			DB.execute("delete from list_prod where list_id = " + id);
+			DB.execute("delete from lists where id = " + id);
 		} catch (Throwable e) {
 			Logger.error(e, "Unable to remove list");
 		}
