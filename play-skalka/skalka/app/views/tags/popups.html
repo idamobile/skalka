@@ -1,4 +1,6 @@
 <div class="hidden">
+
+	<img src="@{'/public/images/progress4.gif'}"/>
 		
 	<!-- SUBMIT NEW PRODUCT POPUP -->
 	<div class="giftSubmit" id="addProduct">
@@ -63,7 +65,11 @@
 	    				</div>
 	    			</li>	    			
 	    		</ul>
-	    		<button type="submit">Submit</button>
+	    		<div class="buttonsContainer">
+					<button type="submit" class="button blue">
+	    				<span><span>Submit</span></span>
+	    			</button>
+	    		</div>
 	    		</form>
 	    	</div>
 	    	
@@ -107,11 +113,7 @@
 
 	<!-- PRODUCT DETAILS POPUP -->
 	<div class="productDetails" id="productDetails">
-	    <div class="popupTitle">
-	    	Product details
-	    </div>
-	    <div class="product_details container" id="productDetailsContent">
-	    </div>
+	    <div class="container" id="productDetailsContent"></div>
 	</div>
 
 	<!-- INVITE FRIENDS POPUP -->
@@ -133,14 +135,14 @@
 				</li>
 			</ul>
 			<div id="facebookFriendPicker" ></div>
-			<input type="button" id="facebookFriendsInvite" value="Invite!" />
+			<button type="button" class="button blue" id="facebookFriendsInvite">
+				<span><span>Invite!</span></span>
+			</button>
 		</div>
 		<div class="participantsBlock">
 		    <p class="title">Already participating</p>
-			<ul id="participantsList">
-			</ul>
+			<ul id="participantsList"></ul>
 		</div>
 		<div class="clear"></div>
 	</div>
-
 </div> 

@@ -89,18 +89,18 @@
 	text-indent: -9999em;
 	background: transparent url(/public/images/icons/arrow_select.gif) no-repeat 50% 6px;
 }
-.header .select:hover .expander {
+.header .select.over .expander {
 	background: transparent url(/public/images/icons/arrow_select.gif) no-repeat 50% -39px;
 }
 .header .select.active {
 	border-top: 4px solid #00c0ea;
 	padding-top: 15px;
 }
-.header .select:hover {
+.header .select.over {
 	color: #fff;
 	background-color: #00c0ea;
 }
-.header .select:hover .label {
+.header .select.over .label {
 	color: #fff;
 	border: none;
 	border-right: 1px solid #66d9f2;
@@ -136,14 +136,19 @@
 	content: ""; 
 	clear: both;  
 }
-.header .select:hover .dropDownMenu {
-	display: block;
+.header .select.over .dropDownMenu {
+	/*display: block;*/
 	left: 0px;
 }
+.header .giftLists #new a {
+	padding-left: 29px;
+	background: transparent url(/public/images/icons/plus_grey.png) no-repeat 0px 53%;
 
-.header .myFeed #submitGiftitem {
-	padding-left: 44px;
-	background: transparent url(/public/images/icons/gift_grey.png) no-repeat 19px 40%;
+}
+
+.header .myFeed #submitGiftitem a {
+	padding-left: 29px;
+	background: transparent url(/public/images/icons/gift_grey.png) no-repeat 0px 48%;
 }
 
 .header .user {
@@ -393,7 +398,7 @@
 	background: #fff;
 	box-shadow: 0 1px 3px #C5C5C5;
 	border-radius: 5px;
-	padding: 7px;
+	padding: 7px 7px 0;
 	float: left;
 	position: absolute;
 	border: 1px solid #cdcdcd;
@@ -411,7 +416,6 @@
 	height: 46px;
 	line-height: 35px;
 	font-size: 17px;
-	font-weight: bold;
 	text-shadow: 0px 1px 1px #5e8703;
 	color: #fff;
 }
@@ -428,8 +432,8 @@
 	margin: 0 0 15px;
 }
 .feed .item .user-info {
-	margin: 0 -7px -7px -7px;
-	padding: 20px 16px 16px;
+	margin: 0 -7px;
+	padding: 12px 6px 6px;
 	background: #f4f4f4 url(/public/images/bg_feed_item_user_info.png) no-repeat 0 0;
 	border-radius: 0 0 5px 5px;
 }
@@ -438,9 +442,13 @@
 	padding: 2px;
 	border: 1px solid #e2e2e2;
 }
+.feed .item .user-info .user-img img {
+	width: 35px;
+	height: 35px;
+}
 .feed .item .user-info .user-name {
-	line-height: 50px;
-	margin: 0 0 0 70px;
+	line-height: 35px;
+	margin: 5px 0 0 50px;
 	color: #a5a5a5;
 }
 .feed .item .user-info .user-name span {

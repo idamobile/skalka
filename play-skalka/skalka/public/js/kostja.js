@@ -14,8 +14,8 @@ $(document).ready(function ($) {
 
 	// Initializing INVITE FRIENDS popup
 	$('.inviteFriendsButton').fancybox($.extend({}, fancyConf, {
-
-		wrapCSS: 'skalkaModal',
+		
+		/**/
 		beforeLoad: function() { 
 			$.get("/lists/"+context.listId+"/collaborators", function (data) {
 				$("#participantsList").html(data);
@@ -91,9 +91,9 @@ $(document).ready(function ($) {
 							});
 						}
 					}); 
-
 			});
 		}
+		/**/
 	}));
 
 });

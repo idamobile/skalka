@@ -10,6 +10,7 @@ var fancyConf = {
     //closeEffect : 'elastic',
     //closeSpeed: 150,
     minHeight: 0,
+    title: '',
     wrapCSS: 'skalkaModalRound skalkaModal',
     helpers: {
     	overlay: {
@@ -44,8 +45,8 @@ $(document).ready(function ($) {
 //	listNameChangeHandler();
 
 	// Initializing SHOW PRODUCT popup
-	$('.openProductDetails').fancybox($.extend(fancyConf, {
-		wrapCSS: 'skalkaModal',
+	$('.openProductDetails').fancybox($.extend({}, fancyConf, {
+		wrapCSS: 'skalkaModalRound',
 		beforeLoad: function () {
 			//$('#productDetails .container').load('/products/details/1?listId=1');
 		},
@@ -106,6 +107,16 @@ $(document).ready(function ($) {
 
 	$('#productForm').submit(function (event) {
 		ajaxAddProduct(event);
+	});
+	
+	// ADDING HOVER EVENTS TO MAIN MENU ITEMS
+	//$('.select').hover(function(){
+	//	$(this).toggleClass('over');
+	//});
+	
+	$('.select').hover(function(){
+		$(this).toggleClass('over');
+		$(this).find('.dropDownMenu').fadeToggle(150, 'swing');
 	});
 }); 
 

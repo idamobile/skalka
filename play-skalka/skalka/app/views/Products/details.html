@@ -1,33 +1,48 @@
-#{if userActionInList}
+<div class="info">
+	<div class="imageBox">
+	    <img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
+	</div>
+	
+	<div class="actions">
+		#{if userActionInList}
+		<button class="removeProductButton button blue" type="button" onclick="removeProductFromList(${product.id})">
+			<span><span>Remove</span></span>
+		</button>
+		#{/if}
+		#{if shouldHaveAddToListButton}
+		<button class="addToListButton button blue" type="button" onclick="addProductToList(${product.id});">
+			<span><span>Add</span></span>
+		</button>
+		#{/if}
+		<div class="clear"></div>
+	</div>
+	
+	<h1 class="title">Product title</h1>
+	
+	#{if userActionInList}
 	<div id="votingPanel">
-    #{voting userActionInList:userActionInList, product:product, likePercentage:likePercentage, dislikePercentage:dislikePercentage/}
+		#{voting userActionInList:userActionInList, product:product, likePercentage:likePercentage, dislikePercentage:dislikePercentage/}
 	</div>
- 	<input class="removeProductButton" type="button" value="Remove" onclick="removeProductFromList(${product.id})">
-#{/if}
-#{elseif shouldHaveAddToListButton}
-	<input class="addToListButton" type="button" value="Addtolist" onclick="addProductToList(${product.id});">
-
-#{/elseif}
-<br/>
-	<div class="image-box">
-		<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
-		<div class="price">
-			<div>
-				${product.getPrice()}
-			</div>
-		</div>
-	</div>
+	#{/if}
+	
 	<p class="description">
-		${product.descr}
+	    ${product.descr}
 	</p>
-	<div class="user-info">
-		<div class="user-img">
-			<img src="${product.getAuthor()?.getImageUrl()}" alt="user's image"/>
-		</div>
-		<p class="user-name">
-			Submitted by
-			<span>${product.getAuthor()}</span>
-		</p>
-		<div class="clear">
-		</div>
+	
+	<button class="buy button blue" type="button" onclick="javascript:void(0);">
+	    <span><span>Buy</span></span>
+	</button>
+
+	<div class="price">
+	    <div>
+	    	${product.getPrice()}
+	    </div>
 	</div>
+	
+</div>
+
+<div class="comments">
+	<img src="/public/images/content/product_comments.png"/>
+</div>
+
+<div class="clear"></div>

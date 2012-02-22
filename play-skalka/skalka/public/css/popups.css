@@ -20,6 +20,9 @@
 	border-radius: 5px 5px 0 0;
 }
 */
+.skalkaModal .fancybox-title {
+	display: none;
+}
 .skalkaModal .container {
 	padding: 27px;
 }
@@ -27,7 +30,7 @@
 	background: #f1f1f1;
 	border-radius: 6px;
 	padding: 6px;
-	margin: 0 0 18px;
+	margin: 0 0 13px;
 	display: block;
 }
 .skalkaModal .inputContainer .inner {
@@ -61,10 +64,13 @@
 	font-weight: bold;
 }
 .skalkaModal .inputContainer .label.progress {
-	background: transparent url(/public/images/progress.gif) no-repeat 20% 50%;
+	background: transparent url(/public/images/progress4.gif) no-repeat 50% 50%;
 	text-indent: -9999em;
 	width: 47px;
 	padding: 0;
+}
+.skalkaModal .buttonsContainer {
+	clear: both;
 }
 
 /* .skalkaModalRound */
@@ -119,119 +125,24 @@
 	display: none;
 }
 
-/* PRODUCT DETAIL DIALOG */
-
-#productDetailsContent{
-	margin: 0;
-	max-height: 300px;
-	overflow: auto;
-}
-
-.product_details {
-	width: 294px;
-	background: #fff;
-	box-shadow: 0 1px 3px #C5C5C5;
-	border-radius: 5px;
-	padding: 7px;
-	/*float: left;*/
-	/*position: absolute;*/
-}
-
-.product_details .image-box {
-	position: relative;
-	margin: 0 0 39px;
-}
-
-.product_details .image-box .price {
-	position: absolute;
-	bottom: -40px;
-	left: -19px;
-	background: transparent url(/public/images/bg_price.png) no-repeat 100% 0;
-	padding: 0 14px 0 0;
-	height: 46px;
-	line-height: 35px;
-	font-size: 17px;
-	font-weight: bold;
-	text-shadow: 0px 1px 1px #5e8703;
-	color: #fff;
-}
-
-.product_details .image-box .price div {
-	display: block;
-	background: transparent url(/public/images/bg_price.png) no-repeat 0 0;
-	padding: 0 7px 0 29px;
-	height: 46px;
-}
-.product_details .description {
-	padding: 0 0 0 35px;
-	background: transparent url(/public/images/bg_feed_item_quote.png) no-repeat 5px 4px;
-	line-height: 17px;
-	margin: 0 0 15px;
-}
-.product_details .user-info {
-	margin: 0 -7px -7px -7px;
-	padding: 20px 16px 16px;
-	background: #f4f4f4 url(/public/images/bg_feed_item_user_info.png) no-repeat 0 0;
-	border-radius: 0 0 5px 5px;
-}
-.product_details .user-info .user-img {
-	float: left;
-	padding: 2px;
-	border: 1px solid #e2e2e2;
-}
-.product_details .user-info .user-name {
-	line-height: 50px;
-	margin: 0 0 0 70px;
-	color: #a5a5a5;
-}
-.product_details .user-info .user-name span {
-	color: #06bfda;
-	font-weight: bold;
-	font-style: italic;
-}
-
-.vote-ratebar {
-    height: 10px;
-    margin: 2px 0;
-    border: 1px solid #CCC;
-    overflow: hidden;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-}
-
-.vote-ratebar-likes {
-    float: left;
-    height: 10px;
-    border-right: 1px solid white;
-    background: #060;
-}
-
-.vote-ratebar-dislikes {
-    float: right;
-    height: 10px;
-    margin-right: -1px;
-    background: #C00;
-}
-
 /* IMAGES */
 .giftSubmit .productInfo .imagesContainer {
 	float: left;
 	background: #f1f1f1;
 	border-radius: 5px;
 	padding: 6px 6px 10px;
-	margin: 0 28px 0 0;
+	margin: 0 15px 0 0;
 }
 .giftSubmit .productInfo .imagesContainer .images {
-	height: 175px;
+	height: 140px;
 }
 .giftSubmit .productInfo .imagesContainer .images li {
-	width: 172px;
-	height: 175px;
+	width: 140px;
+	height: 140px;
 }
 .giftSubmit .productInfo .imagesContainer .images li img {
-	width: 172px;
-	height: 175px;
+	width: 140px;
+	height: 140px;
 }
 .giftSubmit .productInfo .imagesContainer .buttons {
 	padding: 6px 0 0;
@@ -261,11 +172,11 @@
 }
 .giftSubmit .productInfo .form-list {
 	float: left;
-	width: 420px;
-	padding: 6px 0 0;
+	width: 469px;
+	padding: 0;
 }
 .giftSubmit .productInfo .form-list li {
-	margin: 0 0 15px;
+	
 }
 .giftSubmit .productInfo .inputContainer.description {
 	float: left;
@@ -275,10 +186,13 @@
 	float: left;
 }
 .giftSubmit .productInfo .inputContainer.description .input-text {
-	width: 190px;
+	width: 233px;
 }
 .giftSubmit .productInfo .inputContainer.price .input-text {
-	width: 54px;
+	width: 60px;
+}
+.giftSubmit .productInfo .inputContainer.story {
+	margin-bottom: 0;
 }
 .giftSubmit .productInfo .inputContainer.story .inner {
 	height: auto;
@@ -290,10 +204,23 @@
 }
 .giftSubmit .productInfo .inputContainer.story textarea {
 	float: none;
-	width: 394px;
+	width: 443px;
 	margin: 0;
-	height: 75px;
+	height: 74px;
 	padding: 5px 0 0;
+}
+.giftSubmit .buttonsContainer {
+	padding: 22px 0 0;
+	text-align: center;
+}
+.giftSubmit .buttonsContainer .button {
+	display: inline-block;
+}
+.giftSubmit .buttonsContainer .button span {
+	padding: 0;
+}
+.giftSubmit .buttonsContainer .button span span {
+	padding: 0 35px;
 }
 
 /************************************************************************/
@@ -301,8 +228,9 @@
 
 .inviteFriends {
 	background: transparent url(/public/images/bg_body.gif) 0 0;
-	border-radius: 6px;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	width: 790px;
+	border-radius: 15px;
 }
 .inviteFriends .inviteBlock {
 	width: 510px;
@@ -310,7 +238,7 @@
 	padding: 28px 28px 20px 32px;
 	border-right: 1px solid #bbb;
 	background: #fff;
-	border-radius: 5px 0 0 5px;
+	border-radius: 15px 0 0 15px;
 }
 .inviteFriends .inviteBlock .blockTitle {
 	font-size: 26px;
@@ -349,18 +277,29 @@
 }
 
 .inviteFriends .participantsBlock {
-	width: 217px;
+	width: 200px;
 	float: right;
+	padding: 35px 0 0 19px;
+	height: 392px;
+	background: transparent url(/public/images/bg_participants_block_shadow.png) repeat-y 0 0;
 }
-.inviteFriends .participantsBlock .participantsList {
+.inviteFriends .participantsBlock .title {
+	line-height: 1;
+	font-size: 17px;
+	color: #262626;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue", sans-serif;
+	margin: 0 0 15px;
+}
+.inviteFriends .participantsBlock #participantsList {
 	margin: 0 0 0 -8px;
 }
-.inviteFriends .participantsBlock li {
+.inviteFriends #participantsList li {
 	float: left;
 	margin: 0 0 8px 8px;
 	background: #fff;
-	padding: 3px;
+	padding: 2px;
 	border: 1px solid #e2e2e2;
+	border-radius: 4px;
 }
 .inviteFriends .participantsBlock li img {
 	width: 49px;
@@ -369,6 +308,7 @@
 
 /************************************************************************/
 /* SELECT FRIEND DIALOG */
+/************************************************************************/
 
 .selectFriend {
 	padding: 60px 28px 50px 33px;
@@ -469,4 +409,108 @@
 	margin: 0 10px 0 0;
 }
 
+/************************************************************************/
+/* PRODUCT DETAIL DIALOG */
+/************************************************************************/
 
+.productDetails {
+	width: 880px;
+	background: transparent url(/public/images/bg_body.gif) 0 0;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	border-radius: 15px;
+}
+.productDetails .container {}
+.productDetails .info {
+	float: left;
+	background: #f2f2f2;
+	border-radius: 15px 0 0 15px;
+	padding: 25px 25px 25px 306px;
+	width: 268px;
+	position: relative;
+	min-height: 356px;
+	border-right: 1px solid #bbb;
+}
+.productDetails .info .actions {
+	position: absolute;
+	bottom: 25px;
+	left: 25px;
+}
+.productDetails .info .actions .button {
+	margin-right: 10px;
+	float: left;
+}
+.productDetails .info .imageBox {
+	position: absolute;
+	left: -19px;
+	top: -12px;
+	background: transparent url(/public/images/bg_product_popup_image.png) no-repeat 0 0;
+	width: 299px;
+	height: 369px;
+}
+.productDetails .info .imageBox img {
+	width: 250px;
+	-moz-transform: rotate(356deg);
+	-webkit-transform: rotate(356deg);
+	padding: 30px 0 0 14px;
+}
+.productDetails .info .price {
+	position: absolute;
+	top: -2px;
+	left: 571px;
+	background: transparent url(/public/images/bg_product_popup_price.png) no-repeat 100% 0;
+	padding: 0 17px 0 0;
+	height: 81px;
+	font-size: 20px;
+	text-shadow: 0px 1px 1px #5e8703;
+	color: #fff;
+}
+
+.productDetails .info .price div {
+	display: block;
+	background: transparent url(/public/images/bg_product_popup_price.png) no-repeat 0 0;
+	padding: 28px 10px 0 37px;
+	line-height: 37px;
+	height: 53px;
+}
+.productDetails .info .title {
+	color: #333333;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue", sans-serif;
+	font-size: 26px;
+	margin: 0 0 10px;
+}
+.productDetails .info .description {
+	line-height: 17px;
+	color: #141414;
+	margin: 0 0 15px;
+}
+#votingPanel {
+	margin: 0 0 15px;
+}
+.voteRatebar {
+    height: 10px;
+    margin: 2px 0;
+    border: 1px solid #CCC;
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.voteRatebarLikes {
+    float: left;
+    height: 10px;
+    border-right: 1px solid white;
+    background: #060;
+}
+.voteRatebarDislikes {
+    float: right;
+    height: 10px;
+    margin-right: -1px;
+    background: #C00;
+}
+.productDetails .comments {
+	width: 270px;
+	float: right;
+	padding: 100px 0 0 10px;
+	height: 300px;
+	background: transparent url(/public/images/bg_participants_block_shadow.png) repeat-y 0 0;
+}

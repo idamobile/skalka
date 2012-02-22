@@ -126,7 +126,7 @@ button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 
 /* Standard Blue Btn */
 .button.blue {
-	box-shadow: 0px 1px 1px #005364;
+	box-shadow: 0px 1px 1px #003641;
 }
 .button.blue span {
 	background: transparent url(/public/images/bg_btn_blue.jpg) 0 0; 

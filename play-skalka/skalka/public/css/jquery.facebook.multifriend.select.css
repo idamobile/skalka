@@ -16,96 +16,68 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#jfmfs-friend-selector input {
-	background-color: #fcfcfc;
-	border: 1px solid #ccc;
-	font: 11px verdana, arial, helvetica, sans-serif;
-	margin: 2px 0;
-	padding: 2px 4px;
-}
-
-.jfmfs-friend {
-	cursor:pointer;
-	display:block;
-	float:left;
-	height:56px;
-	margin:3px;
-	padding:4px;
-	width:126px;
-	border: 1px solid #FFFFFF;
-	-moz-border-radius: 5px; 
-	-webkit-border-radius: 5px;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	overflow:hidden;
-}
-
-.jfmfs-friend img {
-	border: 1px solid #CCC;
-	float:left;
-	margin:0;
-}
-
-.jfmfs-friend.selected img {
-	border: 1px solid #233E75;
-}
-
-.jfmfs-friend div {
-	color:#111111;
-	font-size:11px;
-	overflow:hidden;
-	padding:2px 0 0 6px;
-}
 
 #jfmfs-friend-container {
 	overflow:scroll;
 	overflow-x: hidden;
 	-ms-overflow-x: hidden;
-	width:100%;
-	height:400px;
-	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	width: 518px;
+	height: 195px;
 	color: #333;
 	font-size: 12px;
+	margin-left: -9px
 }
 
 #jfmfs-friend-selector {
-	height:430px;
-	overflow-y:hidden;
-	width:100%;
+	height: 255px;
+	overflow-y: hidden;
+	width: 100%;
 }
 
 #jfmfs-inner-header {
-	background:none repeat scroll 0 0 #F7F7F7;
-	border-bottom:1px solid #CCCCCC;
-	color:#3B5998;
-	font-size:11px;
-	font-weight:bold;
-	height:25px;
-	padding:2px;
+	background: #f1f1f1;
+	border-radius: 6px;
+	padding: 6px;
+	margin: 0 0 13px;
+	display: block;
 }
-
+#jfmfs-inner-header:after {
+	display:block; 
+	content:""; 
+	clear:both;
+	height: 0px;
+}
+.jfmfs-friend {
+	cursor:pointer;
+	display:block;
+	float:left;
+	border: 1px solid #e2e2e2;
+	border-radius: 4px;
+	overflow:hidden;
+	padding: 2px;
+	width: 150px;
+	height: 35px;
+	margin: 0 0 9px 9px;
+}
+.jfmfs-friend img {
+	float: left;
+	margin: 0;
+	width: 35px;
+	height: 35px;
+}
+.jfmfs-friend .friend-name {
+	color: #262626;
+	font-size: 13px;
+	overflow: hidden;
+	padding: 0 0 0 6px;
+	line-height: 1.3;
+}
 .jfmfs-friend.selected {
-	background-color: #3B5998;
-	border: 1px solid #3B5998;
-
-	background: #6D84B4; /* for non-css3 browsers */
-
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#233E75', endColorstr='#6D84B4'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#233E75), to(#6D84B4)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #233E75,  #6D84B4); /* for firefox 3.6+ */	
+	background-color: #e2e2e2;
 }
-
-.jfmfs-friend.selected div {
-	color: #FFFFFF;
-}
-
-.hover {
-	background-color: #EFF2F7;
-}
-
-.hide-non-selected, .hide-filtered {
-	display: none;
-}
+.jfmfs-friend.selected img {}
+.jfmfs-friend.selected .friend-name {}
+.hide-non-selected, .hide-filtered { display: none; }
 
 div.jfmfs-button {
 	background:none repeat scroll 0 0 #6D84B4;
@@ -117,39 +89,41 @@ div.jfmfs-button {
 	text-decoration:none;
 }
 
-#jfmfs-friend-selector a.filter-link:link, a.filter-link:visited {
-	font-weight: bold;
-	text-decoration: none;
-}
-
-#jfmfs-friend-selector a.filter-link:hover, #jfmfs-friend-selector a.selected {
-	background-color: #6D84B4;
-	-moz-border-radius: 5px; 
-	-webkit-border-radius: 5px;
-	color: #FFFFFF;
-}
-
 #jfmfs-friend-selector .filter-link {
-	margin:4px 5px 4px 5px;
-	padding:3px 5px 3px 5px;
+	float: right;
+	background: transparent url(/public/images/bg_btn_blue.jpg) repeat-x 0 0;
+	border-radius: 3px;
+	color: #FFFFFF;
+	display: block;
+	height: 33px;
+	line-height: 32px;
+	padding: 0 15px;
 }
-
-#jfmfs-inner-header .filter-link {
-	float:right;
+#jfmfs-friend-selector .filter-link.selected {
+	float: right;
+	display: none;
 }
-
 #jfmfs-inner-header div.jfmfs-button-hover {
 	text-decoration: underline;
 }
 
 #jfmfs-friend-filter-text {
 	height: 23px;
+	background-color: #FFF;
+	border: 1px solid #d6d6d6;
+	border-radius: 5px;
+	font: 13px helvetica, sans-serif;
+	color: #9f9f9f;
+	padding: 4px 8px;
+	float: left;
+	margin-right: 20px;
 }
 
 #jfmfs-inner-header span.jfmfs-title {
 	color: #333333;
 	font-weight: bold;
 	margin: 3px 0 2px;
+	display: none;
 }
 
 #jfmfs-max-selected-wrapper {
