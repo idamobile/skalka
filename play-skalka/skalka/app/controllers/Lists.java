@@ -209,6 +209,12 @@ public class Lists extends Application {
 			DB.execute("delete from user_actions_in_prod_list where list_id = " + id);
 			DB.execute("delete from list_prod where list_id = " + id);
 			DB.execute("delete from lists where id = " + id);
+
+			if (session.contains(SESSION_PARAM_TARGET_FRIEND)) {
+				Cache.delete(session.get(SESSION_PARAM_TARGET_FRIEND));
+			}
+			session.remove(SESSION_PARAM_TARGET_FRIEND);
+
 		} catch (Throwable e) {
 			Logger.error(e, "Unable to remove list");
 		}

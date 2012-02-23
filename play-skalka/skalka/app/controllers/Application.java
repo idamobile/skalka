@@ -44,12 +44,13 @@ public class Application extends Controller {
 	}
 
 	public static void index(Long targetFbId, boolean createNewList, String occasion) {
-		Logger.error("occassion=" + occasion);
+		Logger.warn("occassion = " + occasion);
 		User ownerUser = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 		User targetUser = null;
 
 		if (targetFbId == null) {
 			if (createNewList) {
+				Logger.warn("New friend has to be selected - 1");
 				renderArgs.put("showFriendsSelector", true);
 				render();
 			}
@@ -58,10 +59,14 @@ public class Application extends Controller {
 			if (storedFbId == null || !storedFbId.matches("[0-9]+")) {
 
 				ProductsList lastList = ProductsList.fetchLatest(ownerUser.id);
+
+				Logger.warn("No target user was saved. Last list is: " + lastList);
+
 				if (lastList != null) {
 					targetUser = User.findById(lastList.targetId);
 					targetFbId = targetUser.facebookId;
 				} else {
+					Logger.warn("New friend has to be selected - 2");
 					renderArgs.put("showFriendsSelector", true);
 					render();
 				}
@@ -70,6 +75,7 @@ public class Application extends Controller {
 			}
 		}
 		session.put(SESSION_PARAM_TARGET_FRIEND, targetFbId);
+		Logger.warn("Saving target FB ID: " + targetFbId);
 
 		targetUser = User.ensureUser(targetFbId);
 		if (targetUser == null) {

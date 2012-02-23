@@ -49,6 +49,12 @@ public class ProductsList extends Model {
 		this.targetId = targetId;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductsList [name=" + name + ", ownerId=" + ownerId + ", targetId=" + targetId
+				+ "]";
+	}
+
 	public static boolean hasLists(Long ownerId, Long targetId) {
 		return ProductsList.count(HQL_FIND_LISTS, ownerId, targetId) > 0;
 	}

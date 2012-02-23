@@ -66,10 +66,6 @@ $(document).ready(function ($) {
 	});
 
 
-	if ((typeof (showFriendSelectionDialog) !== 'undefined') && showFriendSelectionDialog) {
-		$('a[href="#selectFriend"]').click();
-	}
-
 	window.fbAsyncInit = function () {
 		friendCompleterSetup();
 		friendCompleterAddToInput("input#friend_finder", function (control, selectedItem, selectedObj) {
@@ -210,7 +206,10 @@ function ajaxProductParce(event){
 			prodName = prodForm.find('input[name="descr"]');
 			prodPrice = prodForm.find('input[name="price"]');
 			prodImage = $("#productForm_imageUrl");
-
+			prodUrl = prodForm.find('input[name="productUrl"]');
+			
+			prodUrl.val($("#productUrl #url").val());
+			
 			if (data.name) { prodName.val(data.name); }
 			var imgList = $('#productInfo_images ul');
 			imgList.empty();
@@ -537,3 +536,14 @@ function initPageless() {
 		$("div#items-container").pageless(optionz);
 	})
 }
+
+window.onload = function(){
+	if ((typeof (showFriendSelectionDialog) !== 'undefined') && showFriendSelectionDialog) {
+		$('.changeFriend').fancybox($.extend({}, fancyConf, {
+			/* config overrides */
+			wrapCSS: 'skalkaModalRound'
+		})).trigger('click');
+	}	
+};
+
+
