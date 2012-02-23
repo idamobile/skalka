@@ -4,7 +4,12 @@
         	<img src="@{'/public/images/logo.png'}" alt="Skalka logo" />
         </a>
         
+        #{ifnot _isFeedSelected}
         <div class="giftLists select active">
+        #{/ifnot}
+        #{else}
+        <div class="giftLists select">
+        #{/else}
         	<p class="label">My gift lists</p>
 			<p class="expander">&nbsp;</p>
 			<ul class="dropDownMenu" id="giftListsMenu">
@@ -25,7 +30,12 @@
 			</ul>
         </div>
         
-        <div class="myFeed select">
+        #{if _isFeedSelected}
+    	    <div class="myFeed select active">
+        #{/if}
+        #{else}
+	        <div class="myFeed select">
+        #{/else}
 			<p class="label">Curation</p>
 			<p class="expander">&nbsp;</p>
 			<ul class="dropDownMenu" id="feedMenu">

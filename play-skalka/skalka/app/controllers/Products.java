@@ -252,6 +252,7 @@ public class Products extends Application {
 		String nextPageUrl = "/products/listUserProductsPage";
 
 		renderArgs.put("productPagesCount", 100);
+		renderArgs.put("isFeedSelected", true);
 
 		render(products, nextPageUrl);
 	}
