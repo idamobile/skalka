@@ -251,6 +251,7 @@ public class Products extends Application {
 
 		String nextPageUrl = String.format("/%d/feedPage", userId);
 
+		renderArgs.put("user", User.findById(userId));
 		renderArgs.put("productPagesCount", 100);
 		renderArgs.put("isFeedSelected", true);
 
