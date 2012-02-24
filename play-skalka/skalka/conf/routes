@@ -14,6 +14,9 @@ GET		/lists/{<[0-9]*>id}/collaborators			Collaborators.all
 GET		/lists/{<[0-9]*>id}/collaborators/add		Collaborators.add
 GET		/lists/{<[0-9]*>id}/collaborators/remove	Collaborators.remove
 
+GET		/{<[0-9]*>userId}/feed						Products.feed
+GET		/{<[0-9]*>userId}/feedPage					Products.feedPage
+
 # Ignore favicon requests
 GET     /favicon.ico                          	  	404
 

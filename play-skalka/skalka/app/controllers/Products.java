@@ -241,15 +241,15 @@ public class Products extends Application {
 		return getOrderedList(listId, 0);
 	}
 
-	/**
-	 * My products feed main page
-	 */
-	public static void listUserProducts() {
-		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		JPAQuery query = Product.find("addedBy = ? ORDER BY addedWhen DESC", user.id);
+	public static void feed(long userId) {
+		if (userId == -1) {
+			User me = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
+			userId = me.id;
+		}
+		JPAQuery query = Product.find("addedBy = ? ORDER BY addedWhen DESC", userId);
 		List<Product> products = query.fetch();
 
-		String nextPageUrl = "/products/listUserProductsPage";
+		String nextPageUrl = String.format("/%d/feedPage", userId);
 
 		renderArgs.put("productPagesCount", 100);
 		renderArgs.put("isFeedSelected", true);
@@ -257,15 +257,9 @@ public class Products extends Application {
 		render(products, nextPageUrl);
 	}
 
-	/**
-	 * My products feed specific page
-	 * 
-	 * @param page
-	 */
-	public static void listUserProductsPage(int page) {
+	public static void feedPage(long userId, int page) {
 		page = (page < 1) ? 1 : page;
-		User user = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
-		JPAQuery query = Product.find("added_by_uid = ?", user.id);
+		JPAQuery query = Product.find("added_by_uid = ?", userId);
 		List<Product> products = query.fetch(page, Constants.PRODUCTS_PAGE_SIZE);
 		render(products);
 	}

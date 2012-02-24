@@ -25,7 +25,7 @@
 	    		<img src="${product.getAuthor()?.getImageUrl()}" alt="user's image"/>
 	    	</div>
 	    	<p class="user-name">
-	    		Submitted by <span>${product.getAuthor()}</span>
+	    		Submitted by <span><a href="@{Products.feed(product.getAuthor()?.id)}">${product.getAuthor()}</a></span>
 	    	</p>
 	    	<div class="clear"></div>
 	    </div>
