@@ -546,4 +546,26 @@ window.onload = function(){
 	}	
 };
 
+function getMutualFriendsForSidebar() {
+	
+	try {
+		FB.init({ appId: '270568069679176', xfbml: true, cookie: true });
+	}catch (ex1) {
+		try {
+			FB.init({ appId: '270568069679176', xfbml: true, cookie: true });
+		}catch (ex2) {
+			
+		}
+	}
+	
+	FB.api({
+		method: 'friends.getMutualFriends', 
+		target_uid: context.targetFacebookId, 
+		access_token: context.access_token}, 
+		function(result) {
+			$('#number_of_common_friends').text(result.length+' friends in common');
+			//TODO: show images of 3-5 common friends
+			//result[i] - is a Facebook ID of a friend
+		});
+}
 
