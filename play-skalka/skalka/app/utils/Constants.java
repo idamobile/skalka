@@ -10,7 +10,7 @@ public class Constants {
 
 	public static final int PRODUCT_IMAGE_IN_FEED = 295;
 	public static final int PRODUCT_IMAGE_IN_PROD_DETAILS = 350;
-	public static final int PRODUCT_IMAGE_IN_LIST = 50;
+	public static final int PRODUCT_IMAGE_IN_LIST = 65;
 
 	public static final String IMAGE_IN_FEED_DIR = "/feed/";
 	public static final String IMAGE_IN_DETAILS_DIR = "/details/";
