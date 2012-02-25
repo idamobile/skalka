@@ -486,26 +486,80 @@
 #votingPanel {
 	margin: 0 0 15px;
 }
+
+/* VOTING BUTTONS */
+#votingPanel .button {
+	float: left;
+}
+#votingPanel .button span {
+	height: 34px;
+	background: none;
+	background-image: url(/public/images/bg_button_voting.png);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	border: 1px solid #c7c7c7;
+	/*box-shadow: 0px 1px 1px #555555;*/
+	color: #373737;
+	text-shadow: 0px 1px 1px #fff;
+	box-shadow: none;
+	padding-left: 20px;
+}
+#votingPanel .button span span {
+	border: none;
+	box-shadow: none;
+	background-image: url(/public/images/icons/yes_no.png);
+	background-repeat: no-repeat;
+	padding: 0 20px 0 30px;
+}
+#votingPanel .button:hover span {
+	background-position: 0px -35px;
+	border: 1px solid #999999;
+	box-shadow: 0px 2px 3px #b0b0b0 inset;
+}
+#votingPanel .button:hover span span {
+	border: none;
+	box-shadow: none;
+}
+
+/* YES button */
+#votingPanel .voteForButton span {
+	border-radius: 5px 0 0 5px;
+}
+#votingPanel .voteForButton span span {
+	background-position: 0px 6px;
+}
+#votingPanel .voteForButton:hover span span {
+	background-position: 0px 6px;
+}
+
+/* NO button */
+#votingPanel .voteAgainstButton {
+	margin-left: 0px;
+}
+#votingPanel .voteAgainstButton span {
+	border-radius: 0px 5px 5px 0px;
+}
+#votingPanel .voteAgainstButton span span {
+	background-position: 0px -70px
+}
+#votingPanel .voteAgainstButton:hover span span {
+	background-position: 0px -70px
+}
+
 .voteRatebar {
-    height: 10px;
-    margin: 2px 0;
-    border: 1px solid #CCC;
+    height: 5px;
+    margin: 15px 0;
     overflow: hidden;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
 }
 .voteRatebarLikes {
     float: left;
-    height: 10px;
-    border-right: 1px solid white;
-    background: #060;
+    height: 5px;
+    background: transparent url(/public/images/bg_voting_progress.png) repeat-x 0 0;
 }
 .voteRatebarDislikes {
     float: right;
-    height: 10px;
-    margin-right: -1px;
-    background: #C00;
+    height: 5px;
+    background: transparent url(/public/images/bg_voting_progress.png) repeat-x 0 -5px;
 }
 .productDetails .comments {
 	width: 270px;

@@ -10,7 +10,9 @@
 			initItemsDragDrop("div.item", "#giftListDropTarget");
 		</script>
 		<div class="userPic">
-			<a class="changeFriend" href="#selectFriend"><img src='${_user?.getImageUrl("normal")}' alt=""/></a>
+			<a class="changeFriend" href="#selectFriend">
+				<img src='${_user?.getImageUrl("normal")}' alt=""/>
+			</a>
 		</div>
 		#{if _giftBox}
     		<div class="eventName">
@@ -24,9 +26,10 @@
 					#{/if}
 					#{else}
 					<li class="item product_icon" id="${item.id}" onclick="">
-					<img src="@{Products.imageList(item.id)}" alt=""/>
+						<div class="inner" style="background-image: url('@{Products.imageList(item.id)}'); background-position: 50% 50%; background-repeat: no-repeat;">
+						</div>
 					</li>
-					#{/else}				
+					#{/else}
 			#{/list}
 			<li class="add">Drag<br/> to add</li>
 			<div class="clear"></div>

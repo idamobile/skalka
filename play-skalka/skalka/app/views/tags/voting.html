@@ -1,8 +1,12 @@
-<div>
- 	<input class="voteForButton #{if _userActionInList?.userAction == 'y'}pressed#{/if}" type="button" value="Yes" onclick="userAction(${_product.id}, 'y')">
- 	<input class="voteAgainstButton #{if _userActionInList?.userAction == 'n'}pressed#{/if}" type="button" value="No" onclick="userAction(${_product.id}, 'n')">
-	<div class="voteRatebar">
-	    <div class="voteRatebarLikes" style="width: ${_likePercentage}"></div>
-	    <div class="voteRatebarDislikes" style="width: ${_dislikePercentage}"></div>
-	</div>
+
+<button class="button voteForButton #{if _userActionInList?.userAction == 'y'}pressed#{/if}" type="button" onclick="userAction(${_product.id}, 'y')">
+    <span><span>Yes</span></span>
+</button>
+<button class="button voteAgainstButton #{if _userActionInList?.userAction == 'n'}pressed#{/if}" type="button" onclick="userAction(${_product.id}, 'n')">
+    <span><span>No</span></span>
+</button>
+<div class="clear"></div>
+<div class="voteRatebar">
+    <div class="voteRatebarLikes" style="width: ${_likePercentage}"></div>
+    <div class="voteRatebarDislikes" style="width: ${_dislikePercentage}"></div>
 </div>

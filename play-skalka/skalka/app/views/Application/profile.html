@@ -5,15 +5,22 @@
 
 		<div class="col-left sidebar">
 			<div class="userPic">
-				<img src="${targetUser?.getImageUrl()}" alt=""/>
+				<a title="${targetUser?.firstName}">
+					<img src="${targetUser?.getImageUrl('normal')}" alt=""/>
+				</a>
 			</div>
 			<div class="callToAction">
 				We haven't got enough information about ${targetUser}, please answer some questions.
 			</div>
-			<div><input id="btnSubmit" type="button" value="Submit.." /></div>
+			<div class="actions">
+				<button id="btnSubmit" type="button" class="button blue">
+					<span><span>Save Profile</span></span>
+				</button>
+			</div>
 			<script type="text/javascript">
 				initProfileEditor( "input#btnSubmit", "/friends/addCategories?occasion=${occasion}&" );
 			</script>
+			
 		</div>
 
 		<div class="col-main">

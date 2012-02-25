@@ -484,7 +484,7 @@ function initItemsDragDrop(selDrag, selDrop) {
 			// see http://stackoverflow.com/a/5848800/126995 for overriding original position..
 			helper: function () {
 				var id = this.id;
-				return $("<img src='/products/imagelist?id=" + id + "'/>");
+				return $("<div class='dragContainer'><img src='/products/imagelist?id=" + id + "'/></div>");
 			},
 			cursorAt: { left: 25, top: 25 },
 			revert: true
