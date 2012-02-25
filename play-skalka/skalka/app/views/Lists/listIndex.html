@@ -15,7 +15,7 @@
     			<h1>Gift Suggestions for ${targetUser}</h1>
     			<p>
     				Edit <a href="@{Application.profile()}" >${targetUser}'s profile</a> for better suggestions or 
-    				<a class="submitIdea" href="#addProduct">submit your own idea</a>.
+    				<a class="submitIdea" href="#addProduct" onclick="javascript:context.addProductToList=true;">submit your own idea</a>.
     			</p>
     		</div>
     		<div class="grid-layout" id="grid-wrapper">

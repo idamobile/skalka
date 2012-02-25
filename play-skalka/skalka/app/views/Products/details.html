@@ -17,19 +17,15 @@
 		<div class="clear"></div>
 	</div>
 	
-	<h1 class="title">Product title</h1>
+	<h1 class="title">${product.descr}</h1>
 	
 	#{if userActionInList}
 	<div id="votingPanel">
 		#{voting userActionInList:userActionInList, product:product, likePercentage:likePercentage, dislikePercentage:dislikePercentage/}
 	</div>
 	#{/if}
-	
-	<p class="description">
-	    ${product.descr}
-	</p>
-	
-	<button class="buy button blue" type="button" onclick="javascript:void(0);">
+		
+	<button class="buy button blue" type="button" onclick="javascript:window.location='${product.productUrl}';">
 	    <span><span>Buy</span></span>
 	</button>
 

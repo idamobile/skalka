@@ -201,6 +201,9 @@ function ajaxProductParce(event){
 			prodImage = $("#productForm_imageUrl");
 			prodUrl = prodForm.find('input[name="productUrl"]');
 			
+			prodAddToList = prodForm.find('input[name="addToCurrentList"]');
+			prodAddToList.val(context.addProductToList);
+			
 			prodUrl.val($("#productUrl #url").val());
 			
 			if (data.name) { prodName.val(data.name); }

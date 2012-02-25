@@ -71,7 +71,7 @@ public class Products extends Application {
 	}
 
 	public static void add(String descr, String story, @Required String imageUrl,
-			@Required String price, String type, String productUrl) {
+			@Required String price, String type, String productUrl, boolean addToCurrentList) {
 		try {
 			Logger.warn(Arrays.toString(new String[] { descr, story, imageUrl, "" + price, type }));
 			Product product = new Product(descr, story, imageUrl, null, type, new Date());
@@ -89,6 +89,14 @@ public class Products extends Application {
 			fetchImage(product, imageUrl);
 
 			product.save();
+
+			Logger.warn("Add product to current list: " + addToCurrentList);
+			if (addToCurrentList && session.contains(Application.SESSION_PARAM_CURRENT_LIST)) {
+				Long listId = new Long(session.get(Application.SESSION_PARAM_CURRENT_LIST));
+				ProductsList list = ProductsList.findById(listId);
+				list.addProduct(product.id);
+			}
+
 			renderText("true");
 		} catch (Throwable e) {
 			e.printStackTrace();
