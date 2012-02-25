@@ -172,17 +172,10 @@ function ajaxAddProduct(event){
    //alert('Product Added!');
    window.location.reload();
   else
-   alert('Product was not added!');
+   alert('Something gone wrong. It happens.');
  });
 }
 
-function setSelectedProductImageIndex( indSelected ) {
-	var allImages = $("#productInfo_images ul li img");
-	var img = allImages.eq(indSelected);
-	var src = img[0].src;
-	// alert( "easy slider.onChange: index=" + indSelected.toString() + ", src=" + src );
-	$( "#productForm_imageUrl" ).val( src );
-}
 
 function ajaxProductParce(event){
 
@@ -222,7 +215,7 @@ function ajaxProductParce(event){
 				$.each(images, function (key, value) {
 					imgList.append('<li><img src="' + value + '"/></li>');
 				});
-				setSelectedProductImageIndex( 0 );
+				$( "#productForm_imageUrl" ).val( images[0] );
 				initGalley();
 			}
 			if (data.price) { prodPrice.val(data.price); }
@@ -231,7 +224,7 @@ function ajaxProductParce(event){
 			prodInfo.show(200, $.fancybox.update());
 
 		} else {
-			alert('Product Parcing returned Error!');
+			alert('This is hard nut to crack!');
 		}
 	}, "json");
 }
@@ -244,8 +237,7 @@ function initGalley(){
 		continuous: true,
 		speed: 150,
 		onChange: function (indSelected) {
-			// alert( "easy slider.onChange - " + indSelected.toString() );
-			setSelectedProductImageIndex( indSelected );
+			$( "#productForm_imageUrl" ).val( images[indSelected] );
 		}
 	});
 }
