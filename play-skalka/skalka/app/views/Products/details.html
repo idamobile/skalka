@@ -1,20 +1,9 @@
 <div class="info">
+
 	<div class="imageBox">
-	    <img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
-	</div>
-	
-	<div class="actions">
-		#{if userActionInList}
-		<button class="removeProductButton button blue" type="button" onclick="removeProductFromList(${product.id})">
-			<span><span>Remove</span></span>
-		</button>
-		#{/if}
-		#{if shouldHaveAddToListButton}
-		<button class="addToListButton button blue" type="button" onclick="addProductToList(${product.id});">
-			<span><span>Add</span></span>
-		</button>
-		#{/if}
-		<div class="clear"></div>
+		<div class="inner">
+	    	<img src="@{Products.imageFeed(product.id)}" alt="${product.id}"/>
+	    </div>
 	</div>
 	
 	<h1 class="title">${product.descr}</h1>
@@ -24,10 +13,33 @@
 		#{voting userActionInList:userActionInList, product:product, likePercentage:likePercentage, dislikePercentage:dislikePercentage/}
 	</div>
 	#{/if}
+	
+	<div class="description">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis erat ac enim sagittis vel 
+		scelerisque augue elementum. Aliquam erat volutpat. Mauris urna mi, vulputate ut consectetur eu, 
+		congue eu dui. Quisque eget ligula mauris. Sed sit amet massa at ante dictum interdum vel non elit.
+	</div>
 		
-	<button class="buy button blue" type="button" onclick="javascript:window.location='${product.productUrl}';">
-	    <span><span>Buy</span></span>
-	</button>
+	<div class="actions">
+	
+		<button class="buy button blue" type="button" onclick="javascript:window.location='${product.productUrl}';">
+	    	<span><span>Buy</span></span>
+		</button>
+		
+		#{if userActionInList}
+		<button class="removeProductButton button blue" type="button" onclick="removeProductFromList(${product.id})">
+			<span><span>Remove</span></span>
+		</button>
+		#{/if}
+		
+		#{if shouldHaveAddToListButton}
+		<button class="addToListButton button blue" type="button" onclick="addProductToList(${product.id});">
+			<span><span>Add</span></span>
+		</button>
+		#{/if}
+		
+		<div class="clear"></div>
+	</div>
 
 	<div class="price">
 	    <div>

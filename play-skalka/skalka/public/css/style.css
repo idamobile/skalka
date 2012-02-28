@@ -384,6 +384,9 @@ body {
 }
 .collab .friends .suggestions {
 	float: left;
+	width: 173px;
+	height: 42px;
+	display: block;
 }
 .collab .friends .suggestions li {
 	float: left;

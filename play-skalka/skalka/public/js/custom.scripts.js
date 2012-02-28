@@ -52,19 +52,7 @@ $(document).ready(function ($) {
 		},
 	}));
 
-
-	$('.productInFeed').click(function (event) {
-		event.preventDefault();
-		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId='+context.listId+'&clickedFromFeed=true', function () {
-			$('.addToListButton').click(function (event) {
-				event.preventDefault();
-				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") });
-				$('.addToListButton').hide();
-			});
-			$('a[href="#productDetails"]').click();
-		});
-	});
-
+	initProductPopups();
 
 	window.fbAsyncInit = function () {
 		friendCompleterSetup();
@@ -75,6 +63,7 @@ $(document).ready(function ($) {
 	};
 
 	// Sidebar repositioning on window scroll
+	/*
 	sidebar = $(".feedSidebar");
 	start = 52;
 
@@ -87,6 +76,7 @@ $(document).ready(function ($) {
 			sidebar.removeClass('fixed');
 		}
 	});
+	*/
 
     $("#occasionSelect").change(function () {
           var str = "";
@@ -114,7 +104,21 @@ $(document).ready(function ($) {
 		$(this).toggleClass('over');
 		$(this).find('.dropDownMenu').fadeToggle(150, 'swing');
 	});
-}); 
+});
+
+function initProductPopups() {
+	$('.productInFeed').click(function (event) {
+		event.preventDefault();
+		$('#productDetails .container').load('/products/details/' + $(this).attr("id") + '?listId='+context.listId+'&clickedFromFeed=true', function () {
+			$('.addToListButton').click(function (event) {
+				event.preventDefault();
+				$.get("/lists/addProduct", { listId: context.listId, productId: $(this).attr("id") });
+				$('.addToListButton').hide();
+			});
+			$('a[href="#productDetails"]').click();
+		});
+	});
+}
 
 function removeList(ListId){
 	//$.post(url)
@@ -517,9 +521,11 @@ function initPageless() {
 			totalPages: context.productPagesCount,
 			loaderMsg: "Loading, please wait..",
 			loaderHtml: "<div style='display:none;'></div>",
+			distance: 700,
 			complete: function () {
 				// alert("pageless complete");
 				GridLayout.allPins();
+				initProductPopups();
 			}
 		}
 
@@ -561,6 +567,22 @@ function getMutualFriendsForSidebar() {
 			$('#number_of_common_friends').text(result.length+' friends in common');
 			//TODO: show images of 3-5 common friends
 			//result[i] - is a Facebook ID of a friend
+			//console.log(result);
+			
+			var graphUrl = 'http://graph.facebook.com/';
+			var facesContainer = $('.friends .suggestions');
+			facesContainer.html('');
+			$(result).each(function(i){
+				if(i == 4) return false;
+				var rand = Math.floor(Math.random() * result.length);
+				var randUserId = result[rand];
+				$.get(graphUrl + randUserId, function(data){
+					var user = $.parseJSON(data);
+					//console.log(user.id);
+					var result = '<li><img src="' + graphUrl + user.id + '/picture" title="' + user.name + '"/></li>';
+					facesContainer.append(result);
+				});
+			});
 		});
 }
 
