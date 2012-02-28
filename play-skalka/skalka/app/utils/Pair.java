@@ -11,7 +11,7 @@ public class Pair<A, B> {
 	}
 
 	public String toString() {
-		return "Pair[" + fst + "," + snd + "]";
+		return "{" + fst + " => " + snd + "}\n";
 	}
 
 	private static boolean equals(Object x, Object y) {
