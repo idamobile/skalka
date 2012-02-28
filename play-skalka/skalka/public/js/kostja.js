@@ -6,11 +6,13 @@ $(document).ready(function ($) {
 		wrapCSS: 'skalkaModalRound'
 	}));
 
+
 	// Initializing ADD YOUR PRODUCT popup
 	$('.submitIdea').fancybox($.extend({}, fancyConf, {
 		/* config overrides */
 		wrapCSS: 'skalkaModalRound skalkaModal'
 	}));
+
 
 	// Initializing INVITE FRIENDS popup
 	$('.inviteFriendsButton').fancybox($.extend({}, fancyConf, {
@@ -36,7 +38,7 @@ $(document).ready(function ($) {
 			$("#inviteFriends_mutual").click(function () { showOnlyMutual(true); });
 			$("#inviteFriends_all").click(function () { showOnlyMutual(false); });
 
-			var selInviteButton = "input#facebookFriendsInvite";
+			var selInviteButton = "#facebookFriendsInvite";
 			$(selInviteButton).attr('disabled', true);
 
 			$(selFacebookFriendPicker).bind("jfmfs.selection.changed", function () {
