@@ -24,7 +24,7 @@ public class GivvyParser {
 
 		List<Map<String, String>> base = new ArrayList<Map<String, String>>();
 
-		for (int i = 50; i < 1200; i++) {
+		for (int i = 53; i < 1024; i++) {
 			try {
 				Map<String, String> p = parseProduct(i);
 				base.add(p);
@@ -72,12 +72,17 @@ public class GivvyParser {
 		product.put("story", parseStory(page));
 		product.put("price", parsePrice(page));
 		product.put("image_url", parseImageUrl(page));
+		product.put("product_url", parseProductUrl(page));
 
 		return product;
 	}
 
 	private static String parseImageUrl(Document page) {
 		return page.select("img[class=image_border]").first().attr("src");
+	}
+
+	private static String parseProductUrl(Document page) {
+		return page.select("a[target=_blank]").first().attr("href");
 	}
 
 	private static String parseCategory(Document page) {

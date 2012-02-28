@@ -13,8 +13,8 @@ create table users (
     gender      enum('male', 'female')  default null,
     birth_date  date                    default null,
     image_url   varchar(1024)           default null,
-    added_when date     default null,
-    last_login date     default null,
+    added_when     date                                      default '2010-01-01',
+    last_login     date                                      default '2010-01-01',
     primary key(id),
     unique (fb_uid)
 );
@@ -37,7 +37,7 @@ create table products (
     price          float                                          default null,
     currency       varchar(5)                                     default "$",
     type           enum('image', 'image_with_story', 'story')     default null,
-    added_when     timestamp                                      default null,
+    added_when     timestamp                                      default '2010-01-01',
     is_public      enum('t','f')                                  default 't',
     primary        key(id)
 );
