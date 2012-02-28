@@ -563,26 +563,30 @@ function getMutualFriendsForSidebar() {
 	}
 	
 	FB.api({
-		method: 'friends.getMutualFriends',
-		target_uid: context.targetFacebookId,
-		access_token: context.access_token
-	}, function(result) {
-		$('#number_of_common_friends').text(result.length + ' friends in common');
-		var graphUrl = 'http://graph.facebook.com/';
-		var facesContainer = $('.friends .suggestions');
-		var usedNumbers = [];
-		facesContainer.html('');
-		result = $.randomize(result);
-		$(result).each(function(i) {
-			if (i == 4) return false;
-			//var rand = Math.floor(Math.random() * result.length);
-			var randUserId = result[i];
-			var requestUrl = graphUrl + randUserId;
-			$.getJSON(requestUrl, function(data) {
-				//console.log(data);
-				var result = '<li><img src="' + graphUrl + data.id + '/picture" title="' + data.name + '"/></li>';
-				//console.log(result);
-				facesContainer.append(result);
+		method: 'friends.getMutualFriends', 
+		target_uid: context.targetFacebookId, 
+		access_token: context.access_token}, 
+		function(result) {
+			$('#number_of_common_friends').text(result.length+' friends in common');
+			//TODO: show images of 3-5 common friends
+			//result[i] - is a Facebook ID of a friend
+			//console.log(result);
+			
+			var graphUrl = 'http://graph.facebook.com/';
+			var facesContainer = $('.friends .suggestions');
+			facesContainer.html('');
+			$(result).each(function(i){				
+				if(i == 4) return false;
+				var rand = Math.floor(Math.random() * result.length);
+				var requestURL = graphUrl+result[rand];
+				
+				//console.log("Requesting: "+requestURL);
+				$.get(requestURL, function(data){
+					var user = $.parseJSON(data);
+					//console.log(user.id);
+					var result = '<li><img src="' + graphUrl + user.id + '/picture" title="' + user.name + '"/></li>';
+					facesContainer.append(result);
+				});
 			});
 		});
 	});

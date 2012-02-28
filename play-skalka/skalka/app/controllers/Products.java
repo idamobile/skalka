@@ -250,10 +250,16 @@ public class Products extends Application {
 	}
 
 	public static void feed(long userId) {
-		if (userId == -1) {
+		if (userId <= 0) {
 			User me = Cache.get(session.get(SESSION_PARAM_ACCESS_TOKEN), User.class);
 			userId = me.id;
+			if (userId > 0) {
+				Products.feed(userId);
+			} else {
+				Logger.error("Unable to define user id: " + userId);
+			}
 		}
+
 		JPAQuery query = Product.find("addedBy = ? ORDER BY addedWhen DESC", userId);
 		List<Product> products = query.fetch();
 
