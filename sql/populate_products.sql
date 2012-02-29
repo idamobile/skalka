@@ -1,53 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.15, for osx10.6 (i386)
---
--- Host: localhost    Database: skalka
--- ------------------------------------------------------
--- Server version	5.5.15
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `products`
---
-
-DROP TABLE IF EXISTS `products`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `products` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `description` varchar(1024) DEFAULT NULL,
-  `story` varchar(1024) DEFAULT NULL,
-  `product_url` varchar(1024) DEFAULT NULL,
-  `image_url` varchar(1024) DEFAULT NULL,
-  `image_feed` varchar(1024) DEFAULT NULL,
-  `image_details` varchar(1024) DEFAULT NULL,
-  `image_list` varchar(1024) DEFAULT NULL,
-  `added_by_uid` bigint(20) DEFAULT NULL,
-  `price` float DEFAULT NULL,
-  `currency` varchar(5) DEFAULT '$',
-  `type` enum('image','image_with_story','story') DEFAULT NULL,
-  `added_when` timestamp NOT NULL DEFAULT '2009-12-31 20:00:00',
-  `is_public` enum('t','f') DEFAULT 't',
-  PRIMARY KEY (`id`),
-  KEY `prod_added_by_uid_idx` (`added_by_uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=901 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `products`
 --
 
-LOCK TABLES `products` WRITE;
-/*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` VALUES (1,'Outdoor LP Gas Fire Pit with Slate Top','My parents bought a new home so my siblings and I got them this awesome outdoor gas fire pit. They\'re not the type to hassle with real fire logs so the gas more>> burner is perfect for ease of use. They\'ve used it almost everyday since we bought it!','http://www.firepits.com/propane-fire-pits/propane-','http://images.givvy.com/images/products/53.jpg','ffb049e8-a792-40c7-b565-74ff6aedeaec','bac34152-2e67-4243-8b0d-63a899670af6','c2ef39dd-8547-4955-8c88-10b894336942',5,800,'$','image','2012-02-28 13:35:28','t');
 INSERT INTO `products` VALUES (2,'Rustica Gourmet Gift Box','This is a great gift for your top business clients. I sent a box to a few clients to thank them for their business and I got such an amazing response! A more>> little pricey but sure pay off in spades when it comes to retaining your best customers.','http://www.oliveandcocoa.com/prod_detail_list/edible_gifts/a','http://images.givvy.com/images/products/56.jpg','94e3edf2-d322-4ee3-905f-5946447f5fdc','8fa2cb16-0709-438e-a9aa-8d4726a616d0','2f2feb89-6d00-489b-bcfd-f9a0af2d5a87',2,184,'$','image','2012-02-28 13:35:30','t');
 INSERT INTO `products` VALUES (3,'Blooming Flower Pot Cake','Love this Flower Pot Cake for potlucks and housewarming gifts. It\'s made of five-layer chocolate devil’s food cake with chocolate-caramel truffle cream filling and coffee buttercream frosting. Made from expert cake designers out of Napa Valley!','http://www.williams-sonoma.com/products/perfect-endings-blooming-flower-pot-cake/','http://images.givvy.com/images/products/63.jpg','9c335cc8-f225-46e8-90f7-2b88ab875532','29b214c9-9af2-4e2a-8dcf-f6f0ee704f8f','0d0a2e6a-bd90-44c4-bcdd-74bcd28b9174',1,100,'$','image','2012-02-28 13:35:31','t');
@@ -948,16 +903,3 @@ INSERT INTO `products` VALUES (897,'Ida Mobile','Lorem ipsum dolor sit amet, con
 INSERT INTO `products` VALUES (898,'Superbulb','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet, purus eget dapibus accumsan, ante dui lacinia tellus, ut pellentesque lacus libero sed tellus.',NULL,'http://lambid.ee/media/catalog/category/halogen.png','f10e11e8-036e-45f2-a3e2-8da6b3819e62','f3487c3e-bb4e-45e5-b4eb-aa0b37c4abe7','87a6958d-f68d-4982-9bf2-865abb48a845',1525669750,99.5,NULL,'image','2012-02-15 20:00:00','t');
 INSERT INTO `products` VALUES (899,'Sexy womens Lingerie Thongs G-string Panties One Size:XS~M UK:4~12','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet, purus eget dapibus accumsan, ante dui lacinia tellus, ut pellentesque lacus libero sed tellus.',NULL,'http://i.ebayimg.com/00/s/NTI0WDUwMA==/$(KGrHqVHJCsE8gOq9qeeBPOn1mznuw~~60_35.JPG','fc568b7f-9b7b-4e91-a4fc-3c4a7bf24fec','814f1195-cfed-48fb-a310-8ce0bc6be55d','00b4d3cf-2c5f-418b-8600-93ddd3b6961d',NULL,2.8,'£','image','2012-02-15 20:00:00','t');
 INSERT INTO `products` VALUES (900,'Sexy Lingerie Ladies Bra Stylish Underwear 027 Black/Hot Pink + G-string','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet, purus eget dapibus accumsan, ante dui lacinia tellus, ut pellentesque lacus libero sed tellus.',NULL,'http://img.auctiva.com/imgdata/1/4/4/3/9/7/2/webimg/489507133_o.jpg','15140ca8-6481-4528-96e8-ca6db9abe046','c49305b8-4862-4b20-bb12-e1b13f0eccd9','8671e1fb-c2f3-4dbb-a88a-10775e951607',506177159,3.59,'£','image','2012-02-15 20:00:00','t');
-/*!40000 ALTER TABLE `products` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2012-02-29  3:34:15

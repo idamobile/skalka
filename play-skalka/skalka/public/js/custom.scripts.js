@@ -589,7 +589,6 @@ function getMutualFriendsForSidebar() {
 				});
 			});
 		});
-	});
 }
 
 (function($) {
