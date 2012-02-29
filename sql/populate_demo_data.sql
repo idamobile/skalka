@@ -35,7 +35,7 @@ insert into subcategories(name, image_url, category_id) values ('geek', 'http://
 insert into subcategories(name, image_url, category_id) values ('foodie', 'http://media-cdn.pinterest.com/upload/227220743669594844_svwXn9Pd_b.jpg', 999999);
 
 
-INSERT INTO `subcategories` VALUES
+INSERT INTO subcategories(name, image_url, category_id) VALUES
 ('boy','http://media-cdn.pinterest.com/upload/227220743669522114_oBCIz7MM_b.jpg',8),
 ('girl','http://media-cdn.pinterest.com/upload/227220743669522109_H45FgYN3_b.jpg',8);
 
