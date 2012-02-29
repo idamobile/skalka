@@ -353,7 +353,8 @@ var GridLayout = function() {
 
 
 function initProfileEditor(selSubmitButton, urlSubmitAction) {
-	// var selSubmit = "input#btnSubmit";
+	//var selSubmit = "#btnSubmit";
+	console.log(selSubmitButton);
 	var setSelected = {};
 	$(document).ready(function() {
 		setSelected = {};
@@ -575,15 +576,14 @@ function getMutualFriendsForSidebar() {
 			var graphUrl = 'http://graph.facebook.com/';
 			var facesContainer = $('.friends .suggestions');
 			facesContainer.html('');
+			result = $.randomize(result);
 			$(result).each(function(i){
 				if(i == 4) return false;
-				var rand = Math.floor(Math.random() * result.length);
-				var requestURL = graphUrl+result[rand];
-				
-				console.log("Requesting: "+requestURL);
-				$.get(requestURL, function(data){
-					var user = $.parseJSON(data);
-					console.log(user.id);
+				//var rand = Math.floor(Math.random() * result.length);
+				var requestURL = graphUrl+result[i];
+				//console.log("Requesting: "+requestURL);
+				$.getJSON(requestURL, function(user){
+					//console.log(user.id);
 					var result = '<li><img src="' + graphUrl + user.id + '/picture" title="' + user.name + '"/></li>';
 					facesContainer.append(result);
 				});
