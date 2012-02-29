@@ -359,9 +359,10 @@ function initProfileEditor(selSubmitButton, urlSubmitAction) {
 		setSelected = {};
 		var fnEnableSubmit = function() {
 			var count = 0;
-			for (var prop in setSelected)
-			count++;
-			if (count >= 5) $(selSubmitButton).removeAttr("disabled");
+			for (var prop in setSelected) {
+				count++;
+			}
+			if (count >= 0) $(selSubmitButton).removeAttr("disabled");
 			else $(selSubmitButton).attr("disabled", true);
 		}
 		// count the items that are currently selected.
