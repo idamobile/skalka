@@ -575,15 +575,15 @@ function getMutualFriendsForSidebar() {
 			var graphUrl = 'http://graph.facebook.com/';
 			var facesContainer = $('.friends .suggestions');
 			facesContainer.html('');
-			$(result).each(function(i){				
+			$(result).each(function(i){
 				if(i == 4) return false;
 				var rand = Math.floor(Math.random() * result.length);
 				var requestURL = graphUrl+result[rand];
 				
-				//console.log("Requesting: "+requestURL);
+				console.log("Requesting: "+requestURL);
 				$.get(requestURL, function(data){
 					var user = $.parseJSON(data);
-					//console.log(user.id);
+					console.log(user.id);
 					var result = '<li><img src="' + graphUrl + user.id + '/picture" title="' + user.name + '"/></li>';
 					facesContainer.append(result);
 				});
